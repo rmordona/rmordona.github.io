@@ -1,3 +1,2 @@
-git add --all
-git commit -m "Initial commit"
-git update -u origin master
+git remote add origin https://github.com/rmordona/rmordona.github.io.git
+git pull origin master
