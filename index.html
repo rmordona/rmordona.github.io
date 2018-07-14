@@ -31,36 +31,68 @@
 
 
 <script type="text/javascript" src="./fullpage/dist/fullpage.js"></script>
-<script src="https://d3js.org/d3.v5.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+
 <script type="text/javascript">
 	var myFullpage = new fullpage('#fullpage', {
 		sectionsColor: ['#f2f2f2', '#4BBFC3', '#7BAABE', 'whitesmoke', '#ccddff']
 	});
 
 
-        var io_workload = null, user_activities, db_time_spent;
 
-        d3.csv("./IO_workload.csv", function(loadedRows) {
-               io_workload = loadedRows;
-							 console.log(io_workload[0])
-               doSomethingWithRows();
+        var io_workload, user_activities, no_active_sessions, db_time_spent;
+
+				/*  "% Cpu", "Block Changes", "Cursor/session",
+				 "DB Cpu", "DB Time", "Date",
+				 "Date (DB Statistics)",
+				 "Hard Parse",
+				 "Hard Parse (DB Statistics)",
+				 "Instance Number (DB Statistics)",
+				 "JAVA Execs", "Logical Reads",
+				 "Number of Records", "PLSQL Execs",
+				 "Parse Time", "PhysRead/Txn",
+				 "PhysWrite/Txn", "Redo", "Redo 1",
+				 "Repeat", "SQL Execs", "Servers",
+				  "Sessions", "User Calls"
+					*/
+
+
+        d3.csv("./Number_of_Active_DB_Sessions1.csv", function( data) {
+
+						 number_Active_DB_Sessions(data)
         });
 
-        d3.csv("./User_Activities.csv", function(loadedRows) {
-               user_activities = loadedRows;
-               doSomethingWithRows();
+				d3.csv("./User_Activities1.csv", function( data) {
+
+						 handle_User_Activities(data)
         });
 
-        d3.csv("./Db_Time_Spent.csv", function(loadedRows) {
-               db_time_spent = loadedRows;
-               doSomethingWithRows();
-        });
+        function handle_User_Activities(data) {
 
-        function doSomethingWithRows() {
-               // do something with rows
-
-              console.log('Loaded')
+						 user_activities = data
+						 /* user_activities.forEach( function(d) {
+						 	console.log(d)
+						 }
+					 ); */
+              console.log('xLoaded')
         }
+
+				function number_Active_DB_Sessions(data) {
+
+						 no_active_sessions = data
+						/*  no_active_sessions.forEach( function(d) {
+							console.log(d)
+						 }
+					 ); */
+		  				console.log('zLoaded')
+				}
+
+				function done() {
+							 // do something with rows
+
+						//	console.log(data[0])
+							console.log('Done')
+				}
 
 </script>
 </body>
