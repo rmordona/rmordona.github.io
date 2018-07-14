@@ -38,10 +38,20 @@
 	});
 
 
-        var rows;
+        var io_workload, user_activities, db_time_spent;
 
         d3.csv("./IO_workload.csv", function(loadedRows) {
-               rows = loadedRows;
+               io_workload = loadedRows;
+               doSomethingWithRows();
+        });
+
+        d3.csv("./User_Activities.csv", function(loadedRows) {
+               user_activities = loadedRows;
+               doSomethingWithRows();
+        });
+
+        d3.csv("./Db_Time_Spent.csv", function(loadedRows) {
+               db_time_spent = loadedRows;
                doSomethingWithRows();
         });
 
