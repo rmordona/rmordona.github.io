@@ -59,12 +59,22 @@
 
         d3.csv("./Number_of_Active_DB_Sessions1.csv", function( data) {
 
-						 number_Active_DB_Sessions(data)
+						 handle_Active_DB_Sessions(data)
         });
 
 				d3.csv("./User_Activities1.csv", function( data) {
 
 						 handle_User_Activities(data)
+        });
+
+				d3.csv("./IO_workload1.csv", function( data) {
+
+						 handle_IO_workload(data)
+        });
+
+				d3.csv("./DB_Time_Spent1.csv", function( data) {
+
+						 handle_DB_Time_Spent(data)
         });
 
         function handle_User_Activities(data) {
@@ -77,7 +87,7 @@
               console.log('xLoaded')
         }
 
-				function number_Active_DB_Sessions(data) {
+				function handle_Active_DB_Sessions(data) {
 
 						 no_active_sessions = data
 						/*  no_active_sessions.forEach( function(d) {
@@ -85,6 +95,26 @@
 						 }
 					 ); */
 		  				console.log('zLoaded')
+				}
+
+				function handle_IO_workload(data) {
+
+						 io_workload = data
+						/*  io_workload.forEach( function(d) {
+							console.log(d)
+						 }
+					 ); */
+							console.log('aLoaded')
+				}
+
+				function handle_DB_Time_Spent(data) {
+
+						 db_time_spent = data
+						/*  db_time_spent.forEach( function(d) {
+							console.log(d)
+						 }
+					 ); */
+							console.log('bLoaded')
 				}
 
 				function done() {
