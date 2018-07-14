@@ -52,14 +52,16 @@
 
         d3.csv("./Db_Time_Spent.csv", function(loadedRows) {
                db_time_spent = loadedRows;
+
+							 db_time_spent.forEach(function(row) {
+									console.log(Object.keys(row));
+								 });
                doSomethingWithRows();
         });
 
         function doSomethingWithRows() {
                // do something with rows
-							 io_workload.forEach(function(row) {
-             		console.log(Object.keys(row));
-                });
+
               console.log('Loaded')
         }
 
