@@ -250,6 +250,7 @@
 
 				// http://blockbuilder.org/35degrees/23873a64ceec2390c400694b6a8b57d9
 				// Layout Grid
+
 				g.append("g")
 			  		.attr("class","grid")
 			  		.attr("transform","translate(0," + height + ")")
@@ -447,9 +448,9 @@
 						.attr("y", function(d) { return ( height ) - d["Measure Values"] * 1.3 } )
 						.attr("x", function(d,i) { return i * 30 + 25  } )
 						.attr("style", function(d) {
-							  var fill = "fill: dodgerblue;stroke-width:1;stroke: black"
+							  var fill = "fill: dodgerblue;stroke-width:1;stroke: black; opacity: 0.8"
 							  if (d["Measure Names"] == "PhysWrite/Txn") {
-									 fill = "fill: darkorange;stroke-width:1;stroke: black"
+									 fill = "fill: darkorange;stroke-width:1;stroke: black; opacity: 0.8"
 							   }
 								 return fill;
 							})
