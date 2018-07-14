@@ -59,21 +59,14 @@
 		fill: #5e8dc9;
 	}
 
- /*
-	path {
-    stroke: steelblue;
-    stroke-width: 2;
-    fill: none;
-	}
-
-	.axis path,
-	.axis line {
-    fill: none;
-    stroke: grey;
-    stroke-width: 1;
-    shape-rendering: crispEdges;
-	}
-  */
+	.grid line {
+    stroke: lightgrey;
+    stroke-opacity: 0.6;
+    shape-rendering: crispEdges
+  }
+  .grid path {
+    stroke-width: 0;
+  }
 
 	</style>
 
@@ -238,9 +231,11 @@
 
 			// http://www.d3noob.org/2013/01/filling-area-under-graph.html
 			// render area chart first before the line chart
+			// disable for now by fill=none. we can use area anytime we want
 			 g.append("g")
 				 		.append("path")
-			      .attr("fill", "steelblue")
+			      .attr("fill", "dodgerblue")
+						.attr("opacity", .2)
 			      .attr("d", darea(no_active_sessions))
 
 				// https://stackoverflow.com/questions/30485750/d3-line-chart-using-path-is-not-showing-anything
@@ -250,9 +245,35 @@
 		      .attr("stroke", "steelblue")
 		      .attr("stroke-linejoin", "round")
 		      .attr("stroke-linecap", "round")
-		      .attr("stroke-width", 1.5)
+		      .attr("stroke-width", 2)
 		      .attr("d", dline(no_active_sessions))
 
+				// http://blockbuilder.org/35degrees/23873a64ceec2390c400694b6a8b57d9
+				// Layout Grid
+				g.append("g")
+			  		.attr("class","grid")
+			  		.attr("transform","translate(0," + height + ")")
+			  		.style("stroke-dasharray",("3,3"))
+			  		.call(make_x_gridlines()
+			            .tickSize(-height)
+			            .tickFormat("")
+			         )
+			  g.append("g")
+			  		.attr("class","grid")
+			  		.style("stroke-dasharray",("3,3"))
+			  		.call(make_y_gridlines()
+			            .tickSize(-width)
+			            .tickFormat("")
+			         )
+
+				 function make_x_gridlines() {
+			     return d3.axisBottom(x)
+			     	.ticks(8)
+			   }
+			   function make_y_gridlines() {
+			     return d3.axisLeft(y)
+			     	.ticks(5)
+			   }
 
 					//Tooltips
 				//	http://bl.ocks.org/jadiehm/311fcceab8425ddf1944
@@ -449,6 +470,35 @@
 								.attr("dx", "-.8em")
 								.attr("dy", ".15em")
 								.attr("transform", "rotate(-65)");
+
+
+			// http://blockbuilder.org/35degrees/23873a64ceec2390c400694b6a8b57d9
+			// Layout Grid
+			join.append("g")
+		  		.attr("class","grid")
+		  		.attr("transform","translate(0," + height + ")")
+		  		.style("stroke-dasharray",("3,3"))
+		  		.call(make_x_gridlines()
+		            .tickSize(-height)
+		            .tickFormat("")
+		         )
+		  join.append("g")
+		  		.attr("class","grid")
+		  		.style("stroke-dasharray",("3,3"))
+		  		.call(make_y_gridlines()
+		            .tickSize(-width)
+		            .tickFormat("")
+		         )
+
+			function make_x_gridlines() {
+		     return d3.axisBottom(x)
+		     	.ticks(8)
+		   }
+		   function make_y_gridlines() {
+		     return d3.axisLeft(y)
+		     	.ticks(5)
+		   }
+
 
 
 				console.log('aLoaded', width, height, min_value, max_value, rows)
