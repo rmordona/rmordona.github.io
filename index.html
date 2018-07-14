@@ -38,7 +38,7 @@
 	});
 
 
-        var io_workload, user_activities, db_time_spent;
+        var io_workload = null, user_activities, db_time_spent;
 
         d3.csv("./IO_workload.csv", function(loadedRows) {
                io_workload = loadedRows;
@@ -57,6 +57,9 @@
 
         function doSomethingWithRows() {
                // do something with rows
+							 io_workload.forEach(function(row) {
+             		console.log(Object.keys(row));
+                });
               console.log('Loaded')
         }
 
