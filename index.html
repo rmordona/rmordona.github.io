@@ -42,9 +42,7 @@
 
         d3.csv("./IO_workload.csv", function(loadedRows) {
                io_workload = loadedRows;
-							 loadedRows.forEach(function(d) {
-
-			 			  	});
+							 console.log(io_workload[0])
                doSomethingWithRows();
         });
 
