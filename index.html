@@ -42,26 +42,22 @@
 
         d3.csv("./IO_workload.csv", function(loadedRows) {
                io_workload = loadedRows;
-               doSomethingWithRows(loadedRows);
+               doSomethingWithRows();
         });
 
         d3.csv("./User_Activities.csv", function(loadedRows) {
                user_activities = loadedRows;
-               doSomethingWithRows(loadedRows);
+               doSomethingWithRows();
         });
 
         d3.csv("./Db_Time_Spent.csv", function(loadedRows) {
                db_time_spent = loadedRows;
-
-
-               doSomethingWithRows(loadedRows);
+               doSomethingWithRows();
         });
 
-        function doSomethingWithRows(csv) {
+        function doSomethingWithRows() {
                // do something with rows
-							 csv.forEach(function(row) {
-									console.log(Object.keys(row));
-								 });
+ 
               console.log('Loaded')
         }
 
