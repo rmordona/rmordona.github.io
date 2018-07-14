@@ -59,6 +59,7 @@
 		fill: #5e8dc9;
 	}
 
+ /*
 	path {
     stroke: steelblue;
     stroke-width: 2;
@@ -72,7 +73,7 @@
     stroke-width: 1;
     shape-rendering: crispEdges;
 	}
-
+  */
 
 	</style>
 
@@ -200,6 +201,12 @@
 			    .y(function(d) {	return y(d.sessions); }
 					);
 
+			var darea = d3.area()
+					    .x(function(d,i) { return x(d.date);})
+							.y0(height)
+					    .y1(function(d) {	return y(d.sessions); }
+							);
+
 	  	var tip = d3.tip()
 				.attr('class', 'd3-tip')
 				.offset([-10, 0])
@@ -222,12 +229,19 @@
 		  g.append("g")
 		      .call(d3.axisLeft(y))
 		    .append("text")
-		      .attr("fill", "#000")
+		      .attr("fill", "none")
 		      .attr("transform", "rotate(-90)")
 		      .attr("y", 6)
 		      .attr("dy", "0.71em")
 		      .attr("text-anchor", "end")
 		      .text("Sessions");
+
+			// http://www.d3noob.org/2013/01/filling-area-under-graph.html
+			// render area chart first before the line chart
+			 g.append("g")
+				 		.append("path")
+			      .attr("fill", "steelblue")
+			      .attr("d", darea(no_active_sessions))
 
 				// https://stackoverflow.com/questions/30485750/d3-line-chart-using-path-is-not-showing-anything
 			 g.append("g")
@@ -238,6 +252,7 @@
 		      .attr("stroke-linecap", "round")
 		      .attr("stroke-width", 1.5)
 		      .attr("d", dline(no_active_sessions))
+
 
 					//Tooltips
 				//	http://bl.ocks.org/jadiehm/311fcceab8425ddf1944
@@ -278,6 +293,7 @@
 						.style('opacity', 1)
 						.style('pointer-events', 'all')
 						.style('fill', 'white')
+						.attr("id", "date")
 
 				focus.append("text")
 			      .attr("x", 19)
@@ -288,6 +304,7 @@
 						.style('opacity', 1)
 						.style('pointer-events', 'all')
 						.style('fill', 'white')
+						.attr("id", "session")
 
 				// append the x line
 		     focus.append("line")
@@ -325,8 +342,13 @@
 			        d1 = no_active_sessions[i], d;
 							if (typeof(d0) != "undefined" && typeof(d1) != "undefined") {
 			        	d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+								var monthNames = [ "January", "February", "March", "April", "May", "June",
+								    "July", "August", "September", "October", "November", "December" ];
+
 			    			focus.attr("transform", "translate(" + x(d.date) + "," + y(d.sessions) + ")");
-			    			focus.selectAll("text").text("session: " + d.sessions);
+			    			focus.select("#session").text("Sessions: " + d.sessions);
+			    			focus.select("#date").text("Date: " +
+										monthNames[d.date.getMonth()] + " " + d.date.getDate() + " " + d.date.getFullYear());
 							}
 			  };
 
