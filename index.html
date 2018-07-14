@@ -15,14 +15,68 @@
 </head>
 <body>
 
+	<style>
+	.d3-tip {
+		line-height: 1;
+		padding: 6px;
+		background: rgba(0, 0, 0, 0.8);
+		color: #fff;
+		border-radius: 4px;
+		font-size: 12px;
+	}
+
+	/* Creates a small triangle extender for the tooltip */
+	.d3-tip:after {
+		box-sizing: border-box;
+		display: inline;
+		font-size: 10px;
+		width: 100%;
+		line-height: 1;
+		color: rgba(0, 0, 0, 0.8);
+		content: "\25BC";
+		position: absolute;
+		text-align: center;
+	}
+
+	/* Style northward tooltips specifically */
+	.d3-tip.n:after {
+		margin: -2px 0 0 0;
+		top: 100%;
+		left: 0;
+	}
+
+
+	.overlay {
+		fill: none;
+		pointer-events: all;
+	}
+
+	.focus {
+		font-size: 14px;
+	}
+
+	.focus circle {
+		fill: #5e8dc9;
+	}
+
+	</style>
+
 <div id="fullpage">
 	<div class="section active" id="section0"><h1>fullPage.js</h1>
-        </div>
-	<div class="section" id="section1">
-	    <div class="slide "><h1>Simple Demo</h1></div>
-	    <div class="slide active"><h1>Only text</h1></div>
-	    <div class="slide"><h1>And text</h1></div>
-	    <div class="slide"><h1>And more text</h1></div>
+		asdf lasfd iasjfda
+		sfd asldfkj asldfj asldfjadsf dasfsaf
+		asdfsa dfsdli
+
+		<div id="div_IOworkload" style="margin: 20px"></div>
+
+       <svg id="svg_IOworkload" width="800" height="500" style="outline: 2px solid grey;"></svg>
+
+    </div>
+
+	<div class="section" id="section1"><h1>Simple Demo</h1>
+
+		     <svg id="svg_DBSession" width="800" height="500" style="outline: 2px solid grey;"></svg>
+
 	</div>
 	<div class="section" id="section2"><h1>No wraps, no extra markup</h1></div>
 	<div class="section" id="section3"><h1>Just the simplest demo ever</h1></div>
@@ -31,98 +85,302 @@
 
 
 <script type="text/javascript" src="./fullpage/dist/fullpage.js"></script>
-<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="./d3-tip.js"></script>
 
 <script type="text/javascript">
+
 	var myFullpage = new fullpage('#fullpage', {
-		sectionsColor: ['#f2f2f2', '#4BBFC3', '#7BAABE', 'whitesmoke', '#ccddff']
+		sectionsColor: ['#f2f2f2', '#ffffff', '#f2f2f2', 'whitesmoke', '#ccddff']
 	});
 
 
+  var io_workload, user_activities, no_active_sessions, db_time_spent;
 
-        var io_workload, user_activities, no_active_sessions, db_time_spent;
+		// tooltip - http://blockbuilder.org/Caged/6476579
 
-				/*  "% Cpu", "Block Changes", "Cursor/session",
-				 "DB Cpu", "DB Time", "Date",
-				 "Date (DB Statistics)",
-				 "Hard Parse",
-				 "Hard Parse (DB Statistics)",
-				 "Instance Number (DB Statistics)",
-				 "JAVA Execs", "Logical Reads",
-				 "Number of Records", "PLSQL Execs",
-				 "Parse Time", "PhysRead/Txn",
-				 "PhysWrite/Txn", "Redo", "Redo 1",
-				 "Repeat", "SQL Execs", "Servers",
-				  "Sessions", "User Calls"
-					*/
+  d3.csv("./Number_of_Active_DB_Sessions_summary.csv", function( data) {
+
+			 handle_Active_DB_Sessions(data)
+  });
+
+	d3.csv("./User_Activities1.csv", function( data) {
+
+			 handle_User_Activities(data)
+  });
+
+	d3.csv("./IO_workload_summary.csv", function( data) {
+
+			 handle_IO_workload(data)
+  });
+
+	d3.csv("./Db_Time_Spent1.csv", function( data) {
+
+			 handle_DB_Time_Spent(data)
+  });
+
+  function handle_User_Activities(data) {
+
+			 user_activities = data
 
 
-        d3.csv("./Number_of_Active_DB_Sessions1.csv", function( data) {
+       console.log('xLoaded')
+  }
 
-						 handle_Active_DB_Sessions(data)
-        });
+	function handle_Active_DB_Sessions(data) {
 
-				d3.csv("./User_Activities1.csv", function( data) {
+		  no_active_sessions = [] // data
 
-						 handle_User_Activities(data)
-        });
 
-				d3.csv("./IO_workload1.csv", function( data) {
+		  var max_value = -1
+		  var min_value = -1
+		  var rows = 0
 
-						 handle_IO_workload(data)
-        });
+			var parseTime = d3.timeParse("%B %d %Y");
 
-				d3.csv("./Db_Time_Spent1.csv", function( data) {
+		  data.forEach( function(d) {
+			 	var m =  d["Sessions"] - 0
+			 	m = ( m == 0 ) ? -1 : m
+			 	if (max_value == -1 || m > max_value ) {
+				 	if (!isNaN(m)) max_value = m
+			 	}
+			 	if (min_value == -1 || m < min_value ) {
+				 	if (!isNaN(m)) min_value = m
+			 	}
+			 	rows ++
 
-						 handle_DB_Time_Spent(data)
-        });
+				no_active_sessions.push( {
+						//date:   new Date(d["Month of Date"] + " " + d["Day of Date"] + " " + d["Year of Date"]),
+						date: parseTime( d["Month of Date"] + " " + d["Day of Date"] + " " + d["Year of Date"] ),
+						sessions: d["Sessions"] - 0
+					}
+				)
+			 //	console.log(no_active_sessions[rows - 1].sessions +  "/" + no_active_sessions[rows -1].date)
+		  })
 
-        function handle_User_Activities(data) {
 
-						 user_activities = data
-						 /* user_activities.forEach( function(d) {
-						 	console.log(d)
-						 }
-					 ); */
-              console.log('xLoaded')
-        }
+		  var margin = { top: 20, right: 20, bottom: 30, left: 50},
+		     width = 960 - margin.left - margin.right,
+				 height = 500 - margin.top - margin.bottom;
 
-				function handle_Active_DB_Sessions(data) {
+			// http://bl.ocks.org/binaworks/9dce0a385915e8953a45cc6be7fbde42
+			// Margin Convention
+			var join = d3.select("#svg_DBSession")
+			 		.attr("width", width + margin.left + margin.right)
+					.attr("height", height + margin.top + margin.bottom)
+			var g = join.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-						 no_active_sessions = data
-						/*  no_active_sessions.forEach( function(d) {
-							console.log(d)
-						 }
-					 ); */
-		  				console.log('zLoaded')
-				}
+			//var x = d3.scaleTime()
+			//		.rangeRound([0, width]);
 
-				function handle_IO_workload(data) {
+			//var y = d3.scaleLinear()
+			//		.rangeRound([height, 0]);
 
-						 io_workload = data
-						/*  io_workload.forEach( function(d) {
-							console.log(d)
-						 }
-					 ); */
-							console.log('aLoaded')
-				}
+			// set the ranges
+			var x = d3.scaleTime().range([0, width]);
+			var y = d3.scaleLinear().range([height, 0]);
 
-				function handle_DB_Time_Spent(data) {
+			var dline = d3.line()
+			    .x(function(d,i) { return x(d.date);})
+			    .y(function(d) {	return y(d.sessions); }
+					);
 
-						 db_time_spent = data
-						/*  db_time_spent.forEach( function(d) {
-							console.log(d)
-						 }
-					 ); */
-							console.log('bLoaded')
-				}
+	  	var tip = d3.tip()
+				.attr('class', 'd3-tip')
+				.offset([-10, 0])
+				.html(function(d) {
+					console.log(d)
+					var tip = "<strong>Sessions:</strong> <span style='color:dodgerblue'>" + d.sessions + "</span>";
+					return tip
+		  })
 
-				function done() {
-							 // do something with rows
+			x.domain(d3.extent(no_active_sessions, function(d) {  return d.date; }));
+		  y.domain(d3.extent(no_active_sessions, function(d) { return d.sessions; }));
+  		// y.domain([0, d3.max(no_active_sessions, function(d) {  return d.sessions; })]);
+			// x.domain(no_active_sessions.map( function(d) { return d.date; }));
 
-						//	console.log(data[0])
-							console.log('Done')
-				}
+		  g.append("g")
+		      .attr("transform", "translate(0," + height + ")")
+		      .call(d3.axisBottom(x));
+		    //.select(".domain")
+		     // .remove();
+
+		  g.append("g")
+		      .call(d3.axisLeft(y))
+		    .append("text")
+		      .attr("fill", "#000")
+		      .attr("transform", "rotate(-90)")
+		      .attr("y", 6)
+		      .attr("dy", "0.71em")
+		      .attr("text-anchor", "end")
+		      .text("Sessions");
+
+				// https://stackoverflow.com/questions/30485750/d3-line-chart-using-path-is-not-showing-anything
+			 g.append("g")
+			 		.append("path")
+		      .attr("fill", "none")
+		      .attr("stroke", "steelblue")
+		      .attr("stroke-linejoin", "round")
+		      .attr("stroke-linecap", "round")
+		      .attr("stroke-width", 1.5)
+		      .attr("d", dline(no_active_sessions))
+
+					//Tooltips
+				//	http://bl.ocks.org/jadiehm/311fcceab8425ddf1944
+
+				//Divides date for tooltip placement
+				var bisectDate = d3.bisector(function(d) { return d.date; }).left;
+
+			  var focus = g.append("g")
+			      .attr("class", "focus")
+			      .style("display", "none");
+
+			  //Adds circle to focus point on line
+			  focus.append("circle")
+			      .attr("r", 4);
+
+			  //Adds text to focus point on line
+			  focus.append("text")
+			      .attr("x", 9)
+			      .attr("dy", ".35em");
+
+						//Creates larger area for tooltip
+					  var overlay = g.append("rect")
+					      .attr("class", "overlay")
+					      .attr("width", width)
+					      .attr("height", height)
+					      .on("mouseover", function() { focus.style("display", null); })
+					      .on("mouseout", function() { focus.style("display", "none"); })
+					      .on("mousemove", mousemove);
+
+					  //Tooltip mouseovers
+					  function mousemove() {
+					    var x0 = x.invert(d3.mouse(this)[0]),
+					        i = bisectDate(no_active_sessions, x0, 1),
+					        d0 = no_active_sessions[i - 1],
+					        d1 = no_active_sessions[i],
+					        d = x0 - d0.date > d1.date - x0 ? d1 : d0;
+					    focus.attr("transform", "translate(" + x(d.date) + "," + y(d.sessions) + ")");
+					    focus.select("text").text(d.sessions);
+					  };
+
+
+				console.log('zLoaded')
+	}
+
+	function handle_IO_workload(data) {
+
+			 io_workload = data
+
+			 var max_value = -1
+			 var min_value = -1
+			 var rows = 0
+
+			 io_workload.forEach( function(d) {
+				 var m =  d["Measure Values"] - 0
+				 m = ( m == 0 ) ? -1 : m
+				 if (max_value == -1 || m > max_value ) {
+					 if (!isNaN(m)) max_value = m
+				 }
+				 if (min_value == -1 || m < min_value ) {
+					 if (!isNaN(m)) min_value = m
+				 }
+				 rows ++
+				 // console.log(d["Servers"] + "/" + d["Measure Names"] + "/" + d["Measure Values"])
+			 })
+
+
+			 var margin = { top: 20, right: 20, bottom: 50, left: 50},
+			     width = 960 - margin.left - margin.right,
+					 height = 500 - margin.top - margin.bottom;
+
+			// http://bl.ocks.org/binaworks/9dce0a385915e8953a45cc6be7fbde42
+			// Margin Convention
+			var join = d3.select("#svg_IOworkload")
+			 		.attr("width", width + margin.left + margin.right)
+					.attr("height", height + margin.top + margin.bottom)
+					.append("g")
+						.attr("transform", "translate(" + margin.left + "," +
+								margin.top + ")")
+
+			var x = d3.scaleBand()
+			          .range([0, width])
+			          .padding(0.1);
+
+			var y = d3.scaleLinear()
+				    .domain([0, max_value ])
+				    .range([ height , 0]);
+
+		  x.domain(io_workload.map( function(d) {
+				return d["Measure Names"] + "(" + d["Servers"] + ")"; })
+			);
+
+			var yAxis = d3.axisLeft(y);
+
+	  	var tip = d3.tip()
+				.attr('class', 'd3-tip')
+				.offset([-10, 0])
+				.html(function(d) {
+					var tip = "<strong>PhysRead/Txn:</strong> <span style='color:dodgerblue'>" + d["Measure Values"] + "</span>";
+					if (d["Measure Names"] == "PhysWrite/Txn") {
+						 tip = "<strong>PhysWrite/Txn:</strong> <span style='color:darkorange'>" + d["Measure Values"] + "</span>";
+					 }
+					 return tip
+		  })
+
+
+			 join.selectAll("rect").data(io_workload)
+						.enter()
+						.append("rect")
+					  .attr("class", "bar")
+						// rect attributes
+						.attr("y", function(d) { return ( height ) - d["Measure Values"] * 1.3 } )
+						.attr("x", function(d,i) { return i * 30 + 25  } )
+						.attr("style", function(d) {
+							  var fill = "fill: dodgerblue;stroke-width:1;stroke: black"
+							  if (d["Measure Names"] == "PhysWrite/Txn") {
+									 fill = "fill: darkorange;stroke-width:1;stroke: black"
+							   }
+								 return fill;
+							})
+						.attr("height", function (d) {	return d["Measure Values"] * 1.3    })
+						.attr("width", function(d) { return 25 })
+						// tooltip
+						.on('mouseover', tip.show)
+						.on('mouseout', tip.hide)
+
+			join.call(tip)
+				join.append("g").call(yAxis)
+				join.append("g")
+							.attr("class", "axis")
+					      .attr("transform", "translate(0," + height + ")")
+					      .call(d3.axisBottom(x))
+							.selectAll("text")
+								.style("text-anchor", "end")
+								.attr("dx", "-.8em")
+								.attr("dy", ".15em")
+								.attr("transform", "rotate(-65)");
+
+
+				console.log('aLoaded', width, height, min_value, max_value, rows)
+	}
+
+	function handle_DB_Time_Spent(data) {
+
+			 db_time_spent = data
+			/*  db_time_spent.forEach( function(d) {
+				console.log(d)
+			 }
+		 ); */
+				console.log('bLoaded')
+	}
+
+	function done() {
+				 // do something with rows
+
+			//	console.log(data[0])
+				console.log('Done')
+	}
 
 </script>
 </body>
