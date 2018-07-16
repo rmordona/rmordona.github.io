@@ -1,0 +1,21 @@
+Measure Names,Month of Date,Year of Date,JAVA Execs,PLSQL Execs,SQL Execs,User Calls
+JAVA Execs,May,2018,740294,,,
+JAVA Execs,April,2018,1608962,,,
+JAVA Execs,March,2018,2342141,,,
+JAVA Execs,February,2018,1479769,,,
+JAVA Execs,January,2018,553219,,,
+PLSQL Execs,May,2018,,21059556,,
+PLSQL Execs,April,2018,,23167046,,
+PLSQL Execs,March,2018,,24295730,,
+PLSQL Execs,February,2018,,20374898,,
+PLSQL Execs,January,2018,,20965204,,
+SQL Execs,May,2018,,,359681310,
+SQL Execs,April,2018,,,294233912,
+SQL Execs,March,2018,,,327285524,
+SQL Execs,February,2018,,,228889090,
+SQL Execs,January,2018,,,271595010,
+User Calls,May,2018,,,,2958421.13
+User Calls,April,2018,,,,3104288.45
+User Calls,March,2018,,,,2996686.62
+User Calls,February,2018,,,,2295424.17999999
+User Calls,January,2018,,,,2711297.11
