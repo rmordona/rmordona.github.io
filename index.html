@@ -32,7 +32,7 @@
 	}
 
 	.grid line {
-    stroke: lightgrey;
+    stroke: #999999;
     stroke-opacity: 0.6;
     shape-rendering: crispEdges
   }
@@ -48,7 +48,7 @@
 	</style>
 
 <div id="fullpage">
-	<div class="section active" id="section0"><h1>fullPage.js</h1>
+	<div class="section active" id="section0"><h1>IO workload</h1>
 		asdf lasfd iasjfda
 		sfd asldfkj asldfj asldfjadsf dasfsaf
 		asdfsa dfsdli
@@ -59,17 +59,21 @@
 
     </div>
 
-	<div class="section" id="section1"><h1>Simple Demo</h1>
+	<div class="section" id="section1"><h1>DB Sessions</h1>
 
 		     <svg id="svg_DBSession" width="800" height="500" style="outline: 2px solid grey;"></svg>
 
 	</div>
-	<div class="section" id="section2"><h1>No wraps, no extra markup</h1>
+	<div class="section" id="section2"><h1>DB Time Spent</h1>
 
-		     <svg id="svg_DBTimeSave" width="800" height="500" style="outline: 2px solid grey;"></svg>
+		     <svg id="svg_DBTimeSpent" width="800" height="500" style="outline: 2px solid grey;"></svg>
 
 	</div>
-	<div class="section" id="section3"><h1>Just the simplest demo ever</h1></div>
+	<div class="section" id="section3"><h1>User Activities</h1>
+
+		     <svg id="svg_UserActivities" width="800" height="500" style="outline: 2px solid grey;"></svg>
+
+	</div>
 </div>
 
 
@@ -103,18 +107,16 @@
 			 handle_IO_workload(data)
   });
 
-	d3.csv("./Db_Time_Spent_summary.csv", function( data) {
+	d3.csv("./Db_Time_Spent_summary1.csv", function( data) {
 
 			 handle_DB_Time_Spent(data)
   });
 
-  function handle_User_Activities(data) {
+  // https://blog.tompawlak.org/number-currency-formatting-javascript
+	function formatNumber (num) {
+	    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+	}
 
-			 user_activities = data
-
-
-       console.log('xLoaded')
-  }
 
 	function handle_Active_DB_Sessions(data) {
 
@@ -188,7 +190,7 @@
 		  g.append("g")
 		      .call(d3.axisLeft(y))
 		    .append("text")
-		      .attr("fill", "none")
+		      .attr("fill", "#000")
 		      .attr("transform", "rotate(-90)")
 		      .attr("y", 6)
 		      .attr("dy", "0.71em")
@@ -340,7 +342,7 @@
 								    "July", "August", "September", "October", "November", "December" ];
 
 			    			tooltip.attr("transform", "translate(" + x(d.date) + "," + y(d.sessions) + ")");
-			    			tooltip.select("#session").text("Sessions: " + d.sessions);
+			    			tooltip.select("#session").text("Sessions: " + formatNumber(d.sessions ));
 			    			tooltip.select("#date").text("Date: " +
 										monthNames[d.date.getMonth()] + " " + d.date.getDate() + " " + d.date.getFullYear());
 							}
@@ -373,7 +375,7 @@
 				 io_workload.push( {
  						//date:   new Date(d["Month of Date"] + " " + d["Day of Date"] + " " + d["Year of Date"]),
  						name: d["Measure Names"],
- 						value: d["Measure Values"] - 0,
+ 						value: (d["Measure Values"] - 0).toFixed(2),
 						servers: d["Servers"]
  					}
 				)
@@ -450,6 +452,13 @@
 
 
 			 g.append("g").call(yAxis)
+					 .append("text")
+						 .attr("fill", "#000")
+						 .attr("transform", "rotate(-90)")
+						 .attr("y", 6)
+						 .attr("dy", "0.71em")
+						 .attr("text-anchor", "end")
+						 .text("IO Workload");
 			 g.append("g")
 							.attr("class", "axis")
 					      .attr("transform", "translate(0," + height + ")")
@@ -585,278 +594,513 @@
 
 	function handle_DB_Time_Spent(data) {
 
-			 db_time_spent = []
+			db_time_spent = data
+
+			db_time_spent.forEach( function(d) {
+							d["JAVA Execs"] = ( d["JAVA Execs"] / 1000000 ).toFixed(2)
+							d["PLSQL Execs"] = ( d["PLSQL Execs"] / 1000000 ).toFixed(2)
+							d["SQL Execs"] = ( d["SQL Execs"] / 1000000 ).toFixed(2)
+							d["DB Time"] = ( d["DB Time"] / 1000000 ).toFixed(2)
+			})
+
+	 		var margin = { top: 20, right: 20, bottom: 50, left: 50},
+ 			     width = 960 - margin.left - margin.right,
+ 					 height = 500 - margin.top - margin.bottom;
+
+ 			// http://bl.ocks.org/binaworks/9dce0a385915e8953a45cc6be7fbde42
+ 			// Margin Convention
+ 			var svg = d3.select("#svg_DBTimeSpent")
+ 			 		.attr("width", width + margin.left + margin.right)
+ 					.attr("height", height + margin.top + margin.bottom)
+
+ 			var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+			var x1 = d3.scaleBand()
+			    .rangeRound([0, width])
+			    .paddingInner(0.1);
+
+			var x2 = d3.scaleBand()
+			    .padding(0.05);
+
+			var y = d3.scaleLinear()
+			    .rangeRound([height, 0]);
+
+			var z = d3.scaleOrdinal()
+			    .range(["#1f77b4","#ff7f0e","#d62728","#2ca02c"]);
+
+			var keys = data.columns.slice(1);
+
+			console.log(keys)
+
+			// https://bl.ocks.org/mbostock/3887051
+	    x1.domain(data.map(function(d) { return d["Months"]; }));
+	    x2.domain(keys).rangeRound([0, x1.bandwidth()]);
+	    y.domain([0, d3.max(db_time_spent, function(d) { return d3.max(keys, function(key) { return d[key]; }); })])
 
 
- 			 var max_value = -1
- 			 var min_value = -1
- 			 var rows = 0
+			g.append("g")
+				.selectAll("g")
+		    .data(db_time_spent)
+		    .enter().append("g")
+		      .attr("transform", function(d) { return "translate(" + x1(d["Months"]) + ",0)"; })
+		    .selectAll("rect")
+		    .data(function(d) { return keys.map(function(key) { return {key: key, value: d[key]}; }); })
+		    .enter().append("rect")
+		      .attr("x", function(d) { return x2(d.key); })
+		      .attr("y", function(d) { return y(d.value); })
+		      .attr("width", x2.bandwidth())
+		      .attr("height", function(d) { return height - y(d.value); })
+		      .attr("fill", function(d) { return z(d.key); })
+					.on("mouseover", function(d,i) {
+							 var x = parseInt( d3.select(this).style("x"), 10)
+							 var y = parseInt( d3.select(this).style("y"), 10)
 
-		 	 data.forEach( function(d) {
-	 				 var m =  d["Measure Values"] - 0
-	 				 m = ( m == 0 ) ? -1 : m
-					 m = m / 1500000
-	 				 if (max_value == -1 || m > max_value ) {
-	 					 if (!isNaN(m)) max_value = m
-	 				 }
-	 				 if (min_value == -1 || m < min_value ) {
-	 					 if (!isNaN(m)) min_value = m
-	 				 }
-	 				 rows ++
+							 tooltip.attr("transform", "translate(" + x + "," + y + ")");
+							 tooltip.style("display", null);
 
-				   var parseTime = d3.timeParse("%B %d %Y");
+							 console.log( d, x, y)
+							 tooltip.select("#metric_name").text("Name: " + d.key );
+						 	 tooltip.select("#metric_value").text("Value: " + d.value );
 
-	 				 db_time_spent.push( {
-	  						name: d["Measure Names"],
-	  						value: ( d["Measure Values"] - 0 ) / 1500000, // 1million granularity
-	 						  date: parseTime( d["Month of Date"] + " 1 " + d["Year of Date"] )
-	  					}
-	 			  	)
+							 var fill = "fill:red;stroke-width:1;stroke: black; opacity: 0.8";
+							 d3.select(this).attr("style", fill);
 
-	 				 // console.log(d["Servers"] + "/" + d["Measure Names"] + "/" + d["Measure Values"])
-	 			 })
+					})
+					.on("mouseout", function(d,i) {
+							 tooltip.style("display", "none")
+							 var color = "red"
+							 switch (i) {
+											case 0: color = "#1f77b4"; break
+											case 1: color = "#ff7f0e"; break
+											case 2:  color = "#d62728"; break
+											case 3: color = "#2ca02c"; break
+							}
+							 var fill = "fill:" + color + ";stroke-width:1;stroke: black; opacity: 0.8";
+								 d3.select(this).attr("style", fill);
+					})
 
-	 			var margin = { top: 20, right: 20, bottom: 50, left: 50},
-	 			     width = 960 - margin.left - margin.right,
-	 					 height = 500 - margin.top - margin.bottom;
+					// http://blockbuilder.org/35degrees/23873a64ceec2390c400694b6a8b57d9
+					// Layout Grid
+					g.append("g")
+				  		.attr("class","grid")
+				  		.attr("transform","translate(90," + height + ")")
+				  		.style("stroke-dasharray",("3,3"))
+				  		.call(make_x_gridlines()
+				            .tickSize(-height)
+				            .tickFormat("")
+				         )
+				  g.append("g")
+				  		.attr("class","grid")
+				  		.style("stroke-dasharray",("3,3"))
+				  		.call(make_y_gridlines()
+				            .tickSize(-width)
+				            .tickFormat("")
+				         )
 
-	 			// http://bl.ocks.org/binaworks/9dce0a385915e8953a45cc6be7fbde42
-	 			// Margin Convention
-	 			var svg = d3.select("#svg_DBTimeSave")
-	 			 		.attr("width", width + margin.left + margin.right)
-	 					.attr("height", height + margin.top + margin.bottom)
+				 function make_x_gridlines() {
+				     return d3.axisBottom(x1)
+				     	.ticks(8)
+				   }
+				   function make_y_gridlines() {
+				     return d3.axisLeft(y)
+				     	.ticks(5)
+				   }
 
-	 			var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+			g.append("g")
+		      .attr("class", "axis")
+		      .attr("transform", "translate(0," + height + ")")
+		      .call(d3.axisBottom(x1));
 
+		  g.append("g")
+		      .attr("class", "axis")
+		      .call(d3.axisLeft(y).ticks(null, "s"))
+		    .append("text")
+		      .attr("x", 2)
+		      .attr("y", y(y.ticks().pop()) + 0.5)
+		      .attr("dy", "0.32em")
+					.attr("fill", "#000")
+		      .attr("transform", "rotate(-90)")
+		      .attr("y", 6)
+		      .attr("dy", "0.71em")
+		      .attr("text-anchor", "end")
+		      .text("DB Time Spent");
 
-	 			var x =  d3.scaleTime().range([0, width]);
+					/*
+		 		     This section highlights simple technique in creating legends
+		 				 to explain the meaning of the colors chosen for the bars in
+		 				 the chart.
+		 		 */
 
-	 			var y = d3.scaleLinear().domain([0, max_value ]).range([ height , 0]);
+		 	   var legend = g.append("g")
+		 	     .attr("class","legend")
+		 	     .attr("transform","translate(30,5)")
+		 	     .style("font-size","12px")
 
-				x.domain(d3.extent(db_time_spent, function(d) {  return d.date; }));
-	 		  // x.domain(io_workload.map( function(d) {	return   d.date ; }));
+	        legend.append('rect')
+	            .attr('width', 200)
+	            .attr('height', 100)
+	            .style('fill', "white")
+	            .style('stroke', "black");
 
-	 			var yAxis = d3.axisLeft(y);
+	        legend.append('circle')
+               .attr('cx', 25)
+               .attr('cy', 15)
+	            .style('fill', "#1f77b4")
+	            .style('stroke', "black")
+	                        .attr("r", 8)
 
-
-	 			g.selectAll("rect").data(db_time_spent)
-	 						.enter()
-	 						.append("rect")
-	 					  .attr("class", "bar")
-	 						// rect attributes
-	 						.attr("y", function(d) { return ( height ) - d.value  } )
-	 						.attr("x", function(d,i) {
-	 							if (d.name == "PhysWrite/Txn") {
-	 								return i * width/24 + 25
-	 							} else {
-	 								return i * width/24 + 1
-	 							}
-	 						 } )
-	 						.attr("style", function(d) {
-								  var color = "red"
-									switch (d.name) {
-									 case "SQL Execs": color = "#1f77b4"; break
-									 case "PLSQL Execs": color = "#ff7f0e"; break
-									 case "JAVA Execs":  color = "#d62728"; break
-									 case "DB Time": color = "#2ca02c"; break
-								 }
-	 								return "fill:" + color + ";stroke-width:1;stroke: black; opacity: 0.8";
-	 							})
-	 						.attr("height", function (d) {	return d.value  })
-	 						.attr("width", function(d) { return 25 })
-	 						.on("mouseover", function(d,i) {
-	 										 var x = parseInt( d3.select(this).style("x"), 10)
-	 										 var y = parseInt( d3.select(this).style("y"), 10)
-	 										 if (x < 30) x = 50; else
-	 										 if (x >= 766 ) x = x - 200; else x = x + 25
-											 if (y < 10) y = 10
-	 										 tooltip.attr("transform", "translate(" + x + "," + y + ")");
-	 										 tooltip.style("display", null);
-	   								 	 tooltip.select("#metric_name").text("Name: " + d.name);
-	 										 tooltip.select("#metric_value").text("Value: " + d.value );
-
- 			 								 var fill = "fill:red;stroke-width:1;stroke: black; opacity: 0.8";
-	 										 d3.select(this).attr("style", fill);
-
-	 										})
-	 			      .on("mouseout", function(d,i) {
-	 										 tooltip.style("display", "none")
-											 var color = "red"
-											 switch (d.name) {
-		 										case "SQL Execs": color = "#1f77b4"; break
-		 										case "PLSQL Execs": color = "#ff7f0e"; break
-		 										case "JAVA Execs":  color = "#d62728"; break
-		 										case "DB Time": color = "#2ca02c"; break
-		 									}
- 			 								 var fill = "fill:" + color + ";stroke-width:1;stroke: black; opacity: 0.8";
-											 console.log(fill)
-	 						         d3.select(this).attr("style", fill);
-	 						        })
-
-
-	 			 g.append("g").call(yAxis)
-	 			 g.append("g")
-	 							.attr("class", "axis")
-	 					      .attr("transform", "translate(0," + height + ")")
-	 					      .call(d3.axisBottom(x))
-	 							.selectAll("text")
-	 								.style("text-anchor", "end")
-	 								.attr("dx", "-.8em")
-	 								.attr("dy", ".15em")
-	 								.attr("transform", "rotate(-65)");
-
-
-	 			/*
-	  		     This section highlights simple technique in creating grid layout
-	  				 as additional guide in the chart and be able to show alignments
-	 				 of value to the x and y axis.
-	  		 */
+	        legend.append('circle')
+	            .attr('cx', 25)
+	            .attr('cy', 35)
+	            .style('fill', "#ff7f0e")
+	            .style('stroke', "black")
+	                        .attr("r", 8)
 
 
-	 			// http://blockbuilder.org/35degrees/23873a64ceec2390c400694b6a8b57d9
-	 			// Layout Grid
-	 			g.append("g")
-	 		  		.attr("class","grid")
-	 		  		.attr("transform","translate(0," + height + ")")
-	 		  		.style("stroke-dasharray",("3,3"))
-	 		  		.call(make_x_gridlines()
-	 		            .tickSize(-height)
-	 		            .tickFormat("")
-	 		         )
-	 		  g.append("g")
-	 		  		.attr("class","grid")
-	 		  		.style("stroke-dasharray",("3,3"))
-	 		  		.call(make_y_gridlines()
-	 		            .tickSize(-width)
-	 		            .tickFormat("")
-	 		         )
+	        legend.append('circle')
+	            .attr('cx', 25)
+	            .attr('cy', 55)
+	            .style('fill', "#d62728")
+	            .style('stroke', "black")
+	                        .attr("r", 8)
 
-	 		 function make_x_gridlines() {
-	 		     return d3.axisBottom(x)
-	 		     	.ticks(8)
-	 		   }
-	 		   function make_y_gridlines() {
-	 		     return d3.axisLeft(y)
-	 		     	.ticks(5)
-	 		   }
+	        legend.append('circle')
+	            .attr('cx', 25)
+	            .attr('cy', 75)
+	            .style('fill', "#2ca02c")
+	            .style('stroke', "black")
+	                        .attr("r", 8)
 
-	 		 /*
-	 		     This section highlights simple technique in creating legends
-	 				 to explain the meaning of the colors chosen for the bars in
-	 				 the chart.
-	 		 */
+	        legend.append('text')
+	            .attr('x', 50)
+	            .attr('y', 20)
+	            .text(function(d) { return "SQL Execs"; });
 
-	 	   var legend = g.append("g")
-	 	     .attr("class","legend")
-	 	     .attr("transform","translate(20,10)")
-	 	     .style("font-size","12px")
+	        legend.append('text')
+	            .attr('x', 50)
+	            .attr('y', 40)
+	            .text(function(d) { return "PLSQL Execs"; });
 
+	        legend.append('text')
+	            .attr('x', 50)
+	            .attr('y', 60)
+	            .text(function(d) { return "JAVA Execs"; });
 
-	 		 legend.append('rect')
-	 		     .attr('width', 200)
-	 		     .attr('height', 100)
-	 		     .style('fill', "white")
-	 		     .style('stroke', "black");
+	        legend.append('text')
+	            .attr('x', 50)
+	            .attr('y', 80)
+	            .text(function(d) { return "DB Time"; });
 
-	 		 legend.append('circle')
-	 		 			.attr('cx', 25)
-	 		 			.attr('cy', 15)
-	 		     .style('fill', "#1f77b4")
-	 		     .style('stroke', "black")
-	 				 .attr("r", 8)
+					/*
+							This section highlights simple technique in creating tooltips
+													to inform user of the value of each bars in the chart.
+					*/
 
-	 		 legend.append('circle')
-	 		     .attr('cx', 25)
-	 		     .attr('cy', 35)
-	 		     .style('fill', "#ff7f0e")
-	 		     .style('stroke', "black")
-	 				 .attr("r", 8)
+					var tooltip = g.append("g").data(db_time_spent)
+													.attr("class", "focus")
+													.style("display", "none");
 
+					//Adds text to focus point on line
+					tooltip.append('rect')
+					.attr("width", 170 )
+					.attr("height", 50 )
+					.style("stroke", "white")
+					.style("fill", "black")
+					.attr("x", 9)
+					.attr("y", -9)
 
-			 legend.append('circle')
-	 		     .attr('cx', 25)
-	 		     .attr('cy', 55)
-	 		     .style('fill', "#d62728")
-	 		     .style('stroke', "black")
-	 				 .attr("r", 8)
+					tooltip.append("text")
+													.attr("x", 19)
+													.attr("y", 5)
+													.attr("dy", ".35em")
+													.attr("fill", "#fff")
+													.style('position', 'absolute')
+													.style('opacity', 1)
+													.style('pointer-events', 'all')
+													.style('fill', 'white')
+													.attr("id", "metric_name")
 
-			 legend.append('circle')
-	 		     .attr('cx', 25)
-	 		     .attr('cy', 75)
-	 		     .style('fill', "#2ca02c")
-	 		     .style('stroke', "black")
-	 				 .attr("r", 8)
+					tooltip.append("text")
+													.attr("x", 19)
+													.attr("y", 25)
+													.attr("dy", ".35em")
+													.attr("fill", "#fff")
+													.style('position', 'absolute')
+													.style('opacity', 1)
+													.style('pointer-events', 'all')
+													.style('fill', 'white')
+													.attr("id", "metric_value")
 
-	 		 legend.append('text')
-	 		     .attr('x', 50)
-	 		     .attr('y', 20)
-	 		     .text(function(d) { return "SQL Execs"; });
-
-
-	 		 legend.append('text')
-	 		     .attr('x', 50)
-	 		     .attr('y', 40)
-	 		     .text(function(d) { return "PLSQL Execs"; });
-
-			 legend.append('text')
-	 		     .attr('x', 50)
-	 		     .attr('y', 60)
-	 		     .text(function(d) { return "JAVA Execs"; });
-
-			 legend.append('text')
-	 		     .attr('x', 50)
-	 		     .attr('y', 80)
-	 		     .text(function(d) { return "DB Time"; });
-
-	 		 /*
-	 		     This section highlights simple technique in creating tooltips
-	 				 to inform user of the value of each bars in the chart.
-	 		 */
-
-	 		 var tooltip = g.append("g").data(db_time_spent)
-	 				 .attr("class", "focus")
-	 				 .style("display", "none");
-
-	 		 //Adds text to focus point on line
-	 		 tooltip.append('rect')
-	 		 .attr("width", 170 )
-	 		 .attr("height", 50 )
-	 		 .style("stroke", "white")
-	 		 .style("fill", "black")
-	 		 .attr("x", 9)
-	 		 .attr("y", -9)
-
-	 		 tooltip.append("text")
-	 				 .attr("x", 19)
-	 				 .attr("y", 5)
-	 				 .attr("dy", ".35em")
-	 				 .attr("fill", "#fff")
-	 				 .style('position', 'absolute')
-	 				 .style('opacity', 1)
-	 				 .style('pointer-events', 'all')
-	 				 .style('fill', 'white')
-	 				 .attr("id", "metric_name")
-
-	 		 tooltip.append("text")
-	 				 .attr("x", 19)
-	 				 .attr("y", 25)
-	 				 .attr("dy", ".35em")
-	 				 .attr("fill", "#fff")
-	 				 .style('position', 'absolute')
-	 				 .style('opacity', 1)
-	 				 .style('pointer-events', 'all')
-	 				 .style('fill', 'white')
-	 				 .attr("id", "metric_value")
 
 				console.log('bLoaded')
 	}
 
-	function done() {
-				 // do something with rows
 
-			//	console.log(data[0])
-				console.log('Done')
-	}
+	  function handle_User_Activities(data) {
+
+				 user_activities = []
+
+  			 var max_value = -1
+  			 var min_value = -1
+  			 var rows = 0
+
+ 		 	 data.forEach( function(d) {
+ 	 				 var m =  d["Measure Values"] - 0
+ 	 				 m = ( m == 0 ) ? -1 : m
+ 					 m = m
+ 	 				 if (max_value == -1 || m > max_value ) {
+ 	 					 if (!isNaN(m)) max_value = m
+ 	 				 }
+ 	 				 if (min_value == -1 || m < min_value ) {
+ 	 					 if (!isNaN(m)) min_value = m
+ 	 				 }
+ 	 				 rows ++
+
+ 				   var parseTime = d3.timeParse("%B %d %Y");
+
+ 	 				 user_activities.push( {
+ 	  						name: d["Measure Names"],
+ 	  						value: (( d["Measure Values"] - 0 )).toFixed(2), // 1million granularity
+ 	 						  date: parseTime( d["Month of Date"] + " 1 " + d["Year of Date"] )
+ 	  					}
+ 	 			  	)
+
+ 	 				 // console.log(d["Servers"] + "/" + d["Measure Names"] + "/" + d["Measure Values"])
+ 	 			 })
+
+ 				max_value = max_value + 100
+
+ 	 			var margin = { top: 20, right: 20, bottom: 50, left: 50},
+ 	 			     width = 960 - margin.left - margin.right,
+ 	 					 height = 500 - margin.top - margin.bottom;
+
+ 	 			// http://bl.ocks.org/binaworks/9dce0a385915e8953a45cc6be7fbde42
+ 	 			// Margin Convention
+ 	 			var svg = d3.select("#svg_UserActivities")
+ 	 			 		.attr("width", width + margin.left + margin.right)
+ 	 					.attr("height", height + margin.top + margin.bottom)
+
+ 	 			var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+ 	 			var x =  d3.scaleTime().range([0, width]);
+
+
+ 	 			var y = d3.scaleLinear().domain([0, max_value ]).range([ height , 0]);
+ 	 			var yAxis = d3.axisLeft(y);
+
+ 				x.domain(d3.extent(user_activities, function(d) {  return d.date; }))
+
+ 	 			g.selectAll("rect").data(user_activities)
+ 	 						.enter()
+ 	 						.append("rect")
+ 	 					  .attr("class", "bar")
+ 	 						// rect attributes
+ 	 						.attr("y", function(d) { return ( height ) - d.value  } )
+ 	 						.attr("x", function(d,i) {
+ 								var x = i * width/36 + i * 15 + 10
+ 								switch (d.name) {
+ 								 case "SQL Execs": return x ; break
+ 								 case "PLSQL Execs": return x ; break
+ 								 case "JAVA Execs":  return x ; break
+ 								 case "DB Time": return x ; break
+ 							 }
+ 	 						 } )
+ 	 						.attr("style", function(d) {
+ 								  var color = "red"
+ 									switch (d.name) {
+ 									 case "SQL Execs": color = "#1f77b4"; break
+ 									 case "PLSQL Execs": color = "#ff7f0e"; break
+ 									 case "JAVA Execs":  color = "#d62728"; break
+ 									 case "DB Time": color = "#2ca02c"; break
+ 								 }
+ 	 								return "fill:" + color + ";stroke-width:1;stroke: black; opacity: 0.8";
+ 	 							})
+ 	 						.attr("height", function (d) {	return d.value  })
+ 	 						.attr("width", function(d) { return 25 })
+ 	 						.on("mouseover", function(d,i) {
+ 	 										 var x = parseInt( d3.select(this).style("x"), 10)
+ 	 										 var y = parseInt( d3.select(this).style("y"), 10)
+ 	 										 if (x < 30) x = 50; else
+ 	 										 if (x >= 766 ) x = x - 200; else x = x + 25
+ 											 if (y < 10) y = 10
+ 	 										 tooltip.attr("transform", "translate(" + x + "," + y + ")");
+ 	 										 tooltip.style("display", null);
+ 	   								 	 tooltip.select("#metric_name").text("Name: " + d.name);
+ 	 										 tooltip.select("#metric_value").text("Value: " + d.value );
+
+  			 								 var fill = "fill:red;stroke-width:1;stroke: black; opacity: 0.8";
+ 	 										 d3.select(this).attr("style", fill);
+
+ 	 										})
+ 	 			      .on("mouseout", function(d,i) {
+ 	 										 tooltip.style("display", "none")
+ 											 var color = "red"
+ 											 switch (d.name) {
+ 		 										case "SQL Execs": color = "#1f77b4"; break
+ 		 										case "PLSQL Execs": color = "#ff7f0e"; break
+ 		 										case "JAVA Execs":  color = "#d62728"; break
+ 		 										case "DB Time": color = "#2ca02c"; break
+ 		 									}
+  			 								 var fill = "fill:" + color + ";stroke-width:1;stroke: black; opacity: 0.8";
+ 	 						         d3.select(this).attr("style", fill);
+ 	 						        })
+
+
+ 	 			 g.append("g").call(yAxis)
+ 	 			 g.append("g")
+ 	 							.attr("class", "axis")
+ 	 					      .attr("transform", "translate(0," + height + ")")
+ 	 					      .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%B")))
+ 	 							.selectAll("text")
+ 	 								.style("text-anchor", "end")
+ 	 								.attr("dx", "-.8em")
+ 	 								.attr("dy", ".15em")
+ 	 								.attr("transform", "rotate(-65)");
+
+ 	 			/*
+ 	  		     This section highlights simple technique in creating grid layout
+ 	  				 as additional guide in the chart and be able to show alignments
+ 	 				 of value to the x and y axis.
+ 	  		 */
+
+
+ 	 			// http://blockbuilder.org/35degrees/23873a64ceec2390c400694b6a8b57d9
+ 	 			// Layout Grid
+ 	 			g.append("g")
+ 	 		  		.attr("class","grid")
+ 	 		  		.attr("transform","translate(0," + height + ")")
+ 	 		  		.style("stroke-dasharray",("3,3"))
+ 	 		  		.call(make_x_gridlines()
+ 	 		            .tickSize(-height)
+ 	 		            .tickFormat("")
+ 	 		         )
+ 	 		  g.append("g")
+ 	 		  		.attr("class","grid")
+ 	 		  		.style("stroke-dasharray",("3,3"))
+ 	 		  		.call(make_y_gridlines()
+ 	 		            .tickSize(-width)
+ 	 		            .tickFormat("")
+ 	 		         )
+
+ 	 		 function make_x_gridlines() {
+ 	 		     return d3.axisBottom(x)
+ 	 		     	.ticks(8)
+ 	 		   }
+ 	 		   function make_y_gridlines() {
+ 	 		     return d3.axisLeft(y)
+ 	 		     	.ticks(5)
+ 	 		   }
+
+ 	 		 /*
+ 	 		     This section highlights simple technique in creating legends
+ 	 				 to explain the meaning of the colors chosen for the bars in
+ 	 				 the chart.
+ 	 		 */
+
+ 	 	   var legend = g.append("g")
+ 	 	     .attr("class","legend")
+ 	 	     .attr("transform","translate(20,10)")
+ 	 	     .style("font-size","12px")
+
+
+ 	 		 legend.append('rect')
+ 	 		     .attr('width', 200)
+ 	 		     .attr('height', 100)
+ 	 		     .style('fill', "white")
+ 	 		     .style('stroke', "black");
+
+ 	 		 legend.append('circle')
+ 	 		 			.attr('cx', 25)
+ 	 		 			.attr('cy', 15)
+ 	 		     .style('fill', "#1f77b4")
+ 	 		     .style('stroke', "black")
+ 	 				 .attr("r", 8)
+
+ 	 		 legend.append('circle')
+ 	 		     .attr('cx', 25)
+ 	 		     .attr('cy', 35)
+ 	 		     .style('fill', "#ff7f0e")
+ 	 		     .style('stroke', "black")
+ 	 				 .attr("r", 8)
+
+
+ 			 legend.append('circle')
+ 	 		     .attr('cx', 25)
+ 	 		     .attr('cy', 55)
+ 	 		     .style('fill', "#d62728")
+ 	 		     .style('stroke', "black")
+ 	 				 .attr("r", 8)
+
+ 			 legend.append('circle')
+ 	 		     .attr('cx', 25)
+ 	 		     .attr('cy', 75)
+ 	 		     .style('fill', "#2ca02c")
+ 	 		     .style('stroke', "black")
+ 	 				 .attr("r", 8)
+
+ 	 		 legend.append('text')
+ 	 		     .attr('x', 50)
+ 	 		     .attr('y', 20)
+ 	 		     .text(function(d) { return "SQL Execs"; });
+
+ 	 		 legend.append('text')
+ 	 		     .attr('x', 50)
+ 	 		     .attr('y', 40)
+ 	 		     .text(function(d) { return "PLSQL Execs"; });
+
+ 			 legend.append('text')
+ 	 		     .attr('x', 50)
+ 	 		     .attr('y', 60)
+ 	 		     .text(function(d) { return "JAVA Execs"; });
+
+ 			 legend.append('text')
+ 	 		     .attr('x', 50)
+ 	 		     .attr('y', 80)
+ 	 		     .text(function(d) { return "DB Time"; });
+
+ 	 		 /*
+ 	 		     This section highlights simple technique in creating tooltips
+ 	 				 to inform user of the value of each bars in the chart.
+ 	 		 */
+
+ 	 		 var tooltip = g.append("g").data(user_activities)
+ 	 				 .attr("class", "focus")
+ 	 				 .style("display", "none");
+
+ 	 		 //Adds text to focus point on line
+ 	 		 tooltip.append('rect')
+ 	 		 .attr("width", 170 )
+ 	 		 .attr("height", 50 )
+ 	 		 .style("stroke", "white")
+ 	 		 .style("fill", "black")
+ 	 		 .attr("x", 9)
+ 	 		 .attr("y", -9)
+
+ 	 		 tooltip.append("text")
+ 	 				 .attr("x", 19)
+ 	 				 .attr("y", 5)
+ 	 				 .attr("dy", ".35em")
+ 	 				 .attr("fill", "#fff")
+ 	 				 .style('position', 'absolute')
+ 	 				 .style('opacity', 1)
+ 	 				 .style('pointer-events', 'all')
+ 	 				 .style('fill', 'white')
+ 	 				 .attr("id", "metric_name")
+
+ 	 		 tooltip.append("text")
+ 	 				 .attr("x", 19)
+ 	 				 .attr("y", 25)
+ 	 				 .attr("dy", ".35em")
+ 	 				 .attr("fill", "#fff")
+ 	 				 .style('position', 'absolute')
+ 	 				 .style('opacity', 1)
+ 	 				 .style('pointer-events', 'all')
+ 	 				 .style('fill', 'white')
+ 	 				 .attr("id", "metric_value")
+
+	       console.log('xLoaded')
+	  }
+
 
 </script>
 </body>
