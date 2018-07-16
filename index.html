@@ -978,12 +978,11 @@
  						.text("User Activities");
 
 
- /*
 				 // http://blockbuilder.org/35degrees/23873a64ceec2390c400694b6a8b57d9
 				 // Layout Grid
 				 g.append("g")
 						 .attr("class","grid")
-						 .attr("transform","translate(90," + height + ")")
+						 .attr("transform","translate(105," + height + ")")
 						 .style("stroke-dasharray",("3,3"))
 						 .call(make_x_gridlines()
 									 .tickSize(-height)
@@ -1017,7 +1016,7 @@
 						 the chart.
 				 */
 
-/*
+
 				 var legend = g.append("g")
 					 .attr("class","legend")
 					 .attr("transform","translate(30,5)")
@@ -1089,12 +1088,12 @@
 							.attr('x', 50)
 							.attr('y', 100)
 							.text(function(d) { return "May"; });
-*/
+
 					/*
 							This section highlights simple technique in creating tooltips
 													to inform user of the value of each bars in the chart.
 					*/
-/*
+
 					var tooltip = g.append("g").data(user_activities)
 													.attr("class", "focus")
 													.style("display", "none");
@@ -1129,7 +1128,7 @@
 													.style('pointer-events', 'all')
 													.style('fill', 'white')
 													.attr("id", "metric_value")
- */
+ 
 
 	       console.log('xLoaded')
 	  }
