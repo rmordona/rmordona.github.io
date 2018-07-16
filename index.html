@@ -651,20 +651,25 @@
 		      .attr("width", x2.bandwidth())
 		      .attr("height", function(d) { return height - y(d.value); })
 		      .attr("fill", function(d) { return z(d.key); })
+					//.data(db_time_spent)
 					.on("mouseover", function(d,i) {
 							 var x = parseInt( d3.select(this).style("x"), 10)
 							 var y = parseInt( d3.select(this).style("y"), 10)
+							 var w = this.parentNode.transform.baseVal.consolidate().matrix
+							 x = w.e + x
+							 if (x > 710) x = x - 180; else x = x + 30
+
+							 console.log( x, x, y)
 
 							 tooltip.attr("transform", "translate(" + x + "," + y + ")");
 							 tooltip.style("display", null);
 
-							 console.log( d, x, y)
+
 							 tooltip.select("#metric_name").text("Name: " + d.key );
 						 	 tooltip.select("#metric_value").text("Value: " + d.value );
 
 							 var fill = "fill:red;stroke-width:1;stroke: black; opacity: 0.8";
 							 d3.select(this).attr("style", fill);
-
 					})
 					.on("mouseout", function(d,i) {
 							 tooltip.style("display", "none")
