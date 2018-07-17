@@ -188,7 +188,7 @@
 	 a transaction is waiting, it could be that there is not enough resource ( physical machine ) to process incoming transactions;
 	 otherwise, there are just too many transactions that suddenly happened. Here we have chosen 3 activities that are observed
 	 to be spending some DB time (whether in wait state or on cpu). Those common activities are mapped correspondingly to database
-	 time and there are 3 of them: JAVA execution,
+	 time spent and there are 3 of them: JAVA execution,
 	 PLSQL execution, SQL execution. The 'DB time' activity (4th bar) is an accumulated time spent by DB activities. In the chart,
 	 it can be observed that SQL execution tends to have
 	 the most number of db time compared to JAVA and PLSQL executions which tell us that users seem to be more busy querying
@@ -762,21 +762,21 @@
 						.attr("font-size", "14px")
 						.text(function(d) { return "There is an observed increase in"; });
 
-						annotation.append('text')
-								.attr('x', 20)
-								.attr('y', 40)
-								.style('fill', '#800')
-								.attr("font-family", "sans-serif")
-								.attr("font-size", "14px")
-								.text(function(d) { return "sessions in March all through May."; });
+				annotation.append('text')
+						.attr('x', 20)
+						.attr('y', 40)
+						.style('fill', '#800')
+						.attr("font-family", "sans-serif")
+						.attr("font-size", "14px")
+						.text(function(d) { return "sessions in March all through May."; });
 
-						g.append('line')
-								.style('stroke', "#800")
-								.style('stroke-width', 2)
-								.attr('x1', 200)
-								.attr('y1', 70)
-								.attr('x2', 390)
-								.attr('y2', 300)
+				g.append('line')
+						.style('stroke', "#800")
+						.style('stroke-width', 2)
+						.attr('x1', 200)
+						.attr('y1', 70)
+						.attr('x2', 390)
+						.attr('y2', 300)
 
 
 					//Tooltips
@@ -1209,7 +1209,10 @@
 			 // https://bl.ocks.org/mbostock/3887051
 			 x1.domain(data.map(function(d) { return d["Calls"]; }));
 			 x2.domain(keys).rangeRound([0, x1.bandwidth()]);
-			 y.domain([0, d3.max(user_activities, function(d) { return d3.max(keys, function(key) { return d[key]; }); })])
+			 y.domain([0, d3.max(user_activities, function(d) {
+				  p =  d3.max(keys, function(key) { return d[key]; });
+					return p  / 10
+				})  ])
 
 
 		 g.append("g")
@@ -1222,16 +1225,9 @@
 			 .enter().append("rect")
 				 .attr("x", function(d) { return x2(d.key); })
 				 .attr("y", function(d) {
-					  var y1 = d.value
-					  if (d.value > 10000000) y1 = d.value / 100
-					 	return y(y1 / 5 );
-						})
+					 	return y( d.value / 10 );	})
 				 .attr("width", x2.bandwidth())
-				 .attr("height", function(d) {
- 					  var y1 = d.value
-					  if (d.value > 10000000) y1 = d.value / 100
-					 	return height - y(y1 / 5 );
-						})
+				 .attr("height", function(d) { return height - y(d.value / 10 )   ;	})
 				 .attr("fill", function(d) { return z(d.key); })
 				 //.data(db_time_spent)
 				 .on("mouseover", function(d,i) {
@@ -1247,8 +1243,8 @@
 							tooltip.style("display", null);
 
 
-							tooltip.select("#metric_name").text("Name: " + d.key );
-							tooltip.select("#metric_value").text("Value: " + d.value );
+							tooltip.select("#metric_name").text("Month: " + d.key );
+							tooltip.select("#metric_value").text("Activities: " + formatNumber(d.value) );
 
 							var fill = "fill:red;stroke-width:1;stroke: black; opacity: 0.8";
 							d3.select(this).attr("style", fill);
@@ -1285,7 +1281,7 @@
  						.attr("y", 6)
  						.attr("dy", "0.71em")
  						.attr("text-anchor", "end")
- 						.text("User Activities");
+ 						.text("User Activities (x10 Scaled)");
 
 
 				 // http://blockbuilder.org/35degrees/23873a64ceec2390c400694b6a8b57d9
@@ -1316,8 +1312,44 @@
 					}
 
 
+					/*  Now handle annotations */
+
+ 				 var annotation = g.append("g")
+ 					.attr("class","annotation")
+ 					.attr("transform","translate(80,150)")
+ 					.style("font-size","12px")
 
 
+ 				annotation.append('rect')
+ 						.attr('width', 260)
+ 						.attr('height', 60)
+ 						.style('fill', "white")
+ 						.style('stroke', "#800")
+ 						.style('stroke-width', 2)
+
+ 				annotation.append('text')
+ 						.attr('x', 20)
+ 						.attr('y', 20)
+ 						.style('fill', '#800')
+ 						.attr("font-family", "sans-serif")
+ 						.attr("font-size", "14px")
+ 						.text(function(d) { return "It can be observed that"; });
+
+ 				annotation.append('text')
+ 						.attr('x', 20)
+ 						.attr('y', 40)
+ 						.style('fill', '#800')
+ 						.attr("font-family", "sans-serif")
+ 						.attr("font-size", "14px")
+ 						.text(function(d) { return "SQL executions are top activities."; });
+
+ 				g.append('line')
+ 						.style('stroke', "#800")
+ 						.style('stroke-width', 2)
+ 						.attr('x1', 340)
+ 						.attr('y1', 180)
+ 						.attr('x2', 460)
+ 						.attr('y2', 180)
 
 
 					/*
