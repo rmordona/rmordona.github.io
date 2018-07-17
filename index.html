@@ -224,8 +224,10 @@
 		spent as has been presented in the previous slide. Those common activities are mapped correspondingly to database user calls
 		and there are 4 of them: JAVA execution, PLSQL execution, SQL execution and other 'User Calls'.  Addtionally, we also want to
 		 see the monthly breakdown inorder to give us an idea in which month do we see the highest increase in user calls. In the chart,
-		it is apparently clear that we see the month of March to be busier. This corresponds to what we see earlier in the previous slide
-		around the increase number of DB sessions in the month of March. With that, we need to investigate further.
+		it is apparently clear that we see  SQL execution to be top user activity throughout the month of January through May.
+		This corresponds to what we see earlier in the previous slide
+		around the number of db time spent by SQL executions. With that, we need to investigate further. We now know to
+		investigate the different SQL statements (queries) and check which one spent the most in DB time.
 		</p>
 						 <div style="width:100%; margin: 10px; padding: 10px;  text-align: center">
 		     <svg id="svg_UserActivities" width="800" height="500" style="outline: 2px solid #1f77b4;"></svg>
@@ -244,9 +246,13 @@
 						<span style="font-family:aria; font-size: 40px; color: #fff">Summary and Disclaimer</span>
 					</div>
 		<p style="margin: 10px">
-	<b>Summary:</b> We have shown four different metrics of analyzing and understanding database workload.  In real-world, there are many
-	more metrics that need to be accounted for. Each of those metrics could show signs of change or anomaly and it is the responsibility
-	of technical support to be able to review and analyze those signs and work with other groups to address them. At the end of the day,
+	<b>Summary:</b> We have shown four different metrics helpful in  analyzing and understanding database workload. We have shown
+	that server 1 incurs heavy physical reads. We have shown that there's an increase in user sessions that started in March throughout
+	May. Also, we have finally shown that SQL executions are the most activities seen in the database. All these information
+	are clues that will further help us to narrow down to specific sql statements.
+	 In real-world, there are many	more metrics that need to be accounted for. Each of those metrics could show signs of change or
+	 anomaly and it is the responsibility of technical support to be able to review and analyze those signs and work with other
+	 groups to address them. At the end of the day,
 	the goal is to prevent systems from breaking, be able to plan for sufficient capacity, and be able to improve customer experience.
 	</p>
 		<p style="margin: 10px">
