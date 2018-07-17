@@ -115,8 +115,8 @@
 					</p>
 					<p style="margin: 10px">
 					<b>DB Time Spent:</b> It helps to understand if transactions are taking too long to process. A transaction taking too long to
-					process could be in a waiting state inside the database.  We measure the time it takes for transactions to be in waiting state
-					in the database. This is the DB time spent.
+					process could be in a waiting state inside the database or merely spending time on CPU.  We measure the time it takes for transactions to be in waiting state
+					or on CPU in the database. This is the DB time spent.
 					</p>
 					<p style="margin: 10px">
 					<b>DB Sessions:</b> A user that needs to transact requires to establish a user session to the database. We measure the number of
@@ -186,15 +186,17 @@
 		Life experiences have taught us that whenever we are waiting in line, whether in a bus station or train station,
 	 it could mean that there is alot of waiters waiting or there is not enough bus or train for everybody. Similarly, every time
 	 a transaction is waiting, it could be that there is not enough resource ( physical machine ) to process incoming transactions;
-	 otherwise, there are just too many transactions that suddenly happened. Here we have chosen 4 common activities that are observed
-	 to be in wait state. Those common activities are mapped correspondingly to database wait times and there are 4 of them: JAVA execution,
-	 PLSQL execution, SQL execution and then all other 'DB time'. In the chart, it can be observed that SQL execution tends to have
-	 the most number of waits compared to db time for JAVA and PLSQL which tell us that users seem to be more busy querying
-	 information and taking longer
-	 than updating records. On the other hand, the 'DB time' shows higher waits in the month of May. The goal here is to
-	 reduce wait times. The lesser the waits, the more efficient the database system is.
+	 otherwise, there are just too many transactions that suddenly happened. Here we have chosen 3 activities that are observed
+	 to be spending some DB time (whether in wait state or on cpu). Those common activities are mapped correspondingly to database
+	 time and there are 3 of them: JAVA execution,
+	 PLSQL execution, SQL execution. The 'DB time' activity (4th bar) is an accumulated time spent by DB activities. In the chart,
+	 it can be observed that SQL execution tends to have
+	 the most number of db time compared to JAVA and PLSQL executions which tell us that users seem to be more busy querying
+	 information and spending more time there than records being updated.
+	 On the other hand, the 'DB time' shows higher in the month of May. The goal here is to
+	 reduce DB times (specially those that are in wait state). The lesser the waits, the more efficient the database system is.
 	  To be able to determine why month of May has more DB time spent, there are available tools that will help to investigate this further
-	 and be able to narrow down the cause to individual queries or to hardware resource issues.
+	 and be able to narrow down to WAITS that are caused by individual queries or by hardware resource issues.
 		</p>
 		<p style="margin: 10px">
 			Also, one thing to notice here is that there is not much DB time spent for JAVA executions across the 5 month period.
@@ -330,7 +332,7 @@
 	}
 
 
-		function handle_IO_workload(data) {
+	function handle_IO_workload(data) {
 
 				 io_workload = []
 
