@@ -12,6 +12,7 @@
 
 	<link rel="stylesheet" type="text/css" href="./fullpage/dist/fullpage.css" />
 	<link rel="stylesheet" type="text/css" href="./fullpage/examples/examples.css" />
+
 </head>
 <body>
 
@@ -55,40 +56,181 @@
 	.legend rect {
 	  fill:white;
 	  stroke:black;
-	  opacity:0.8;}
+	  opacity:0.8;
+	}
 
 	</style>
 
 <div id="fullpage">
-	<div class="section active" id="section0"><h1>IO workload</h1>
-		asdf lasfd iasjfda
-		sfd asldfkj asldfj asldfjadsf dasfsaf
-		asdfsa dfsdli
+	<div class="section" style="background-image: url(./235318992-light-blue-background-images-for-websites.jpg);
+				opacity: 0.8">
 
-		<div id="div_IOworkload" style="margin: 20px"></div>
+    <div style="font-family:aria; font-size: 9px; text-align: left; margin: 15px; color: #000; float: left; width: 47%;">
+					<p style="margin: 10px">
+					<b>Database systems</b> - Oracle RDBMS in particular - offers an automated way to sample data every interval.  In terms of
+					dataset for this project, we are going to use one of the many busiest database systems running at Oracle.
+					For purposes of privacy and security, we are limiting data only around the generic database activities such as
+					IO workload in terms of number of physical reads and number of physical writes, number of time an activity is in wait
+					state,  number time an activity spent time in the database, and number of database sessions.
+					</p>
+					<p style="margin: 10px">
+					Our goal is to be able to show how we review and analyze database workload. One way is to  identify a change in database
+					workload and thus be able to predict if the change in workload is something to be concerned about or not.  The term "concerned"
+					may be a loose term; but if there is such a case to be concerned about, decisions tend to be discussed around capacity
+					planning wherein the topic would be whether to purchase more machines or more storage equipments to accommodate for growing
+					workload.
+					</p>
+					<p style="margin: 10px">
+					To clarify what we have in the dataset, it would be good to explain the following:
+					</p>
+					<p style="margin: 10px">
+					<b>IO Workload:</b> The dataset includes IO workload in the form of physical writes and physical reads. For a user transaction that
+					requires to save a record of a bank deposit, we are measuring the act of writing a record of transaction to the database;
+					in this respect, user transaction can be translated as one or multiple physical writes to the database. Similarly, for a user
+					transaction that requires to retrieve bank statements, the transaction can be translated into one or multiple physical reads
+					from the database.
+					</p>
+					<p style="margin: 10px">
+					<b>User Activities:</b> Underlying a user transaction are many individual computer tasks. A computer task may involve running
+					programmatic code written in JAVA language or PLSQL language ( Procedural language for SQL) or merely just an inquery
+					against the database (SQL).  Here, a user activity is represented as a call to a program code. Without being specific
+					to the functionality of a program code, we measure how many times  a call has been made against a program code; basically,
+					we measure how many times a JAVA code has been executed. In this context, we are looking at 4 categorical variables:
+					JAVA execution, PLSQL execution, SQL execution, and all other combined calls ( termed as 'User Calls').
+					</p>
+					<p style="margin: 10px">
+					<b>DB Time Spent:</b> It helps to understand if transactions are taking too long to process. A transaction taking too long to
+					process could be in a waiting state inside the database.  We measure the time it takes for transactions to be in waiting state
+					in the database. This is the DB time spent.
+					</p>
+					<p style="margin: 10px">
+					<b>DB Sessions:</b> A user that needs to transact requires to establish a user session to the database. We measure the number of
+					user sessions that runs in the database. The higher the number of sessions, the higher the number of users; and hence, the
+					busier the database system becomes.
+					</p>
+				</div>
+				<div><img src="./dataload.png" style="width: 350px"/></div>
+  </div>
+	<div class="section" style="background-image: url(./235318992-light-blue-background-images-for-websites.jpg);
+				opacity: 0.8">
 
-       <svg id="svg_IOworkload" width="800" height="500" style="outline: 2px solid grey;"></svg>
+    <div style="font-family:aria; font-size: 9px; text-align: left; margin: 15px; color: #000; float: left; width: 90%;">
+	  <div style="width:100%; margin: 10px; background-color: #1f77b4; text-align: center">
+			<span style="font-family:aria; font-size: 40px; color: #fff">IO Workload</span>
+		</div>
+		<p style="margin: 10px">
+		The database system in use runs on a 12 powerful servers ( not to be specific on hardware model or type ). One of
+		the first things to understand is to know if workload is equally distributed across the 12 servers. Because of wear-and-tear,
+		we want to avoid an imbalance of load in that one side of a set of machines are very busy and the rest are idle. Machines that
+		are more busy may consequently suffer hardware failures. Measuring a balanced IO workload, the chart below showed that server 1 seems
+		to accommodate more physical reads than the other servers. It would be good to understand why this is the case - a decision
+		would then be to work with different teams to investigate the cause.
+		</p>
+		  <div style="width:100%; margin: 10px; padding: 10px;  text-align: center">
+     <svg id="svg_IOworkload" width="800" height="500" style="outline: 2px solid #1f77b4;"></svg>
+	 	 </div>
+	 </div>
 
-    </div>
+  </div>
 
-	<div class="section" id="section1"><h1>DB Sessions</h1>
+	<div class="section" style="background-image: url(./235318992-light-blue-background-images-for-websites.jpg);
+				opacity: 0.8">
 
-		     <svg id="svg_DBSession" width="800" height="500" style="outline: 2px solid grey;"></svg>
+		<div style="font-family:aria; font-size: 9px; text-align: left; margin: 15px; color: #000; float: left; width: 90%;">
+			<div style="width:100%; margin: 10px; background-color: #1f77b4; text-align: center">
+				<span style="font-family:aria; font-size: 40px; color: #fff">DB Sessions</span>
+			</div>
+		<p style="margin: 10px">
+		The chart measures the number of User Sessions ( or users ) that are using the database system every month, between
+		Jaunary and May of year 2018.  It can be observed that there is a sudden increase of DB Sessions around March, 2018 and the
+		increase remained high throughout April and May.  This is also a good opportunity to understand why this is the case - like so,
+		a decision would then be to work with other teams to investigate the anomaly.
+		</p>
+				  <div style="width:100%; margin: 10px; padding: 10px;  text-align: center">
+		     <svg id="svg_DBSession" width="800" height="500" style="outline: 2px solid #1f77b4;"></svg>
+			 </div>
+	 	 </div>
 
 	</div>
-	<div class="section" id="section2"><h1>DB Time Spent</h1>
+	<div class="section" style="background-image: url(./235318992-light-blue-background-images-for-websites.jpg);
+				opacity: 0.8">
 
-		     <svg id="svg_DBTimeSpent" width="800" height="500" style="outline: 2px solid grey;"></svg>
+				<div style="font-family:aria; font-size: 9px; text-align: left; margin: 15px; color: #000; float: left; width: 90%;">
+					<div style="width:100%; margin: 10px; background-color: #1f77b4; text-align: center">
+						<span style="font-family:aria; font-size: 40px; color: #fff">DB Time Spent</span>
+					</div>
+		<p style="margin: 10px">
+		Life experiences have taught us that whenever we are waiting in line, whether in a bus station or train station,
+	 it could mean that there is alot of waiters waiting or there is not enough bus or train for everybody. Similarly, every time
+	 a transaction is waiting, it could be that there is not enough resource ( physical machine ) to process incoming transactions;
+	 otherwise, there are just too many transactions that suddenly happened. Here we have chosen 4 common activities that are observed
+	 to be in wait state. Those common activities are mapped correspondingly to database wait times and there are 4 of them: JAVA execution,
+	 PLSQL execution, SQL execution and then all other 'DB time'. In the chart, it can be observed that SQL execution tends to have
+	 the most number of waits which tell us that users seem to be more busy querying information and taking longer
+	 than updating records.  To be able to determine this, there are available tools that will help to investigate this further
+	 and be able to narrow down the cause to individual queries or to hardware resource issues.
+		</p>
+				 <div style="width:100%; margin: 10px; padding: 10px;  text-align: center">
+		     <svg id="svg_DBTimeSpent" width="800" height="500" style="outline: 2px solid #1f77b4;"></svg>
+			 	</div>
+		</div>
 
 	</div>
-	<div class="section" id="section3"><h1>User Activities</h1>
+	<div class="section" style="background-image: url(./235318992-light-blue-background-images-for-websites.jpg);
+				opacity: 0.8">
 
-		     <svg id="svg_UserActivities" width="800" height="500" style="outline: 2px solid grey;"></svg>
+				<div style="font-family:aria; font-size: 9px; text-align: left; margin: 15px; color: #000; float: left; width: 90%;">
+					<div style="width:100%; margin: 10px; background-color: #1f77b4; text-align: center">
+						<span style="font-family:aria; font-size: 40px; color: #fff">User Activities</span>
+					</div>
+		<p style="margin: 10px">
+		One of the things to understand when dealing with database load is to have a breakdown of the load itself.
+		Similar to previous slide, here we have chosen the same 4 common activities that are observed when we see increase in DB time
+		spent as has been presented in the previous slide. Those common activities are mapped correspondingly to database user calls
+		and there are 4 of them: JAVA execution, PLSQL execution, SQL execution and other 'User Calls'.  Addtionally, we also want to
+		 see the monthly breakdown inorder to give us an idea in which month do we see the highest increase in user calls. In the chart,
+		it is apparently clear that we see the month of March to be busier. This corresponds to what we see earlier in the previous slide
+		around the increase number of DB sessions in the month of March. With that, we need to investigate further.
+		</p>
+						 <div style="width:100%; margin: 10px; padding: 10px;  text-align: center">
+		     <svg id="svg_UserActivities" width="800" height="500" style="outline: 2px solid #1f77b4;"></svg>
+			 </div>
+		</div>
+	</div>
+
+	<div class="section" style="background-image: url(./235318992-light-blue-background-images-for-websites.jpg);
+				opacity: 0.8">
+
+				<div style="font-family:aria; font-size: 9px; text-align: left; margin: 15px; color: #000; float: left; width: 90%;">
+					<div style="width:100%; margin: 10px; background-color: #1f77b4; text-align: center">
+						<span style="font-family:aria; font-size: 40px; color: #fff">Summary and Disclaimer</span>
+					</div>
+		<p style="margin: 10px">
+	<b>Summary:</b> We have shown four different metrics of analyzing and understanding database workload.  In real-world, there are many
+	more metrics that need to be accounted for. Each of those metrics could show signs of change or anomaly and it is the responsibility
+	of technical support to be able to review and analyze those signs and work with other groups to address them. At the end of the day,
+	the goal is to prevent systems from breaking, be able to plan for sufficient capacity, and be able to improve customer experience.
+	</p>
+		<p style="margin: 10px">
+	<b>Disclaimer:</b> Being a student of Data visualization, and learning new things, I cannot claim to have reached a certain level of
+	expertise in this project - because there is much to learn. I can only claim that I learned enough and matured in understanding data
+	visualization. There are many individuals I need to thank. First, I would like to thank all my classmates and peers for learning with
+	me. It has been fun to participate in piazza and slack discussions. Without such valuable tools, I would not be able to proceed every
+	bit of the way to completing this project. Secondly, there is a vast amount of knowledge in the internet. I am new to D3 and not a
+	solid web developer, so all the design and visualization come from many different sources and research. I cannot claim that some
+	of the reusable code snippets are my own. They are public contributions from different internet sources, willing to share their
+	experiences, and it helped me tremendously in understanding the logic, tailoring it for my own purposes, and be able to piece my
+	project together. The benefit of this is that I am able to also learn tricks and techniques, be able to know a few differences
+	between D3 v3, D3 v4, D3 v5 - it is in the trying that made me aware why a read.csv in v5 is different now from v3 and V4 and the
+	difference between D3.scale.time and D3.scaleTime (in terms of version). Please see the different links after my citation. Lastly,
+	 I would like to  thank Prof John H. and the TAs for so ever willing  to help and  guide us through the course,
+	without them, I would not even understand the value of Data Visualization and be able to try it out on my own in this project.
+	</p>
+	</div>
 
 	</div>
+
 </div>
-
-
 
 <script type="text/javascript" src="./fullpage/dist/fullpage.js"></script>
 <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -96,7 +238,7 @@
 <script type="text/javascript">
 
 	var myFullpage = new fullpage('#fullpage', {
-		sectionsColor: ['#f2f2f2', '#ffffff', '#f2f2f2', 'whitesmoke', '#ccddff']
+		sectionsColor: ['#f2f2f2', '#ffffff', '#f2f2f2', 'whitesmoke', '#ccddff', '#ffffff']
 	});
 
 
@@ -1128,7 +1270,7 @@
 													.style('pointer-events', 'all')
 													.style('fill', 'white')
 													.attr("id", "metric_value")
- 
+
 
 	       console.log('xLoaded')
 	  }
