@@ -196,6 +196,10 @@
 	  To be able to determine why month of May has more DB time spent, there are available tools that will help to investigate this further
 	 and be able to narrow down the cause to individual queries or to hardware resource issues.
 		</p>
+		<p style="margin: 10px">
+			Also, one thing to notice here is that there is not much DB time spent for JAVA executions across the 5 month period.
+			In other words, it's the SQL executes that contributed to the overall 'DB time'.
+		</p>
 				 <div style="width:100%; margin: 10px; padding: 10px;  text-align: center">
 		     <svg id="svg_DBTimeSpent" width="800" height="500" style="outline: 2px solid #1f77b4;"></svg>
 				 <p style="margin: 10px; color: #800">
@@ -676,7 +680,7 @@
 		      .attr("y", 6)
 		      .attr("dy", "0.71em")
 		      .attr("text-anchor", "end")
-		      .text("Sessions");
+		      .text("Number of Sessions");
 
 			// http://www.d3noob.org/2013/01/filling-area-under-graph.html
 			// render area chart first before the line chart
@@ -995,6 +999,38 @@
 				     	.ticks(5)
 				   }
 
+
+					 var annotation = g.append("g")
+				     .attr("class","annotation")
+				     .attr("transform","translate(500,10)")
+				     .style("font-size","12px")
+
+
+					 /* Now let's do annotation */
+					 annotation.append('rect')
+					     .attr('width', 300)
+					     .attr('height', 30)
+					     .style('fill', "white")
+					     .style('stroke', "#800")
+							 .style('stroke-width', 2)
+
+					 annotation.append('text')
+					     .attr('x', 20)
+					     .attr('y', 20)
+							 .style('fill', '#800')
+							 .attr("font-family", "sans-serif")
+							 .attr("font-size", "14px")
+					     .text(function(d) { return "High Accumulated overall DB time in May."; });
+
+					 g.append('line')
+					     .style('stroke', "#800")
+							 .style('stroke-width', 2)
+					     .attr('x1', 800)
+							 .attr('y1', 25)
+							 .attr('x2', 850)
+							 .attr('y2', 25)
+
+
 			g.append("g")
 		      .attr("class", "axis")
 		      .attr("transform", "translate(0," + height + ")")
@@ -1012,7 +1048,7 @@
 		      .attr("y", 6)
 		      .attr("dy", "0.71em")
 		      .attr("text-anchor", "end")
-		      .text("DB Time Spent");
+		      .text("DB Time Spent (in Millions)");
 
 					/*
 		 		     This section highlights simple technique in creating legends
