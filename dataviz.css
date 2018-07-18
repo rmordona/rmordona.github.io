@@ -1,0 +1,56 @@
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+
+.focus {
+    font-size: 14px;
+  }
+
+.focus circle {
+  fill: #5e8dc9;
+}
+
+.grid line {
+  stroke: #999999;
+  stroke-opacity: 0.6;
+  shape-rendering: crispEdges
+}
+
+
+.grid path {
+  stroke-width: 0;
+}
+
+
+.legend rect {
+  fill:white;
+  stroke:black;
+  opacity:0.8;
+}
+
+.annotation rect {
+  fill:white;
+  stroke:black;
+  opacity:0.8;
+}
+
+.button_viz {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-bottom-left-radius: 30px;
+    top: -5px;
+    right: -5px;
+    position:fixed;
+    z-index:999;
+    width: 200px;
+    border: 3px solid #73AD21;
+    outline: none;
+}
