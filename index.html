@@ -14,10 +14,28 @@
 </head>
 <body>
 
-				<button class="button_viz" onclick="oknow()">About Visualization</button>
+<button class="button_viz" onclick="about_visualization()">About Visualization</button>
+
+<button class="down_page" onclick="down_page()" id = "down_button">
+	<input type="image" src="./arrow.png" style="width:50px; height: 50px;" />
+</button>
+
+<button class="up_page" onclick="up_page()" id = "up_button">
+	<input type="image" src="./arrow.png" style="width:50px; height: 50px;" />
+</button>
+
+<div id="opaqueWindow" class="aboutviz">
+    <table border="1" id="aboutviz">
+        <tr>
+            <td>This is can be used as a popup window
+                <br></br>Click Close OR escape button to close it <a href="#" onClick="hide('opaqueWindow')">Close</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
 
 <div id="fullpage" >
-
 
 
 	<div class="section" style="background-image: url(./235318992-light-blue-background-images-for-websites.jpg);

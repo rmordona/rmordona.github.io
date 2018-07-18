@@ -3,12 +3,43 @@
 		sectionsColor: ['#f2f2f2', '#ffffff', '#f2f2f2', 'whitesmoke', '#ccddff', '#ffffff']
 	});
 
-  function oknow() {
-		console.log('aloha')
-		fullpage_api.moveSectionDown();
+  function about_visualization() {
+			pop('opaqueWindow')
 	}
 
+	var page_location = 0
 
+	function down_page() {
+    var up = document.getElementById("up_button")
+		fullpage_api.moveSectionDown();
+		if (page_location < 5) page_location ++;
+		up.style.display = "block"
+	}
+
+	function up_page() {
+    var up = document.getElementById("up_button")
+		fullpage_api.moveSectionUp();
+		page_location --;
+		if (!page_location) {
+			up.style.display = "none"
+		}
+	}
+
+	function pop(div) {
+	    document.getElementById(div).style.display = 'block';
+	}
+
+	function hide(div) {
+	    document.getElementById(div).style.display = 'none';
+	}
+
+	//To detect escape button
+	document.onkeydown = function (evt) {
+	    evt = evt || window.event;
+	    if (evt.keyCode == 27) {
+	        hide('popDiv');
+	    }
+	};
 
   var io_workload, user_activities, no_active_sessions, db_time_spent;
 
