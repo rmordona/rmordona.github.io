@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<button class="button_viz" onclick="about_visualization()">About Visualization</button>
+<button class="about_viz" onclick="about_visualization()">About Visualization</button>
 
 <button class="down_page" onclick="down_page()" id = "down_button">
 	<input type="image" src="./arrow.png" style="width:50px; height: 50px;" />
@@ -24,15 +24,6 @@
 	<input type="image" src="./arrow.png" style="width:50px; height: 50px;" />
 </button>
 
-<div id="opaqueWindow" class="aboutviz">
-    <table border="1" id="aboutviz">
-        <tr>
-            <td>This is can be used as a popup window
-                <br></br>Click Close OR escape button to close it <a href="#" onClick="hide('opaqueWindow')">Close</a>
-            </td>
-        </tr>
-    </table>
-</div>
 
 
 <div id="fullpage" >
@@ -268,6 +259,128 @@
 	</div>
 
 </div>
+
+<div id="opaqueWindow" class="aboutviz" >
+ <div	id="aboutviz" style="">
+
+
+<p style="margin: 10px">
+<h3>Below is a list of visual design considerations based on RUBRIC and project guide:</h3>
+</p>
+<p style="margin: 10px">
+<b>1. Dataset and Narrative</b>
+</p>
+<p style="margin: 10px">
+Here, I chose Database Workload for my project case. The introduction explains my goals and objects which is simply
+to show to the viewer a few sample metrics used in monoitoring and managing real-world database systems.
+</p>
+<p style="margin: 10px">
+The narrative ( and hence dataset ) emphasizes on looking for and being aware of anomalies or changes from normal
+activity patterns in the database.
+</p>
+<p style="margin: 10px">
+<b>2. Slide Show</b>
+</p>
+<p style="margin: 10px">
+I chose to use interactive slideshow ( vs Martini glass or drill down ). I feel that a narrative driven by
+slideshow is more appropriate to showcase a more high-level information of workload, than showing in-depth technical details
+which usually are more useful in deep triaging and root causing a database problem which is not the emphasis of this
+project.
+</p>
+<p style="margin: 10px">
+<b>3. Scope and Limitation</b>
+</p>
+<p style="margin: 10px">
+It would be good to point out that it may not be practical to upload a large volume of dataset to a browser. As recommended
+by a few peers and also as  pointed out by Prof. John H. (https://piazza.com/class/jh2de16ot3s3f1?cid=542), I found it to be
+ideal to pre-process dataset and narrow it down to a more sufficient, minimal normal set enough to help with my
+visualization objectives.  In that sense, I did some aggregations and pre-processing prior to content reaching any
+browser.
+</p>
+<p style="margin: 10px">
+<b>4. Consistency, Templates, and Charts</b>
+</p>
+<p style="margin: 10px">
+There are a few considerations here:
+</p>
+  <ul>
+    <li>A choice of common background image across all slides and using a lighter navy blue to make sure - in contrast -
+       that contents, texts, and charts are more emphasized.</li>
+    <li>The up arrows and down arrows - choosing grey to minimize perception of crowded details - are in place from
+       slide to slide.</li>
+    <li>An information booth with title 'About Visiualization' is located at the top-right corner for easy access to
+           visualization information from slide to slide.</li>
+    <li>The choice of legends (or labels ) starting with the font-family, the font-size, the border size, and background color of the
+           the colors are all consistent and based one one CSS template.</li>
+    <li>Similarly, the same format applies for annotation and tooltips to preserve consistency from chart to chart.
+    <li>I have chosen four types of charts.</li>
+			 <ul>
+        <li>The first chart shows a bar chart with two bars overlapping next to each other.</li>
+        <li>The second chart is a line chart mixed with an area chart with dodgerblue color to match with the overall serenity of the view.</li>
+        <li>he third chart also shows a bar chart; but emphasizing on groups to emphasize on related datapoints per month.</li>
+        <li>The fourth chart also shows a bar chart; but emphasizing on the reverse grouping of month to datapoints.</li>
+			</ul>
+    <li>I have created grids in every chart as an extra guide for the eyes to follow from the datapoint
+        to the corresponding axis points.</li>
+    <li>Finally, please see the 5th item below ( javascript code and D3 ) for code consistency</li>
+	</ul>
+<p style="margin: 10px">
+<b>5. Parameters and Triggers</b>
+</p>
+<p style="margin: 10px">
+Referring to the class videos and to this notes in piazza (https://piazza.com/class/jh2de16ot3s3f1?cid=549), one of the
+important emphasis in this project is the dynamic interaction and dynamic visualization.
+</p>
+<p style="margin: 10px">
+The first to notice here is the information booth with title 'About Visualization'. This  demonstrates how
+the site allows users to be able to access information about the visualization from slide to slide. By clicking on the button,
+a popup window with a grey opaque background exposes details of the project.  The button serves as a trigger while a hidden
+'DIV' component (representing the popup window and dialog box ) has an ID used as a parameter for the trigger to display
+the dialog box.
+</p>
+<p style="margin: 10px">
+Secondly, there is an up arrow button and a down arrow button at the bottom left side of the views visible in every slide.
+These buttons, when triggered or clicked, allows navigating from slide to slide. The next slide ID - being the parameter -
+is used to know which slide to show next ( whether the next slide or the previous slide ). It is also good to point out
+that if you have more capable mouse, you should be able to swipe your mouse up/down and the page will just scroll
+from slide to slide. I have intentionally not added a 'tab' in pages to avoid viewers from jumping from one slide to
+any slide - I feel that this will  defeat the purpose of a natural flow of my narrative; though it would be a good idea
+if there were 10 of slides perhaps.
+</p>
+<p style="margin: 10px">
+Thirdly, the charts are built with tooltips. Every bar in a bar chart, or every point in the line graph corresponds to
+a database information that only will be accessible by moving ( or hovering ) the mouse over the bar - in the case of the
+bar charts - or over any region of the chart - in the case of the line/area chart.  A tooltip will popup with values
+corresponding to the bar.
+<p style="margin: 10px">
+<b>6. The javascript code ( and D3 ) and on CSS</b>
+</p>
+<p style="margin: 10px">
+To access the code, you can use this URL:  rmordona.github.io/dataviz.js
+</p>
+<p style="margin: 10px">
+I tried to be consistent with my coding.  The container 'DIV' and 'SVG' all have the same configuration so it would be
+easy for me to reuse the same logic from one slide to another.  The methods, when using D3, for creating legends, annotations,
+grids, scaling, etc. all follow the same logic and pattern so it's easy for me to preserve consistency across the project.
+</p>
+<p style="margin: 10px">
+I know that there is such a concept as 'reusable code', 'being modular', and 'clean code'. I hope I can get there one day,
+and while I know they're important; hopefully it's not a hard basis for review since my code may not be that perfect -
+and rather emphasizes on the ability to use D3 and all other data visualization features presented thus far.
+</p>
+<p style="margin: 10px">
+Thank you!
+</p>
+<p style="margin: 10px">
+Author: Raymond Ordona
+Project: MCSDS CS498 DATA VISUALIZATION - FINAL PROJECT
+Professor: John C. Hart
+</p>
+<button class="close_viz" onclick="close_about_visualization()">Close</button>
+
+</div>
+</div>
+
 
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script type="text/javascript" src="./fullpage/dist/fullpage.js"></script>

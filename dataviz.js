@@ -7,30 +7,36 @@
 			pop('opaqueWindow')
 	}
 
+	function close_about_visualization() {
+			hide('opaqueWindow')
+	}
+
 	var page_location = 0
 
 	function down_page() {
     var up = document.getElementById("up_button")
 		fullpage_api.moveSectionDown();
-		if (page_location < 5) page_location ++;
-		up.style.display = "block"
+	//	if (page_location < 5) page_location ++;
+	//	up.style.display = "block"
 	}
 
 	function up_page() {
     var up = document.getElementById("up_button")
 		fullpage_api.moveSectionUp();
-		page_location --;
-		if (!page_location) {
-			up.style.display = "none"
-		}
+	//	page_location --;
+	//	if (!page_location) {
+	//		up.style.display = "none"
+	//	}
 	}
 
 	function pop(div) {
 	    document.getElementById(div).style.display = 'block';
+			fullpage_api.setAllowScrolling(false)
 	}
 
 	function hide(div) {
 	    document.getElementById(div).style.display = 'none';
+			fullpage_api.setAllowScrolling(true)
 	}
 
 	//To detect escape button
@@ -96,7 +102,7 @@
 				// http://bl.ocks.org/binaworks/9dce0a385915e8953a45cc6be7fbde42
 				// Margin Convention
 				var svg = d3.select("#svg_IOworkload")
-				 		.attr("width", width + margin.left + margin.right)
+				 		.attr("width",width + margin.left + margin.right)
 						.attr("height", height + margin.top + margin.bottom)
 
 				var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -116,7 +122,8 @@
 				var yAxis = d3.axisLeft(y);
 
 
-				g.selectAll("rect").data(io_workload)
+				var p = g.selectAll("rect")
+						p.data(io_workload)
 							.enter()
 							.append("rect")
 						  .attr("class", "bar")
@@ -124,9 +131,9 @@
 							.attr("y", function(d) { return  y(d.value / 2)  } )
 							.attr("x", function(d,i) {
 								if (d.name == "PhysWrite/Txn") {
-									return i * width/24 + 25
+									return  ( i * width/24 + 25 ) + "px"
 								} else {
-									return i * width/24 + 1
+									return  ( i * width/24 + 1 ) + "px"
 								}
 							 } )
 							.attr("style", function(d) {
@@ -136,30 +143,39 @@
 								   }
 									 return fill;
 								})
-							.attr("height", function (d) {	return height- y(d.value / 2 )    })
-							.attr("width", function(d) { return 25 })
-							.on("mouseover", function(d,i) {
-											 var x = parseInt( d3.select(this).style("x"), 10)
-											 var y = parseInt( d3.select(this).style("y"), 10)
-											 if (x < 30) x = 50; else
-											 if (x >= 766 ) x = x - 200; else x = x + 25
-											 tooltip.attr("transform", "translate(" + x + "," + y + ")");
-											 tooltip.style("display", null);
-	  								 	 tooltip.select("#metric_name").text("Name: " + d.name);
-											 tooltip.select("#metric_value").text("Value: " + (d.value / 2).toFixed(2) );
+								.attr("height", function (d) {	return height- y(d.value / 2 )   })
+								.attr("width", function(d) { return 25 + "px" })
+								.on("mouseover", function(d,i) {
+												 var isFirefox = typeof InstallTrigger !== 'undefined';
+												 var x, y;
+												 if (isFirefox) {
+												 	  var coordinates = [0, 0];
+												 	  coordinates = d3.mouse(this);
+												   	x = parseInt(coordinates[0], 10);
+													  y = 300
+												  } else {
+													  x =  parseInt( d3.select(this).style("x"), 10)
+												    y =  parseInt( d3.select(this).style("y"), 10)
+												  }
+												 if (x < 30) x = 50; else
+												 if (x >= 766 ) x = x - 200; else x = x + 25
+												 tooltip.attr("transform", "translate(" + x + "," + y + ")");
+												 tooltip.style("display", null);
+		  								 	 tooltip.select("#metric_name").text("Name: " + d.name);
+												 tooltip.select("#metric_value").text("Value: " + (d.value / 2).toFixed(2) );
 
-											 var fill = "fill:red;stroke-width:1;stroke: black; opacity: 0.8"
-											 d3.select(this).attr("style", fill);
+												 var fill = "fill:red;stroke-width:1;stroke: black; opacity: 0.8"
+												 d3.select(this).attr("style", fill);
 
-											})
-				      .on("mouseout", function(d,i) {
-											 tooltip.style("display", "none")
-											 var fill = "fill: dodgerblue;stroke-width:1;stroke: black; opacity: 0.8"
-											 if (d.name == "PhysWrite/Txn") {
-													fill = "fill: darkorange;stroke-width:1;stroke: black; opacity: 0.8"
-											 }
-							         d3.select(this).attr("style", fill);
-							        })
+												})
+					      .on("mouseout", function(d,i) {
+												 tooltip.style("display", "none")
+												 var fill = "fill: dodgerblue;stroke-width:1;stroke: black; opacity: 0.8"
+												 if (d.name == "PhysWrite/Txn") {
+														fill = "fill: darkorange;stroke-width:1;stroke: black; opacity: 0.8"
+												 }
+								         d3.select(this).attr("style", fill);
+								        })
 
 
 				 g.append("g").call(yAxis)
@@ -294,18 +310,18 @@
 					 to inform user of the value of each bars in the chart.
 			 */
 
-			 var tooltip = g.append("g").data(io_workload)
+			 var tooltip = g.append("g")
 					 .attr("class", "focus")
 					 .style("display", "none");
 
 			 //Adds text to focus point on line
 			 tooltip.append('rect')
-			 .attr("width", 170 )
-			 .attr("height", 50 )
+			 .attr("width", "170px" )
+			 .attr("height", "50px" )
 			 .style("stroke", "white")
 			 .style("fill", "black")
-			 .attr("x", 9)
-			 .attr("y", -9)
+			 .attr("x", "9px")
+			 .attr("y", "-9px")
 
 			 tooltip.append("text")
 					 .attr("x", 19)
@@ -330,7 +346,6 @@
 					 .attr("id", "metric_value")
 
 
-					console.log('aLoaded', width, height, min_value, max_value, rows)
 		}
 
 
@@ -662,8 +677,23 @@
 		      .attr("fill", function(d) { return z(d.key); })
 					//.data(db_time_spent)
 					.on("mouseover", function(d,i) {
-							 var x = parseInt( d3.select(this).style("x"), 10)
-							 var y = parseInt( d3.select(this).style("y"), 10)
+							 // var x = parseInt( d3.select(this).style("x"), 10)
+							 // var y = parseInt( d3.select(this).style("y"), 10)
+
+
+							 var isFirefox = typeof InstallTrigger !== 'undefined';
+							 var x, y;
+							 if (isFirefox) {
+									var coordinates = [0, 0];
+									coordinates = d3.mouse(this);
+									x = parseInt(coordinates[0], 10);
+									y = 300
+								} else {
+									x =  parseInt( d3.select(this).style("x"), 10)
+									y =  parseInt( d3.select(this).style("y"), 10)
+								}
+
+
 							 var w = this.parentNode.transform.baseVal.consolidate().matrix
 							 x = w.e + x
 							 if (x > 710) x = x - 180; else x = x + 30
@@ -950,8 +980,22 @@
 				 .attr("fill", function(d) { return z(d.key); })
 				 //.data(db_time_spent)
 				 .on("mouseover", function(d,i) {
-							var x = parseInt( d3.select(this).style("x"), 10)
-							var y = parseInt( d3.select(this).style("y"), 10)
+							// var x = parseInt( d3.select(this).style("x"), 10)
+							// var y = parseInt( d3.select(this).style("y"), 10)
+
+
+							var isFirefox = typeof InstallTrigger !== 'undefined';
+							var x, y;
+							if (isFirefox) {
+								 var coordinates = [0, 0];
+								 coordinates = d3.mouse(this);
+								 x = parseInt(coordinates[0], 10);
+								 y = 300
+							 } else {
+								 x =  parseInt( d3.select(this).style("x"), 10)
+								 y =  parseInt( d3.select(this).style("y"), 10)
+							 }
+
 							var w = this.parentNode.transform.baseVal.consolidate().matrix
 							x = w.e + x
 							if (x > 710) x = x - 180; else x = x + 30

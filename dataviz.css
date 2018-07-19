@@ -36,7 +36,7 @@
   opacity:0.8;
 }
 
-.button_viz {
+.about_viz {
     background-color: #4CAF50;
     border: none;
     color: white;
@@ -55,11 +55,27 @@
     outline: none;
 }
 
+.close_viz {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 20px;
+    z-index:999;
+    width: 200px;
+    border: 3px solid #73AD21;
+    outline: none;
+}
+
 .down_page {
     opacity: 0.3;
     border: none;
     bottom: 5px;
-    left: 5px;
+    right: 5px;
     position:fixed;
     z-index:999;
     background: none;
@@ -67,11 +83,11 @@
 }
 
 .up_page {
-    display: none;
+    /* display: none; */
     opacity: 0.3;
     border: none;
     bottom: 15px;
-    left: 55px;
+    right: 55px;
     position:fixed;
     z-index:999;
     background: none;
@@ -91,19 +107,23 @@
     left: 0;
     display: none;
     position: absolute;
-    background-color: rgba(204,204,204,0.4);  
+    background-color: rgba(204,204,204,0.8);
     color: #aaaaaa;
 }
 
 #aboutviz {
-    width: 300px;
-    height: 200px;
+    width: 800px;
+    height: 600px;
     position: absolute;
     color: #000000;
-    background-color: #ffffff;
+    background-image: url(./235318992-light-blue-background-images-for-websites.jpg);
+    opacity: 0.8;
     /* To align popup window at the center of screen*/
-    top: 50%;
-    left: 50%;
-    margin-top: -100px;
-    margin-left: -150px;
+    top: 10%;
+    left: 10%;
+    margin: 20px; padding: 20px;
+    overflow-y:scroll;
+   	font-family:aria; font-size: 18px;
+    text-align: left;
+    border: 5px solid #ffffff;
 }
