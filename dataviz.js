@@ -71,6 +71,7 @@
 			 handle_DB_Time_Spent(data)
   });
 
+  // Citation/Reference:
   // https://blog.tompawlak.org/number-currency-formatting-javascript
 	function formatNumber (num) {
 	    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
@@ -99,6 +100,7 @@
 				     width = 960 - margin.left - margin.right,
 						 height = 500 - margin.top - margin.bottom;
 
+  			// Citation/Reference:
 				// http://bl.ocks.org/binaworks/9dce0a385915e8953a45cc6be7fbde42
 				// Margin Convention
 				var svg = d3.select("#svg_IOworkload")
@@ -203,7 +205,7 @@
 					 of value to the x and y axis.
 	 		 */
 
-
+  			// Citation/Reference:
 				// http://blockbuilder.org/35degrees/23873a64ceec2390c400694b6a8b57d9
 				// Layout Grid
 				g.append("g")
@@ -372,6 +374,7 @@
 		     width = 960 - margin.left - margin.right,
 				 height = 500 - margin.top - margin.bottom;
 
+  			// Citation/Reference:
 			// http://bl.ocks.org/binaworks/9dce0a385915e8953a45cc6be7fbde42
 			// Margin Convention
 			var svg = d3.select("#svg_DBSession")
@@ -418,6 +421,7 @@
 		      .attr("text-anchor", "end")
 		      .text("Number of Sessions");
 
+  			// Citation/Reference:
 			// http://www.d3noob.org/2013/01/filling-area-under-graph.html
 			// render area chart first before the line chart
 			 g.append("g")
@@ -426,6 +430,7 @@
 						.attr("opacity", .2)
 			      .attr("d", darea(no_active_sessions))
 
+  			// Citation/Reference:
 				// https://stackoverflow.com/questions/30485750/d3-line-chart-using-path-is-not-showing-anything
 			 g.append("g")
 			 		.append("path")
@@ -444,6 +449,7 @@
 						 of value to the x and y axis.
 		 		 */
 
+  			// Citation/Reference:
 				// http://blockbuilder.org/35degrees/23873a64ceec2390c400694b6a8b57d9
 				// Layout Grid
 
@@ -513,6 +519,7 @@
 						.attr('y2', 300)
 
 
+  			// Citation/Reference:
 					//Tooltips
 				//	http://bl.ocks.org/jadiehm/311fcceab8425ddf1944
 				// http://www.d3noob.org/2014/07/my-favourite-tooltip-method-for-line.html
@@ -631,6 +638,7 @@
  			     width = 960 - margin.left - margin.right,
  					 height = 500 - margin.top - margin.bottom;
 
+			 // Citation/Reference:
  			// http://bl.ocks.org/binaworks/9dce0a385915e8953a45cc6be7fbde42
  			// Margin Convention
  			var svg = d3.select("#svg_DBTimeSpent")
@@ -656,6 +664,7 @@
 
 			console.log(keys)
 
+			// Citation/Reference:
 			// https://bl.ocks.org/mbostock/3887051
 	    x1.domain(data.map(function(d) { return d["Months"]; }));
 	    x2.domain(keys).rangeRound([0, x1.bandwidth()]);
@@ -723,6 +732,7 @@
 								 d3.select(this).attr("style", fill);
 					})
 
+					// Citation/Reference:
 					// http://blockbuilder.org/35degrees/23873a64ceec2390c400694b6a8b57d9
 					// Layout Grid
 					g.append("g")
@@ -930,6 +940,7 @@
 						width = 960 - margin.left - margin.right,
 						height = 500 - margin.top - margin.bottom;
 
+				// Citation/Reference:
 			 // http://bl.ocks.org/binaworks/9dce0a385915e8953a45cc6be7fbde42
 			 // Margin Convention
 			 var svg = d3.select("#svg_UserActivities")
@@ -955,6 +966,7 @@
 
 			 console.log(keys)
 
+			 // Citation/Reference:
 			 // https://bl.ocks.org/mbostock/3887051
 			 x1.domain(data.map(function(d) { return d["Calls"]; }));
 			 x2.domain(keys).rangeRound([0, x1.bandwidth()]);
@@ -1047,7 +1059,7 @@
  						.attr("text-anchor", "end")
  						.text("User Activities (x10 Scaled)");
 
-
+					// Citation/Reference:
 				 // http://blockbuilder.org/35degrees/23873a64ceec2390c400694b6a8b57d9
 				 // Layout Grid
 				 g.append("g")

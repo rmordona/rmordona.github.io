@@ -120,7 +120,7 @@
     opacity: 0.8;
     /* To align popup window at the center of screen*/
     top: 10%;
-    left: 10%;
+    right: 10%;
     margin: 20px; padding: 20px;
     overflow-y:scroll;
    	font-family:aria; font-size: 18px;
