@@ -112,18 +112,31 @@
 }
 
 #aboutviz {
-    width: 800px;
+    /* width: auto; 800px; */
     height: 600px;
     position: absolute;
     color: #000000;
     background-image: url(./235318992-light-blue-background-images-for-websites.jpg);
     opacity: 0.8;
     /* To align popup window at the center of screen*/
-    top: 10%;
-    right: 10%;
-    margin: 20px; padding: 20px;
+    margin: 120px; padding: 150px;
     overflow-y:scroll;
-   	font-family:aria; font-size: 18px;
+   	font-family:Helvetica; font-size: 17px;
     text-align: left;
     border: 5px solid #ffffff;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url('http://themes.googleusercontent.com/static/fonts/opensans/v5/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff') format('woff');
+}
+
+h1, h2, h3, h4, blockquote, q, p, ul {
+   font-family: 'open sans',arial,sans-serif;
+}
+
+b {
+   color: #800;
 }
