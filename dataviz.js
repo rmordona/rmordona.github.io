@@ -49,7 +49,6 @@
 
   var io_workload, user_activities, no_active_sessions, db_time_spent;
 
-		// tooltip - http://blockbuilder.org/Caged/6476579
 
   d3.csv("./Number_of_Active_DB_Sessions_summary.csv", function( data) {
 
