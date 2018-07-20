@@ -4,13 +4,11 @@
 	});
 
   function about_visualization() {
-		document.getElementById('opaqueWindow').style.display = 'block';
-		fullpage_api.setAllowScrolling(false)
+			pop('opaqueWindow')
 	}
 
 	function close_about_visualization() {
-		document.getElementById('opaqueWindow').style.display = 'none';
-		fullpage_api.setAllowScrolling(true)
+			hide('opaqueWindow')
 	}
 
 	var page_location = 0
@@ -18,13 +16,27 @@
 	function down_page() {
     var up = document.getElementById("up_button")
 		fullpage_api.moveSectionDown();
-
+	//	if (page_location < 5) page_location ++;
+	//	up.style.display = "block"
 	}
 
 	function up_page() {
     var up = document.getElementById("up_button")
 		fullpage_api.moveSectionUp();
+	//	page_location --;
+	//	if (!page_location) {
+	//		up.style.display = "none"
+	//	}
+	}
 
+	function pop(div) {
+	    document.getElementById(div).style.display = 'block';
+			fullpage_api.setAllowScrolling(false)
+	}
+
+	function hide(div) {
+	    document.getElementById(div).style.display = 'none';
+			fullpage_api.setAllowScrolling(true)
 	}
 
 	//To detect escape button
@@ -199,7 +211,7 @@
 						.attr("class","grid")
 						.attr("transform","translate(105," + height + ")")
 						.style("stroke-dasharray",("3,3"))
-						.call(d3.axisBottom(x).
+						.call(d3.axisBottom(x)
 									.ticks(8)
 									.tickSize(-height)
 									.tickFormat("")
@@ -436,7 +448,7 @@
 						.attr("class","grid")
 						.attr("transform","translate(105," + height + ")")
 						.style("stroke-dasharray",("3,3"))
-						.call(d3.axisBottom(x).
+						.call(d3.axisBottom(x)
 									.ticks(8)
 									.tickSize(-height)
 									.tickFormat("")
@@ -711,7 +723,7 @@
  						 .attr("class","grid")
  						 .attr("transform","translate(105," + height + ")")
  						 .style("stroke-dasharray",("3,3"))
- 						 .call(d3.axisBottom(x1).
+ 						 .call(d3.axisBottom(x1)
  						 			 .ticks(8)
  									 .tickSize(-height)
  									 .tickFormat("")
@@ -1031,7 +1043,7 @@
 						 .attr("class","grid")
 						 .attr("transform","translate(105," + height + ")")
 						 .style("stroke-dasharray",("3,3"))
-						 .call(d3.axisBottom(x1).
+						 .call(d3.axisBottom(x1)
 						 			 .ticks(8)
 									 .tickSize(-height)
 									 .tickFormat("")
