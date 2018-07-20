@@ -4,11 +4,13 @@
 	});
 
   function about_visualization() {
-			pop('opaqueWindow')
+		document.getElementById('opaqueWindow').style.display = 'block';
+		fullpage_api.setAllowScrolling(false)
 	}
 
 	function close_about_visualization() {
-			hide('opaqueWindow')
+		document.getElementById('opaqueWindow').style.display = 'none';
+		fullpage_api.setAllowScrolling(true)
 	}
 
 	var page_location = 0
@@ -16,27 +18,13 @@
 	function down_page() {
     var up = document.getElementById("up_button")
 		fullpage_api.moveSectionDown();
-	//	if (page_location < 5) page_location ++;
-	//	up.style.display = "block"
+
 	}
 
 	function up_page() {
     var up = document.getElementById("up_button")
 		fullpage_api.moveSectionUp();
-	//	page_location --;
-	//	if (!page_location) {
-	//		up.style.display = "none"
-	//	}
-	}
 
-	function pop(div) {
-	    document.getElementById(div).style.display = 'block';
-			fullpage_api.setAllowScrolling(false)
-	}
-
-	function hide(div) {
-	    document.getElementById(div).style.display = 'none';
-			fullpage_api.setAllowScrolling(true)
 	}
 
 	//To detect escape button
@@ -49,7 +37,6 @@
 
   var io_workload, user_activities, no_active_sessions, db_time_spent;
 
-		// tooltip - http://blockbuilder.org/Caged/6476579
 
   d3.csv("./Number_of_Active_DB_Sessions_summary.csv", function( data) {
 
