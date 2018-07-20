@@ -70,9 +70,8 @@
 			 handle_DB_Time_Spent(data)
   });
 
-  // Citation/Reference:
-  // https://blog.tompawlak.org/number-currency-formatting-javascript
-	function formatNumber (num) {
+
+	function comma_delimeter (num) {
 	    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
 	}
 
@@ -611,7 +610,7 @@
 								    "July", "August", "September", "October", "November", "December" ];
 
 			    			tooltip.attr("transform", "translate(" + x(d.date) + "," + y(d.sessions) + ")");
-			    			tooltip.select("#session").text("Sessions: " + formatNumber(d.sessions ));
+			    			tooltip.select("#session").text("Sessions: " + comma_delimeter(d.sessions ));
 			    			tooltip.select("#date").text("Date: " +
 										monthNames[d.date.getMonth()] + " " + d.date.getDate() + " " + d.date.getFullYear());
 							}
@@ -1019,7 +1018,7 @@
 
 							tooltip.select("#metric_name").text("Month: " + d.key );
 							tooltip.select("#metric_value").text("Activities: " +
-										formatNumber( (d.value / 10 ).toFixed(2)) );
+										comma_delimeter( (d.value / 10 ).toFixed(2)) );
 
 							var fill = "fill:red;stroke-width:1;stroke: black; opacity: 0.8";
 							d3.select(this).attr("style", fill);
