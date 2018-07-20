@@ -209,29 +209,22 @@
 				// http://blockbuilder.org/35degrees/23873a64ceec2390c400694b6a8b57d9
 				// Layout Grid
 				g.append("g")
-			  		.attr("class","grid")
-			  		.attr("transform","translate(0," + height + ")")
-			  		.style("stroke-dasharray",("3,3"))
-			  		.call(make_x_gridlines()
-			            .tickSize(-height)
-			            .tickFormat("")
-			         )
-			  g.append("g")
-			  		.attr("class","grid")
-			  		.style("stroke-dasharray",("3,3"))
-			  		.call(make_y_gridlines()
-			            .tickSize(-width)
-			            .tickFormat("")
-			         )
-
-			 function make_x_gridlines() {
-			     return d3.axisBottom(x)
-			     	.ticks(8)
-			   }
-			   function make_y_gridlines() {
-			     return d3.axisLeft(y)
-			     	.ticks(5)
-			   }
+						.attr("class","grid")
+						.attr("transform","translate(105," + height + ")")
+						.style("stroke-dasharray",("3,3"))
+						.call(d3.axisBottom(x).
+									.ticks(8)
+									.tickSize(-height)
+									.tickFormat("")
+							 )
+				g.append("g")
+						.attr("class","grid")
+						.style("stroke-dasharray",("3,3"))
+						.call(d3.axisLeft(y)()
+									.ticks(5)
+									.tickSize(-width)
+									.tickFormat("")
+							 )
 
 				 var annotation = g.append("g")
 			     .attr("class","annotation")
@@ -452,32 +445,23 @@
   			// Citation/Reference:
 				// http://blockbuilder.org/35degrees/23873a64ceec2390c400694b6a8b57d9
 				// Layout Grid
-
 				g.append("g")
-			  		.attr("class","grid")
-			  		.attr("transform","translate(0," + height + ")")
-			  		.style("stroke-dasharray",("3,3"))
-			  		.call(make_x_gridlines()
-			            .tickSize(-height)
-			            .tickFormat("")
-			         )
-			  g.append("g")
-			  		.attr("class","grid")
-			  		.style("stroke-dasharray",("3,3"))
-			  		.call(make_y_gridlines()
-			            .tickSize(-width)
-			            .tickFormat("")
-			         )
-
-				 function make_x_gridlines() {
-			     return d3.axisBottom(x)
-			     	.ticks(8)
-			   }
-			   function make_y_gridlines() {
-			     return d3.axisLeft(y)
-			     	.ticks(5)
-			   }
-
+						.attr("class","grid")
+						.attr("transform","translate(105," + height + ")")
+						.style("stroke-dasharray",("3,3"))
+						.call(d3.axisBottom(x).
+									.ticks(8)
+									.tickSize(-height)
+									.tickFormat("")
+							 )
+				g.append("g")
+						.attr("class","grid")
+						.style("stroke-dasharray",("3,3"))
+						.call(d3.axisLeft(y)()
+									.ticks(5)
+									.tickSize(-width)
+									.tickFormat("")
+							 )
 
 				 /*  Now handle annotations */
 
@@ -735,30 +719,24 @@
 					// Citation/Reference:
 					// http://blockbuilder.org/35degrees/23873a64ceec2390c400694b6a8b57d9
 					// Layout Grid
-					g.append("g")
-				  		.attr("class","grid")
-				  		.attr("transform","translate(90," + height + ")")
-				  		.style("stroke-dasharray",("3,3"))
-				  		.call(make_x_gridlines()
-				            .tickSize(-height)
-				            .tickFormat("")
-				         )
-				  g.append("g")
-				  		.attr("class","grid")
-				  		.style("stroke-dasharray",("3,3"))
-				  		.call(make_y_gridlines()
-				            .tickSize(-width)
-				            .tickFormat("")
-				         )
 
-				 function make_x_gridlines() {
-				     return d3.axisBottom(x1)
-				     	.ticks(8)
-				   }
-				   function make_y_gridlines() {
-				     return d3.axisLeft(y)
-				     	.ticks(5)
-				   }
+					g.append("g")
+ 						 .attr("class","grid")
+ 						 .attr("transform","translate(105," + height + ")")
+ 						 .style("stroke-dasharray",("3,3"))
+ 						 .call(d3.axisBottom(x1).
+ 						 			 .ticks(8)
+ 									 .tickSize(-height)
+ 									 .tickFormat("")
+ 								)
+ 				 g.append("g")
+ 						 .attr("class","grid")
+ 						 .style("stroke-dasharray",("3,3"))
+ 						 .call(d3.axisLeft(y)()
+ 						 			 .ticks(5)
+ 									 .tickSize(-width)
+ 									 .tickFormat("")
+ 								)
 
 
 					 var annotation = g.append("g")
@@ -1066,26 +1044,19 @@
 						 .attr("class","grid")
 						 .attr("transform","translate(105," + height + ")")
 						 .style("stroke-dasharray",("3,3"))
-						 .call(make_x_gridlines()
+						 .call(d3.axisBottom(x1).
+						 			 .ticks(8)
 									 .tickSize(-height)
 									 .tickFormat("")
 								)
 				 g.append("g")
 						 .attr("class","grid")
 						 .style("stroke-dasharray",("3,3"))
-						 .call(make_y_gridlines()
+						 .call(d3.axisLeft(y)()
+						 			 .ticks(5)
 									 .tickSize(-width)
 									 .tickFormat("")
 								)
-
-				function make_x_gridlines() {
-						return d3.axisBottom(x1)
-						 .ticks(8)
-					}
-					function make_y_gridlines() {
-						return d3.axisLeft(y)
-						 .ticks(5)
-					}
 
 
 					/*  Now handle annotations */
