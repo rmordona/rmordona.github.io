@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 1 Direct and Indirect Methods (#numerical_methods) | The Power and Art of Approximation</title>
+  <meta name="description" content="Inspired by the vast amount of knowledge across a wide span of fields, this book covers a compendium of both analytical and numerical techniques, conflated into a common idea to showcase the fundamental requirements of Data Science and Machine Learning (ML) Engineering. Our common theme across the book is intuition, contemplating more on fundamental operations than mathematical rigor. This book is written for those who are new to Data Science and have developed some proclivity towards this field but may not know where to begin. The hope is that we can introduce some fundamental aspects of Data Science in a more progressive and possibly structured manner. Depending on interest, this book tries to avoid being specific to a target audience. The premise is that Data Science can be for everybody, whether one is an engineer, a researcher in a specific domain, or, for that matter, an undergraduate student just trying to get into this field. As a starting point and as a supplemental reference for anyone (professional or not alike) wanting to pursue Data Science in conjunction with his or her domain, it is essential to take a refresh of mathematical concepts first which we encourage readers to take this first step. For that reason, we cover a list of mathematical concepts that are no doubt valuable to get us to Machine Learning concepts eventually. Only a certain elementary and introductory portion of each field of mathematics are covered while we put emphasis only on the relevant and essential areas. But while that is the case, admittedly, the first half (or the first volume) of this book talks about Linear Algebra, Numerical Analysis, Statistical Analysis, and Bayesian Analysis. This is founded upon the idea that most of what we do in Data Science is expressed in the language of mathematics, more numerically inclined in fact than analytical - meaning, we live to decide on the basis of close approximation in many situations. And it is just right to have a historical perspective of the mathematical foundations which Machine Learning algorithms may have come about - if not at least what they fundamentally depend upon. The second half of the book covers ML methods such as Linear Regression, Regression and Classification Trees, Random Forest, XGBoost, SVM, and many others. It covers clustering such as KNN, Hierarchical clustering, and DBSCAN. Finally, it covers Deep Neural Networks such as CNN, RNN (LSTM/GRU), ResNet, and Transformers." />
+  <meta name="generator" content="bookdown 0.16 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 1 Direct and Indirect Methods (#numerical_methods) | The Power and Art of Approximation" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Inspired by the vast amount of knowledge across a wide span of fields, this book covers a compendium of both analytical and numerical techniques, conflated into a common idea to showcase the fundamental requirements of Data Science and Machine Learning (ML) Engineering. Our common theme across the book is intuition, contemplating more on fundamental operations than mathematical rigor. This book is written for those who are new to Data Science and have developed some proclivity towards this field but may not know where to begin. The hope is that we can introduce some fundamental aspects of Data Science in a more progressive and possibly structured manner. Depending on interest, this book tries to avoid being specific to a target audience. The premise is that Data Science can be for everybody, whether one is an engineer, a researcher in a specific domain, or, for that matter, an undergraduate student just trying to get into this field. As a starting point and as a supplemental reference for anyone (professional or not alike) wanting to pursue Data Science in conjunction with his or her domain, it is essential to take a refresh of mathematical concepts first which we encourage readers to take this first step. For that reason, we cover a list of mathematical concepts that are no doubt valuable to get us to Machine Learning concepts eventually. Only a certain elementary and introductory portion of each field of mathematics are covered while we put emphasis only on the relevant and essential areas. But while that is the case, admittedly, the first half (or the first volume) of this book talks about Linear Algebra, Numerical Analysis, Statistical Analysis, and Bayesian Analysis. This is founded upon the idea that most of what we do in Data Science is expressed in the language of mathematics, more numerically inclined in fact than analytical - meaning, we live to decide on the basis of close approximation in many situations. And it is just right to have a historical perspective of the mathematical foundations which Machine Learning algorithms may have come about - if not at least what they fundamentally depend upon. The second half of the book covers ML methods such as Linear Regression, Regression and Classification Trees, Random Forest, XGBoost, SVM, and many others. It covers clustering such as KNN, Hierarchical clustering, and DBSCAN. Finally, it covers Deep Neural Networks such as CNN, RNN (LSTM/GRU), ResNet, and Transformers." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 1 Direct and Indirect Methods (#numerical_methods) | The Power and Art of Approximation" />
+  
+  <meta name="twitter:description" content="Inspired by the vast amount of knowledge across a wide span of fields, this book covers a compendium of both analytical and numerical techniques, conflated into a common idea to showcase the fundamental requirements of Data Science and Machine Learning (ML) Engineering. Our common theme across the book is intuition, contemplating more on fundamental operations than mathematical rigor. This book is written for those who are new to Data Science and have developed some proclivity towards this field but may not know where to begin. The hope is that we can introduce some fundamental aspects of Data Science in a more progressive and possibly structured manner. Depending on interest, this book tries to avoid being specific to a target audience. The premise is that Data Science can be for everybody, whether one is an engineer, a researcher in a specific domain, or, for that matter, an undergraduate student just trying to get into this field. As a starting point and as a supplemental reference for anyone (professional or not alike) wanting to pursue Data Science in conjunction with his or her domain, it is essential to take a refresh of mathematical concepts first which we encourage readers to take this first step. For that reason, we cover a list of mathematical concepts that are no doubt valuable to get us to Machine Learning concepts eventually. Only a certain elementary and introductory portion of each field of mathematics are covered while we put emphasis only on the relevant and essential areas. But while that is the case, admittedly, the first half (or the first volume) of this book talks about Linear Algebra, Numerical Analysis, Statistical Analysis, and Bayesian Analysis. This is founded upon the idea that most of what we do in Data Science is expressed in the language of mathematics, more numerically inclined in fact than analytical - meaning, we live to decide on the basis of close approximation in many situations. And it is just right to have a historical perspective of the mathematical foundations which Machine Learning algorithms may have come about - if not at least what they fundamentally depend upon. The second half of the book covers ML methods such as Linear Regression, Regression and Classification Trees, Random Forest, XGBoost, SVM, and many others. It covers clustering such as KNN, Hierarchical clustering, and DBSCAN. Finally, it covers Deep Neural Networks such as CNN, RNN (LSTM/GRU), ResNet, and Transformers." />
+  
+
+<meta name="author" content="Raymond Michael Ofiaza Ordoña" />
+
+
+<meta name="date" content="2022-02-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="mathematical-notation.html"/>
+<link rel="next" href="appendix.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">The Power and Art of Approximation</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#acknowledgment-and-motivations"><i class="fa fa-check"></i><b>0.1</b> Acknowledgment and Motivations</a></li>
+<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#about-the-author"><i class="fa fa-check"></i><b>0.2</b> About the Author</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="mathematical-notation.html"><a href="mathematical-notation.html"><i class="fa fa-check"></i>Mathematical Notation</a><ul>
+<li class="chapter" data-level="0.3" data-path="mathematical-notation.html"><a href="mathematical-notation.html#notation"><i class="fa fa-check"></i><b>0.3</b> Notation</a></li>
+<li class="chapter" data-level="0.4" data-path="mathematical-notation.html"><a href="mathematical-notation.html#number-system"><i class="fa fa-check"></i><b>0.4</b> Number System</a></li>
+<li class="chapter" data-level="0.5" data-path="mathematical-notation.html"><a href="mathematical-notation.html#implementation"><i class="fa fa-check"></i><b>0.5</b> Implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="direct-and-indirect-methods-numerical-methods.html"><a href="direct-and-indirect-methods-numerical-methods.html"><i class="fa fa-check"></i><b>1</b> Direct and Indirect Methods (#numerical_methods)</a><ul>
+<li class="chapter" data-level="1.1" data-path="direct-and-indirect-methods-numerical-methods.html"><a href="direct-and-indirect-methods-numerical-methods.html#closed-form-equation"><i class="fa fa-check"></i><b>1.1</b> Closed-form equation</a></li>
+<li class="chapter" data-level="1.2" data-path="direct-and-indirect-methods-numerical-methods.html"><a href="direct-and-indirect-methods-numerical-methods.html#analytical-and-numerical-solutions"><i class="fa fa-check"></i><b>1.2</b> Analytical and Numerical solutions  </a></li>
+<li class="chapter" data-level="1.3" data-path="direct-and-indirect-methods-numerical-methods.html"><a href="direct-and-indirect-methods-numerical-methods.html#significant-figures"><i class="fa fa-check"></i><b>1.3</b> Significant figures</a></li>
+<li class="chapter" data-level="1.4" data-path="direct-and-indirect-methods-numerical-methods.html"><a href="direct-and-indirect-methods-numerical-methods.html#accuracy"><i class="fa fa-check"></i><b>1.4</b> Accuracy</a></li>
+<li class="chapter" data-level="1.5" data-path="direct-and-indirect-methods-numerical-methods.html"><a href="direct-and-indirect-methods-numerical-methods.html#precision"><i class="fa fa-check"></i><b>1.5</b> Precision </a></li>
+<li class="chapter" data-level="1.6" data-path="direct-and-indirect-methods-numerical-methods.html"><a href="direct-and-indirect-methods-numerical-methods.html#stability-and-sensitivity"><i class="fa fa-check"></i><b>1.6</b> Stability and Sensitivity  </a></li>
+<li class="chapter" data-level="1.7" data-path="direct-and-indirect-methods-numerical-methods.html"><a href="direct-and-indirect-methods-numerical-methods.html#stiffness-and-implicitness"><i class="fa fa-check"></i><b>1.7</b> Stiffness and Implicitness  </a></li>
+<li class="chapter" data-level="1.8" data-path="direct-and-indirect-methods-numerical-methods.html"><a href="direct-and-indirect-methods-numerical-methods.html#conditioning-and-posedness"><i class="fa fa-check"></i><b>1.8</b> Conditioning and Posedness  </a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="appendix.html"><a href="appendix.html"><i class="fa fa-check"></i><b>2</b> Appendix</a><ul>
+<li class="chapter" data-level="2.1" data-path="appendix.html"><a href="appendix.html#appendix-a"><i class="fa fa-check"></i><b>2.1</b> Appendix A</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="appendix.html"><a href="appendix.html#trigonometry"><i class="fa fa-check"></i><b>2.1.1</b> Trigonometry</a></li>
+<li class="chapter" data-level="2.1.2" data-path="appendix.html"><a href="appendix.html#logarithms"><i class="fa fa-check"></i><b>2.1.2</b> Logarithms</a></li>
+<li class="chapter" data-level="2.1.3" data-path="appendix.html"><a href="appendix.html#category-theory"><i class="fa fa-check"></i><b>2.1.3</b> Category Theory</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="appendix.html"><a href="appendix.html#appendix-b"><i class="fa fa-check"></i><b>2.2</b> Appendix B</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="appendix.html"><a href="appendix.html#on-random-chances"><i class="fa fa-check"></i><b>2.2.1</b> On Random chances</a></li>
+<li class="chapter" data-level="2.2.2" data-path="appendix.html"><a href="appendix.html#on-replacements"><i class="fa fa-check"></i><b>2.2.2</b> On Replacements</a></li>
+<li class="chapter" data-level="2.2.3" data-path="appendix.html"><a href="appendix.html#on-factorials"><i class="fa fa-check"></i><b>2.2.3</b> On Factorials</a></li>
+<li class="chapter" data-level="2.2.4" data-path="appendix.html"><a href="appendix.html#on-permutations-and-combinations"><i class="fa fa-check"></i><b>2.2.4</b> On Permutations and Combinations</a></li>
+<li class="chapter" data-level="2.2.5" data-path="appendix.html"><a href="appendix.html#on-conditional-probabilities"><i class="fa fa-check"></i><b>2.2.5</b> On Conditional Probabilities</a></li>
+<li class="chapter" data-level="2.2.6" data-path="appendix.html"><a href="appendix.html#the-arithmetic-of-probabilities"><i class="fa fa-check"></i><b>2.2.6</b> The Arithmetic of Probabilities</a></li>
+<li class="chapter" data-level="2.2.7" data-path="appendix.html"><a href="appendix.html#on-dependent-and-independent-events"><i class="fa fa-check"></i><b>2.2.7</b> On Dependent and Independent Events</a></li>
+<li class="chapter" data-level="2.2.8" data-path="appendix.html"><a href="appendix.html#on-mutual-exclusivity"><i class="fa fa-check"></i><b>2.2.8</b> On Mutual Exclusivity</a></li>
+<li class="chapter" data-level="2.2.9" data-path="appendix.html"><a href="appendix.html#on-expectation-and-variance"><i class="fa fa-check"></i><b>2.2.9</b> On Expectation and Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="appendix.html"><a href="appendix.html#appendix-d"><i class="fa fa-check"></i><b>2.3</b> Appendix D</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="appendix.html"><a href="appendix.html#lubridate-library"><i class="fa fa-check"></i><b>2.3.1</b> Lubridate Library</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="appendix.html"><a href="appendix.html#appendix-c"><i class="fa fa-check"></i><b>2.4</b> Appendix C</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>3</b> References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Power and Art of Approximation</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="direct-and-indirect-methods-numerical_methods" class="section level1">
+<h1><span class="header-section-number">Chapter 1</span> Direct and Indirect Methods (#numerical_methods)</h1>
+<p><strong>Direct Methods</strong>, in the simplest definition, are methods that provide exact solutions. Examples of such methods are matrix decomposition and Gaussian elimination methods. Chapter  will cover most of the <strong>Direct Methods</strong>.  </p>
+<p><strong>Indirect Methods</strong>, also known as <strong>Numerical Methods</strong>, in the simplest definition, are methods that provide approximations in the absence of exact solutions. It can also be said that these are methods that provide alternative solutions to other <strong>Direct Methods</strong> that are otherwise considered unreliable if used at scale. Chapter  will cover most of the <strong>Numerical Methods</strong>.</p>
+<p>With those two simple definitions, it is worth mentioning that not all methods provide the appropriate solutions we seek. In fact, the onus is upon us to ensure that the methods we use do not cause more harm than necessary. It is for this reason that there is a field dedicated to ensuring we analyze the problems and numerical solutions carefully. This field is called <strong>Numerical Analysis</strong> and is complemented by what is otherwise known as <strong>applied Numerical Analysis</strong> geared towards <strong>Scientific Computing</strong>. Here, we reference the works of Heath M.T. <span class="citation">(<a href="references.html#ref-ref187m">2002</a>)</span> and Edwards H. et al. <span class="citation">(<a href="references.html#ref-ref207c">2018</a>)</span>, along with other additional references for consistency.</p>
+<p>Because <strong>Numerical Analysis</strong> requires depth, it posts a challenge to even summarize the field in only three chapters. Nonetheless, let us instead summarize a few essential concepts that will help us become more critical towards the use of <strong>Numerical Methods</strong> in the context of approximation. Thereafter, it pays to review some of the classic ideas that contributed to the evolution of some of the more elegant solutions we use today to be able to understand why we need to cover <strong>Numerical Methods</strong>. Gaining some fundamental understanding of the <strong>Numerical Methods</strong> may help to build an essential foundation for practicing Data Science and Machine Learning.</p>
+<p>Let us start this chapter by briefly introducing three important concepts, namely <strong>simplification</strong>, <strong>optimization</strong>, and <strong>approximation</strong>.</p>
+<p><strong>Simplification</strong> is about reducing complicated problems and solutions into their simplified, manageable, acceptable, and reasonable unit(s) or form(s). An example of this is <strong>decomposing</strong> (or <strong>factorizing</strong>) matrices into sub-components (smaller forms, e.g. vectors and scalars) for simpler computation without losing the same integrity as the original. Another example is reducing data structures from a higher dimension, <span class="math inline">\(\mathbb{R}^{mxn}\)</span>, to a lower dimension, <span class="math inline">\(\mathbb{R}^{n}\)</span>. <strong>Linearization</strong> of non-linear equations is another example. And lastly, using simpler methods or functions by dividing bigger convoluted tasks into more granular simpler tasks (a.l.a divide and conquer approach) is another example.</p>
+<p><strong>Optimization</strong> is about adjusting solutions into more performant and efficient methods within a more acceptable and reasonable timeframe. Here, we describe <strong>performance</strong> and <strong>efficiency</strong> in terms of delivery and productivity. The idea is to be able to use lesser effort, operation, work, or step and still produce the expected result without loss of time. This is about evaluating more efficient methods and algorithms.</p>
+<p><strong>Approximation</strong> is about using solutions that can provide estimates within acceptable and reasonable accuracy without loss of data, loss of stability, and loss of reliability. <strong>Linear Regression</strong> is an example. Here, we describe <strong>Regression</strong> in terms of trying to calculate how close the estimated value is to the true value - the ground truth. Being only an estimate, we take into account the <strong>residual or difference</strong> - <strong>delta</strong>. If possible, our goal is to reduce the residual. If we cannot reduce it to zero; at least, we need to settle on an acceptable and reasonable minimum residual. Some methods, such as <strong>Gradient Descent (GC)</strong>, tend to be iterative (or even recursive for the others). For example, <strong>GC</strong> requires multiple executions of the method such that for every iteration, a set of hyperparameters, such as step size, are fine-tuned while at the same time, a set of parameters called weights are re-adjusted - all these to approximate the target value. We will talk more about the <strong>Gradient Descent</strong> method in later chapters.</p>
+<p>It is important to note that we use the terms <strong>acceptable</strong> and <strong>reasonable</strong> because the <strong>idea</strong> of an estimated solution at times is best left to the eyes of the beholder for the decision. To put this into perspective, the tolerance level is somewhat driven by the level of risk that stakeholders with authority are willing to take, sacrificing and balancing between cost over interest, interest over safety and security, safety and security over cost, etc. Thus, at times, being computationally scientific depends upon <strong>acceptable</strong> and <strong>reasonable</strong> tolerance.</p>
+<p>In this endeavor, we will be dealing with different problems and solutions. For example, we list systems characterized by the availability of solutions and/or bounded with restrictions.</p>
+<ul>
+<li>a system (or set problems) with no solution</li>
+<li>a system with only one solution</li>
+<li>a system with a finite number of solutions</li>
+<li>a system with an infinite number of solutions</li>
+<li>a system (or set of problems) with starting points</li>
+<li>a system (or set of problems) with bounded restrictions</li>
+</ul>
+<p>Furthermore, we may be able to characterize problems in terms of linearity (or non-linearity), or whether they conclude solutions that are in steady-state or dynamic state, and possibly with perturbation. Here are a few combinations:</p>
+<ul>
+<li>a linear problem</li>
+<li>a non-linear problem</li>
+<li>a problem with an initial state</li>
+<li>a problem in a steady-state, with no perturbation</li>
+<li>a problem in a steady-state, with perturbation (maybe arbitrary noisy data)</li>
+<li>a problem in a dynamic state, with an initial state and with some boundary</li>
+<li>a problem in a dynamic state, with perturbation (change in data) through time.</li>
+<li>a problem in motion with transition (such as speed, acceleration, and jerk in physics)</li>
+</ul>
+<p>In any case, it can be said that there are two types of solutions:</p>
+<ul>
+<li>an exact solution</li>
+<li>an approximate solution</li>
+</ul>
+<p>We will cover these two types, but before we continue further, let us start this chapter by covering two important topics being contested:</p>
+<p>The first topic has to do with closed forms of an expression (or solution).</p>
+<p>The second topic has to do with analytical methods and numerical methods.</p>
+<div id="closed-form-equation" class="section level2">
+<h2><span class="header-section-number">1.1</span> Closed-form equation</h2>
+<p>If there exists an <strong>equation</strong> in which it characterizes a <strong>set of operations</strong> such that the <strong>solution</strong> is deemed non-converging or nonterminating with no other known means (or no known available tools/utilities) of solving the equation, then it can be said that the <strong>solution</strong> is open-ended - we cannot determine a terminating boundary. Otherwise, it is a closed-form solution (or equation).</p>
+<p>Example, infinite series of any generally accepted operations (e.g. multiplication, summation, cosine, sine, logarithms, etc.):</p>
+<p><span class="math display">\[
+\text{infinite series} \rightarrow \sum_{i=0}^\infty cos(x_{i})
+\]</span>
+If we can find a solution that allows the expression above to converge exactly, then we found a <strong>closed-form solution</strong>.</p>
+</div>
+<div id="analytical-and-numerical-solutions" class="section level2">
+<h2><span class="header-section-number">1.2</span> Analytical and Numerical solutions  </h2>
+<p>It can be said that analytical computation uses <strong>closed-form expressions</strong> to perform exact solutions. <strong>Closed-form</strong> expressions indeed help us to compute <strong>solutions exactly</strong>. Otherwise, we use <strong>Numerical Methods</strong> for estimating (approximating) <strong>intractable</strong> solutions. The term <strong>tractability</strong> in this regard emphasizes the <strong>ease</strong> of computation. If there is no easy way to compute a solution because of the degree of complexity and of the demand for resources, then the solution may be deemed <strong>intractable</strong>.</p>
+<p>There may be cases when the process of exacting a solution is costly and thus we resort to approximation - surrendering to the notion that an approximate solution is more tolerable (and thus acceptable) than the cost of the exact solution. The case in which we measure the balance between cost and tolerance against accuracy and stability (which is not ideal) happens in day-to-day problems.</p>
+<p>Apart from the required resources (e.g. time and effort), all these also depend on <strong>the problem at hand</strong> - the data. And indeed, our journey in numerical analysis starts by evaluating solutions to elementary problems - simple linear systems first before delving into non-linear systems next. Perhaps start with problems that call for <strong>solutions on steady-state systems with no perturbations</strong>, and then advance to solutions around <strong>dynamic states with perturbations with respect to time</strong>, e.g. <strong>entropy</strong> - the decline of a system from steady <strong>informative</strong> state to a disorderly <strong>less-informative</strong> state.</p>
+<p>There are solutions that go beyond <strong>brute force</strong> algorithms, <strong>greedy/gradient</strong> algorithms, and <strong>divide-and-conquer</strong> algorithms. There are solutions that go beyond simple linear systems (e.g. <strong>Least-Squares</strong>), and beyond simple non-linear systems (e.g. <strong>b-splines</strong>), into ordinary/partial differential systems that require us to look closer into <strong>Fourier series</strong> and <strong>integration/differentiation</strong>. In other cases, certain problems require us to look into <strong>iterative/recursive and stochastic</strong> (non-deterministic or probabilistic) approaches (e.g. <strong>Random Walks and Markov chain</strong>), or even sampling and estimating of random conditions (e.g. <strong>Monte Carlo</strong> algorithm), and other <strong>Stochastic Variational</strong> methods.</p>
+<p>And so in the process of making a choice for a solution, we may end up <strong>fine-tuning operationally</strong> (e.g. shorter gradient steps vs longer gradient steps, finite series over infinite series, lower-order or lower-degree terms over higher-order terms), <strong>parametrically</strong> (e.g. maximization/minimization with boundaries or constraints), <strong>structurally</strong> (e.g. decomposition or dimensional reduction against high-dimensional matrices), and/or <strong>programmatically/computationally</strong> (e.g <strong>optimized algorithms</strong> taking <strong>big-O notation</strong> into account).</p>
+<p>Now, imagine for a moment how it would be like to get a computer to perform mathematics. What would be the most efficient way to get the computer to compute for a solution and still be able to achieve some reasonable and acceptable level of accuracy and stability of the solution?</p>
+<p>First, let us consider what is reasonable and acceptable. At times, the level of being reasonable and acceptable is based on a stakeholder’s comfort zone (and the risk level). In some cases, one might feel that 99.99% is good enough. In other cases, one might insist upon a target accuracy of 100%. Or one might feel that 99.999999% is as good as 100%. In other words, sometimes, an acceptable level of accuracy is based on what the stakeholder can take, accept, or tolerate - this is the <strong>tolerance level</strong>. And one can say that a solution has reached its accuracy if the solution <strong>converges</strong> to a given <strong>tolerance level</strong>.</p>
+<p>So let us try to understand the following measurements and characteristics of problems and solutions:</p>
+<ul>
+<li><strong>Accuracy</strong> - this is a measure of the closeness of our solution to the true and actual value, measured in terms of significant digits.</li>
+<li><p><strong>Precision</strong> - this is a measure of the number of digits expressed.</p></li>
+<li><p><strong>Stability</strong> vs <strong>Sensitivity</strong> solutions - this is a measure of the robustness and reliability of an algorithm.</p></li>
+<li><p><strong>Well-posed</strong> vs <strong>Well-conditioned</strong> problems - this is a <strong>reaction</strong> ratio. For example, we expect that a small pebble when dropped into water creates a small ripple (a small reaction). And a larger pebble creates a larger ripple.</p></li>
+</ul>
+</div>
+<div id="significant-figures" class="section level2">
+<h2><span class="header-section-number">1.3</span> Significant figures</h2>
+<p>There are three rules to follow to determine the number of significant figures of a number.</p>
+<ul>
+<li><p><strong>Non-zero digits are significant digits.</strong></p>
+<p>34 - <strong>2</strong> significant digits ( 3 and 4)</p>
+<p>340 - <strong>2</strong> significant digits (3 and 4)</p>
+<p>0.034 - <strong>2</strong> significant digits (3 and 4)</p>
+<p>5691 - <strong>4</strong> significant digits (5, 6, 9, and 1)</p>
+<p>5690 - <strong>3</strong> significant digits (5, 6, 9)</p></li>
+<li><p><strong>Zeroes in between significant digits are significant digits.</strong></p>
+<p>304 - <strong>3</strong> significant digits ( 3, 0 and 4)</p>
+<p>340 - <strong>2</strong> significant digits (3 and 4). The zero is not in between significant digits.</p>
+<p>034 - <strong>2</strong> significant digits (3 and 4). The zero is not in between significant digits.</p>
+<p>5001 - <strong>4</strong> significant digits (5, 0, 0, and 1)</p>
+<p>5100 - <strong>2</strong> significant digits (5 and 1). The zeroes are not in between significant digits.</p></li>
+<li><p><strong>Trailing zeroes after the decimal point are significant digits.</strong></p>
+<p>3040 - <strong>3</strong> significant digits ( 3, 0 and 4)</p>
+<p>3040.0 - <strong>5</strong> significant digits (3, 0, 4, 0, and 0). The 3rd zero is significant because it is a trailing zero after the decimal point. The 2nd zero is also significant because it is between 4 and the trailing zero. The 1st zero is significant because it is between 3 and 4.</p>
+<p>034 - <strong>2</strong> significant digits (3 and 4). The zero is not in between significant digits.</p>
+<p>5001 - <strong>4</strong> significant digits (5, 0, 0, and 1). The two zeroes are between 5 and 1.</p>
+<p>51.00 - <strong>4</strong> significant digits (5, 1, 0, 0). The two zeroes are trailing after the decimal point.</p></li>
+</ul>
+<p>Additionally, in multiplication and division operation, choosing the correct significant figure is based on the LEAST NUMBER OF significant figures.</p>
+<pre><code>3.04 x 3.1 = 9.424 = 9.4  </code></pre>
+<p>In that example, 3.04 has 3 significant figures and 3.1 has 2 significant figures. Here, we have 2 as the least number of significant figures. Therefore, the result would be 9.4 (with 2 significant figures).</p>
+</div>
+<div id="accuracy" class="section level2">
+<h2><span class="header-section-number">1.4</span> Accuracy</h2>
+<p>To explain accuracy, let us assume for a moment that the actual value of PI (<span class="math inline">\(\pi\)</span>) is 3.141592653589793 - that is about 15-decimal digits in precision (but let us ignore the concept of precision for a moment). Now, suppose we are estimating (or approximating) the value of PI (<span class="math inline">\(\pi\)</span>).</p>
+<p>Let us choose two ways of many other methods to estimate PI (<span class="math inline">\(\pi\)</span>).</p>
+<p><strong>Gregory-Leibniz series</strong> </p>
+<p>Use the below formula to estimate PI using Gregory-Leibniz series:</p>
+<p><span class="math display">\[\begin{align*}
+\pi {} &amp; =  4/1 - 4/3 + 4/5 - 4/7 + 4/9 - 4/11 + 4/13 - 4/15 ... \\
+\\
+\pi  &amp; = 3.017071817071818
+\end{align*}\]</span></p>
+<p><strong>Nilakantha series</strong> </p>
+<p><span class="math display">\[\begin{align*}
+\pi  {} &amp; = 3 + 4/(2*3*4) - 4/(4*5*6) + 4/(6*7*8) - 4/(8*9*10) \\
+     &amp; + 4/(10*11*12) - 4/(12*13*14) ... \\
+\\
+\pi  &amp; = 3.1408813408813407
+\end{align*}\]</span></p>
+<p>So then, which of the two series resolves closer to the actual value? As can be seen here, the result of the Nilakantha series is much closer to the actual value.</p>
+<p><span class="math display">\[\begin{align*}
+\text{Gregory-Leibniz series}  &amp;: 3.017071817071818\ vs\ 3.141592653589793\ (actual\ value)\\
+\text{Nilakantha series} &amp;: 3.1408813408813407\ vs\ 3.141592653589793\ (actual\ value)
+\end{align*}\]</span></p>
+<p>Quantitatively, to be able to measure the closeness of accuracy, we use absolute and relative error:</p>
+<p><strong>Absolute Error</strong>: </p>
+<p><span class="math display">\[\begin{align}
+\text{Absolute Error} = |\text{(Actual Value)} - \text{(Approximate Value)}|
+\end{align}\]</span></p>
+<p><strong>Relative Error</strong>: </p>
+<p><span class="math display">\[\begin{align}
+\text{Relative Error} = \frac{|\text{(Actual Value)} - \text{(Approximate Value)}|}{|\text{(Actual Value)}|}
+\end{align}\]</span></p>
+<p>For the Gregory-Leibniz series, the relative error computes to around 0.0396 or 3.96% error:</p>
+<p><span class="math display">\[\begin{align*}
+\text{Relative Error} &amp; = \frac{|(3.141592653589793) - (3.017071817071818)|}{|(3.141592653589793)|}\\
+\text{Relative Error} &amp; = 0.03963621329954713
+\end{align*}\]</span></p>
+<p>For the Nilakantha series, the relative error computes to around 0.0002 or 0.00% error:</p>
+<p><span class="math display">\[\begin{align*}
+\text{Relative Error} &amp; = \frac{|(3.141592653589793) - (3.1408813408813407)|}{|(3.141592653589793)|} \\
+\text{Relative Error} &amp; = 0.00022641786726855837
+\end{align*}\]</span></p>
+<p>Based on the unsigned (absolute) relative error, it shows that the result of the Nilakantha series is much closer to absolute zero, and thus the approximate <span class="math inline">\(PI(\pi)\)</span> is closer to the actual value, and therefore more accurate.</p>
+<p>Note that both series gradually get better in terms of accuracy (e.g., by <strong>converging</strong> to the actual value) depending on the number of additional terms added into the series. In the case of the Gregory-Leibniz series, the accuracy is far from the actual value and this is only because we used only 9 terms (we ended at 4/15) in the series. Any further higher-order terms may render a better accuracy. It turns out that the GL series is slow to converge; nonetheless, it may eventually converge. The topic of <strong>convergence</strong> will be seen more in action in a later part of the book.</p>
+</div>
+<div id="precision" class="section level2">
+<h2><span class="header-section-number">1.5</span> Precision </h2>
+<p>Precision, in the context of numerical analysis, refers to the number of digits expressed. An example is the precision estimate of PI (<span class="math inline">\(\pi\)</span>). Three examples of precision are provided below:</p>
+<ul>
+<li><p>Pi (<span class="math inline">\(\pi\)</span>) with 5 digits after decimal point.</p>
+<p><strong>3.14159 …</strong></p></li>
+<li><p>Pi (<span class="math inline">\(\pi\)</span>) with 25 digits after decimal point.</p>
+<p><strong>3.14159 26535 89793 23846 26433 …</strong></p></li>
+<li><p>Pi (<span class="math inline">\(\pi\)</span>) with 50 digits after decimal point.</p>
+<p><strong>3.14159 26535 89793 23846 26433 83279 50288 41971 69399 37510 …</strong></p></li>
+</ul>
+<p>The larger the number of digits expressed, the more precise the number is. Therefore, of the three PI (<span class="math inline">\(\pi\)</span>) numbers, the 3rd one with 50 digits after the decimal point is the most precise number.</p>
+<p>It is important however to know that precision does not necessarily equate to accuracy. For example, using the same example above with perturbed number (e.g. instead of 3.14159…, we use 3.1519…), the 3rd example is the most precise of the 1st three examples, but compared to the 4th example representing the actual value of PI (<span class="math inline">\(\pi\)</span>) with the same precision - that is with 50 digits after the decimal point, it is not accurate in that is has an unsigned (absolute) relative error of 0.3%:</p>
+<ul>
+<li><p>PI (<span class="math inline">\(\pi\)</span>) with 5 digits after decimal point.</p>
+<p><strong>3.15159 …</strong></p></li>
+<li><p>PI (<span class="math inline">\(\pi\)</span>) with 25 digits after decimal point.</p>
+<p><strong>3.15159 26535 89793 23846 26433 …</strong></p></li>
+<li><p>PI (<span class="math inline">\(\pi\)</span>) with 50 digits after decimal point.</p>
+<p><strong>3.15159 26535 89793 23846 26433 83279 50288 41971 69399 37510 …</strong></p></li>
+<li><p>PI (<span class="math inline">\(\pi\)</span>) with 50 digits after decimal point (Actual value)</p>
+<p><strong>3.14159 26535 89793 23846 26433 83279 50288 41971 69399 37510 …</strong></p></li>
+</ul>
+<p>Also, the below example can be said to be accurate at 10-decimal digit precision:</p>
+<ul>
+<li><p>10-decimal digit precision for the actual estimate of PI (<span class="math inline">\(\pi\)</span>):</p>
+<p><strong>3.14159 26535 …</strong></p></li>
+</ul>
+<p><strong>On rounding-off and truncation</strong>:</p>
+<p>In fact, Pi (<span class="math inline">\(\pi\)</span>) is an irrational number - meaning that the number is non-terminating. The number of digits after the decimal point goes on continuously without end. The question is what would represent a Pi (<span class="math inline">\(\pi\)</span>)? Where do we choose to truncate the number of digits after the decimal point? If we choose only 10-decimal digits, do we need to round off or not?</p>
+<ul>
+<li><p>Truncating Pi (<span class="math inline">\(\pi\)</span>) at 10-decimal digits:</p>
+<p><strong>3.14159 26535 </strong></p></li>
+<li><p>Rounding off Pi (<span class="math inline">\(\pi\)</span>) at 10-decimal digits:</p>
+<p><strong>3.14159 26536 </strong></p></li>
+</ul>
+</div>
+<div id="stability-and-sensitivity" class="section level2">
+<h2><span class="header-section-number">1.6</span> Stability and Sensitivity  </h2>
+<p>Stability and Sensitivity tend to have the same interpretation but there is a slight subtlety.</p>
+<p><strong>Sensitivity</strong> is a measure used in data perturbation analysis. Here, it helps to understand the impact of change in data on the firmness, sturdiness, steadiness, or robustness of a solution.</p>
+<p><strong>Stability</strong> is a measure used in computation or algorithm analysis. Here, it helps to understand the reliability of an algorithm or computation on the firmness, sturdiness, steadiness, or robustness of a solution.</p>
+<p>The steadiness of a solution implies that under uncertainty - e.g. new input data - the solution remains intact. This helps us to perform a list of evaluations for further calibration and enhancements.</p>
+<ul>
+<li>Noise evaluation</li>
+<li>Uncertainty evaluation</li>
+<li>Data relation evaluation ( input data vs output data)</li>
+<li>Prediction evaluation</li>
+<li>Forecasting evaluation</li>
+<li>Error evaluation</li>
+</ul>
+<p>For example, a dataset with a uniform interval tends to be more sensitive than a Chebyshev interval, generating oscillation at the end of the curves as can be seen in Figure  when interpolating a Runge function <span class="citation">(Heath M.T. <a href="references.html#ref-ref187m">2002</a>)</span>.</p>
+
+<div class="figure" style="text-align: center"><span id="fig:runge"></span>
+<img src="DS_files/figure-html/runge-1.png" alt="Runge Phenomenon" width="80%" />
+<p class="caption">
+Figure 1.1: Runge Phenomenon
+</p>
+</div>
+
+</div>
+<div id="stiffness-and-implicitness" class="section level2">
+<h2><span class="header-section-number">1.7</span> Stiffness and Implicitness  </h2>
+<p>We will be discussing <strong>stiffness</strong> and <strong>implicitness</strong> in this chapter around <strong>differential equations</strong>. It becomes more apparent and intuitive as we go through the different states of a solution with respect to time.</p>
+<p><strong>Stiffness</strong> is a phenomenon much like the <strong>Runge phenomenon</strong> in that a solution tends to be unstable under certain step size configuration, more so in the context of differential equations which we will cover later in this chapter.</p>
+<p><strong>Implicitness</strong> describes a system in terms of computing for the current state as well as the next state of a solution to the system. Along with <strong>stiffness</strong>, the motivation is to imply an iterative approximation of a solution using parameters such as step-size, etc. More on implicitness to cover later.</p>
+</div>
+<div id="conditioning-and-posedness" class="section level2">
+<h2><span class="header-section-number">1.8</span> Conditioning and Posedness  </h2>
+<p><strong>Conditioning</strong> can be explained by dropping a small pebble into the water; in effect, creating a small ripple (a small reaction) versus dropping a larger pebble creating a larger ripple. There is a corresponding relationship (or ratio) between the size of the pebble and the size of the ripple.</p>
+<p><span class="math display">\[
+\text{ratio (relationship)} = \frac{small\ pebble}{small\ ripple} = \frac{small}{small} = \frac{large}{large} = 1
+\]</span></p>
+<p>We can say that the situation presented is well-conditioned if the ratio is one. Otherwise, it is not well-conditioned.</p>
+<p>A system is <strong>well-conditioned</strong> if the sensitivity (condition) number is 1; otherwise, if the absolute value is greater than one, then it is <strong>ill-conditioned</strong>.</p>
+<p>To compute for the condition number, let us first determine the relative changes for input data (call it x) and output data (call it y), given a change in x (<span class="math inline">\(\delta{x}\)</span>) and a change in y (<span class="math inline">\(\delta{y}\)</span>):</p>
+<p><span class="math display">\[\begin{align*}
+\text{Relative Change in Input (X)} &amp;= \frac{\hat{x} - x}{x}\\
+\text{Relative Change in Output (Y)} &amp;= \frac{\hat{y} - y}{y}\\
+\\
+where\ \hat{x} = x + \delta{x}, and\ \hat{y} = y + \delta{y}
+\end{align*}\]</span></p>
+<p>The following formula is used to determine the condition number of a system.</p>
+<p><span class="math display">\[
+\text{Condition Number} = \frac{\text{Relative Change in Output (Y)}}{\text{Relative Change in Input (X)}}
+\]</span></p>
+<p>In terms of a matrix, the formula for the condition number of a square non-singular matrix is given as follows:</p>
+<p><span class="math display">\[
+\text{Condition Number} = \|A\|_{L2}\cdotp\|A^{-1}\|_{L2}
+\]</span></p>
+<p>Note that a matrix that is ill-conditioned tends to be singular. The condition number tends to be infinite. This can also be geometrically shown when the determinant is zero.</p>
+<p>And for other common functions, below is a table of condition numbers:</p>
+
+<table>
+<caption><span id="tab:condition">Table 1.1: </span>Condition Number of Functions</caption>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Functions</th>
+<th align="left">Condition Number</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>Exponential</strong></td>
+<td align="left"><span class="math inline">\(e^x\)</span></td>
+<td align="left">x</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Natural Logarithm</strong></td>
+<td align="left"><span class="math inline">\(ln(x)\)</span></td>
+<td align="left"><span class="math inline">\(\frac{1}{ln(x)}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Sine</strong></td>
+<td align="left"><span class="math inline">\(sin(x)\)</span></td>
+<td align="left"><span class="math inline">\(x cot(x)\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Cosine</strong></td>
+<td align="left"><span class="math inline">\(cos(x)\)</span></td>
+<td align="left"><span class="math inline">\(x tan(x)\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Tangent</strong></td>
+<td align="left"><span class="math inline">\(tan(x)\)</span></td>
+<td align="left"><span class="math inline">\(x(tan(x) + cot(x))\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p>A system is <strong>well-posed</strong> if the solution meets the following criteria:</p>
+<ul>
+<li>solution exists</li>
+<li>solution is unique</li>
+<li>solution is stable</li>
+</ul>
+<p>otherwise, a system is <strong>ill-posed</strong> if the solution fails to meet any of those criteria.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="mathematical-notation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="appendix.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "sepia",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["DS.pdf", "DS.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
