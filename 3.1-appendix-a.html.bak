@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3.1 Appendix A | The Power and Art of Approximation</title>
+  <meta name="description" content="Enthused by the promising future of self-learning machines and the continuous advancement of technology, we write this book to cover a compendium of analytical and numerical techniques conflated into a common idea that highlights the fundamental requirements of Data Science and Machine Learning (ML) Engineering. In this book, we review and give brief insights into numerous fundamental ideas around methods of approximation conceived by great experts. We aim to share them with those new to Data Science who are just beginning to develop an inclination toward this field but may not know where to begin. In addition, we hope to introduce some essential aspects of Data Science in a more progressive and possibly structured manner. This book avoids being specific to a target audience depending on interest. The premise is that Data Science can be for everybody, whether one is an engineer, a researcher within a particular domain, or, for that matter, an undergraduate student just trying to get into this field. While we note that our common theme across the book is intuition, contemplating more on basic operations than mathematical rigor, it is essential to revive our understanding of mathematical concepts first. That is founded upon the idea that we express most of what we do in Data Science in the language of mathematics, more numerically inclined in fact than analytical - meaning, we live to decide based on close approximation in many situations. Therefore, it is just right to have a historical perspective of the mathematical foundations which Machine Learning algorithms may have come about - if not at least what they depend upon fundamentally. For that reason, we cover a list of mathematical concepts that are no doubt valuable to eventually get us to Machine Learning concepts. However, only a particular elementary and introductory portion of each field of mathematics is covered as we emphasize only relevant and essential areas. That said, this book comes in three volumes. Volumes I and II of this book briefly cover common topics in Linear Algebra, Numerical Analysis, Statistical Analysis, and Bayesian Analysis. The third part (or volume III) of this book covers Machine Learning and Deep Learning in detail." />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3.1 Appendix A | The Power and Art of Approximation" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Enthused by the promising future of self-learning machines and the continuous advancement of technology, we write this book to cover a compendium of analytical and numerical techniques conflated into a common idea that highlights the fundamental requirements of Data Science and Machine Learning (ML) Engineering. In this book, we review and give brief insights into numerous fundamental ideas around methods of approximation conceived by great experts. We aim to share them with those new to Data Science who are just beginning to develop an inclination toward this field but may not know where to begin. In addition, we hope to introduce some essential aspects of Data Science in a more progressive and possibly structured manner. This book avoids being specific to a target audience depending on interest. The premise is that Data Science can be for everybody, whether one is an engineer, a researcher within a particular domain, or, for that matter, an undergraduate student just trying to get into this field. While we note that our common theme across the book is intuition, contemplating more on basic operations than mathematical rigor, it is essential to revive our understanding of mathematical concepts first. That is founded upon the idea that we express most of what we do in Data Science in the language of mathematics, more numerically inclined in fact than analytical - meaning, we live to decide based on close approximation in many situations. Therefore, it is just right to have a historical perspective of the mathematical foundations which Machine Learning algorithms may have come about - if not at least what they depend upon fundamentally. For that reason, we cover a list of mathematical concepts that are no doubt valuable to eventually get us to Machine Learning concepts. However, only a particular elementary and introductory portion of each field of mathematics is covered as we emphasize only relevant and essential areas. That said, this book comes in three volumes. Volumes I and II of this book briefly cover common topics in Linear Algebra, Numerical Analysis, Statistical Analysis, and Bayesian Analysis. The third part (or volume III) of this book covers Machine Learning and Deep Learning in detail." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3.1 Appendix A | The Power and Art of Approximation" />
+  
+  <meta name="twitter:description" content="Enthused by the promising future of self-learning machines and the continuous advancement of technology, we write this book to cover a compendium of analytical and numerical techniques conflated into a common idea that highlights the fundamental requirements of Data Science and Machine Learning (ML) Engineering. In this book, we review and give brief insights into numerous fundamental ideas around methods of approximation conceived by great experts. We aim to share them with those new to Data Science who are just beginning to develop an inclination toward this field but may not know where to begin. In addition, we hope to introduce some essential aspects of Data Science in a more progressive and possibly structured manner. This book avoids being specific to a target audience depending on interest. The premise is that Data Science can be for everybody, whether one is an engineer, a researcher within a particular domain, or, for that matter, an undergraduate student just trying to get into this field. While we note that our common theme across the book is intuition, contemplating more on basic operations than mathematical rigor, it is essential to revive our understanding of mathematical concepts first. That is founded upon the idea that we express most of what we do in Data Science in the language of mathematics, more numerically inclined in fact than analytical - meaning, we live to decide based on close approximation in many situations. Therefore, it is just right to have a historical perspective of the mathematical foundations which Machine Learning algorithms may have come about - if not at least what they depend upon fundamentally. For that reason, we cover a list of mathematical concepts that are no doubt valuable to eventually get us to Machine Learning concepts. However, only a particular elementary and introductory portion of each field of mathematics is covered as we emphasize only relevant and essential areas. That said, this book comes in three volumes. Volumes I and II of this book briefly cover common topics in Linear Algebra, Numerical Analysis, Statistical Analysis, and Bayesian Analysis. The third part (or volume III) of this book covers Machine Learning and Deep Learning in detail." />
+  
+
+<meta name="author" content="Raymond Michael Ofiaza Ordoña" />
+
+
+<meta name="date" content="2023-02-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="3-appendix.html"/>
+<link rel="next" href="3.2-appendix-b.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="acknowledgment-and-motivations.html"><a href="acknowledgment-and-motivations.html"><i class="fa fa-check"></i>Acknowledgment and Motivations</a></li>
+<li class="chapter" data-level="" data-path="caveat.html"><a href="caveat.html"><i class="fa fa-check"></i>Caveat</a></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="mathematical-notation.html"><a href="mathematical-notation.html"><i class="fa fa-check"></i>Mathematical Notation</a><ul>
+<li class="chapter" data-level="0.1" data-path="0.1-notation.html"><a href="0.1-notation.html"><i class="fa fa-check"></i><b>0.1</b> Notation</a></li>
+<li class="chapter" data-level="0.2" data-path="0.2-number-system.html"><a href="0.2-number-system.html"><i class="fa fa-check"></i><b>0.2</b> Number System</a></li>
+<li class="chapter" data-level="0.3" data-path="0.3-implementation.html"><a href="0.3-implementation.html"><i class="fa fa-check"></i><b>0.3</b> Implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="1-numericalmethods.html"><a href="1-numericalmethods.html"><i class="fa fa-check"></i><b>1</b> Direct and Indirect Methods</a><ul>
+<li class="chapter" data-level="1.1" data-path="1.1-closed-form-equation.html"><a href="1.1-closed-form-equation.html"><i class="fa fa-check"></i><b>1.1</b> Closed-form equation</a></li>
+<li class="chapter" data-level="1.2" data-path="1.2-analytical-and-numerical-solutions.html"><a href="1.2-analytical-and-numerical-solutions.html"><i class="fa fa-check"></i><b>1.2</b> Analytical and Numerical solutions  </a></li>
+<li class="chapter" data-level="1.3" data-path="1.3-significant-figures.html"><a href="1.3-significant-figures.html"><i class="fa fa-check"></i><b>1.3</b> Significant figures</a></li>
+<li class="chapter" data-level="1.4" data-path="1.4-accuracy.html"><a href="1.4-accuracy.html"><i class="fa fa-check"></i><b>1.4</b> Accuracy</a></li>
+<li class="chapter" data-level="1.5" data-path="1.5-precision.html"><a href="1.5-precision.html"><i class="fa fa-check"></i><b>1.5</b> Precision </a></li>
+<li class="chapter" data-level="1.6" data-path="1.6-stability-and-sensitivity.html"><a href="1.6-stability-and-sensitivity.html"><i class="fa fa-check"></i><b>1.6</b> Stability and Sensitivity  </a></li>
+<li class="chapter" data-level="1.7" data-path="1.7-stiffness-and-implicitness.html"><a href="1.7-stiffness-and-implicitness.html"><i class="fa fa-check"></i><b>1.7</b> Stiffness and Implicitness  </a></li>
+<li class="chapter" data-level="1.8" data-path="1.8-conditioning-and-posedness.html"><a href="1.8-conditioning-and-posedness.html"><i class="fa fa-check"></i><b>1.8</b> Conditioning and Posedness  </a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-linearalgebra.html"><a href="2-linearalgebra.html"><i class="fa fa-check"></i><b>2</b> Numerical Linear Algebra I</a><ul>
+<li class="chapter" data-level="2.1" data-path="2.1-system-of-linear-equations.html"><a href="2.1-system-of-linear-equations.html"><i class="fa fa-check"></i><b>2.1</b> System of Linear Equations</a></li>
+<li class="chapter" data-level="2.2" data-path="2.2-scalar-vector-and-matrix-tensor.html"><a href="2.2-scalar-vector-and-matrix-tensor.html"><i class="fa fa-check"></i><b>2.2</b> Scalar, Vector, and Matrix, Tensor</a></li>
+<li class="chapter" data-level="2.3" data-path="2.3-transposition-and-multiplication.html"><a href="2.3-transposition-and-multiplication.html"><i class="fa fa-check"></i><b>2.3</b> Transposition and Multiplication</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="2.3-transposition-and-multiplication.html"><a href="2.3-transposition-and-multiplication.html#transposition"><i class="fa fa-check"></i><b>2.3.1</b> Transposition</a></li>
+<li class="chapter" data-level="2.3.2" data-path="2.3-transposition-and-multiplication.html"><a href="2.3-transposition-and-multiplication.html#dot-product"><i class="fa fa-check"></i><b>2.3.2</b> Dot Product</a></li>
+<li class="chapter" data-level="2.3.3" data-path="2.3-transposition-and-multiplication.html"><a href="2.3-transposition-and-multiplication.html#hadamard-product"><i class="fa fa-check"></i><b>2.3.3</b> Hadamard Product</a></li>
+<li class="chapter" data-level="2.3.4" data-path="2.3-transposition-and-multiplication.html"><a href="2.3-transposition-and-multiplication.html#kronecker-product"><i class="fa fa-check"></i><b>2.3.4</b> Kronecker Product</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="2.4-magnitude-direction-unit-vectors.html"><a href="2.4-magnitude-direction-unit-vectors.html"><i class="fa fa-check"></i><b>2.4</b> Magnitude, Direction, Unit Vectors</a></li>
+<li class="chapter" data-level="2.5" data-path="2.5-linear-combination-and-independence.html"><a href="2.5-linear-combination-and-independence.html"><i class="fa fa-check"></i><b>2.5</b> Linear Combination and Independence</a></li>
+<li class="chapter" data-level="2.6" data-path="2.6-space-span-and-basis.html"><a href="2.6-space-span-and-basis.html"><i class="fa fa-check"></i><b>2.6</b> Space, Span, and Basis</a></li>
+<li class="chapter" data-level="2.7" data-path="2.7-determinants.html"><a href="2.7-determinants.html"><i class="fa fa-check"></i><b>2.7</b> Determinants </a></li>
+<li class="chapter" data-level="2.8" data-path="2.8-minors-cofactors-and-adjugate-forms.html"><a href="2.8-minors-cofactors-and-adjugate-forms.html"><i class="fa fa-check"></i><b>2.8</b> Minors, Cofactors, and Adjugate Forms</a></li>
+<li class="chapter" data-level="2.9" data-path="2.9-inverse-form-and-row-echelon-form.html"><a href="2.9-inverse-form-and-row-echelon-form.html"><i class="fa fa-check"></i><b>2.9</b> Inverse Form and Row-Echelon Form</a></li>
+<li class="chapter" data-level="2.10" data-path="2.10-linear-transformations.html"><a href="2.10-linear-transformations.html"><i class="fa fa-check"></i><b>2.10</b> Linear Transformations</a><ul>
+<li class="chapter" data-level="2.10.1" data-path="2.10-linear-transformations.html"><a href="2.10-linear-transformations.html#scaling"><i class="fa fa-check"></i><b>2.10.1</b> Scaling </a></li>
+<li class="chapter" data-level="2.10.2" data-path="2.10-linear-transformations.html"><a href="2.10-linear-transformations.html#transvection-shearing"><i class="fa fa-check"></i><b>2.10.2</b> Transvection (Shearing)  </a></li>
+<li class="chapter" data-level="2.10.3" data-path="2.10-linear-transformations.html"><a href="2.10-linear-transformations.html#rotation"><i class="fa fa-check"></i><b>2.10.3</b> Rotation </a></li>
+<li class="chapter" data-level="2.10.4" data-path="2.10-linear-transformations.html"><a href="2.10-linear-transformations.html#reflection"><i class="fa fa-check"></i><b>2.10.4</b> Reflection </a></li>
+<li class="chapter" data-level="2.10.5" data-path="2.10-linear-transformations.html"><a href="2.10-linear-transformations.html#projection"><i class="fa fa-check"></i><b>2.10.5</b> Projection </a></li>
+<li class="chapter" data-level="2.10.6" data-path="2.10-linear-transformations.html"><a href="2.10-linear-transformations.html#translation"><i class="fa fa-check"></i><b>2.10.6</b> Translation </a></li>
+<li class="chapter" data-level="2.10.7" data-path="2.10-linear-transformations.html"><a href="2.10-linear-transformations.html#dilation-and-composition"><i class="fa fa-check"></i><b>2.10.7</b> Dilation and Composition  </a></li>
+</ul></li>
+<li class="chapter" data-level="2.11" data-path="2.11-rank-and-nullity.html"><a href="2.11-rank-and-nullity.html"><i class="fa fa-check"></i><b>2.11</b> Rank and Nullity  </a></li>
+<li class="chapter" data-level="2.12" data-path="2.12-singularity-and-triviality.html"><a href="2.12-singularity-and-triviality.html"><i class="fa fa-check"></i><b>2.12</b> Singularity and Triviality  </a></li>
+<li class="chapter" data-level="2.13" data-path="2.13-orthogonality-and-orthonormality.html"><a href="2.13-orthogonality-and-orthonormality.html"><i class="fa fa-check"></i><b>2.13</b> Orthogonality and Orthonormality  </a></li>
+<li class="chapter" data-level="2.14" data-path="2.14-eigenvectors-and-eigenvalues.html"><a href="2.14-eigenvectors-and-eigenvalues.html"><i class="fa fa-check"></i><b>2.14</b> Eigenvectors and Eigenvalues  </a></li>
+<li class="chapter" data-level="2.15" data-path="2.15-matrix-reconstruction-using-eigenvalues-and-eigenvectors.html"><a href="2.15-matrix-reconstruction-using-eigenvalues-and-eigenvectors.html"><i class="fa fa-check"></i><b>2.15</b> Matrix Reconstruction using Eigenvalues and Eigenvectors</a></li>
+<li class="chapter" data-level="2.16" data-path="2.16-diagonalizability-of-a-matrix.html"><a href="2.16-diagonalizability-of-a-matrix.html"><i class="fa fa-check"></i><b>2.16</b> Diagonalizability of a Matrix </a></li>
+<li class="chapter" data-level="2.17" data-path="2.17-trace-of-a-square-matrix.html"><a href="2.17-trace-of-a-square-matrix.html"><i class="fa fa-check"></i><b>2.17</b> Trace of a Square Matrix </a></li>
+<li class="chapter" data-level="2.18" data-path="2.18-algebraic-and-geometric-multiplicity.html"><a href="2.18-algebraic-and-geometric-multiplicity.html"><i class="fa fa-check"></i><b>2.18</b> Algebraic and Geometric Multiplicity</a></li>
+<li class="chapter" data-level="2.19" data-path="2.19-types-of-matrices.html"><a href="2.19-types-of-matrices.html"><i class="fa fa-check"></i><b>2.19</b> Types of Matrices</a></li>
+<li class="chapter" data-level="2.20" data-path="2.20-matrix-factorization.html"><a href="2.20-matrix-factorization.html"><i class="fa fa-check"></i><b>2.20</b> Matrix Factorization </a><ul>
+<li class="chapter" data-level="2.20.1" data-path="2.20-matrix-factorization.html"><a href="2.20-matrix-factorization.html#eigen-spectral-decomposition"><i class="fa fa-check"></i><b>2.20.1</b> Eigen (Spectral) Decomposition  </a></li>
+<li class="chapter" data-level="2.20.2" data-path="2.20-matrix-factorization.html"><a href="2.20-matrix-factorization.html#ludecomposition"><i class="fa fa-check"></i><b>2.20.2</b> LU Decomposition (Doolittle Algorithm)</a></li>
+<li class="chapter" data-level="2.20.3" data-path="2.20-matrix-factorization.html"><a href="2.20-matrix-factorization.html#ldu-factorization"><i class="fa fa-check"></i><b>2.20.3</b> LDU Factorization </a></li>
+<li class="chapter" data-level="2.20.4" data-path="2.20-matrix-factorization.html"><a href="2.20-matrix-factorization.html#qr-factorization-gram-schmidt-householder-and-givens"><i class="fa fa-check"></i><b>2.20.4</b> QR Factorization (Gram-Schmidt, Householder, and Givens) </a></li>
+<li class="chapter" data-level="2.20.5" data-path="2.20-matrix-factorization.html"><a href="2.20-matrix-factorization.html#cholesky-factorization"><i class="fa fa-check"></i><b>2.20.5</b> Cholesky Factorization </a></li>
+<li class="chapter" data-level="2.20.6" data-path="2.20-matrix-factorization.html"><a href="2.20-matrix-factorization.html#svd-factorization"><i class="fa fa-check"></i><b>2.20.6</b> SVD Factorization </a></li>
+<li class="chapter" data-level="2.20.7" data-path="2.20-matrix-factorization.html"><a href="2.20-matrix-factorization.html#jordan-decomposition"><i class="fa fa-check"></i><b>2.20.7</b> Jordan Decomposition </a></li>
+<li class="chapter" data-level="2.20.8" data-path="2.20-matrix-factorization.html"><a href="2.20-matrix-factorization.html#other-decomposition"><i class="fa fa-check"></i><b>2.20.8</b> Other Decomposition</a></li>
+</ul></li>
+<li class="chapter" data-level="2.21" data-path="2.21-software-libraries.html"><a href="2.21-software-libraries.html"><i class="fa fa-check"></i><b>2.21</b> Software libraries    </a></li>
+<li class="chapter" data-level="2.22" data-path="2.22-summary.html"><a href="2.22-summary.html"><i class="fa fa-check"></i><b>2.22</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-appendix.html"><a href="3-appendix.html"><i class="fa fa-check"></i><b>3</b> Appendix</a><ul>
+<li class="chapter" data-level="3.1" data-path="3.1-appendix-a.html"><a href="3.1-appendix-a.html"><i class="fa fa-check"></i><b>3.1</b> Appendix A</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="3.1-appendix-a.html"><a href="3.1-appendix-a.html#trigonometry"><i class="fa fa-check"></i><b>3.1.1</b> Trigonometry</a></li>
+<li class="chapter" data-level="3.1.2" data-path="3.1-appendix-a.html"><a href="3.1-appendix-a.html#logarithms"><i class="fa fa-check"></i><b>3.1.2</b> Logarithms</a></li>
+<li class="chapter" data-level="3.1.3" data-path="3.1-appendix-a.html"><a href="3.1-appendix-a.html#category-theory"><i class="fa fa-check"></i><b>3.1.3</b> Category Theory</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="3.2-appendix-b.html"><a href="3.2-appendix-b.html"><i class="fa fa-check"></i><b>3.2</b> Appendix B</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="3.2-appendix-b.html"><a href="3.2-appendix-b.html#on-random-chances"><i class="fa fa-check"></i><b>3.2.1</b> On Random chances</a></li>
+<li class="chapter" data-level="3.2.2" data-path="3.2-appendix-b.html"><a href="3.2-appendix-b.html#on-replacements"><i class="fa fa-check"></i><b>3.2.2</b> On Replacements</a></li>
+<li class="chapter" data-level="3.2.3" data-path="3.2-appendix-b.html"><a href="3.2-appendix-b.html#on-permutations-and-combinations"><i class="fa fa-check"></i><b>3.2.3</b> On Permutations and Combinations</a></li>
+<li class="chapter" data-level="3.2.4" data-path="3.2-appendix-b.html"><a href="3.2-appendix-b.html#on-conditional-probabilities"><i class="fa fa-check"></i><b>3.2.4</b> On Conditional Probabilities</a></li>
+<li class="chapter" data-level="3.2.5" data-path="3.2-appendix-b.html"><a href="3.2-appendix-b.html#the-arithmetic-of-probabilities"><i class="fa fa-check"></i><b>3.2.5</b> The Arithmetic of Probabilities</a></li>
+<li class="chapter" data-level="3.2.6" data-path="3.2-appendix-b.html"><a href="3.2-appendix-b.html#on-dependent-and-independent-events"><i class="fa fa-check"></i><b>3.2.6</b> On Dependent and Independent Events</a></li>
+<li class="chapter" data-level="3.2.7" data-path="3.2-appendix-b.html"><a href="3.2-appendix-b.html#on-mutual-exclusivity"><i class="fa fa-check"></i><b>3.2.7</b> On Mutual Exclusivity</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="3.3-appendix-c.html"><a href="3.3-appendix-c.html"><i class="fa fa-check"></i><b>3.3</b> Appendix C</a></li>
+<li class="chapter" data-level="3.4" data-path="3.4-appendix-d.html"><a href="3.4-appendix-d.html"><i class="fa fa-check"></i><b>3.4</b> Appendix D</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="3.4-appendix-d.html"><a href="3.4-appendix-d.html#lubridate-library"><i class="fa fa-check"></i><b>3.4.1</b> Lubridate Library</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i>Bibliography</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Power and Art of Approximation</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="appendix-a" class="section level2 hasAnchor">
+<h2><span class="header-section-number">3.1</span> Appendix A<a href="3.1-appendix-a.html#appendix-a" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This appendix presents short references of some concepts in trigonometry, logrithms, and category theory.</p>
+<div id="trigonometry" class="section level3 hasAnchor">
+<h3><span class="header-section-number">3.1.1</span> Trigonometry<a href="3.1-appendix-a.html#trigonometry" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Trigonometry</strong> is about triangles, and angles. Multiple triangles can form other shapes such as squares and rectangles.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:triangles"></span>
+<img src="triangles.png" alt="Triangles" width="80%" />
+<p class="caption">
+Figure 3.1: Triangles
+</p>
+</div>
+<ul>
+<li><strong>Pythagorean Theorem</strong></li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:pythagorean"></span>
+<img src="pythagorean.png" alt="Pythagorean Triangle" width="60%" />
+<p class="caption">
+Figure 3.2: Pythagorean Triangle
+</p>
+</div>
+<p><span class="math display">\[
+c^2 = a^2 + b^2
+\]</span></p>
+<p><span class="math display">\[\begin{align*}
+SOH: sin\ \beta &amp; = \frac{opposite}{hypotenuse} \\ 
+CAH: cos\ \alpha &amp; = \frac{adjacent}{hypotenuse} \\ 
+TOA: tan\ \theta &amp; = \frac{opposite}{adjacent} \\ 
+sec\ \theta &amp; = \frac{hypotenuse}{adjacent} \\ 
+csc\ \theta &amp; = \frac{hypotenuse}{opposite} \\ 
+co\ \theta &amp; = \frac{opposite}{adjacent}
+\end{align*}\]</span></p>
+<pre><code>## quartz_off_screen 
+##                 2</code></pre>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-9"></span>
+<embed src="embed9000.pdf" title="Sine And Cosine Curves" width="70%" type="application/pdf" />
+<p class="caption">
+Figure 3.3: Sine And Cosine Curves
+</p>
+</div>
+<ul>
+<li><strong>Unit Circle</strong></li>
+</ul>
+<p>A unit circle serves as quick reference for conversion between degrees to radians, or between radians to fractions without <strong>pi</strong> <span class="math inline">\(\pi\)</span>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unitcircle"></span>
+<img src="unit_circle.png" alt="Unit Circle" width="90%" />
+<p class="caption">
+Figure 3.4: Unit Circle
+</p>
+</div>
+<p>Using the unit circle as reference, we can quickly derive the answers for the questions below:</p>
+<p>To get the cosine, sine, and tangent of a right triangle at 30° angle:</p>
+<p><span class="math display">\[
+cos\ \alpha = \frac{\sqrt{3}}{2}, \ \ \ \sin\ \beta = \frac{1}{2}, \ \ \ \tan \theta = \frac{1}{\sqrt{3}}
+\]</span></p>
+<p>To get the cosine, sine, and tangent of a right triangle at 60° angle:</p>
+<p><span class="math display">\[
+cos\ \alpha = \frac{1}{2}, \ \ \ \sin\ \beta = \frac{\sqrt{3}}{2}, \ \ \ \tan \theta = \sqrt{3}
+\]</span></p>
+<p>To get the cosine, sine, and tangent at 75° angle of a right triangle:</p>
+<p><span class="math display">\[
+cos\ \alpha = \frac{\sqrt{3} + 1}{\sqrt{2}}, \ \ \ \sin\ \beta = \frac{\sqrt{3} - 1}{\sqrt{2}}, \ \ \ \tan \theta = \frac{\sqrt{3} - 1}{\sqrt{3} + 1}
+\]</span></p>
+<ul>
+<li><strong>Common Trigonometric Formulas</strong></li>
+</ul>
+
+<table>
+<caption><span id="tab:trigoformula">Table 3.1: </span>Trigonometric Formulas</caption>
+<colgroup>
+<col width="27%" />
+<col width="72%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Properties</th>
+<th align="left">Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>Power Properties</strong></td>
+<td align="left"><span class="math inline">\(sin^2x = 1 - cos^2x\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(cos^2x = 1 - sin^2x\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(sec^2x = 1 + tan^2x\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(cos^2x + sin^2x = 1\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(sec^2x - tan^2 = 1\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Product Properties</strong></td>
+<td align="left"><span class="math inline">\(sin\ x\cdot sin\ y = \frac{cos(x+y)+cos(x-y)}{2}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(cos\ x\cdot cos\ y = \frac{cos(x+y)-cos(x-y)}{2}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(sin\ x\cdot cos\ y = \frac{sin(x+y)+sin(x-y)}{2}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Sum/Minus Properties</strong></td>
+<td align="left"><span class="math inline">\(sin\ x + sin\ y = 2 sin \frac{x+y}{2} cos \frac{x-y}{2}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(sin\ x - sin\ y = 2 cos \frac{x+y}{2} sin \frac{x-y}{2}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(cos\ x + cos\ y = 2 cos \frac{x+y}{2} cos \frac{x-y}{2}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(cos\ x - cos\ y = 2 sin \frac{x+y}{2} sin \frac{x-y}{2}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Reciprocal Properties</strong></td>
+<td align="left"><span class="math inline">\(sin\ x = \frac{1}{csc\ x}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(cos\ x = \frac{1}{sec\ x}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(tan\ x = \frac{1}{cot\ x}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(cot\ x = \frac{1}{tan\ x}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(sec\ x = \frac{1}{cos\ x}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(csc\ x = \frac{1}{sin\ x}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Double Angle</strong></td>
+<td align="left"><span class="math inline">\(sin(2x) = 2sin\ x\ cos\ x\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(cos(2x) = cos^2x\ -\ sin^2x\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(cos(2x) = 2cos^2x\ - 1\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(cos(2x) = 1\ -\ 2sin^2x\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(tan(2x) = \frac{2\ tan(x)}{1-tan^2x}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Half Angle</strong></td>
+<td align="left"><span class="math inline">\(sin(\frac{x}{2}) = \pm\sqrt{\frac{1\ -\ cos\ x}{2}}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(cos(\frac{x}{2}) = \pm\sqrt{\frac{1\ + \ cos\ x}{2}}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(tan(\frac{x}{2}) = \sqrt{\frac{1\ -\ cos\ x}{1\ +\ cos\ x}}, also\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(tan(\frac{x}{2}) = \frac{1\ -\ cos\ x}{sin\ x}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Sum/Minus of Angles</strong></td>
+<td align="left"><span class="math inline">\(sin(x \pm y) = sin\ x\ cos\ y\ \pm cos\ x\ sin\ y\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(cos(x \pm y) = cos\ x\ cos\ y\ \pm sin\ x\ sin\ y\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(tan(x + y) = \frac{tan(x) + tan(y)}{1 - tan(x)tan(y)}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(tan(x - y) = \frac{tan(x) - tan(y)}{1 + tan(x)tan(y)}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Other Formulas</strong></td>
+<td align="left"><span class="math inline">\(a^2 = b^2\ +\ c^2 - 2bc\ cos\ A\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(b^2 = a^2\ +\ c^2 - 2ac\ cos\ B\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(c^2 = a^2\ +\ b^2 - 2ab\ cos\ C\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(\frac{a}{sin\ A} = \frac{b}{cos\ B} = \frac{c}{sin\ C}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(sin\ y = x \to y = sin^{-1}x\)</span></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<div id="logarithms" class="section level3 hasAnchor">
+<h3><span class="header-section-number">3.1.2</span> Logarithms<a href="3.1-appendix-a.html#logarithms" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Below we list a few logarithmic and Euler’s formulas</p>
+
+<table>
+<caption><span id="tab:logformula">Table 3.2: </span>Logarithmic and Exponents Formulas</caption>
+<colgroup>
+<col width="21%" />
+<col width="78%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Properties</th>
+<th align="left">Formula</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>Logarithms</strong></td>
+<td align="left"><span class="math inline">\(log_{a}(x\cdot y) = log_{a}x + log_{a}y\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(log_{a}(\frac{x}{y}) = log_{a}x - log_{a}y\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(log_{a}(x^n) = n\cdot\ log_{a}x\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Natural Logarithms</strong></td>
+<td align="left"><span class="math inline">\(ln(x) = log_{e}x\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(ln(x\cdot y) = ln(x) + ln(y)\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(ln(\frac{x}{y}) = ln(x) - ln(y)\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(ln(x^n) = n\cdot ln(x)\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(ln(\frac{1}{x}) = -ln(x)\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(ln(1) = 0\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Euler’s</strong></td>
+<td align="left"><span class="math inline">\(ln(e^x) = x\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(ln(e) = 1\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(e^{ln(x)} = x\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(e^{(ln(x)\cdot y)} = e^{ln (x) +ln (y)} = e^{ln (x)}\cdot e^{ln(y)} = x\cdot y\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(\frac{e^a}{e^b} = e^{a-b}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\((e^a)^b = e^{ab}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(e^{ln(x^y)} = \frac{x}{y} = \frac{e^{ln(x)}}{e^{ln(y)}} = e^{ln(x) - ln(y)}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Other Formulas</strong></td>
+<td align="left"><span class="math inline">\((a^0) = 1\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\((a^n)^m = a^{n\ \cdot\ m}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(a^n\cdot\ a^m = a^{n\ +\ m}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(\frac{a^n}{a^m} = a^{n\ -\ m}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(a^{-n} = \frac{1}{a^n}\)</span></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<div id="category-theory" class="section level3 hasAnchor">
+<h3><span class="header-section-number">3.1.3</span> Category Theory<a href="3.1-appendix-a.html#category-theory" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let us cover a few concepts around Category Theory and Abstract Algebra.</p>
+<p><strong>Surjective vs Injective:</strong></p>
+<p>Consider the following notation:</p>
+<p><span class="math display">\[
+F: X \rightarrow Y
+\]</span>
+Given a set of <strong>X</strong> and a set of <strong>Y</strong>, a function, denoted as <strong>F</strong>, maps elements of <strong>X</strong> to elements of <strong>Y</strong>. Figure <a href="3.1-appendix-a.html#fig:injective1">3.5</a> illustrates a function characterized by the mapping between <strong>X</strong> elements and <strong>Y</strong> elements. The set of <strong>X</strong> is what we call <strong>X domain</strong>, and the set of <strong>Y</strong> to which elements are mapped is called <strong>Y co-domain</strong>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:injective1"></span>
+<img src="injective.png" alt="Surjective and Injective" width="80%" />
+<p class="caption">
+Figure 3.5: Surjective and Injective
+</p>
+</div>
+<p>A function maps elements between the domains in two ways:</p>
+<ul>
+<li>Surjective: Every element in codomain Y is <strong>mapped to at least one element</strong> in domain X</li>
+<li>Injective: Every element in codomain Y is <strong>mapped to at most one element</strong> in domain X</li>
+</ul>
+<p><strong>Surjective</strong> is also called “onto” mapping. A function with “onto” mapping is a <strong>Surjective</strong> function.</p>
+<p><strong>Injective</strong> is also called “one-to-one” mapping. A function with “one-to-one” mapping is an <strong>Injective</strong> function.</p>
+<p><strong>Range</strong> - or image - is the set of elements in the codomain Y that are mapped to. If an element is not mapped to in codomain Y, then that element does not belong to the Range.</p>
+<p>If the <strong>range</strong> has the same set of elements as the codomain Y itself, then the mapping is <strong>surjective</strong>.</p>
+<p>Based on that, a function has four combinations of those types of mapping.</p>
+<ul>
+<li>Surjective and Injective (Bijective)</li>
+<li>Surjective and Non-Injective</li>
+<li>Non-Surjective and Injective</li>
+<li>Non-Surjective and Non-Injective</li>
+</ul>
+<p>For example, in Figure <a href="3.1-appendix-a.html#fig:injective2">3.6</a>, we have three graphs in a cartesian plane: a line, a quadratic curve, and a cubic curve. A data point in the line or curve represents a coordinate (x, y). Here, coordinate (x1,y1) is associated with a function, e.g. <span class="math inline">\(f(x1) = y1\)</span>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:injective2"></span>
+<img src="function_properties.png" alt="Properties of Function" width="90%" />
+<p class="caption">
+Figure 3.6: Properties of Function
+</p>
+</div>
+<p>Suppose that the first graph with a straight line has the following domains:</p>
+<ul>
+<li>domain(X) = {x1, x2}</li>
+<li>codomain(Y) = {y1, y2}</li>
+</ul>
+<p>where:</p>
+<p><span class="math display">\[\begin{align*}
+f: x1 \rightarrow y1\\
+f: x2 \rightarrow y2
+\end{align*}\]</span></p>
+<p>In that supposition, we conclude that the function is <strong>bijective</strong> function - it is both <strong>surjective</strong> and <strong>injective</strong>.</p>
+<p>Suppose, on the other hand, that the same first graph with a straight line has the following domains instead:</p>
+<ul>
+<li>domain(X) = {x1}</li>
+<li>codomain(Y) = {y1, y2}</li>
+</ul>
+<p>where:</p>
+<p><span class="math display">\[
+f: x1 \rightarrow y1
+\]</span></p>
+<p>In that supposition, we conclude that the function is a <strong>non-surjective injective</strong> function. It is <strong>non-surjective</strong> because {y2} in the codomain(Y) does not map to any existing element in domain(X) though there is a one-to-one mapping between x1 and y1.</p>
+<p>Suppose now that the second graph with the quadratic curve has the following domains:</p>
+<ul>
+<li>domain(X) = {x1, x2, x3}</li>
+<li>codomain(Y) = {y1, y2}</li>
+</ul>
+<p>where:</p>
+<p><span class="math display">\[\begin{align*}
+f: x1 \rightarrow y1\\
+f: x2 \rightarrow y2\\
+f: x3 \rightarrow y1
+\end{align*}\]</span></p>
+<p>In that supposition, we conclude that the function is <strong>surjective non-injective</strong> function. It is <strong>non-injective</strong> because multiple X elements, {x1, x3}, maps to {y1}.</p>
+<p>Suppose lastly that the third graph with the cubic curve has the following domains:</p>
+<ul>
+<li>domain(X) = {x1, x3, x4}</li>
+<li>codomain(Y) = {y1, y2}</li>
+</ul>
+<p>where:</p>
+<p><span class="math display">\[\begin{align*}
+f: x1 \rightarrow y1\\
+f: x3 \rightarrow y1\\
+f: x4 \rightarrow y1
+\end{align*}\]</span></p>
+<p>In that supposition, we conclude that the function is <strong>non-surjective non-injective</strong> function. It is <strong>non-injective</strong> because {x1, x3, x4} maps to {y1}. It is <strong>non-surjective</strong> because {y2} in codomain(Y) does not map to any existing element in the domain(X).</p>
+<p><strong>Morphism:</strong></p>
+<p><strong>Morphism</strong> is a topic in <strong>Category Theory</strong>. Here, of the different kinds of categories, we will discuss <strong>Morphism</strong> in the context of the algebraic (concrete) category. Moreover, in that context, <strong>Morphism</strong> is a generalization of functions that are either surjective, injective, both, or neither.</p>
+<p>Let us recall the following notation one more time:</p>
+<p><span class="math display">\[
+F: X \rightarrow Y
+\]</span></p>
+<p>We interpret the notation as:</p>
+<p>Given a function, we map elements of X to elements of Y. Basically, that operation or function of <strong>matching or pairing</strong> of elements with the arrow is what we call <strong>morphism</strong>.</p>
+<p>In <strong>Category Theory</strong>, instead of describing the map in terms of <strong>functions</strong> and elements of domain and codomain, we characterize the map in terms of <strong>morphism</strong>, the <strong>source objects</strong>, and the <strong>target objects</strong>.</p>
+<p>In a <strong>morphism</strong>, we do not talk about the domain of X and codomain of Y. We do not talk about elements in a domain or codomain. Furthermore, most of all, we do not talk about elements in a domain or codomain. We only talk about <strong>sources</strong> and <strong>targets</strong>.</p>
+<p>We have a source element (e.g., X) and a target element (e.g., Y).</p>
+<p>Depending on the groups of elements used in mapping, we can define different categories of <strong>morphisms</strong>, starting with <strong>Homomorphism</strong>:</p>
+<p><strong>Homomorphism</strong> - is a <strong>morphism</strong> that preserves the structure.</p>
+<p>For example, the linear transformation of a vector, <span class="math inline">\(T:\mathbb{R}^m \rightarrow \mathbb{R}^n\)</span>, is Homomorphism since it preserves its vector space structure.</p>
+<p><strong>Endomorphism</strong> - is a <strong>homomorphism</strong> in which the source X is mapped to the same X as the target. This is also called <strong>Identity morphism</strong>.</p>
+<span class="math display">\[
+f: X \rightarrow X
+\]</span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:identitymorphism"></span>
+<img src="identity_morphism.png" alt="Identity Morphism" width="20%" />
+<p class="caption">
+Figure 3.7: Identity Morphism
+</p>
+</div>
+<p><strong>Monomorphism</strong> - is a <strong>homomorphism</strong> that generalizes <strong>injective functions</strong> in that the following notation applies:</p>
+<p><span class="math display">\[
+f \circ g1 = f \circ g2 \implies g1 = g2
+\]</span></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:monomorphism"></span>
+<img src="monomorphism.png" alt="Monomorphism" width="60%" />
+<p class="caption">
+Figure 3.8: Monomorphism
+</p>
+</div>
+<p><strong>Epimorphism</strong> - is a <strong>homomorphism</strong> that generalizes <strong>surjective functions</strong> in that the following notation applies:</p>
+<p><span class="math display">\[
+g1 \circ f = g2 \circ f \implies g1 = g2
+\]</span></p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:epimorphism"></span>
+<img src="epimorphism.png" alt="Epimorphism" width="60%" />
+<p class="caption">
+Figure 3.9: Epimorphism
+</p>
+</div>
+<p>A function that converts a vector into scalar, <span class="math inline">\(R:\mathbb{R}^2 \rightarrow \mathbb{R}\)</span>, is an <strong>epimorphism</strong>. For example, vector <span class="math inline">\(\vec{v} = (v_1, v_2) \rightarrow v_1 + v_2 = c\)</span>. A determinant operator is <strong>epimorphism</strong>.</p>
+<p>We will not be covering the different uses of Epimorphism in this book; but if interest calls for it, it helps to use outside references and be familiar with <strong>normal Epimorphism</strong>, <strong>split epimorphism</strong>, <strong>strong Epimorphism</strong>, and on.</p>
+<p><strong>Isomorphism</strong> - is a <strong>homomorphism</strong> that generalizes <strong>bijective functions</strong>.</p>
+<p><strong>Automorphism</strong> - is a <strong>bijective endomorphism</strong> that generalizes <strong>bijective functions</strong>. It is an <strong>Isomorphism</strong> from an object onto itself.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="3-appendix.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="3.2-appendix-b.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["DS.pdf", "DS.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

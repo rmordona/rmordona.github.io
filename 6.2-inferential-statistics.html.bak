@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6.2 Inferential Statistics | The Power and Art of Approximation</title>
+  <meta name="description" content="Enthused by the promising future of self-learning machines and the continuous advancement of technology, we write this book to cover a compendium of analytical and numerical techniques conflated into a common idea that highlights the fundamental requirements of Data Science and Machine Learning (ML) Engineering. In this book, we review and give brief insights into numerous fundamental ideas around methods of approximation conceived by great experts. We aim to share them with those new to Data Science who are just beginning to develop an inclination toward this field but may not know where to begin. In addition, we hope to introduce some essential aspects of Data Science in a more progressive and possibly structured manner. This book avoids being specific to a target audience depending on interest. The premise is that Data Science can be for everybody, whether one is an engineer, a researcher within a particular domain, or, for that matter, an undergraduate student just trying to get into this field. While we note that our common theme across the book is intuition, contemplating more on basic operations than mathematical rigor, it is essential to revive our understanding of mathematical concepts first. That is founded upon the idea that we express most of what we do in Data Science in the language of mathematics, more numerically inclined in fact than analytical - meaning, we live to decide based on close approximation in many situations. Therefore, it is just right to have a historical perspective of the mathematical foundations which Machine Learning algorithms may have come about - if not at least what they depend upon fundamentally. For that reason, we cover a list of mathematical concepts that are no doubt valuable to eventually get us to Machine Learning concepts. However, only a particular elementary and introductory portion of each field of mathematics is covered as we emphasize only relevant and essential areas. That said, this book comes in three volumes. Volumes I and II of this book briefly cover common topics in Linear Algebra, Numerical Analysis, Statistical Analysis, and Bayesian Analysis. The third part (or volume III) of this book covers Machine Learning and Deep Learning in detail." />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6.2 Inferential Statistics | The Power and Art of Approximation" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Enthused by the promising future of self-learning machines and the continuous advancement of technology, we write this book to cover a compendium of analytical and numerical techniques conflated into a common idea that highlights the fundamental requirements of Data Science and Machine Learning (ML) Engineering. In this book, we review and give brief insights into numerous fundamental ideas around methods of approximation conceived by great experts. We aim to share them with those new to Data Science who are just beginning to develop an inclination toward this field but may not know where to begin. In addition, we hope to introduce some essential aspects of Data Science in a more progressive and possibly structured manner. This book avoids being specific to a target audience depending on interest. The premise is that Data Science can be for everybody, whether one is an engineer, a researcher within a particular domain, or, for that matter, an undergraduate student just trying to get into this field. While we note that our common theme across the book is intuition, contemplating more on basic operations than mathematical rigor, it is essential to revive our understanding of mathematical concepts first. That is founded upon the idea that we express most of what we do in Data Science in the language of mathematics, more numerically inclined in fact than analytical - meaning, we live to decide based on close approximation in many situations. Therefore, it is just right to have a historical perspective of the mathematical foundations which Machine Learning algorithms may have come about - if not at least what they depend upon fundamentally. For that reason, we cover a list of mathematical concepts that are no doubt valuable to eventually get us to Machine Learning concepts. However, only a particular elementary and introductory portion of each field of mathematics is covered as we emphasize only relevant and essential areas. That said, this book comes in three volumes. Volumes I and II of this book briefly cover common topics in Linear Algebra, Numerical Analysis, Statistical Analysis, and Bayesian Analysis. The third part (or volume III) of this book covers Machine Learning and Deep Learning in detail." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6.2 Inferential Statistics | The Power and Art of Approximation" />
+  
+  <meta name="twitter:description" content="Enthused by the promising future of self-learning machines and the continuous advancement of technology, we write this book to cover a compendium of analytical and numerical techniques conflated into a common idea that highlights the fundamental requirements of Data Science and Machine Learning (ML) Engineering. In this book, we review and give brief insights into numerous fundamental ideas around methods of approximation conceived by great experts. We aim to share them with those new to Data Science who are just beginning to develop an inclination toward this field but may not know where to begin. In addition, we hope to introduce some essential aspects of Data Science in a more progressive and possibly structured manner. This book avoids being specific to a target audience depending on interest. The premise is that Data Science can be for everybody, whether one is an engineer, a researcher within a particular domain, or, for that matter, an undergraduate student just trying to get into this field. While we note that our common theme across the book is intuition, contemplating more on basic operations than mathematical rigor, it is essential to revive our understanding of mathematical concepts first. That is founded upon the idea that we express most of what we do in Data Science in the language of mathematics, more numerically inclined in fact than analytical - meaning, we live to decide based on close approximation in many situations. Therefore, it is just right to have a historical perspective of the mathematical foundations which Machine Learning algorithms may have come about - if not at least what they depend upon fundamentally. For that reason, we cover a list of mathematical concepts that are no doubt valuable to eventually get us to Machine Learning concepts. However, only a particular elementary and introductory portion of each field of mathematics is covered as we emphasize only relevant and essential areas. That said, this book comes in three volumes. Volumes I and II of this book briefly cover common topics in Linear Algebra, Numerical Analysis, Statistical Analysis, and Bayesian Analysis. The third part (or volume III) of this book covers Machine Learning and Deep Learning in detail." />
+  
+
+<meta name="author" content="Raymond Michael Ofiaza Ordoña" />
+
+
+<meta name="date" content="2023-02-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="6.1-descriptive-statistics.html"/>
+<link rel="next" href="6.3-the-significance-of-difference.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="" data-path="acknowledgment-and-motivations.html"><a href="acknowledgment-and-motivations.html"><i class="fa fa-check"></i>Acknowledgment and Motivations</a></li>
+<li class="chapter" data-level="" data-path="caveat.html"><a href="caveat.html"><i class="fa fa-check"></i>Caveat</a></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="mathematical-notation.html"><a href="mathematical-notation.html"><i class="fa fa-check"></i>Mathematical Notation</a><ul>
+<li class="chapter" data-level="0.1" data-path="0.1-notation.html"><a href="0.1-notation.html"><i class="fa fa-check"></i><b>0.1</b> Notation</a></li>
+<li class="chapter" data-level="0.2" data-path="0.2-number-system.html"><a href="0.2-number-system.html"><i class="fa fa-check"></i><b>0.2</b> Number System</a></li>
+<li class="chapter" data-level="0.3" data-path="0.3-implementation.html"><a href="0.3-implementation.html"><i class="fa fa-check"></i><b>0.3</b> Implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="1-numericalmethods.html"><a href="1-numericalmethods.html"><i class="fa fa-check"></i><b>1</b> Direct and Indirect Methods</a><ul>
+<li class="chapter" data-level="1.1" data-path="1.1-closed-form-equation.html"><a href="1.1-closed-form-equation.html"><i class="fa fa-check"></i><b>1.1</b> Closed-form equation</a></li>
+<li class="chapter" data-level="1.2" data-path="1.2-analytical-and-numerical-solutions.html"><a href="1.2-analytical-and-numerical-solutions.html"><i class="fa fa-check"></i><b>1.2</b> Analytical and Numerical solutions  </a></li>
+<li class="chapter" data-level="1.3" data-path="1.3-significant-figures.html"><a href="1.3-significant-figures.html"><i class="fa fa-check"></i><b>1.3</b> Significant figures</a></li>
+<li class="chapter" data-level="1.4" data-path="1.4-accuracy.html"><a href="1.4-accuracy.html"><i class="fa fa-check"></i><b>1.4</b> Accuracy</a></li>
+<li class="chapter" data-level="1.5" data-path="1.5-precision.html"><a href="1.5-precision.html"><i class="fa fa-check"></i><b>1.5</b> Precision </a></li>
+<li class="chapter" data-level="1.6" data-path="1.6-stability-and-sensitivity.html"><a href="1.6-stability-and-sensitivity.html"><i class="fa fa-check"></i><b>1.6</b> Stability and Sensitivity  </a></li>
+<li class="chapter" data-level="1.7" data-path="1.7-stiffness-and-implicitness.html"><a href="1.7-stiffness-and-implicitness.html"><i class="fa fa-check"></i><b>1.7</b> Stiffness and Implicitness  </a></li>
+<li class="chapter" data-level="1.8" data-path="1.8-conditioning-and-posedness.html"><a href="1.8-conditioning-and-posedness.html"><i class="fa fa-check"></i><b>1.8</b> Conditioning and Posedness  </a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-linearalgebra.html"><a href="2-linearalgebra.html"><i class="fa fa-check"></i><b>2</b> Numerical Linear Algebra I</a><ul>
+<li class="chapter" data-level="2.1" data-path="2.1-system-of-linear-equations.html"><a href="2.1-system-of-linear-equations.html"><i class="fa fa-check"></i><b>2.1</b> System of Linear Equations</a></li>
+<li class="chapter" data-level="2.2" data-path="2.2-scalar-vector-and-matrix-tensor.html"><a href="2.2-scalar-vector-and-matrix-tensor.html"><i class="fa fa-check"></i><b>2.2</b> Scalar, Vector, and Matrix, Tensor</a></li>
+<li class="chapter" data-level="2.3" data-path="2.3-transposition-and-multiplication.html"><a href="2.3-transposition-and-multiplication.html"><i class="fa fa-check"></i><b>2.3</b> Transposition and Multiplication</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="2.3-transposition-and-multiplication.html"><a href="2.3-transposition-and-multiplication.html#transposition"><i class="fa fa-check"></i><b>2.3.1</b> Transposition</a></li>
+<li class="chapter" data-level="2.3.2" data-path="2.3-transposition-and-multiplication.html"><a href="2.3-transposition-and-multiplication.html#dot-product"><i class="fa fa-check"></i><b>2.3.2</b> Dot Product</a></li>
+<li class="chapter" data-level="2.3.3" data-path="2.3-transposition-and-multiplication.html"><a href="2.3-transposition-and-multiplication.html#hadamard-product"><i class="fa fa-check"></i><b>2.3.3</b> Hadamard Product</a></li>
+<li class="chapter" data-level="2.3.4" data-path="2.3-transposition-and-multiplication.html"><a href="2.3-transposition-and-multiplication.html#kronecker-product"><i class="fa fa-check"></i><b>2.3.4</b> Kronecker Product</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="2.4-magnitude-direction-unit-vectors.html"><a href="2.4-magnitude-direction-unit-vectors.html"><i class="fa fa-check"></i><b>2.4</b> Magnitude, Direction, Unit Vectors</a></li>
+<li class="chapter" data-level="2.5" data-path="2.5-linear-combination-and-independence.html"><a href="2.5-linear-combination-and-independence.html"><i class="fa fa-check"></i><b>2.5</b> Linear Combination and Independence</a></li>
+<li class="chapter" data-level="2.6" data-path="2.6-space-span-and-basis.html"><a href="2.6-space-span-and-basis.html"><i class="fa fa-check"></i><b>2.6</b> Space, Span, and Basis</a></li>
+<li class="chapter" data-level="2.7" data-path="2.7-determinants.html"><a href="2.7-determinants.html"><i class="fa fa-check"></i><b>2.7</b> Determinants </a></li>
+<li class="chapter" data-level="2.8" data-path="2.8-minors-cofactors-and-adjugate-forms.html"><a href="2.8-minors-cofactors-and-adjugate-forms.html"><i class="fa fa-check"></i><b>2.8</b> Minors, Cofactors, and Adjugate Forms</a></li>
+<li class="chapter" data-level="2.9" data-path="2.9-inverse-form-and-row-echelon-form.html"><a href="2.9-inverse-form-and-row-echelon-form.html"><i class="fa fa-check"></i><b>2.9</b> Inverse Form and Row-Echelon Form</a></li>
+<li class="chapter" data-level="2.10" data-path="2.10-linear-transformations.html"><a href="2.10-linear-transformations.html"><i class="fa fa-check"></i><b>2.10</b> Linear Transformations</a><ul>
+<li class="chapter" data-level="2.10.1" data-path="2.10-linear-transformations.html"><a href="2.10-linear-transformations.html#scaling"><i class="fa fa-check"></i><b>2.10.1</b> Scaling </a></li>
+<li class="chapter" data-level="2.10.2" data-path="2.10-linear-transformations.html"><a href="2.10-linear-transformations.html#transvection-shearing"><i class="fa fa-check"></i><b>2.10.2</b> Transvection (Shearing)  </a></li>
+<li class="chapter" data-level="2.10.3" data-path="2.10-linear-transformations.html"><a href="2.10-linear-transformations.html#rotation"><i class="fa fa-check"></i><b>2.10.3</b> Rotation </a></li>
+<li class="chapter" data-level="2.10.4" data-path="2.10-linear-transformations.html"><a href="2.10-linear-transformations.html#reflection"><i class="fa fa-check"></i><b>2.10.4</b> Reflection </a></li>
+<li class="chapter" data-level="2.10.5" data-path="2.10-linear-transformations.html"><a href="2.10-linear-transformations.html#projection"><i class="fa fa-check"></i><b>2.10.5</b> Projection </a></li>
+<li class="chapter" data-level="2.10.6" data-path="2.10-linear-transformations.html"><a href="2.10-linear-transformations.html#translation"><i class="fa fa-check"></i><b>2.10.6</b> Translation </a></li>
+<li class="chapter" data-level="2.10.7" data-path="2.10-linear-transformations.html"><a href="2.10-linear-transformations.html#dilation-and-composition"><i class="fa fa-check"></i><b>2.10.7</b> Dilation and Composition  </a></li>
+</ul></li>
+<li class="chapter" data-level="2.11" data-path="2.11-rank-and-nullity.html"><a href="2.11-rank-and-nullity.html"><i class="fa fa-check"></i><b>2.11</b> Rank and Nullity  </a></li>
+<li class="chapter" data-level="2.12" data-path="2.12-singularity-and-triviality.html"><a href="2.12-singularity-and-triviality.html"><i class="fa fa-check"></i><b>2.12</b> Singularity and Triviality  </a></li>
+<li class="chapter" data-level="2.13" data-path="2.13-orthogonality-and-orthonormality.html"><a href="2.13-orthogonality-and-orthonormality.html"><i class="fa fa-check"></i><b>2.13</b> Orthogonality and Orthonormality  </a></li>
+<li class="chapter" data-level="2.14" data-path="2.14-eigenvectors-and-eigenvalues.html"><a href="2.14-eigenvectors-and-eigenvalues.html"><i class="fa fa-check"></i><b>2.14</b> Eigenvectors and Eigenvalues  </a></li>
+<li class="chapter" data-level="2.15" data-path="2.15-matrix-reconstruction-using-eigenvalues-and-eigenvectors.html"><a href="2.15-matrix-reconstruction-using-eigenvalues-and-eigenvectors.html"><i class="fa fa-check"></i><b>2.15</b> Matrix Reconstruction using Eigenvalues and Eigenvectors</a></li>
+<li class="chapter" data-level="2.16" data-path="2.16-diagonalizability-of-a-matrix.html"><a href="2.16-diagonalizability-of-a-matrix.html"><i class="fa fa-check"></i><b>2.16</b> Diagonalizability of a Matrix </a></li>
+<li class="chapter" data-level="2.17" data-path="2.17-trace-of-a-square-matrix.html"><a href="2.17-trace-of-a-square-matrix.html"><i class="fa fa-check"></i><b>2.17</b> Trace of a Square Matrix </a></li>
+<li class="chapter" data-level="2.18" data-path="2.18-algebraic-and-geometric-multiplicity.html"><a href="2.18-algebraic-and-geometric-multiplicity.html"><i class="fa fa-check"></i><b>2.18</b> Algebraic and Geometric Multiplicity</a></li>
+<li class="chapter" data-level="2.19" data-path="2.19-types-of-matrices.html"><a href="2.19-types-of-matrices.html"><i class="fa fa-check"></i><b>2.19</b> Types of Matrices</a></li>
+<li class="chapter" data-level="2.20" data-path="2.20-matrix-factorization.html"><a href="2.20-matrix-factorization.html"><i class="fa fa-check"></i><b>2.20</b> Matrix Factorization </a><ul>
+<li class="chapter" data-level="2.20.1" data-path="2.20-matrix-factorization.html"><a href="2.20-matrix-factorization.html#eigen-spectral-decomposition"><i class="fa fa-check"></i><b>2.20.1</b> Eigen (Spectral) Decomposition  </a></li>
+<li class="chapter" data-level="2.20.2" data-path="2.20-matrix-factorization.html"><a href="2.20-matrix-factorization.html#ludecomposition"><i class="fa fa-check"></i><b>2.20.2</b> LU Decomposition (Doolittle Algorithm)</a></li>
+<li class="chapter" data-level="2.20.3" data-path="2.20-matrix-factorization.html"><a href="2.20-matrix-factorization.html#ldu-factorization"><i class="fa fa-check"></i><b>2.20.3</b> LDU Factorization </a></li>
+<li class="chapter" data-level="2.20.4" data-path="2.20-matrix-factorization.html"><a href="2.20-matrix-factorization.html#qr-factorization-gram-schmidt-householder-and-givens"><i class="fa fa-check"></i><b>2.20.4</b> QR Factorization (Gram-Schmidt, Householder, and Givens) </a></li>
+<li class="chapter" data-level="2.20.5" data-path="2.20-matrix-factorization.html"><a href="2.20-matrix-factorization.html#cholesky-factorization"><i class="fa fa-check"></i><b>2.20.5</b> Cholesky Factorization </a></li>
+<li class="chapter" data-level="2.20.6" data-path="2.20-matrix-factorization.html"><a href="2.20-matrix-factorization.html#svd-factorization"><i class="fa fa-check"></i><b>2.20.6</b> SVD Factorization </a></li>
+<li class="chapter" data-level="2.20.7" data-path="2.20-matrix-factorization.html"><a href="2.20-matrix-factorization.html#jordan-decomposition"><i class="fa fa-check"></i><b>2.20.7</b> Jordan Decomposition </a></li>
+<li class="chapter" data-level="2.20.8" data-path="2.20-matrix-factorization.html"><a href="2.20-matrix-factorization.html#other-decomposition"><i class="fa fa-check"></i><b>2.20.8</b> Other Decomposition</a></li>
+</ul></li>
+<li class="chapter" data-level="2.21" data-path="2.21-software-libraries.html"><a href="2.21-software-libraries.html"><i class="fa fa-check"></i><b>2.21</b> Software libraries    </a></li>
+<li class="chapter" data-level="2.22" data-path="2.22-summary.html"><a href="2.22-summary.html"><i class="fa fa-check"></i><b>2.22</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-numericallinearalgebra.html"><a href="3-numericallinearalgebra.html"><i class="fa fa-check"></i><b>3</b> Numerical Linear Algebra II</a><ul>
+<li class="chapter" data-level="3.1" data-path="3.1-iteration-and-convergence.html"><a href="3.1-iteration-and-convergence.html"><i class="fa fa-check"></i><b>3.1</b> Iteration and Convergence </a></li>
+<li class="chapter" data-level="3.2" data-path="3.2-approximating-eigenvalues-and-eigenvectors-by-iteration-av-lambda-v.html"><a href="3.2-approximating-eigenvalues-and-eigenvectors-by-iteration-av-lambda-v.html"><i class="fa fa-check"></i><b>3.2</b> Approximating Eigenvalues and EigenVectors by Iteration (<span class="math inline">\(Av = \lambda v\)</span>)</a><ul>
+<li class="chapter" data-level="3.2.1" data-path="3.2-approximating-eigenvalues-and-eigenvectors-by-iteration-av-lambda-v.html"><a href="3.2-approximating-eigenvalues-and-eigenvectors-by-iteration-av-lambda-v.html#power-method"><i class="fa fa-check"></i><b>3.2.1</b> Power Method </a></li>
+<li class="chapter" data-level="3.2.2" data-path="3.2-approximating-eigenvalues-and-eigenvectors-by-iteration-av-lambda-v.html"><a href="3.2-approximating-eigenvalues-and-eigenvectors-by-iteration-av-lambda-v.html#inverse-power-method-using-lu-decomposition"><i class="fa fa-check"></i><b>3.2.2</b> Inverse Power Method (using LU Decomposition)</a></li>
+<li class="chapter" data-level="3.2.3" data-path="3.2-approximating-eigenvalues-and-eigenvectors-by-iteration-av-lambda-v.html"><a href="3.2-approximating-eigenvalues-and-eigenvectors-by-iteration-av-lambda-v.html#rayleigh-quotient-method-using-lu-decomposition"><i class="fa fa-check"></i><b>3.2.3</b> Rayleigh Quotient Method (using LU Decomposition)</a></li>
+<li class="chapter" data-level="3.2.4" data-path="3.2-approximating-eigenvalues-and-eigenvectors-by-iteration-av-lambda-v.html"><a href="3.2-approximating-eigenvalues-and-eigenvectors-by-iteration-av-lambda-v.html#qr-method-using-qr-decomposition-by-givens"><i class="fa fa-check"></i><b>3.2.4</b> QR Method (using QR Decomposition by Givens)</a></li>
+<li class="chapter" data-level="3.2.5" data-path="3.2-approximating-eigenvalues-and-eigenvectors-by-iteration-av-lambda-v.html"><a href="3.2-approximating-eigenvalues-and-eigenvectors-by-iteration-av-lambda-v.html#jacobi-eigenvalue-method-using-jacobi-rotation"><i class="fa fa-check"></i><b>3.2.5</b> Jacobi Eigenvalue Method (using Jacobi Rotation)</a></li>
+<li class="chapter" data-level="3.2.6" data-path="3.2-approximating-eigenvalues-and-eigenvectors-by-iteration-av-lambda-v.html"><a href="3.2-approximating-eigenvalues-and-eigenvectors-by-iteration-av-lambda-v.html#arnoldi-method-using-gram-schmidt-in-krylov-subspace"><i class="fa fa-check"></i><b>3.2.6</b> Arnoldi Method (using Gram-Schmidt in Krylov Subspace) </a></li>
+<li class="chapter" data-level="3.2.7" data-path="3.2-approximating-eigenvalues-and-eigenvectors-by-iteration-av-lambda-v.html"><a href="3.2-approximating-eigenvalues-and-eigenvectors-by-iteration-av-lambda-v.html#lanczos-method-using-gram-schmidt-in-krylov-subspace"><i class="fa fa-check"></i><b>3.2.7</b> Lanczos Method (using Gram-Schmidt in Krylov Subspace)</a></li>
+<li class="chapter" data-level="3.2.8" data-path="3.2-approximating-eigenvalues-and-eigenvectors-by-iteration-av-lambda-v.html"><a href="3.2-approximating-eigenvalues-and-eigenvectors-by-iteration-av-lambda-v.html#fine-tuning-of-iteration-and-convergence"><i class="fa fa-check"></i><b>3.2.8</b> Fine-Tuning of Iteration and Convergence</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="3.3-approximating-root-and-fixed-point-by-iteration.html"><a href="3.3-approximating-root-and-fixed-point-by-iteration.html"><i class="fa fa-check"></i><b>3.3</b> Approximating Root and Fixed-Point by Iteration</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="3.3-approximating-root-and-fixed-point-by-iteration.html"><a href="3.3-approximating-root-and-fixed-point-by-iteration.html#root-finding-method-fx-0"><i class="fa fa-check"></i><b>3.3.1</b> Root-Finding Method (<span class="math inline">\(f(x) = 0\)</span>) </a></li>
+<li class="chapter" data-level="3.3.2" data-path="3.3-approximating-root-and-fixed-point-by-iteration.html"><a href="3.3-approximating-root-and-fixed-point-by-iteration.html#fixed-point-method-fx-x"><i class="fa fa-check"></i><b>3.3.2</b> Fixed-Point Method (<span class="math inline">\(f(x) = x\)</span>) </a></li>
+<li class="chapter" data-level="3.3.3" data-path="3.3-approximating-root-and-fixed-point-by-iteration.html"><a href="3.3-approximating-root-and-fixed-point-by-iteration.html#bisection-method"><i class="fa fa-check"></i><b>3.3.3</b> Bisection Method </a></li>
+<li class="chapter" data-level="3.3.4" data-path="3.3-approximating-root-and-fixed-point-by-iteration.html"><a href="3.3-approximating-root-and-fixed-point-by-iteration.html#newton-raphson-method-using-the-tangent-line"><i class="fa fa-check"></i><b>3.3.4</b> Newton-Raphson Method (using the Tangent Line)</a></li>
+<li class="chapter" data-level="3.3.5" data-path="3.3-approximating-root-and-fixed-point-by-iteration.html"><a href="3.3-approximating-root-and-fixed-point-by-iteration.html#secant-method-using-the-secant-line"><i class="fa fa-check"></i><b>3.3.5</b> Secant Method (using the Secant Line)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="3.4-approximating-solutions-to-systems-of-eqs-by-iteration-ax-b.html"><a href="3.4-approximating-solutions-to-systems-of-eqs-by-iteration-ax-b.html"><i class="fa fa-check"></i><b>3.4</b> Approximating Solutions to Systems of Eqs by Iteration (<span class="math inline">\(Ax = b\)</span>)</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="3.4-approximating-solutions-to-systems-of-eqs-by-iteration-ax-b.html"><a href="3.4-approximating-solutions-to-systems-of-eqs-by-iteration-ax-b.html#krylovmethods"><i class="fa fa-check"></i><b>3.4.1</b> Krylov Methods</a></li>
+<li class="chapter" data-level="3.4.2" data-path="3.4-approximating-solutions-to-systems-of-eqs-by-iteration-ax-b.html"><a href="3.4-approximating-solutions-to-systems-of-eqs-by-iteration-ax-b.html#gmres-generalized-minimal-residual"><i class="fa fa-check"></i><b>3.4.2</b> GMRES (Generalized Minimal Residual)  </a></li>
+<li class="chapter" data-level="3.4.3" data-path="3.4-approximating-solutions-to-systems-of-eqs-by-iteration-ax-b.html"><a href="3.4-approximating-solutions-to-systems-of-eqs-by-iteration-ax-b.html#conjugate-gradient-method-cg"><i class="fa fa-check"></i><b>3.4.3</b> Conjugate Gradient Method (CG)  </a></li>
+<li class="chapter" data-level="3.4.4" data-path="3.4-approximating-solutions-to-systems-of-eqs-by-iteration-ax-b.html"><a href="3.4-approximating-solutions-to-systems-of-eqs-by-iteration-ax-b.html#jacobi-and-gauss-seidel-method"><i class="fa fa-check"></i><b>3.4.4</b> Jacobi and Gauss-Seidel Method </a></li>
+<li class="chapter" data-level="3.4.5" data-path="3.4-approximating-solutions-to-systems-of-eqs-by-iteration-ax-b.html"><a href="3.4-approximating-solutions-to-systems-of-eqs-by-iteration-ax-b.html#successive-over-relaxation-sor-method"><i class="fa fa-check"></i><b>3.4.5</b> Successive Over-Relaxation (SOR) Method  </a></li>
+<li class="chapter" data-level="3.4.6" data-path="3.4-approximating-solutions-to-systems-of-eqs-by-iteration-ax-b.html"><a href="3.4-approximating-solutions-to-systems-of-eqs-by-iteration-ax-b.html#newtons-method"><i class="fa fa-check"></i><b>3.4.6</b> Newton’s Method </a></li>
+<li class="chapter" data-level="3.4.7" data-path="3.4-approximating-solutions-to-systems-of-eqs-by-iteration-ax-b.html"><a href="3.4-approximating-solutions-to-systems-of-eqs-by-iteration-ax-b.html#broydens-method"><i class="fa fa-check"></i><b>3.4.7</b> Broyden’s Method </a></li>
+<li class="chapter" data-level="3.4.8" data-path="3.4-approximating-solutions-to-systems-of-eqs-by-iteration-ax-b.html"><a href="3.4-approximating-solutions-to-systems-of-eqs-by-iteration-ax-b.html#bfgs-broyden-fletcher-goldfarb-shanno-method"><i class="fa fa-check"></i><b>3.4.8</b> BFGS (Broyden-Fletcher-Goldfarb-Shanno) method </a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="3.5-polynomialregression.html"><a href="3.5-polynomialregression.html"><i class="fa fa-check"></i><b>3.5</b> Approximating Polynomial Functions by Regression</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="3.5-polynomialregression.html"><a href="3.5-polynomialregression.html#least-squares"><i class="fa fa-check"></i><b>3.5.1</b> Least-Squares </a></li>
+<li class="chapter" data-level="3.5.2" data-path="3.5-polynomialregression.html"><a href="3.5-polynomialregression.html#linear-regression"><i class="fa fa-check"></i><b>3.5.2</b> Linear Regression </a></li>
+<li class="chapter" data-level="3.5.3" data-path="3.5-polynomialregression.html"><a href="3.5-polynomialregression.html#higherdegreepolynomials"><i class="fa fa-check"></i><b>3.5.3</b> Higher Degree Polynomials</a></li>
+<li class="chapter" data-level="3.5.4" data-path="3.5-polynomialregression.html"><a href="3.5-polynomialregression.html#non-linear-regression"><i class="fa fa-check"></i><b>3.5.4</b> Non-Linear Regression </a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="3.6-approximating-polynomial-functions-by-series-expansion.html"><a href="3.6-approximating-polynomial-functions-by-series-expansion.html"><i class="fa fa-check"></i><b>3.6</b> Approximating Polynomial Functions by Series Expansion </a></li>
+<li class="chapter" data-level="3.7" data-path="3.7-polynomialinterpolation.html"><a href="3.7-polynomialinterpolation.html"><i class="fa fa-check"></i><b>3.7</b> Approximating Polynomial Functions by Interpolation</a><ul>
+<li class="chapter" data-level="3.7.1" data-path="3.7-polynomialinterpolation.html"><a href="3.7-polynomialinterpolation.html#polynomial-interpolation"><i class="fa fa-check"></i><b>3.7.1</b> Polynomial interpolation </a></li>
+<li class="chapter" data-level="3.7.2" data-path="3.7-polynomialinterpolation.html"><a href="3.7-polynomialinterpolation.html#lagrange-interpolation"><i class="fa fa-check"></i><b>3.7.2</b> Lagrange interpolation </a></li>
+<li class="chapter" data-level="3.7.3" data-path="3.7-polynomialinterpolation.html"><a href="3.7-polynomialinterpolation.html#newton-interpolation"><i class="fa fa-check"></i><b>3.7.3</b> Newton interpolation </a></li>
+<li class="chapter" data-level="3.7.4" data-path="3.7-polynomialinterpolation.html"><a href="3.7-polynomialinterpolation.html#newton-forward-interpolation"><i class="fa fa-check"></i><b>3.7.4</b> Newton Forward interpolation </a></li>
+<li class="chapter" data-level="3.7.5" data-path="3.7-polynomialinterpolation.html"><a href="3.7-polynomialinterpolation.html#newton-backward-interpolation"><i class="fa fa-check"></i><b>3.7.5</b> Newton Backward interpolation </a></li>
+<li class="chapter" data-level="3.7.6" data-path="3.7-polynomialinterpolation.html"><a href="3.7-polynomialinterpolation.html#interpolation-considerations"><i class="fa fa-check"></i><b>3.7.6</b> Interpolation Considerations</a></li>
+<li class="chapter" data-level="3.7.7" data-path="3.7-polynomialinterpolation.html"><a href="3.7-polynomialinterpolation.html#lebesque-constant"><i class="fa fa-check"></i><b>3.7.7</b> Lebesque Constant </a></li>
+<li class="chapter" data-level="3.7.8" data-path="3.7-polynomialinterpolation.html"><a href="3.7-polynomialinterpolation.html#horners-method"><i class="fa fa-check"></i><b>3.7.8</b> Horner’s method </a></li>
+<li class="chapter" data-level="3.7.9" data-path="3.7-polynomialinterpolation.html"><a href="3.7-polynomialinterpolation.html#piecewise-polynomial-interpolation"><i class="fa fa-check"></i><b>3.7.9</b> Piecewise Polynomial Interpolation </a></li>
+<li class="chapter" data-level="3.7.10" data-path="3.7-polynomialinterpolation.html"><a href="3.7-polynomialinterpolation.html#b-spline-interpolation"><i class="fa fa-check"></i><b>3.7.10</b> B-Spline interpolation </a></li>
+<li class="chapter" data-level="3.7.11" data-path="3.7-polynomialinterpolation.html"><a href="3.7-polynomialinterpolation.html#bspline"><i class="fa fa-check"></i><b>3.7.11</b> B-Spline Regression</a></li>
+<li class="chapter" data-level="3.7.12" data-path="3.7-polynomialinterpolation.html"><a href="3.7-polynomialinterpolation.html#p-spline-regression"><i class="fa fa-check"></i><b>3.7.12</b> P-Spline Regression </a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="3.8-polynomialsmoothing.html"><a href="3.8-polynomialsmoothing.html"><i class="fa fa-check"></i><b>3.8</b> Approximating Polynomial Functions by Smoothing</a><ul>
+<li class="chapter" data-level="3.8.1" data-path="3.8-polynomialsmoothing.html"><a href="3.8-polynomialsmoothing.html#bin-smoothing"><i class="fa fa-check"></i><b>3.8.1</b> Bin Smoothing </a></li>
+<li class="chapter" data-level="3.8.2" data-path="3.8-polynomialsmoothing.html"><a href="3.8-polynomialsmoothing.html#kernel-smoothing"><i class="fa fa-check"></i><b>3.8.2</b> Kernel Smoothing </a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="3.9-polynomial-optimization.html"><a href="3.9-polynomial-optimization.html"><i class="fa fa-check"></i><b>3.9</b> Polynomial Optimization </a><ul>
+<li class="chapter" data-level="3.9.1" data-path="3.9-polynomial-optimization.html"><a href="3.9-polynomial-optimization.html#simplexmethod"><i class="fa fa-check"></i><b>3.9.1</b> Simplex Method</a></li>
+<li class="chapter" data-level="3.9.2" data-path="3.9-polynomial-optimization.html"><a href="3.9-polynomial-optimization.html#dualsimplex"><i class="fa fa-check"></i><b>3.9.2</b> Dual Simplex</a></li>
+<li class="chapter" data-level="3.9.3" data-path="3.9-polynomial-optimization.html"><a href="3.9-polynomial-optimization.html#primaldual"><i class="fa fa-check"></i><b>3.9.3</b> Primal-Dual Formulation</a></li>
+<li class="chapter" data-level="3.9.4" data-path="3.9-polynomial-optimization.html"><a href="3.9-polynomial-optimization.html#lagrange-multiplier"><i class="fa fa-check"></i><b>3.9.4</b> Lagrange Multiplier </a></li>
+<li class="chapter" data-level="3.9.5" data-path="3.9-polynomial-optimization.html"><a href="3.9-polynomial-optimization.html#karush-khun-tucker-conditions"><i class="fa fa-check"></i><b>3.9.5</b> Karush-Khun-Tucker Conditions </a></li>
+</ul></li>
+<li class="chapter" data-level="3.10" data-path="3.10-summary-1.html"><a href="3.10-summary-1.html"><i class="fa fa-check"></i><b>3.10</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4-numericalcalculus.html"><a href="4-numericalcalculus.html"><i class="fa fa-check"></i><b>4</b> Numerical Calculus</a><ul>
+<li class="chapter" data-level="4.1" data-path="4.1-introductory-calculus.html"><a href="4.1-introductory-calculus.html"><i class="fa fa-check"></i><b>4.1</b> Introductory Calculus</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="4.1-introductory-calculus.html"><a href="4.1-introductory-calculus.html#function"><i class="fa fa-check"></i><b>4.1.1</b> Function</a></li>
+<li class="chapter" data-level="4.1.2" data-path="4.1-introductory-calculus.html"><a href="4.1-introductory-calculus.html#slopes"><i class="fa fa-check"></i><b>4.1.2</b> Slopes</a></li>
+<li class="chapter" data-level="4.1.3" data-path="4.1-introductory-calculus.html"><a href="4.1-introductory-calculus.html#limits"><i class="fa fa-check"></i><b>4.1.3</b> Limits</a></li>
+<li class="chapter" data-level="4.1.4" data-path="4.1-introductory-calculus.html"><a href="4.1-introductory-calculus.html#derivatives"><i class="fa fa-check"></i><b>4.1.4</b> Derivatives</a></li>
+<li class="chapter" data-level="4.1.5" data-path="4.1-introductory-calculus.html"><a href="4.1-introductory-calculus.html#integrals"><i class="fa fa-check"></i><b>4.1.5</b> Integrals </a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="4.2-approximation-by-numerical-integration.html"><a href="4.2-approximation-by-numerical-integration.html"><i class="fa fa-check"></i><b>4.2</b> Approximation by Numerical Integration </a><ul>
+<li class="chapter" data-level="4.2.1" data-path="4.2-approximation-by-numerical-integration.html"><a href="4.2-approximation-by-numerical-integration.html#newton-cotes-quadrature"><i class="fa fa-check"></i><b>4.2.1</b> Newton-Cotes Quadrature </a></li>
+<li class="chapter" data-level="4.2.2" data-path="4.2-approximation-by-numerical-integration.html"><a href="4.2-approximation-by-numerical-integration.html#composite-and-adaptive-quadrature"><i class="fa fa-check"></i><b>4.2.2</b> Composite and Adaptive Quadrature </a></li>
+<li class="chapter" data-level="4.2.3" data-path="4.2-approximation-by-numerical-integration.html"><a href="4.2-approximation-by-numerical-integration.html#gaussianquadrature"><i class="fa fa-check"></i><b>4.2.3</b> Gaussian Quadrature</a></li>
+<li class="chapter" data-level="4.2.4" data-path="4.2-approximation-by-numerical-integration.html"><a href="4.2-approximation-by-numerical-integration.html#romberg-integration"><i class="fa fa-check"></i><b>4.2.4</b> Romberg integration </a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="4.3-approximation-by-numerical-differentiation.html"><a href="4.3-approximation-by-numerical-differentiation.html"><i class="fa fa-check"></i><b>4.3</b> Approximation by Numerical Differentiation </a><ul>
+<li class="chapter" data-level="4.3.1" data-path="4.3-approximation-by-numerical-differentiation.html"><a href="4.3-approximation-by-numerical-differentiation.html#order-of-accuracy"><i class="fa fa-check"></i><b>4.3.1</b> Order of Accuracy</a></li>
+<li class="chapter" data-level="4.3.2" data-path="4.3-approximation-by-numerical-differentiation.html"><a href="4.3-approximation-by-numerical-differentiation.html#finite-difference"><i class="fa fa-check"></i><b>4.3.2</b> Finite Difference </a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="4.4-approximation-using-ordinary-differential-equations.html"><a href="4.4-approximation-using-ordinary-differential-equations.html"><i class="fa fa-check"></i><b>4.4</b> Approximation using Ordinary Differential Equations  </a><ul>
+<li class="chapter" data-level="4.4.1" data-path="4.4-approximation-using-ordinary-differential-equations.html"><a href="4.4-approximation-using-ordinary-differential-equations.html#eulers-method-explicit"><i class="fa fa-check"></i><b>4.4.1</b> Euler’s Method (Explicit) </a></li>
+<li class="chapter" data-level="4.4.2" data-path="4.4-approximation-using-ordinary-differential-equations.html"><a href="4.4-approximation-using-ordinary-differential-equations.html#eulers-method-implicit"><i class="fa fa-check"></i><b>4.4.2</b> Euler’s Method (Implicit)</a></li>
+<li class="chapter" data-level="4.4.3" data-path="4.4-approximation-using-ordinary-differential-equations.html"><a href="4.4-approximation-using-ordinary-differential-equations.html#heuns-method"><i class="fa fa-check"></i><b>4.4.3</b> Heun’s Method </a></li>
+<li class="chapter" data-level="4.4.4" data-path="4.4-approximation-using-ordinary-differential-equations.html"><a href="4.4-approximation-using-ordinary-differential-equations.html#runge-kutta-method"><i class="fa fa-check"></i><b>4.4.4</b> Runge-Kutta Method </a></li>
+<li class="chapter" data-level="4.4.5" data-path="4.4-approximation-using-ordinary-differential-equations.html"><a href="4.4-approximation-using-ordinary-differential-equations.html#shooting-method"><i class="fa fa-check"></i><b>4.4.5</b> Shooting Method </a></li>
+<li class="chapter" data-level="4.4.6" data-path="4.4-approximation-using-ordinary-differential-equations.html"><a href="4.4-approximation-using-ordinary-differential-equations.html#finite-difference-method"><i class="fa fa-check"></i><b>4.4.6</b> Finite Difference Method  </a></li>
+<li class="chapter" data-level="4.4.7" data-path="4.4-approximation-using-ordinary-differential-equations.html"><a href="4.4-approximation-using-ordinary-differential-equations.html#finite-element-method-based-on-wrm-and-vm"><i class="fa fa-check"></i><b>4.4.7</b> Finite Element Method (based on WRM and VM) </a></li>
+<li class="chapter" data-level="4.4.8" data-path="4.4-approximation-using-ordinary-differential-equations.html"><a href="4.4-approximation-using-ordinary-differential-equations.html#least-square-method-using-wrm"><i class="fa fa-check"></i><b>4.4.8</b> Least-Square Method (using WRM)</a></li>
+<li class="chapter" data-level="4.4.9" data-path="4.4-approximation-using-ordinary-differential-equations.html"><a href="4.4-approximation-using-ordinary-differential-equations.html#galerkin-method-using-wrm"><i class="fa fa-check"></i><b>4.4.9</b> Galerkin Method (using WRM)</a></li>
+<li class="chapter" data-level="4.4.10" data-path="4.4-approximation-using-ordinary-differential-equations.html"><a href="4.4-approximation-using-ordinary-differential-equations.html#petrov-galerkin-method-using-wrm"><i class="fa fa-check"></i><b>4.4.10</b> Petrov-Galerkin Method (using WRM)</a></li>
+<li class="chapter" data-level="4.4.11" data-path="4.4-approximation-using-ordinary-differential-equations.html"><a href="4.4-approximation-using-ordinary-differential-equations.html#rayleigh-ritz-method-using-wrm"><i class="fa fa-check"></i><b>4.4.11</b> Rayleigh-Ritz Method (using WRM)</a></li>
+<li class="chapter" data-level="4.4.12" data-path="4.4-approximation-using-ordinary-differential-equations.html"><a href="4.4-approximation-using-ordinary-differential-equations.html#subdomain-method-using-subdomains"><i class="fa fa-check"></i><b>4.4.12</b> Subdomain Method (using subdomains)</a></li>
+<li class="chapter" data-level="4.4.13" data-path="4.4-approximation-using-ordinary-differential-equations.html"><a href="4.4-approximation-using-ordinary-differential-equations.html#collocation-method-using-direct-location-points"><i class="fa fa-check"></i><b>4.4.13</b> Collocation Method (using direct location points) </a></li>
+<li class="chapter" data-level="4.4.14" data-path="4.4-approximation-using-ordinary-differential-equations.html"><a href="4.4-approximation-using-ordinary-differential-equations.html#weighted-residual-summary"><i class="fa fa-check"></i><b>4.4.14</b> Weighted Residual Summary </a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="4.5-approximation-using-functional-differential-equations.html"><a href="4.5-approximation-using-functional-differential-equations.html"><i class="fa fa-check"></i><b>4.5</b> Approximation using Functional Differential Equations </a><ul>
+<li class="chapter" data-level="4.5.1" data-path="4.5-approximation-using-functional-differential-equations.html"><a href="4.5-approximation-using-functional-differential-equations.html#variational-functions"><i class="fa fa-check"></i><b>4.5.1</b> Variational Functions </a></li>
+<li class="chapter" data-level="4.5.2" data-path="4.5-approximation-using-functional-differential-equations.html"><a href="4.5-approximation-using-functional-differential-equations.html#variational-methods"><i class="fa fa-check"></i><b>4.5.2</b> Variational Methods </a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html"><i class="fa fa-check"></i><b>4.6</b> Approximation using Partial Differential Equations </a><ul>
+<li class="chapter" data-level="4.6.1" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-laplace-equation-elliptic-pde"><i class="fa fa-check"></i><b>4.6.1</b> The Laplace Equation (Elliptic PDE)  </a></li>
+<li class="chapter" data-level="4.6.2" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-heat-equation-parabolic-pde"><i class="fa fa-check"></i><b>4.6.2</b> The Heat equation (Parabolic PDE)  </a></li>
+<li class="chapter" data-level="4.6.3" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-wave-equation-hyperbolic-pde"><i class="fa fa-check"></i><b>4.6.3</b> The Wave equation (Hyperbolic PDE)  </a></li>
+<li class="chapter" data-level="4.6.4" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-crank-nicolson-equation"><i class="fa fa-check"></i><b>4.6.4</b> The Crank-Nicolson Equation </a></li>
+<li class="chapter" data-level="4.6.5" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-burgers-equation"><i class="fa fa-check"></i><b>4.6.5</b> The Burger’s Equation </a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="4.7-approximation-using-fourier-series-and-transform.html"><a href="4.7-approximation-using-fourier-series-and-transform.html"><i class="fa fa-check"></i><b>4.7</b> Approximation using Fourier Series And Transform </a><ul>
+<li class="chapter" data-level="4.7.1" data-path="4.7-approximation-using-fourier-series-and-transform.html"><a href="4.7-approximation-using-fourier-series-and-transform.html#discrete-fourier-transform-dft"><i class="fa fa-check"></i><b>4.7.1</b> Discrete Fourier Transform (DFT)  </a></li>
+<li class="chapter" data-level="4.7.2" data-path="4.7-approximation-using-fourier-series-and-transform.html"><a href="4.7-approximation-using-fourier-series-and-transform.html#inverse-discrete-fourier-transformation-idft"><i class="fa fa-check"></i><b>4.7.2</b> Inverse Discrete Fourier Transformation (IDFT)  </a></li>
+<li class="chapter" data-level="4.7.3" data-path="4.7-approximation-using-fourier-series-and-transform.html"><a href="4.7-approximation-using-fourier-series-and-transform.html#fast-fourier-transform-fft"><i class="fa fa-check"></i><b>4.7.3</b> Fast Fourier Transform (FFT)  </a></li>
+</ul></li>
+<li class="chapter" data-level="4.8" data-path="4.8-summary-2.html"><a href="4.8-summary-2.html"><i class="fa fa-check"></i><b>4.8</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-numericalprobability.html"><a href="5-numericalprobability.html"><i class="fa fa-check"></i><b>5</b> Probability and Distribution</a><ul>
+<li class="chapter" data-level="5.1" data-path="5.1-approximation-based-on-random-chances.html"><a href="5.1-approximation-based-on-random-chances.html"><i class="fa fa-check"></i><b>5.1</b> Approximation based on Random Chances </a></li>
+<li class="chapter" data-level="5.2" data-path="5.2-distribution.html"><a href="5.2-distribution.html"><i class="fa fa-check"></i><b>5.2</b> Distribution</a></li>
+<li class="chapter" data-level="5.3" data-path="5.3-mass-and-density.html"><a href="5.3-mass-and-density.html"><i class="fa fa-check"></i><b>5.3</b> Mass and Density  </a></li>
+<li class="chapter" data-level="5.4" data-path="5.4-probability.html"><a href="5.4-probability.html"><i class="fa fa-check"></i><b>5.4</b> Probability  </a></li>
+<li class="chapter" data-level="5.5" data-path="5.5-probability-density-function-pdf.html"><a href="5.5-probability-density-function-pdf.html"><i class="fa fa-check"></i><b>5.5</b> Probability Density Function (PDF)  </a></li>
+<li class="chapter" data-level="5.6" data-path="5.6-probability-mass-function-pmf.html"><a href="5.6-probability-mass-function-pmf.html"><i class="fa fa-check"></i><b>5.6</b> Probability Mass function (PMF)  </a></li>
+<li class="chapter" data-level="5.7" data-path="5.7-cumulative-distribution-function-cdf.html"><a href="5.7-cumulative-distribution-function-cdf.html"><i class="fa fa-check"></i><b>5.7</b> Cumulative Distribution Function (CDF)  </a></li>
+<li class="chapter" data-level="5.8" data-path="5.8-special-functions.html"><a href="5.8-special-functions.html"><i class="fa fa-check"></i><b>5.8</b> Special Functions</a><ul>
+<li class="chapter" data-level="5.8.1" data-path="5.8-special-functions.html"><a href="5.8-special-functions.html#gamma-function"><i class="fa fa-check"></i><b>5.8.1</b> Gamma function </a></li>
+<li class="chapter" data-level="5.8.2" data-path="5.8-special-functions.html"><a href="5.8-special-functions.html#incomplete-gamma-function"><i class="fa fa-check"></i><b>5.8.2</b> Incomplete Gamma function </a></li>
+<li class="chapter" data-level="5.8.3" data-path="5.8-special-functions.html"><a href="5.8-special-functions.html#digamma-function"><i class="fa fa-check"></i><b>5.8.3</b> Digamma Function </a></li>
+<li class="chapter" data-level="5.8.4" data-path="5.8-special-functions.html"><a href="5.8-special-functions.html#beta-function"><i class="fa fa-check"></i><b>5.8.4</b> Beta function </a></li>
+<li class="chapter" data-level="5.8.5" data-path="5.8-special-functions.html"><a href="5.8-special-functions.html#incomplete-beta-function"><i class="fa fa-check"></i><b>5.8.5</b> Incomplete Beta function </a></li>
+<li class="chapter" data-level="5.8.6" data-path="5.8-special-functions.html"><a href="5.8-special-functions.html#regularized-beta-function"><i class="fa fa-check"></i><b>5.8.6</b> Regularized Beta function  </a></li>
+<li class="chapter" data-level="5.8.7" data-path="5.8-special-functions.html"><a href="5.8-special-functions.html#hypergeometric-function"><i class="fa fa-check"></i><b>5.8.7</b> Hypergeometric function </a></li>
+<li class="chapter" data-level="5.8.8" data-path="5.8-special-functions.html"><a href="5.8-special-functions.html#continued-fraction"><i class="fa fa-check"></i><b>5.8.8</b> Continued Fraction </a></li>
+<li class="chapter" data-level="5.8.9" data-path="5.8-special-functions.html"><a href="5.8-special-functions.html#dirac-delta-function"><i class="fa fa-check"></i><b>5.8.9</b> Dirac Delta Function </a></li>
+<li class="chapter" data-level="5.8.10" data-path="5.8-special-functions.html"><a href="5.8-special-functions.html#kronecker-delta-function"><i class="fa fa-check"></i><b>5.8.10</b> Kronecker Delta Function </a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html"><i class="fa fa-check"></i><b>5.9</b> Types of Distribution</a><ul>
+<li class="chapter" data-level="5.9.1" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#bernoulli-distribution"><i class="fa fa-check"></i><b>5.9.1</b> Bernoulli distribution </a></li>
+<li class="chapter" data-level="5.9.2" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#binomial-distribution"><i class="fa fa-check"></i><b>5.9.2</b> Binomial distribution </a></li>
+<li class="chapter" data-level="5.9.3" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#multinomial-distribution"><i class="fa fa-check"></i><b>5.9.3</b> Multinomial distribution </a></li>
+<li class="chapter" data-level="5.9.4" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#geometric-distribution"><i class="fa fa-check"></i><b>5.9.4</b> Geometric distribution </a></li>
+<li class="chapter" data-level="5.9.5" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#beta-distribution"><i class="fa fa-check"></i><b>5.9.5</b> Beta distribution </a></li>
+<li class="chapter" data-level="5.9.6" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#dirichlet-distribution"><i class="fa fa-check"></i><b>5.9.6</b> Dirichlet distribution </a></li>
+<li class="chapter" data-level="5.9.7" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#exponential-distribution"><i class="fa fa-check"></i><b>5.9.7</b> Exponential distribution </a></li>
+<li class="chapter" data-level="5.9.8" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#gamma-distribution"><i class="fa fa-check"></i><b>5.9.8</b> Gamma distribution </a></li>
+<li class="chapter" data-level="5.9.9" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#inverse-gamma-distribution"><i class="fa fa-check"></i><b>5.9.9</b> Inverse Gamma distribution </a></li>
+<li class="chapter" data-level="5.9.10" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#weibull-distribution"><i class="fa fa-check"></i><b>5.9.10</b> Weibull distribution </a></li>
+<li class="chapter" data-level="5.9.11" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#poisson-distribution"><i class="fa fa-check"></i><b>5.9.11</b> Poisson distribution </a></li>
+<li class="chapter" data-level="5.9.12" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#pareto-distribution"><i class="fa fa-check"></i><b>5.9.12</b> Pareto distribution </a></li>
+<li class="chapter" data-level="5.9.13" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#normal-distribution"><i class="fa fa-check"></i><b>5.9.13</b> Normal distribution </a></li>
+<li class="chapter" data-level="5.9.14" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#wald-distribution"><i class="fa fa-check"></i><b>5.9.14</b> Wald Distribution </a></li>
+<li class="chapter" data-level="5.9.15" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#log-normal-distribution"><i class="fa fa-check"></i><b>5.9.15</b> Log-normal Distribution </a></li>
+<li class="chapter" data-level="5.9.16" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#uniform-distribution"><i class="fa fa-check"></i><b>5.9.16</b> Uniform Distribution </a></li>
+<li class="chapter" data-level="5.9.17" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#t-distribution"><i class="fa fa-check"></i><b>5.9.17</b> T-Distribution </a></li>
+<li class="chapter" data-level="5.9.18" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#f-distribution"><i class="fa fa-check"></i><b>5.9.18</b> F-Distribution </a></li>
+<li class="chapter" data-level="5.9.19" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#chi-square-distribution"><i class="fa fa-check"></i><b>5.9.19</b> Chi-square Distribution </a></li>
+<li class="chapter" data-level="5.9.20" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#wishartdistribution"><i class="fa fa-check"></i><b>5.9.20</b> Wishart distribution</a></li>
+<li class="chapter" data-level="5.9.21" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#lkj-distribution"><i class="fa fa-check"></i><b>5.9.21</b> LKJ distribution </a></li>
+<li class="chapter" data-level="5.9.22" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#mixture-distribution"><i class="fa fa-check"></i><b>5.9.22</b> Mixture distribution </a></li>
+<li class="chapter" data-level="5.9.23" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#non-parametric-distribution"><i class="fa fa-check"></i><b>5.9.23</b> Non-parametric distribution </a></li>
+<li class="chapter" data-level="5.9.24" data-path="5.9-distributiontypes.html"><a href="5.9-distributiontypes.html#multi-dimensional-density"><i class="fa fa-check"></i><b>5.9.24</b> Multi-dimensional Density </a></li>
+</ul></li>
+<li class="chapter" data-level="5.10" data-path="5.10-summary-3.html"><a href="5.10-summary-3.html"><i class="fa fa-check"></i><b>5.10</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="6-statistics.html"><a href="6-statistics.html"><i class="fa fa-check"></i><b>6</b> Statistical Computation</a><ul>
+<li class="chapter" data-level="6.1" data-path="6.1-descriptive-statistics.html"><a href="6.1-descriptive-statistics.html"><i class="fa fa-check"></i><b>6.1</b> Descriptive Statistics</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="6.1-descriptive-statistics.html"><a href="6.1-descriptive-statistics.html#visual-representation"><i class="fa fa-check"></i><b>6.1.1</b> Visual Representation</a></li>
+<li class="chapter" data-level="6.1.2" data-path="6.1-descriptive-statistics.html"><a href="6.1-descriptive-statistics.html#central-tendency"><i class="fa fa-check"></i><b>6.1.2</b> Central Tendency </a></li>
+<li class="chapter" data-level="6.1.3" data-path="6.1-descriptive-statistics.html"><a href="6.1-descriptive-statistics.html#variability"><i class="fa fa-check"></i><b>6.1.3</b> Variability </a></li>
+<li class="chapter" data-level="6.1.4" data-path="6.1-descriptive-statistics.html"><a href="6.1-descriptive-statistics.html#kurtosis-and-skewness"><i class="fa fa-check"></i><b>6.1.4</b> Kurtosis and Skewness  </a></li>
+<li class="chapter" data-level="6.1.5" data-path="6.1-descriptive-statistics.html"><a href="6.1-descriptive-statistics.html#five-number-summary"><i class="fa fa-check"></i><b>6.1.5</b> Five Number Summary  </a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="6.2-inferential-statistics.html"><a href="6.2-inferential-statistics.html"><i class="fa fa-check"></i><b>6.2</b> Inferential Statistics</a></li>
+<li class="chapter" data-level="6.3" data-path="6.3-the-significance-of-difference.html"><a href="6.3-the-significance-of-difference.html"><i class="fa fa-check"></i><b>6.3</b> The Significance of Difference </a><ul>
+<li class="chapter" data-level="6.3.1" data-path="6.3-the-significance-of-difference.html"><a href="6.3-the-significance-of-difference.html#hypothesis"><i class="fa fa-check"></i><b>6.3.1</b> Hypothesis</a></li>
+<li class="chapter" data-level="6.3.2" data-path="6.3-the-significance-of-difference.html"><a href="6.3-the-significance-of-difference.html#t-test-true-variance-unknown"><i class="fa fa-check"></i><b>6.3.2</b> T-Test (True Variance unknown) </a></li>
+<li class="chapter" data-level="6.3.3" data-path="6.3-the-significance-of-difference.html"><a href="6.3-the-significance-of-difference.html#z-test-true-variance-known"><i class="fa fa-check"></i><b>6.3.3</b> Z-Test (True Variance known)</a></li>
+<li class="chapter" data-level="6.3.4" data-path="6.3-the-significance-of-difference.html"><a href="6.3-the-significance-of-difference.html#f-test-using-f-ratio"><i class="fa fa-check"></i><b>6.3.4</b> F-Test using F-ratio  </a></li>
+<li class="chapter" data-level="6.3.5" data-path="6.3-the-significance-of-difference.html"><a href="6.3-the-significance-of-difference.html#f-test-with-one-way-anova"><i class="fa fa-check"></i><b>6.3.5</b> F-Test with One-Way ANOVA </a></li>
+<li class="chapter" data-level="6.3.6" data-path="6.3-the-significance-of-difference.html"><a href="6.3-the-significance-of-difference.html#f-test-with-two-way-anova"><i class="fa fa-check"></i><b>6.3.6</b> F-Test with Two-Way ANOVA </a></li>
+<li class="chapter" data-level="6.3.7" data-path="6.3-the-significance-of-difference.html"><a href="6.3-the-significance-of-difference.html#pearsons-chi-square-test"><i class="fa fa-check"></i><b>6.3.7</b> Pearson’s Chi-square Test </a></li>
+<li class="chapter" data-level="6.3.8" data-path="6.3-the-significance-of-difference.html"><a href="6.3-the-significance-of-difference.html#wilcoxon-test"><i class="fa fa-check"></i><b>6.3.8</b> Wilcoxon Test  </a></li>
+<li class="chapter" data-level="6.3.9" data-path="6.3-the-significance-of-difference.html"><a href="6.3-the-significance-of-difference.html#kruskal-wallis-test"><i class="fa fa-check"></i><b>6.3.9</b> Kruskal-Wallis Test </a></li>
+<li class="chapter" data-level="6.3.10" data-path="6.3-the-significance-of-difference.html"><a href="6.3-the-significance-of-difference.html#friedman-test"><i class="fa fa-check"></i><b>6.3.10</b> Friedman Test </a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="6.4-post-hoc-analysis.html"><a href="6.4-post-hoc-analysis.html"><i class="fa fa-check"></i><b>6.4</b> Post-HOC Analysis </a><ul>
+<li class="chapter" data-level="6.4.1" data-path="6.4-post-hoc-analysis.html"><a href="6.4-post-hoc-analysis.html#bonferroni-correction"><i class="fa fa-check"></i><b>6.4.1</b> Bonferroni Correction </a></li>
+<li class="chapter" data-level="6.4.2" data-path="6.4-post-hoc-analysis.html"><a href="6.4-post-hoc-analysis.html#benjamini-hochberg-correction"><i class="fa fa-check"></i><b>6.4.2</b> Benjamini-Hochberg Correction </a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="6.5-multiple-comparison-tests.html"><a href="6.5-multiple-comparison-tests.html"><i class="fa fa-check"></i><b>6.5</b> Multiple Comparison Tests </a><ul>
+<li class="chapter" data-level="6.5.1" data-path="6.5-multiple-comparison-tests.html"><a href="6.5-multiple-comparison-tests.html#scheffes-test"><i class="fa fa-check"></i><b>6.5.1</b> Scheffe’s Test </a></li>
+<li class="chapter" data-level="6.5.2" data-path="6.5-multiple-comparison-tests.html"><a href="6.5-multiple-comparison-tests.html#fishers-test"><i class="fa fa-check"></i><b>6.5.2</b> Fisher’s Test </a></li>
+<li class="chapter" data-level="6.5.3" data-path="6.5-multiple-comparison-tests.html"><a href="6.5-multiple-comparison-tests.html#tukeys-test"><i class="fa fa-check"></i><b>6.5.3</b> Tukey’s Test </a></li>
+<li class="chapter" data-level="6.5.4" data-path="6.5-multiple-comparison-tests.html"><a href="6.5-multiple-comparison-tests.html#newman-keul-test"><i class="fa fa-check"></i><b>6.5.4</b> Newman-Keul Test  </a></li>
+<li class="chapter" data-level="6.5.5" data-path="6.5-multiple-comparison-tests.html"><a href="6.5-multiple-comparison-tests.html#games-howell-test"><i class="fa fa-check"></i><b>6.5.5</b> Games-Howell Test </a></li>
+<li class="chapter" data-level="6.5.6" data-path="6.5-multiple-comparison-tests.html"><a href="6.5-multiple-comparison-tests.html#dunnetts-test"><i class="fa fa-check"></i><b>6.5.6</b> Dunnett’s Test </a></li>
+<li class="chapter" data-level="6.5.7" data-path="6.5-multiple-comparison-tests.html"><a href="6.5-multiple-comparison-tests.html#duncans-test"><i class="fa fa-check"></i><b>6.5.7</b> Duncan’s Test </a></li>
+<li class="chapter" data-level="6.5.8" data-path="6.5-multiple-comparison-tests.html"><a href="6.5-multiple-comparison-tests.html#meta-analysis-test"><i class="fa fa-check"></i><b>6.5.8</b> Meta-Analysis Test </a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="6.6-statistical-modeling.html"><a href="6.6-statistical-modeling.html"><i class="fa fa-check"></i><b>6.6</b> Statistical Modeling </a><ul>
+<li class="chapter" data-level="6.6.1" data-path="6.6-statistical-modeling.html"><a href="6.6-statistical-modeling.html#model-specification"><i class="fa fa-check"></i><b>6.6.1</b> Model Specification </a></li>
+<li class="chapter" data-level="6.6.2" data-path="6.6-statistical-modeling.html"><a href="6.6-statistical-modeling.html#statistical-interaction"><i class="fa fa-check"></i><b>6.6.2</b> Statistical Interaction </a></li>
+<li class="chapter" data-level="6.6.3" data-path="6.6-statistical-modeling.html"><a href="6.6-statistical-modeling.html#dummy-variables"><i class="fa fa-check"></i><b>6.6.3</b> Dummy Variables </a></li>
+<li class="chapter" data-level="6.6.4" data-path="6.6-statistical-modeling.html"><a href="6.6-statistical-modeling.html#model-selection"><i class="fa fa-check"></i><b>6.6.4</b> Model Selection </a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="6.7-regression-analysis.html"><a href="6.7-regression-analysis.html"><i class="fa fa-check"></i><b>6.7</b> Regression Analysis </a><ul>
+<li class="chapter" data-level="6.7.1" data-path="6.7-regression-analysis.html"><a href="6.7-regression-analysis.html#assumptions"><i class="fa fa-check"></i><b>6.7.1</b> Assumptions</a></li>
+<li class="chapter" data-level="6.7.2" data-path="6.7-regression-analysis.html"><a href="6.7-regression-analysis.html#correlation-coefficients"><i class="fa fa-check"></i><b>6.7.2</b> Correlation Coefficients </a></li>
+<li class="chapter" data-level="6.7.3" data-path="6.7-regression-analysis.html"><a href="6.7-regression-analysis.html#homoscedasticity-and-heteroscedasticity"><i class="fa fa-check"></i><b>6.7.3</b> Homoscedasticity and Heteroscedasticity  </a></li>
+<li class="chapter" data-level="6.7.4" data-path="6.7-regression-analysis.html"><a href="6.7-regression-analysis.html#normality-and-leverage"><i class="fa fa-check"></i><b>6.7.4</b> Normality and Leverage  </a></li>
+<li class="chapter" data-level="6.7.5" data-path="6.7-regression-analysis.html"><a href="6.7-regression-analysis.html#collinearity"><i class="fa fa-check"></i><b>6.7.5</b> Collinearity </a></li>
+<li class="chapter" data-level="6.7.6" data-path="6.7-regression-analysis.html"><a href="6.7-regression-analysis.html#dispersion"><i class="fa fa-check"></i><b>6.7.6</b> Dispersion </a></li>
+<li class="chapter" data-level="6.7.7" data-path="6.7-regression-analysis.html"><a href="6.7-regression-analysis.html#diagnostic-plots"><i class="fa fa-check"></i><b>6.7.7</b> Diagnostic Plots</a></li>
+</ul></li>
+<li class="chapter" data-level="6.8" data-path="6.8-the-significance-of-regression.html"><a href="6.8-the-significance-of-regression.html"><i class="fa fa-check"></i><b>6.8</b> The Significance of Regression </a><ul>
+<li class="chapter" data-level="6.8.1" data-path="6.8-the-significance-of-regression.html"><a href="6.8-the-significance-of-regression.html#simple-linear-regression"><i class="fa fa-check"></i><b>6.8.1</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="6.8.2" data-path="6.8-the-significance-of-regression.html"><a href="6.8-the-significance-of-regression.html#multilinear-regression"><i class="fa fa-check"></i><b>6.8.2</b> Multilinear Regression </a></li>
+<li class="chapter" data-level="6.8.3" data-path="6.8-the-significance-of-regression.html"><a href="6.8-the-significance-of-regression.html#logistic-regression"><i class="fa fa-check"></i><b>6.8.3</b> Logistic Regression </a></li>
+<li class="chapter" data-level="6.8.4" data-path="6.8-the-significance-of-regression.html"><a href="6.8-the-significance-of-regression.html#poisson-regression"><i class="fa fa-check"></i><b>6.8.4</b> Poisson Regression </a></li>
+<li class="chapter" data-level="6.8.5" data-path="6.8-the-significance-of-regression.html"><a href="6.8-the-significance-of-regression.html#cox-regression"><i class="fa fa-check"></i><b>6.8.5</b> Cox Regression </a></li>
+<li class="chapter" data-level="6.8.6" data-path="6.8-the-significance-of-regression.html"><a href="6.8-the-significance-of-regression.html#polynomial-regression"><i class="fa fa-check"></i><b>6.8.6</b> Polynomial Regression </a></li>
+<li class="chapter" data-level="6.8.7" data-path="6.8-the-significance-of-regression.html"><a href="6.8-the-significance-of-regression.html#b-splines-and-natural-splines"><i class="fa fa-check"></i><b>6.8.7</b> B-Splines and Natural Splines  </a></li>
+<li class="chapter" data-level="6.8.8" data-path="6.8-the-significance-of-regression.html"><a href="6.8-the-significance-of-regression.html#spline-smoothing"><i class="fa fa-check"></i><b>6.8.8</b> Spline Smoothing </a></li>
+<li class="chapter" data-level="6.8.9" data-path="6.8-the-significance-of-regression.html"><a href="6.8-the-significance-of-regression.html#loess-and-lowess"><i class="fa fa-check"></i><b>6.8.9</b> LOESS and LOWESS  </a></li>
+</ul></li>
+<li class="chapter" data-level="6.9" data-path="6.9-inference-for-regression.html"><a href="6.9-inference-for-regression.html"><i class="fa fa-check"></i><b>6.9</b> Inference for Regression</a><ul>
+<li class="chapter" data-level="6.9.1" data-path="6.9-inference-for-regression.html"><a href="6.9-inference-for-regression.html#goodness-of-fit-linear-regression"><i class="fa fa-check"></i><b>6.9.1</b> Goodness of Fit (Linear Regression) </a></li>
+<li class="chapter" data-level="6.9.2" data-path="6.9-inference-for-regression.html"><a href="6.9-inference-for-regression.html#goodness-of-fit-non-linear-regression"><i class="fa fa-check"></i><b>6.9.2</b> Goodness of Fit (Non-Linear Regression) </a></li>
+<li class="chapter" data-level="6.9.3" data-path="6.9-inference-for-regression.html"><a href="6.9-inference-for-regression.html#confidence-interval"><i class="fa fa-check"></i><b>6.9.3</b> Confidence interval </a></li>
+</ul></li>
+<li class="chapter" data-level="6.10" data-path="6.10-summary-4.html"><a href="6.10-summary-4.html"><i class="fa fa-check"></i><b>6.10</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="7-bayesian.html"><a href="7-bayesian.html"><i class="fa fa-check"></i><b>7</b> Bayesian Computation I</a><ul>
+<li class="chapter" data-level="7.1" data-path="7.1-probability-1.html"><a href="7.1-probability-1.html"><i class="fa fa-check"></i><b>7.1</b> Probability </a><ul>
+<li class="chapter" data-level="7.1.1" data-path="7.1-probability-1.html"><a href="7.1-probability-1.html#marginal-probability"><i class="fa fa-check"></i><b>7.1.1</b> Marginal Probability </a></li>
+<li class="chapter" data-level="7.1.2" data-path="7.1-probability-1.html"><a href="7.1-probability-1.html#joint-probability"><i class="fa fa-check"></i><b>7.1.2</b> Joint Probability </a></li>
+<li class="chapter" data-level="7.1.3" data-path="7.1-probability-1.html"><a href="7.1-probability-1.html#conditional-probability"><i class="fa fa-check"></i><b>7.1.3</b> Conditional Probability </a></li>
+<li class="chapter" data-level="7.1.4" data-path="7.1-probability-1.html"><a href="7.1-probability-1.html#negation-probability"><i class="fa fa-check"></i><b>7.1.4</b> Negation Probability </a></li>
+<li class="chapter" data-level="7.1.5" data-path="7.1-probability-1.html"><a href="7.1-probability-1.html#combination-of-probabilities"><i class="fa fa-check"></i><b>7.1.5</b> Combination of Probabilities</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="7.2-probability-rules.html"><a href="7.2-probability-rules.html"><i class="fa fa-check"></i><b>7.2</b> Probability Rules</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="7.2-probability-rules.html"><a href="7.2-probability-rules.html#law-of-total-probability"><i class="fa fa-check"></i><b>7.2.1</b> Law of Total Probability</a></li>
+<li class="chapter" data-level="7.2.2" data-path="7.2-probability-rules.html"><a href="7.2-probability-rules.html#law-of-total-expectation"><i class="fa fa-check"></i><b>7.2.2</b> Law of Total Expectation </a></li>
+<li class="chapter" data-level="7.2.3" data-path="7.2-probability-rules.html"><a href="7.2-probability-rules.html#law-of-total-variance"><i class="fa fa-check"></i><b>7.2.3</b> Law of Total Variance </a></li>
+<li class="chapter" data-level="7.2.4" data-path="7.2-probability-rules.html"><a href="7.2-probability-rules.html#law-of-total-covariance"><i class="fa fa-check"></i><b>7.2.4</b> Law of Total Covariance </a></li>
+<li class="chapter" data-level="7.2.5" data-path="7.2-probability-rules.html"><a href="7.2-probability-rules.html#law-of-large-numbers"><i class="fa fa-check"></i><b>7.2.5</b> Law of Large Numbers </a></li>
+<li class="chapter" data-level="7.2.6" data-path="7.2-probability-rules.html"><a href="7.2-probability-rules.html#central-limit-theorem"><i class="fa fa-check"></i><b>7.2.6</b> Central Limit Theorem </a></li>
+<li class="chapter" data-level="7.2.7" data-path="7.2-probability-rules.html"><a href="7.2-probability-rules.html#rule-of-independence"><i class="fa fa-check"></i><b>7.2.7</b> Rule of Independence </a></li>
+<li class="chapter" data-level="7.2.8" data-path="7.2-probability-rules.html"><a href="7.2-probability-rules.html#rule-of-exchangeability"><i class="fa fa-check"></i><b>7.2.8</b> Rule of Exchangeability </a></li>
+<li class="chapter" data-level="7.2.9" data-path="7.2-probability-rules.html"><a href="7.2-probability-rules.html#rule-of-expectation-and-variance"><i class="fa fa-check"></i><b>7.2.9</b> Rule of Expectation and Variance</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="7.3-bayes-theorem.html"><a href="7.3-bayes-theorem.html"><i class="fa fa-check"></i><b>7.3</b> Bayes Theorem </a><ul>
+<li class="chapter" data-level="7.3.1" data-path="7.3-bayes-theorem.html"><a href="7.3-bayes-theorem.html#naïve-bayes"><i class="fa fa-check"></i><b>7.3.1</b> Naïve Bayes </a></li>
+<li class="chapter" data-level="7.3.2" data-path="7.3-bayes-theorem.html"><a href="7.3-bayes-theorem.html#likelihood"><i class="fa fa-check"></i><b>7.3.2</b> Likelihood</a></li>
+<li class="chapter" data-level="7.3.3" data-path="7.3-bayes-theorem.html"><a href="7.3-bayes-theorem.html#posterior-probability"><i class="fa fa-check"></i><b>7.3.3</b> Posterior Probability  </a></li>
+<li class="chapter" data-level="7.3.4" data-path="7.3-bayes-theorem.html"><a href="7.3-bayes-theorem.html#prior-probability"><i class="fa fa-check"></i><b>7.3.4</b> Prior Probability  </a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="7.4-conjugacy.html"><a href="7.4-conjugacy.html"><i class="fa fa-check"></i><b>7.4</b> Conjugacy</a><ul>
+<li class="chapter" data-level="7.4.1" data-path="7.4-conjugacy.html"><a href="7.4-conjugacy.html#precision-1"><i class="fa fa-check"></i><b>7.4.1</b> Precision </a></li>
+<li class="chapter" data-level="7.4.2" data-path="7.4-conjugacy.html"><a href="7.4-conjugacy.html#conjugate-prior"><i class="fa fa-check"></i><b>7.4.2</b> Conjugate Prior </a></li>
+<li class="chapter" data-level="7.4.3" data-path="7.4-conjugacy.html"><a href="7.4-conjugacy.html#normal-normal-conjugacy"><i class="fa fa-check"></i><b>7.4.3</b> Normal-Normal Conjugacy </a></li>
+<li class="chapter" data-level="7.4.4" data-path="7.4-conjugacy.html"><a href="7.4-conjugacy.html#normal-inverse-gamma-conjugacy"><i class="fa fa-check"></i><b>7.4.4</b> Normal-Inverse Gamma Conjugacy </a></li>
+<li class="chapter" data-level="7.4.5" data-path="7.4-conjugacy.html"><a href="7.4-conjugacy.html#multivariate-normal-conjugacy"><i class="fa fa-check"></i><b>7.4.5</b> Multivariate Normal Conjugacy </a></li>
+<li class="chapter" data-level="7.4.6" data-path="7.4-conjugacy.html"><a href="7.4-conjugacy.html#normal-wishart-conjugacy"><i class="fa fa-check"></i><b>7.4.6</b> Normal Wishart Conjugacy </a></li>
+<li class="chapter" data-level="7.4.7" data-path="7.4-conjugacy.html"><a href="7.4-conjugacy.html#normal-inverse-wishart-conjugacy"><i class="fa fa-check"></i><b>7.4.7</b> Normal-Inverse Wishart Conjugacy </a></li>
+<li class="chapter" data-level="7.4.8" data-path="7.4-conjugacy.html"><a href="7.4-conjugacy.html#normal-lkj-conjugacy"><i class="fa fa-check"></i><b>7.4.8</b> Normal-LKJ Conjugacy </a></li>
+<li class="chapter" data-level="7.4.9" data-path="7.4-conjugacy.html"><a href="7.4-conjugacy.html#binomial-beta-conjugacy"><i class="fa fa-check"></i><b>7.4.9</b> Binomial-Beta Conjugacy </a></li>
+<li class="chapter" data-level="7.4.10" data-path="7.4-conjugacy.html"><a href="7.4-conjugacy.html#geometric-beta-conjugacy"><i class="fa fa-check"></i><b>7.4.10</b> Geometric-Beta Conjugacy </a></li>
+<li class="chapter" data-level="7.4.11" data-path="7.4-conjugacy.html"><a href="7.4-conjugacy.html#poisson-gamma-conjugacy"><i class="fa fa-check"></i><b>7.4.11</b> Poisson-Gamma Conjugacy </a></li>
+<li class="chapter" data-level="7.4.12" data-path="7.4-conjugacy.html"><a href="7.4-conjugacy.html#exponential-gamma-conjugacy"><i class="fa fa-check"></i><b>7.4.12</b> Exponential-Gamma Conjugacy </a></li>
+<li class="chapter" data-level="7.4.13" data-path="7.4-conjugacy.html"><a href="7.4-conjugacy.html#multinomial-dirichlet-conjugacy"><i class="fa fa-check"></i><b>7.4.13</b> Multinomial-Dirichlet Conjugacy </a></li>
+<li class="chapter" data-level="7.4.14" data-path="7.4-conjugacy.html"><a href="7.4-conjugacy.html#hyperparameters"><i class="fa fa-check"></i><b>7.4.14</b> Hyperparameters </a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="7.5-information-theory.html"><a href="7.5-information-theory.html"><i class="fa fa-check"></i><b>7.5</b> Information Theory </a><ul>
+<li class="chapter" data-level="7.5.1" data-path="7.5-information-theory.html"><a href="7.5-information-theory.html#information"><i class="fa fa-check"></i><b>7.5.1</b> Information </a></li>
+<li class="chapter" data-level="7.5.2" data-path="7.5-information-theory.html"><a href="7.5-information-theory.html#entropy"><i class="fa fa-check"></i><b>7.5.2</b> Entropy </a></li>
+<li class="chapter" data-level="7.5.3" data-path="7.5-information-theory.html"><a href="7.5-information-theory.html#gini-index"><i class="fa fa-check"></i><b>7.5.3</b> Gini Index </a></li>
+<li class="chapter" data-level="7.5.4" data-path="7.5-information-theory.html"><a href="7.5-information-theory.html#information-gain"><i class="fa fa-check"></i><b>7.5.4</b> Information Gain </a></li>
+<li class="chapter" data-level="7.5.5" data-path="7.5-information-theory.html"><a href="7.5-information-theory.html#mutual-information"><i class="fa fa-check"></i><b>7.5.5</b> Mutual Information </a></li>
+<li class="chapter" data-level="7.5.6" data-path="7.5-information-theory.html"><a href="7.5-information-theory.html#kullback-leibler-divergence"><i class="fa fa-check"></i><b>7.5.6</b> Kullback-Leibler Divergence  </a></li>
+<li class="chapter" data-level="7.5.7" data-path="7.5-information-theory.html"><a href="7.5-information-theory.html#jensens-inequality"><i class="fa fa-check"></i><b>7.5.7</b> Jensen’s Inequality</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="7.6-bayesianinference.html"><a href="7.6-bayesianinference.html"><i class="fa fa-check"></i><b>7.6</b> Bayesian Inference</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="7.6-bayesianinference.html"><a href="7.6-bayesianinference.html#maximum-likelihood-mle"><i class="fa fa-check"></i><b>7.6.1</b> Maximum Likelihood (MLE)  </a></li>
+<li class="chapter" data-level="7.6.2" data-path="7.6-bayesianinference.html"><a href="7.6-bayesianinference.html#maximum-a-posteriori-map"><i class="fa fa-check"></i><b>7.6.2</b> Maximum A-posteriori (MAP)  </a></li>
+<li class="chapter" data-level="7.6.3" data-path="7.6-bayesianinference.html"><a href="7.6-bayesianinference.html#laplace-approximation"><i class="fa fa-check"></i><b>7.6.3</b> Laplace Approximation </a></li>
+<li class="chapter" data-level="7.6.4" data-path="7.6-bayesianinference.html"><a href="7.6-bayesianinference.html#expectation-maximization-em"><i class="fa fa-check"></i><b>7.6.4</b> Expectation-Maximization (EM)  </a></li>
+<li class="chapter" data-level="7.6.5" data-path="7.6-bayesianinference.html"><a href="7.6-bayesianinference.html#variational-inference"><i class="fa fa-check"></i><b>7.6.5</b> Variational Inference </a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="8-bayesian2.html"><a href="8-bayesian2.html"><i class="fa fa-check"></i><b>8</b> Bayesian Computation II</a><ul>
+<li class="chapter" data-level="8.1" data-path="8.1-bayesian-models.html"><a href="8.1-bayesian-models.html"><i class="fa fa-check"></i><b>8.1</b> Bayesian Models </a><ul>
+<li class="chapter" data-level="8.1.1" data-path="8.1-bayesian-models.html"><a href="8.1-bayesian-models.html#belief-propagation"><i class="fa fa-check"></i><b>8.1.1</b> Belief Propagation </a></li>
+<li class="chapter" data-level="8.1.2" data-path="8.1-bayesian-models.html"><a href="8.1-bayesian-models.html#expectation-propagation"><i class="fa fa-check"></i><b>8.1.2</b> Expectation Propagation </a></li>
+<li class="chapter" data-level="8.1.3" data-path="8.1-bayesian-models.html"><a href="8.1-bayesian-models.html#markov-chain"><i class="fa fa-check"></i><b>8.1.3</b> Markov Chain </a></li>
+<li class="chapter" data-level="8.1.4" data-path="8.1-bayesian-models.html"><a href="8.1-bayesian-models.html#hidden-markov-model"><i class="fa fa-check"></i><b>8.1.4</b> Hidden Markov Model  </a></li>
+<li class="chapter" data-level="8.1.5" data-path="8.1-bayesian-models.html"><a href="8.1-bayesian-models.html#dynamic-system-model"><i class="fa fa-check"></i><b>8.1.5</b> Dynamic System Model</a></li>
+<li class="chapter" data-level="8.1.6" data-path="8.1-bayesian-models.html"><a href="8.1-bayesian-models.html#bayes-filter"><i class="fa fa-check"></i><b>8.1.6</b> Bayes Filter </a></li>
+<li class="chapter" data-level="8.1.7" data-path="8.1-bayesian-models.html"><a href="8.1-bayesian-models.html#kalman-filter"><i class="fa fa-check"></i><b>8.1.7</b> Kalman Filter </a></li>
+<li class="chapter" data-level="8.1.8" data-path="8.1-bayesian-models.html"><a href="8.1-bayesian-models.html#extended-kalman-filter"><i class="fa fa-check"></i><b>8.1.8</b> Extended Kalman Filter </a></li>
+<li class="chapter" data-level="8.1.9" data-path="8.1-bayesian-models.html"><a href="8.1-bayesian-models.html#unscented-kalman-filter"><i class="fa fa-check"></i><b>8.1.9</b> Unscented Kalman Filter </a></li>
+<li class="chapter" data-level="8.1.10" data-path="8.1-bayesian-models.html"><a href="8.1-bayesian-models.html#particle-filter"><i class="fa fa-check"></i><b>8.1.10</b> Particle Filter </a></li>
+<li class="chapter" data-level="8.1.11" data-path="8.1-bayesian-models.html"><a href="8.1-bayesian-models.html#ensemble-kalman-filter"><i class="fa fa-check"></i><b>8.1.11</b> Ensemble Kalman Filter </a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="8.2-simulation-and-sampling.html"><a href="8.2-simulation-and-sampling.html"><i class="fa fa-check"></i><b>8.2</b> Simulation and Sampling</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="8.2-simulation-and-sampling.html"><a href="8.2-simulation-and-sampling.html#monte-carlo-estimation"><i class="fa fa-check"></i><b>8.2.1</b> Monte Carlo Estimation </a></li>
+<li class="chapter" data-level="8.2.2" data-path="8.2-simulation-and-sampling.html"><a href="8.2-simulation-and-sampling.html#monte-carlo-simulation"><i class="fa fa-check"></i><b>8.2.2</b> Monte Carlo Simulation </a></li>
+<li class="chapter" data-level="8.2.3" data-path="8.2-simulation-and-sampling.html"><a href="8.2-simulation-and-sampling.html#markov-chain-monte-carlo"><i class="fa fa-check"></i><b>8.2.3</b> Markov Chain Monte Carlo  </a></li>
+<li class="chapter" data-level="8.2.4" data-path="8.2-simulation-and-sampling.html"><a href="8.2-simulation-and-sampling.html#metropolis-hastings-monte-carlo"><i class="fa fa-check"></i><b>8.2.4</b> Metropolis-Hastings Monte Carlo  </a></li>
+<li class="chapter" data-level="8.2.5" data-path="8.2-simulation-and-sampling.html"><a href="8.2-simulation-and-sampling.html#hamiltonian-monte-carlo"><i class="fa fa-check"></i><b>8.2.5</b> Hamiltonian Monte Carlo  </a></li>
+<li class="chapter" data-level="8.2.6" data-path="8.2-simulation-and-sampling.html"><a href="8.2-simulation-and-sampling.html#gibbs-sampling"><i class="fa fa-check"></i><b>8.2.6</b> Gibbs Sampling </a></li>
+<li class="chapter" data-level="8.2.7" data-path="8.2-simulation-and-sampling.html"><a href="8.2-simulation-and-sampling.html#importance-sampling"><i class="fa fa-check"></i><b>8.2.7</b> Importance Sampling </a></li>
+<li class="chapter" data-level="8.2.8" data-path="8.2-simulation-and-sampling.html"><a href="8.2-simulation-and-sampling.html#rejection-sampling"><i class="fa fa-check"></i><b>8.2.8</b> Rejection Sampling </a></li>
+<li class="chapter" data-level="8.2.9" data-path="8.2-simulation-and-sampling.html"><a href="8.2-simulation-and-sampling.html#jags-modeling"><i class="fa fa-check"></i><b>8.2.9</b> JAGS Modeling </a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="8.3-bayesian-analysis.html"><a href="8.3-bayesian-analysis.html"><i class="fa fa-check"></i><b>8.3</b> Bayesian Analysis</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="8.3-bayesian-analysis.html"><a href="8.3-bayesian-analysis.html#autocorrelation"><i class="fa fa-check"></i><b>8.3.1</b> Autocorrelation </a></li>
+<li class="chapter" data-level="8.3.2" data-path="8.3-bayesian-analysis.html"><a href="8.3-bayesian-analysis.html#predictive-probability"><i class="fa fa-check"></i><b>8.3.2</b> Predictive Probability </a></li>
+<li class="chapter" data-level="8.3.3" data-path="8.3-bayesian-analysis.html"><a href="8.3-bayesian-analysis.html#posterior-interval"><i class="fa fa-check"></i><b>8.3.3</b> Posterior Interval </a></li>
+<li class="chapter" data-level="8.3.4" data-path="8.3-bayesian-analysis.html"><a href="8.3-bayesian-analysis.html#bayes-factor"><i class="fa fa-check"></i><b>8.3.4</b> Bayes Factor </a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="8.4-summary-5.html"><a href="8.4-summary-5.html"><i class="fa fa-check"></i><b>8.4</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="9-machinelearning1.html"><a href="9-machinelearning1.html"><i class="fa fa-check"></i><b>9</b> Computational Learning I</a><ul>
+<li class="chapter" data-level="9.1" data-path="9.1-observation-and-measurement.html"><a href="9.1-observation-and-measurement.html"><i class="fa fa-check"></i><b>9.1</b> Observation and Measurement</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="9.1-observation-and-measurement.html"><a href="9.1-observation-and-measurement.html#levels-of-measurements"><i class="fa fa-check"></i><b>9.1.1</b> Levels of Measurements</a></li>
+<li class="chapter" data-level="9.1.2" data-path="9.1-observation-and-measurement.html"><a href="9.1-observation-and-measurement.html#levels-of-categorical-measurements"><i class="fa fa-check"></i><b>9.1.2</b> Levels of Categorical measurements</a></li>
+<li class="chapter" data-level="9.1.3" data-path="9.1-observation-and-measurement.html"><a href="9.1-observation-and-measurement.html#levels-of-continuous-measurements"><i class="fa fa-check"></i><b>9.1.3</b> Levels of Continuous measurements</a></li>
+<li class="chapter" data-level="9.1.4" data-path="9.1-observation-and-measurement.html"><a href="9.1-observation-and-measurement.html#discrete-vs-continuous-measurements"><i class="fa fa-check"></i><b>9.1.4</b> Discrete vs Continuous measurements</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="9.2-input-data.html"><a href="9.2-input-data.html"><i class="fa fa-check"></i><b>9.2</b> Input Data</a><ul>
+<li class="chapter" data-level="9.2.1" data-path="9.2-input-data.html"><a href="9.2-input-data.html#structured-data"><i class="fa fa-check"></i><b>9.2.1</b> Structured Data</a></li>
+<li class="chapter" data-level="9.2.2" data-path="9.2-input-data.html"><a href="9.2-input-data.html#non-structured-data"><i class="fa fa-check"></i><b>9.2.2</b> Non-Structured Data</a></li>
+<li class="chapter" data-level="9.2.3" data-path="9.2-input-data.html"><a href="9.2-input-data.html#statistical-data"><i class="fa fa-check"></i><b>9.2.3</b> Statistical Data</a></li>
+<li class="chapter" data-level="9.2.4" data-path="9.2-input-data.html"><a href="9.2-input-data.html#real-time-and-near-real-time-data"><i class="fa fa-check"></i><b>9.2.4</b> Real-Time and Near Real-Time Data</a></li>
+<li class="chapter" data-level="9.2.5" data-path="9.2-input-data.html"><a href="9.2-input-data.html#oltp-and-datawarehouse"><i class="fa fa-check"></i><b>9.2.5</b> OLTP and Datawarehouse</a></li>
+<li class="chapter" data-level="9.2.6" data-path="9.2-input-data.html"><a href="9.2-input-data.html#data-lake"><i class="fa fa-check"></i><b>9.2.6</b> Data lake</a></li>
+<li class="chapter" data-level="9.2.7" data-path="9.2-input-data.html"><a href="9.2-input-data.html#natural-language-nl"><i class="fa fa-check"></i><b>9.2.7</b> Natural Language (NL)</a></li>
+<li class="chapter" data-level="9.2.8" data-path="9.2-input-data.html"><a href="9.2-input-data.html#multimedia-md"><i class="fa fa-check"></i><b>9.2.8</b> Multimedia (MD)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="9.3-primitive-methods.html"><a href="9.3-primitive-methods.html"><i class="fa fa-check"></i><b>9.3</b> Primitive Methods</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="9.3-primitive-methods.html"><a href="9.3-primitive-methods.html#weighting"><i class="fa fa-check"></i><b>9.3.1</b> Weighting</a></li>
+<li class="chapter" data-level="9.3.2" data-path="9.3-primitive-methods.html"><a href="9.3-primitive-methods.html#smoothing"><i class="fa fa-check"></i><b>9.3.2</b> Smoothing</a></li>
+<li class="chapter" data-level="9.3.3" data-path="9.3-primitive-methods.html"><a href="9.3-primitive-methods.html#normalizing"><i class="fa fa-check"></i><b>9.3.3</b> Normalizing</a></li>
+<li class="chapter" data-level="9.3.4" data-path="9.3-primitive-methods.html"><a href="9.3-primitive-methods.html#standardizing"><i class="fa fa-check"></i><b>9.3.4</b> Standardizing </a></li>
+<li class="chapter" data-level="9.3.5" data-path="9.3-primitive-methods.html"><a href="9.3-primitive-methods.html#centering"><i class="fa fa-check"></i><b>9.3.5</b> Centering </a></li>
+<li class="chapter" data-level="9.3.6" data-path="9.3-primitive-methods.html"><a href="9.3-primitive-methods.html#scaling-1"><i class="fa fa-check"></i><b>9.3.6</b> Scaling </a></li>
+<li class="chapter" data-level="9.3.7" data-path="9.3-primitive-methods.html"><a href="9.3-primitive-methods.html#transforming"><i class="fa fa-check"></i><b>9.3.7</b> Transforming</a></li>
+<li class="chapter" data-level="9.3.8" data-path="9.3-primitive-methods.html"><a href="9.3-primitive-methods.html#clipping"><i class="fa fa-check"></i><b>9.3.8</b> Clipping </a></li>
+<li class="chapter" data-level="9.3.9" data-path="9.3-primitive-methods.html"><a href="9.3-primitive-methods.html#regularizing"><i class="fa fa-check"></i><b>9.3.9</b> Regularizing</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="9.4-distance-metrics.html"><a href="9.4-distance-metrics.html"><i class="fa fa-check"></i><b>9.4</b> Distance Metrics</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="9.4-distance-metrics.html"><a href="9.4-distance-metrics.html#cosine-similarity"><i class="fa fa-check"></i><b>9.4.1</b> Cosine Similarity</a></li>
+<li class="chapter" data-level="9.4.2" data-path="9.4-distance-metrics.html"><a href="9.4-distance-metrics.html#manhattan-and-euclidean-distance"><i class="fa fa-check"></i><b>9.4.2</b> Manhattan and Euclidean Distance  </a></li>
+<li class="chapter" data-level="9.4.3" data-path="9.4-distance-metrics.html"><a href="9.4-distance-metrics.html#minkowski-and-chebyshev-supremum-distance"><i class="fa fa-check"></i><b>9.4.3</b> Minkowski and Chebyshev (Supremum) Distance  </a></li>
+<li class="chapter" data-level="9.4.4" data-path="9.4-distance-metrics.html"><a href="9.4-distance-metrics.html#jaccard-similarity-and-distance"><i class="fa fa-check"></i><b>9.4.4</b> Jaccard (Similarity and Distance) </a></li>
+<li class="chapter" data-level="9.4.5" data-path="9.4-distance-metrics.html"><a href="9.4-distance-metrics.html#hamming-distance"><i class="fa fa-check"></i><b>9.4.5</b> Hamming Distance </a></li>
+<li class="chapter" data-level="9.4.6" data-path="9.4-distance-metrics.html"><a href="9.4-distance-metrics.html#mahalanobis-distance"><i class="fa fa-check"></i><b>9.4.6</b> Mahalanobis Distance </a></li>
+<li class="chapter" data-level="9.4.7" data-path="9.4-distance-metrics.html"><a href="9.4-distance-metrics.html#precision-and-accuracy"><i class="fa fa-check"></i><b>9.4.7</b> Precision and Accuracy  </a></li>
+<li class="chapter" data-level="9.4.8" data-path="9.4-distance-metrics.html"><a href="9.4-distance-metrics.html#auc-on-roc"><i class="fa fa-check"></i><b>9.4.8</b> AUC on ROC </a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="9.5-exploratory-data-analysis.html"><a href="9.5-exploratory-data-analysis.html"><i class="fa fa-check"></i><b>9.5</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="9.5-exploratory-data-analysis.html"><a href="9.5-exploratory-data-analysis.html#data-cleaning-wrangling"><i class="fa fa-check"></i><b>9.5.1</b> Data Cleaning (Wrangling)  </a></li>
+<li class="chapter" data-level="9.5.2" data-path="9.5-exploratory-data-analysis.html"><a href="9.5-exploratory-data-analysis.html#association"><i class="fa fa-check"></i><b>9.5.2</b> Association</a></li>
+<li class="chapter" data-level="9.5.3" data-path="9.5-exploratory-data-analysis.html"><a href="9.5-exploratory-data-analysis.html#pattern-discovery"><i class="fa fa-check"></i><b>9.5.3</b> Pattern Discovery</a></li>
+<li class="chapter" data-level="9.5.4" data-path="9.5-exploratory-data-analysis.html"><a href="9.5-exploratory-data-analysis.html#null-invariance"><i class="fa fa-check"></i><b>9.5.4</b> Null Invariance </a></li>
+<li class="chapter" data-level="9.5.5" data-path="9.5-exploratory-data-analysis.html"><a href="9.5-exploratory-data-analysis.html#correlation-and-collinearity"><i class="fa fa-check"></i><b>9.5.5</b> Correlation and Collinearity  </a></li>
+<li class="chapter" data-level="9.5.6" data-path="9.5-exploratory-data-analysis.html"><a href="9.5-exploratory-data-analysis.html#covariance"><i class="fa fa-check"></i><b>9.5.6</b> Covariance </a></li>
+<li class="chapter" data-level="9.5.7" data-path="9.5-exploratory-data-analysis.html"><a href="9.5-exploratory-data-analysis.html#outliers-leverage-influence"><i class="fa fa-check"></i><b>9.5.7</b> Outliers, Leverage, Influence   </a></li>
+<li class="chapter" data-level="9.5.8" data-path="9.5-exploratory-data-analysis.html"><a href="9.5-exploratory-data-analysis.html#dominating-factors"><i class="fa fa-check"></i><b>9.5.8</b> Dominating Factors </a></li>
+<li class="chapter" data-level="9.5.9" data-path="9.5-exploratory-data-analysis.html"><a href="9.5-exploratory-data-analysis.html#missingness-and-imputation"><i class="fa fa-check"></i><b>9.5.9</b> Missingness and Imputation  </a></li>
+<li class="chapter" data-level="9.5.10" data-path="9.5-exploratory-data-analysis.html"><a href="9.5-exploratory-data-analysis.html#confounding-variable"><i class="fa fa-check"></i><b>9.5.10</b> Confounding Variable </a></li>
+<li class="chapter" data-level="9.5.11" data-path="9.5-exploratory-data-analysis.html"><a href="9.5-exploratory-data-analysis.html#data-leakage"><i class="fa fa-check"></i><b>9.5.11</b> Data Leakage </a></li>
+<li class="chapter" data-level="9.5.12" data-path="9.5-exploratory-data-analysis.html"><a href="9.5-exploratory-data-analysis.html#one-hot-encoding"><i class="fa fa-check"></i><b>9.5.12</b> One Hot Encoding </a></li>
+<li class="chapter" data-level="9.5.13" data-path="9.5-exploratory-data-analysis.html"><a href="9.5-exploratory-data-analysis.html#winsorization-and-trimming"><i class="fa fa-check"></i><b>9.5.13</b> Winsorization and Trimming  </a></li>
+<li class="chapter" data-level="9.5.14" data-path="9.5-exploratory-data-analysis.html"><a href="9.5-exploratory-data-analysis.html#discretization"><i class="fa fa-check"></i><b>9.5.14</b> Discretization </a></li>
+<li class="chapter" data-level="9.5.15" data-path="9.5-exploratory-data-analysis.html"><a href="9.5-exploratory-data-analysis.html#stratification"><i class="fa fa-check"></i><b>9.5.15</b> Stratification </a></li>
+<li class="chapter" data-level="9.5.16" data-path="9.5-exploratory-data-analysis.html"><a href="9.5-exploratory-data-analysis.html#fine-and-coarse-classing"><i class="fa fa-check"></i><b>9.5.16</b> Fine and Coarse Classing</a></li>
+<li class="chapter" data-level="9.5.17" data-path="9.5-exploratory-data-analysis.html"><a href="9.5-exploratory-data-analysis.html#embedding"><i class="fa fa-check"></i><b>9.5.17</b> Embedding </a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="9.6-featureengineering.html"><a href="9.6-featureengineering.html"><i class="fa fa-check"></i><b>9.6</b> Feature Engineering</a><ul>
+<li class="chapter" data-level="9.6.1" data-path="9.6-featureengineering.html"><a href="9.6-featureengineering.html#machine-learning-features"><i class="fa fa-check"></i><b>9.6.1</b> Machine Learning Features</a></li>
+<li class="chapter" data-level="9.6.2" data-path="9.6-featureengineering.html"><a href="9.6-featureengineering.html#dimensionality-reduction"><i class="fa fa-check"></i><b>9.6.2</b> Dimensionality Reduction </a></li>
+<li class="chapter" data-level="9.6.3" data-path="9.6-featureengineering.html"><a href="9.6-featureengineering.html#principal-component-analysis"><i class="fa fa-check"></i><b>9.6.3</b> Principal Component Analysis  </a></li>
+<li class="chapter" data-level="9.6.4" data-path="9.6-featureengineering.html"><a href="9.6-featureengineering.html#linear-discriminant-analysis-lda"><i class="fa fa-check"></i><b>9.6.4</b> Linear Discriminant Analysis (LDA)  </a></li>
+<li class="chapter" data-level="9.6.5" data-path="9.6-featureengineering.html"><a href="9.6-featureengineering.html#feature-construction"><i class="fa fa-check"></i><b>9.6.5</b> Feature Construction </a></li>
+<li class="chapter" data-level="9.6.6" data-path="9.6-featureengineering.html"><a href="9.6-featureengineering.html#featureselection"><i class="fa fa-check"></i><b>9.6.6</b> Feature Selection</a></li>
+<li class="chapter" data-level="9.6.7" data-path="9.6-featureengineering.html"><a href="9.6-featureengineering.html#feature-transformation"><i class="fa fa-check"></i><b>9.6.7</b> Feature Transformation </a></li>
+<li class="chapter" data-level="9.6.8" data-path="9.6-featureengineering.html"><a href="9.6-featureengineering.html#model-specification-1"><i class="fa fa-check"></i><b>9.6.8</b> Model Specification </a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="9.7-general-modeling.html"><a href="9.7-general-modeling.html"><i class="fa fa-check"></i><b>9.7</b> General Modeling</a><ul>
+<li class="chapter" data-level="9.7.1" data-path="9.7-general-modeling.html"><a href="9.7-general-modeling.html#training-learning"><i class="fa fa-check"></i><b>9.7.1</b> Training (Learning)</a></li>
+<li class="chapter" data-level="9.7.2" data-path="9.7-general-modeling.html"><a href="9.7-general-modeling.html#validation-tuning"><i class="fa fa-check"></i><b>9.7.2</b> Validation (Tuning) </a></li>
+<li class="chapter" data-level="9.7.3" data-path="9.7-general-modeling.html"><a href="9.7-general-modeling.html#testing-assessing"><i class="fa fa-check"></i><b>9.7.3</b> Testing (Assessing) </a></li>
+<li class="chapter" data-level="9.7.4" data-path="9.7-general-modeling.html"><a href="9.7-general-modeling.html#cross-validation-cv"><i class="fa fa-check"></i><b>9.7.4</b> Cross-Validation (CV)  </a></li>
+<li class="chapter" data-level="9.7.5" data-path="9.7-general-modeling.html"><a href="9.7-general-modeling.html#bias-and-variance"><i class="fa fa-check"></i><b>9.7.5</b> Bias and Variance </a></li>
+<li class="chapter" data-level="9.7.6" data-path="9.7-general-modeling.html"><a href="9.7-general-modeling.html#loss-and-cost-functions"><i class="fa fa-check"></i><b>9.7.6</b> Loss and Cost Functions  </a></li>
+<li class="chapter" data-level="9.7.7" data-path="9.7-general-modeling.html"><a href="9.7-general-modeling.html#global-and-local-minima"><i class="fa fa-check"></i><b>9.7.7</b> Global and Local Minima  </a></li>
+<li class="chapter" data-level="9.7.8" data-path="9.7-general-modeling.html"><a href="9.7-general-modeling.html#regularization"><i class="fa fa-check"></i><b>9.7.8</b> Regularization</a></li>
+</ul></li>
+<li class="chapter" data-level="9.8" data-path="9.8-supervised-vs.unsupervised-learning.html"><a href="9.8-supervised-vs.unsupervised-learning.html"><i class="fa fa-check"></i><b>9.8</b> Supervised vs. Unsupervised Learning  </a></li>
+<li class="chapter" data-level="9.9" data-path="9.9-summary-6.html"><a href="9.9-summary-6.html"><i class="fa fa-check"></i><b>9.9</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="10-machinelearning2.html"><a href="10-machinelearning2.html"><i class="fa fa-check"></i><b>10</b> Computational Learning II</a><ul>
+<li class="chapter" data-level="10.1" data-path="10.1-regression.html"><a href="10.1-regression.html"><i class="fa fa-check"></i><b>10.1</b> Regression (Supervised)</a><ul>
+<li class="chapter" data-level="10.1.1" data-path="10.1-regression.html"><a href="10.1-regression.html#regression-trees"><i class="fa fa-check"></i><b>10.1.1</b> Regression Trees </a></li>
+<li class="chapter" data-level="10.1.2" data-path="10.1-regression.html"><a href="10.1-regression.html#ensemble-methods"><i class="fa fa-check"></i><b>10.1.2</b> Ensemble Methods </a></li>
+<li class="chapter" data-level="10.1.3" data-path="10.1-regression.html"><a href="10.1-regression.html#random-forest"><i class="fa fa-check"></i><b>10.1.3</b> Random Forest </a></li>
+<li class="chapter" data-level="10.1.4" data-path="10.1-regression.html"><a href="10.1-regression.html#Adaoost"><i class="fa fa-check"></i><b>10.1.4</b> AdaBoost</a></li>
+<li class="chapter" data-level="10.1.5" data-path="10.1-regression.html"><a href="10.1-regression.html#gradient-boost"><i class="fa fa-check"></i><b>10.1.5</b> Gradient Boost </a></li>
+<li class="chapter" data-level="10.1.6" data-path="10.1-regression.html"><a href="10.1-regression.html#xgboost"><i class="fa fa-check"></i><b>10.1.6</b> XGBoost </a></li>
+<li class="chapter" data-level="10.1.7" data-path="10.1-regression.html"><a href="10.1-regression.html#generalized-linear-modeling-glm"><i class="fa fa-check"></i><b>10.1.7</b> Generalized Linear Modeling (GLM)  </a></li>
+<li class="chapter" data-level="10.1.8" data-path="10.1-regression.html"><a href="10.1-regression.html#logisticregression"><i class="fa fa-check"></i><b>10.1.8</b> Logistic Regression (GLM)</a></li>
+<li class="chapter" data-level="10.1.9" data-path="10.1-regression.html"><a href="10.1-regression.html#poisson"><i class="fa fa-check"></i><b>10.1.9</b> Poisson Regression (GLM)</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="10.2-binary-classification-supervised.html"><a href="10.2-binary-classification-supervised.html"><i class="fa fa-check"></i><b>10.2</b> Binary Classification (Supervised)</a><ul>
+<li class="chapter" data-level="10.2.1" data-path="10.2-binary-classification-supervised.html"><a href="10.2-binary-classification-supervised.html#linear-svm-sgdpegasos"><i class="fa fa-check"></i><b>10.2.1</b> Linear SVM (SGD/PEGASOS)  </a></li>
+<li class="chapter" data-level="10.2.2" data-path="10.2-binary-classification-supervised.html"><a href="10.2-binary-classification-supervised.html#kernel-svm-smo"><i class="fa fa-check"></i><b>10.2.2</b> Kernel SVM (SMO)  </a></li>
+<li class="chapter" data-level="10.2.3" data-path="10.2-binary-classification-supervised.html"><a href="10.2-binary-classification-supervised.html#sdca-based-svm"><i class="fa fa-check"></i><b>10.2.3</b> SDCA-based SVM </a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="10.3-multi-class-classification-supervised.html"><a href="10.3-multi-class-classification-supervised.html"><i class="fa fa-check"></i><b>10.3</b> Multi-class Classification (Supervised) </a><ul>
+<li class="chapter" data-level="10.3.1" data-path="10.3-multi-class-classification-supervised.html"><a href="10.3-multi-class-classification-supervised.html#bayesian-classification"><i class="fa fa-check"></i><b>10.3.1</b> Bayesian Classification </a></li>
+<li class="chapter" data-level="10.3.2" data-path="10.3-multi-class-classification-supervised.html"><a href="10.3-multi-class-classification-supervised.html#classification-trees"><i class="fa fa-check"></i><b>10.3.2</b> Classification Trees </a></li>
+<li class="chapter" data-level="10.3.3" data-path="10.3-multi-class-classification-supervised.html"><a href="10.3-multi-class-classification-supervised.html#ensemble-methods-1"><i class="fa fa-check"></i><b>10.3.3</b> Ensemble Methods </a></li>
+<li class="chapter" data-level="10.3.4" data-path="10.3-multi-class-classification-supervised.html"><a href="10.3-multi-class-classification-supervised.html#random-forest-1"><i class="fa fa-check"></i><b>10.3.4</b> Random Forest </a></li>
+<li class="chapter" data-level="10.3.5" data-path="10.3-multi-class-classification-supervised.html"><a href="10.3-multi-class-classification-supervised.html#AdaBoost"><i class="fa fa-check"></i><b>10.3.5</b> AdaBoost &amp; SAMME</a></li>
+<li class="chapter" data-level="10.3.6" data-path="10.3-multi-class-classification-supervised.html"><a href="10.3-multi-class-classification-supervised.html#logitboost-j-classes"><i class="fa fa-check"></i><b>10.3.6</b> LogitBoost (J Classes)</a></li>
+<li class="chapter" data-level="10.3.7" data-path="10.3-multi-class-classification-supervised.html"><a href="10.3-multi-class-classification-supervised.html#gradient-boost-1"><i class="fa fa-check"></i><b>10.3.7</b> Gradient Boost </a></li>
+<li class="chapter" data-level="10.3.8" data-path="10.3-multi-class-classification-supervised.html"><a href="10.3-multi-class-classification-supervised.html#k-next-neighbors-knn"><i class="fa fa-check"></i><b>10.3.8</b> K-Next Neighbors (KNN)  </a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="11-machinelearning3.html"><a href="11-machinelearning3.html"><i class="fa fa-check"></i><b>11</b> Computational Learning III</a><ul>
+<li class="chapter" data-level="11.1" data-path="11.1-clustering-unsupervised.html"><a href="11.1-clustering-unsupervised.html"><i class="fa fa-check"></i><b>11.1</b> Clustering (Unsupervised) </a><ul>
+<li class="chapter" data-level="11.1.1" data-path="11.1-clustering-unsupervised.html"><a href="11.1-clustering-unsupervised.html#k-means-clustering"><i class="fa fa-check"></i><b>11.1.1</b> K-means (clustering) </a></li>
+<li class="chapter" data-level="11.1.2" data-path="11.1-clustering-unsupervised.html"><a href="11.1-clustering-unsupervised.html#hierarchical-clustering"><i class="fa fa-check"></i><b>11.1.2</b> Hierarchical (clustering) </a></li>
+<li class="chapter" data-level="11.1.3" data-path="11.1-clustering-unsupervised.html"><a href="11.1-clustering-unsupervised.html#dbscan-clustering"><i class="fa fa-check"></i><b>11.1.3</b> DBSCAN (clustering) </a></li>
+<li class="chapter" data-level="11.1.4" data-path="11.1-clustering-unsupervised.html"><a href="11.1-clustering-unsupervised.html#quality-of-clustering"><i class="fa fa-check"></i><b>11.1.4</b> Quality of Clustering</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="11.2-meta-learning.html"><a href="11.2-meta-learning.html"><i class="fa fa-check"></i><b>11.2</b> Meta-Learning </a></li>
+<li class="chapter" data-level="11.3" data-path="11.3-natural-language-processing-nlp.html"><a href="11.3-natural-language-processing-nlp.html"><i class="fa fa-check"></i><b>11.3</b> Natural Language Processing (NLP)  </a><ul>
+<li class="chapter" data-level="11.3.1" data-path="11.3-natural-language-processing-nlp.html"><a href="11.3-natural-language-processing-nlp.html#pre-processing-texts"><i class="fa fa-check"></i><b>11.3.1</b> Pre-Processing Texts</a></li>
+<li class="chapter" data-level="11.3.2" data-path="11.3-natural-language-processing-nlp.html"><a href="11.3-natural-language-processing-nlp.html#ranking-and-scoring"><i class="fa fa-check"></i><b>11.3.2</b> Ranking and Scoring </a></li>
+<li class="chapter" data-level="11.3.3" data-path="11.3-natural-language-processing-nlp.html"><a href="11.3-natural-language-processing-nlp.html#document-similarity"><i class="fa fa-check"></i><b>11.3.3</b> Document Similarity </a></li>
+<li class="chapter" data-level="11.3.4" data-path="11.3-natural-language-processing-nlp.html"><a href="11.3-natural-language-processing-nlp.html#linguistic-analysis"><i class="fa fa-check"></i><b>11.3.4</b> Linguistic Analysis </a></li>
+<li class="chapter" data-level="11.3.5" data-path="11.3-natural-language-processing-nlp.html"><a href="11.3-natural-language-processing-nlp.html#lexical-analysis"><i class="fa fa-check"></i><b>11.3.5</b> Lexical Analysis </a></li>
+<li class="chapter" data-level="11.3.6" data-path="11.3-natural-language-processing-nlp.html"><a href="11.3-natural-language-processing-nlp.html#semantic-analysis"><i class="fa fa-check"></i><b>11.3.6</b> Semantic Analysis </a></li>
+<li class="chapter" data-level="11.3.7" data-path="11.3-natural-language-processing-nlp.html"><a href="11.3-natural-language-processing-nlp.html#named-entity-recognition-ner"><i class="fa fa-check"></i><b>11.3.7</b> Named Entity Recognition (NER)  </a></li>
+<li class="chapter" data-level="11.3.8" data-path="11.3-natural-language-processing-nlp.html"><a href="11.3-natural-language-processing-nlp.html#sentiment-and-opinion-analysis"><i class="fa fa-check"></i><b>11.3.8</b> Sentiment and Opinion Analysis  </a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="11.4-time-series-forecasting.html"><a href="11.4-time-series-forecasting.html"><i class="fa fa-check"></i><b>11.4</b> Time-Series Forecasting </a><ul>
+<li class="chapter" data-level="11.4.1" data-path="11.4-time-series-forecasting.html"><a href="11.4-time-series-forecasting.html#seasonal-trend-decomposition-using-loess-stl"><i class="fa fa-check"></i><b>11.4.1</b> Seasonal Trend Decomposition using LOESS (STL)  </a></li>
+<li class="chapter" data-level="11.4.2" data-path="11.4-time-series-forecasting.html"><a href="11.4-time-series-forecasting.html#forecasting-models"><i class="fa fa-check"></i><b>11.4.2</b> Forecasting Models </a></li>
+<li class="chapter" data-level="11.4.3" data-path="11.4-time-series-forecasting.html"><a href="11.4-time-series-forecasting.html#time-series-linear-model-tslm"><i class="fa fa-check"></i><b>11.4.3</b> Time-Series Linear Model (TSLM)  </a></li>
+<li class="chapter" data-level="11.4.4" data-path="11.4-time-series-forecasting.html"><a href="11.4-time-series-forecasting.html#autoregressive-integrated-moving-average-arima"><i class="fa fa-check"></i><b>11.4.4</b> AutoRegressive Integrated Moving Average (ARIMA)  </a></li>
+<li class="chapter" data-level="11.4.5" data-path="11.4-time-series-forecasting.html"><a href="11.4-time-series-forecasting.html#multiplicative-seasonal-arima-sarima"><i class="fa fa-check"></i><b>11.4.5</b> Multiplicative Seasonal ARIMA (SARIMA) </a></li>
+<li class="chapter" data-level="11.4.6" data-path="11.4-time-series-forecasting.html"><a href="11.4-time-series-forecasting.html#time-series-decomposition"><i class="fa fa-check"></i><b>11.4.6</b> Time-Series Decomposition </a></li>
+<li class="chapter" data-level="11.4.7" data-path="11.4-time-series-forecasting.html"><a href="11.4-time-series-forecasting.html#stl-with-aicbic"><i class="fa fa-check"></i><b>11.4.7</b> STL with AIC/BIC</a></li>
+<li class="chapter" data-level="11.4.8" data-path="11.4-time-series-forecasting.html"><a href="11.4-time-series-forecasting.html#multivariate-time-series"><i class="fa fa-check"></i><b>11.4.8</b> Multivariate Time-Series</a></li>
+<li class="chapter" data-level="11.4.9" data-path="11.4-time-series-forecasting.html"><a href="11.4-time-series-forecasting.html#forecasting-considerations"><i class="fa fa-check"></i><b>11.4.9</b> Forecasting Considerations</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="11.5-recommender-systems.html"><a href="11.5-recommender-systems.html"><i class="fa fa-check"></i><b>11.5</b> Recommender Systems </a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="12-deeplearning1.html"><a href="12-deeplearning1.html"><i class="fa fa-check"></i><b>12</b> Computational Deep Learning I</a><ul>
+<li class="chapter" data-level="12.1" data-path="12.1-simple-perceptron.html"><a href="12.1-simple-perceptron.html"><i class="fa fa-check"></i><b>12.1</b> Simple Perceptron  </a></li>
+<li class="chapter" data-level="12.2" data-path="12.2-adaptive-linear-neuron-adaline.html"><a href="12.2-adaptive-linear-neuron-adaline.html"><i class="fa fa-check"></i><b>12.2</b> Adaptive Linear Neuron (ADALINE)  </a></li>
+<li class="chapter" data-level="12.3" data-path="12.3-multi-layer-perceptron-mlp.html"><a href="12.3-multi-layer-perceptron-mlp.html"><i class="fa fa-check"></i><b>12.3</b> Multi Layer Perceptron (MLP)  </a><ul>
+<li class="chapter" data-level="12.3.1" data-path="12.3-multi-layer-perceptron-mlp.html"><a href="12.3-multi-layer-perceptron-mlp.html#forward-feed"><i class="fa fa-check"></i><b>12.3.1</b> Forward Feed </a></li>
+<li class="chapter" data-level="12.3.2" data-path="12.3-multi-layer-perceptron-mlp.html"><a href="12.3-multi-layer-perceptron-mlp.html#backward-feed"><i class="fa fa-check"></i><b>12.3.2</b> Backward Feed </a></li>
+<li class="chapter" data-level="12.3.3" data-path="12.3-multi-layer-perceptron-mlp.html"><a href="12.3-multi-layer-perceptron-mlp.html#backpropagation"><i class="fa fa-check"></i><b>12.3.3</b> BackPropagation </a></li>
+<li class="chapter" data-level="12.3.4" data-path="12.3-multi-layer-perceptron-mlp.html"><a href="12.3-multi-layer-perceptron-mlp.html#mlp-example"><i class="fa fa-check"></i><b>12.3.4</b> MLP Example</a></li>
+<li class="chapter" data-level="12.3.5" data-path="12.3-multi-layer-perceptron-mlp.html"><a href="12.3-multi-layer-perceptron-mlp.html#activation-function"><i class="fa fa-check"></i><b>12.3.5</b> Activation Function </a></li>
+<li class="chapter" data-level="12.3.6" data-path="12.3-multi-layer-perceptron-mlp.html"><a href="12.3-multi-layer-perceptron-mlp.html#mlp-implementation"><i class="fa fa-check"></i><b>12.3.6</b> MLP Implementation</a></li>
+<li class="chapter" data-level="12.3.7" data-path="12.3-multi-layer-perceptron-mlp.html"><a href="12.3-multi-layer-perceptron-mlp.html#deep-neural-network-dnn"><i class="fa fa-check"></i><b>12.3.7</b> Deep Neural Network (DNN)  </a></li>
+<li class="chapter" data-level="12.3.8" data-path="12.3-multi-layer-perceptron-mlp.html"><a href="12.3-multi-layer-perceptron-mlp.html#vanishing-and-exploding-gradient"><i class="fa fa-check"></i><b>12.3.8</b> Vanishing and Exploding Gradient  </a></li>
+<li class="chapter" data-level="12.3.9" data-path="12.3-multi-layer-perceptron-mlp.html"><a href="12.3-multi-layer-perceptron-mlp.html#dead-relu"><i class="fa fa-check"></i><b>12.3.9</b> Dead Relu </a></li>
+<li class="chapter" data-level="12.3.10" data-path="12.3-multi-layer-perceptron-mlp.html"><a href="12.3-multi-layer-perceptron-mlp.html#gradient-clipping-gc"><i class="fa fa-check"></i><b>12.3.10</b> Gradient Clipping (GC) </a></li>
+<li class="chapter" data-level="12.3.11" data-path="12.3-multi-layer-perceptron-mlp.html"><a href="12.3-multi-layer-perceptron-mlp.html#parameter-initialization"><i class="fa fa-check"></i><b>12.3.11</b> Parameter Initialization </a></li>
+<li class="chapter" data-level="12.3.12" data-path="12.3-multi-layer-perceptron-mlp.html"><a href="12.3-multi-layer-perceptron-mlp.html#regularization-by-dropouts"><i class="fa fa-check"></i><b>12.3.12</b> Regularization by Dropouts </a></li>
+<li class="chapter" data-level="12.3.13" data-path="12.3-multi-layer-perceptron-mlp.html"><a href="12.3-multi-layer-perceptron-mlp.html#batch-normalization"><i class="fa fa-check"></i><b>12.3.13</b> Batch Normalization </a></li>
+<li class="chapter" data-level="12.3.14" data-path="12.3-multi-layer-perceptron-mlp.html"><a href="12.3-multi-layer-perceptron-mlp.html#optimization"><i class="fa fa-check"></i><b>12.3.14</b> Optimization </a></li>
+<li class="chapter" data-level="12.3.15" data-path="12.3-multi-layer-perceptron-mlp.html"><a href="12.3-multi-layer-perceptron-mlp.html#interpretability"><i class="fa fa-check"></i><b>12.3.15</b> Interpretability</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="12.4-convolutional-neural-network-cnn.html"><a href="12.4-convolutional-neural-network-cnn.html"><i class="fa fa-check"></i><b>12.4</b> Convolutional Neural Network (CNN)  </a><ul>
+<li class="chapter" data-level="12.4.1" data-path="12.4-convolutional-neural-network-cnn.html"><a href="12.4-convolutional-neural-network-cnn.html#computer-graphics"><i class="fa fa-check"></i><b>12.4.1</b> Computer Graphics</a></li>
+<li class="chapter" data-level="12.4.2" data-path="12.4-convolutional-neural-network-cnn.html"><a href="12.4-convolutional-neural-network-cnn.html#convolution"><i class="fa fa-check"></i><b>12.4.2</b> Convolution </a></li>
+<li class="chapter" data-level="12.4.3" data-path="12.4-convolutional-neural-network-cnn.html"><a href="12.4-convolutional-neural-network-cnn.html#stride-and-padding"><i class="fa fa-check"></i><b>12.4.3</b> Stride and Padding  </a></li>
+<li class="chapter" data-level="12.4.4" data-path="12.4-convolutional-neural-network-cnn.html"><a href="12.4-convolutional-neural-network-cnn.html#kernels-and-filters"><i class="fa fa-check"></i><b>12.4.4</b> Kernels And Filters</a></li>
+<li class="chapter" data-level="12.4.5" data-path="12.4-convolutional-neural-network-cnn.html"><a href="12.4-convolutional-neural-network-cnn.html#dilation"><i class="fa fa-check"></i><b>12.4.5</b> Dilation </a></li>
+<li class="chapter" data-level="12.4.6" data-path="12.4-convolutional-neural-network-cnn.html"><a href="12.4-convolutional-neural-network-cnn.html#pooling"><i class="fa fa-check"></i><b>12.4.6</b> Pooling </a></li>
+<li class="chapter" data-level="12.4.7" data-path="12.4-convolutional-neural-network-cnn.html"><a href="12.4-convolutional-neural-network-cnn.html#cnn-architectures"><i class="fa fa-check"></i><b>12.4.7</b> CNN Architectures</a></li>
+<li class="chapter" data-level="12.4.8" data-path="12.4-convolutional-neural-network-cnn.html"><a href="12.4-convolutional-neural-network-cnn.html#forward-feed-1"><i class="fa fa-check"></i><b>12.4.8</b> Forward Feed </a></li>
+<li class="chapter" data-level="12.4.9" data-path="12.4-convolutional-neural-network-cnn.html"><a href="12.4-convolutional-neural-network-cnn.html#backpropagation-1"><i class="fa fa-check"></i><b>12.4.9</b> BackPropagation </a></li>
+<li class="chapter" data-level="12.4.10" data-path="12.4-convolutional-neural-network-cnn.html"><a href="12.4-convolutional-neural-network-cnn.html#optimization-1"><i class="fa fa-check"></i><b>12.4.10</b> Optimization</a></li>
+<li class="chapter" data-level="12.4.11" data-path="12.4-convolutional-neural-network-cnn.html"><a href="12.4-convolutional-neural-network-cnn.html#normalization"><i class="fa fa-check"></i><b>12.4.11</b> Normalization</a></li>
+<li class="chapter" data-level="12.4.12" data-path="12.4-convolutional-neural-network-cnn.html"><a href="12.4-convolutional-neural-network-cnn.html#step-decay"><i class="fa fa-check"></i><b>12.4.12</b> Step Decay</a></li>
+<li class="chapter" data-level="12.4.13" data-path="12.4-convolutional-neural-network-cnn.html"><a href="12.4-convolutional-neural-network-cnn.html#gemm-matrix-multiplication"><i class="fa fa-check"></i><b>12.4.13</b> GEMM (Matrix Multiplication) </a></li>
+<li class="chapter" data-level="12.4.14" data-path="12.4-convolutional-neural-network-cnn.html"><a href="12.4-convolutional-neural-network-cnn.html#depthwise-separable-convolution-dsc"><i class="fa fa-check"></i><b>12.4.14</b> Depthwise Separable Convolution (DSC)  </a></li>
+<li class="chapter" data-level="12.4.15" data-path="12.4-convolutional-neural-network-cnn.html"><a href="12.4-convolutional-neural-network-cnn.html#cnn-implementation"><i class="fa fa-check"></i><b>12.4.15</b> CNN Implementation</a></li>
+<li class="chapter" data-level="12.4.16" data-path="12.4-convolutional-neural-network-cnn.html"><a href="12.4-convolutional-neural-network-cnn.html#cnn-application"><i class="fa fa-check"></i><b>12.4.16</b> CNN Application</a></li>
+<li class="chapter" data-level="12.4.17" data-path="12.4-convolutional-neural-network-cnn.html"><a href="12.4-convolutional-neural-network-cnn.html#summary-7"><i class="fa fa-check"></i><b>12.4.17</b> Summary</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="13-deeplearning2.html"><a href="13-deeplearning2.html"><i class="fa fa-check"></i><b>13</b> Computational Deep Learning II</a><ul>
+<li class="chapter" data-level="13.1" data-path="13.1-residual-network-resnet.html"><a href="13.1-residual-network-resnet.html"><i class="fa fa-check"></i><b>13.1</b> Residual Network (ResNet)  </a></li>
+<li class="chapter" data-level="13.2" data-path="13.2-recurrent-neural-network-rnn.html"><a href="13.2-recurrent-neural-network-rnn.html"><i class="fa fa-check"></i><b>13.2</b> Recurrent Neural Network (RNN)  </a><ul>
+<li class="chapter" data-level="13.2.1" data-path="13.2-recurrent-neural-network-rnn.html"><a href="13.2-recurrent-neural-network-rnn.html#vanilla-rnn"><i class="fa fa-check"></i><b>13.2.1</b> Vanilla RNN</a></li>
+<li class="chapter" data-level="13.2.2" data-path="13.2-recurrent-neural-network-rnn.html"><a href="13.2-recurrent-neural-network-rnn.html#long-short-term-memory-lstm"><i class="fa fa-check"></i><b>13.2.2</b> Long Short-Term Memory (LSTM)  </a></li>
+<li class="chapter" data-level="13.2.3" data-path="13.2-recurrent-neural-network-rnn.html"><a href="13.2-recurrent-neural-network-rnn.html#gated-recurrent-units-gru"><i class="fa fa-check"></i><b>13.2.3</b> Gated Recurrent Units (GRU)  </a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="13.3-deep-stacked-rnn.html"><a href="13.3-deep-stacked-rnn.html"><i class="fa fa-check"></i><b>13.3</b> Deep Stacked RNN </a></li>
+<li class="chapter" data-level="13.4" data-path="13.4-deep-stacked-bidirectional-rnn.html"><a href="13.4-deep-stacked-bidirectional-rnn.html"><i class="fa fa-check"></i><b>13.4</b> Deep Stacked Bidirectional RNN </a></li>
+<li class="chapter" data-level="13.5" data-path="13.5-transformer-neural-network-tnn.html"><a href="13.5-transformer-neural-network-tnn.html"><i class="fa fa-check"></i><b>13.5</b> Transformer Neural Network (TNN)  </a><ul>
+<li class="chapter" data-level="13.5.1" data-path="13.5-transformer-neural-network-tnn.html"><a href="13.5-transformer-neural-network-tnn.html#attention"><i class="fa fa-check"></i><b>13.5.1</b> Attention </a></li>
+<li class="chapter" data-level="13.5.2" data-path="13.5-transformer-neural-network-tnn.html"><a href="13.5-transformer-neural-network-tnn.html#self-attention-and-trainability"><i class="fa fa-check"></i><b>13.5.2</b> Self-Attention and Trainability </a></li>
+<li class="chapter" data-level="13.5.3" data-path="13.5-transformer-neural-network-tnn.html"><a href="13.5-transformer-neural-network-tnn.html#multi-head-attention"><i class="fa fa-check"></i><b>13.5.3</b> Multi-Head Attention </a></li>
+<li class="chapter" data-level="13.5.4" data-path="13.5-transformer-neural-network-tnn.html"><a href="13.5-transformer-neural-network-tnn.html#word-embedding"><i class="fa fa-check"></i><b>13.5.4</b> Word Embedding </a></li>
+<li class="chapter" data-level="13.5.5" data-path="13.5-transformer-neural-network-tnn.html"><a href="13.5-transformer-neural-network-tnn.html#positional-embedding"><i class="fa fa-check"></i><b>13.5.5</b> Positional Embedding </a></li>
+<li class="chapter" data-level="13.5.6" data-path="13.5-transformer-neural-network-tnn.html"><a href="13.5-transformer-neural-network-tnn.html#sequence-alignment"><i class="fa fa-check"></i><b>13.5.6</b> Sequence Alignment</a></li>
+<li class="chapter" data-level="13.5.7" data-path="13.5-transformer-neural-network-tnn.html"><a href="13.5-transformer-neural-network-tnn.html#transformer-architectures"><i class="fa fa-check"></i><b>13.5.7</b> Transformer Architectures </a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="13.6-applications-using-tnn-and-rnn.html"><a href="13.6-applications-using-tnn-and-rnn.html"><i class="fa fa-check"></i><b>13.6</b> Applications using TNN (and RNN)</a><ul>
+<li class="chapter" data-level="13.6.1" data-path="13.6-applications-using-tnn-and-rnn.html"><a href="13.6-applications-using-tnn-and-rnn.html#speech-recognition"><i class="fa fa-check"></i><b>13.6.1</b> Speech Recognition </a></li>
+<li class="chapter" data-level="13.6.2" data-path="13.6-applications-using-tnn-and-rnn.html"><a href="13.6-applications-using-tnn-and-rnn.html#mel-coefficients-feature-extraction"><i class="fa fa-check"></i><b>13.6.2</b> Mel Coefficients (Feature Extraction) </a></li>
+<li class="chapter" data-level="13.6.3" data-path="13.6-applications-using-tnn-and-rnn.html"><a href="13.6-applications-using-tnn-and-rnn.html#connectionist-temporal-classification-ctc"><i class="fa fa-check"></i><b>13.6.3</b> Connectionist Temporal Classification (CTC)  </a></li>
+<li class="chapter" data-level="13.6.4" data-path="13.6-applications-using-tnn-and-rnn.html"><a href="13.6-applications-using-tnn-and-rnn.html#model-evaluation"><i class="fa fa-check"></i><b>13.6.4</b> Model Evaluation</a></li>
+</ul></li>
+<li class="chapter" data-level="13.7" data-path="13.7-generative-adversarial-network-gan.html"><a href="13.7-generative-adversarial-network-gan.html"><i class="fa fa-check"></i><b>13.7</b> Generative Adversarial Network (GAN)  </a></li>
+<li class="chapter" data-level="13.8" data-path="13.8-deep-reinforcement-network-dqn.html"><a href="13.8-deep-reinforcement-network-dqn.html"><i class="fa fa-check"></i><b>13.8</b> Deep Reinforcement Network (DQN)  </a></li>
+<li class="chapter" data-level="13.9" data-path="13.9-summary-8.html"><a href="13.9-summary-8.html"><i class="fa fa-check"></i><b>13.9</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="14-distributedcomputation.html"><a href="14-distributedcomputation.html"><i class="fa fa-check"></i><b>14</b> Distributed Computation</a><ul>
+<li class="chapter" data-level="14.1" data-path="14.1-integration-and-interoperability.html"><a href="14.1-integration-and-interoperability.html"><i class="fa fa-check"></i><b>14.1</b> Integration and Interoperability</a></li>
+<li class="chapter" data-level="14.2" data-path="14.2-ml-pipelines.html"><a href="14.2-ml-pipelines.html"><i class="fa fa-check"></i><b>14.2</b> ML Pipelines</a></li>
+<li class="chapter" data-level="14.3" data-path="14.3-open-standards.html"><a href="14.3-open-standards.html"><i class="fa fa-check"></i><b>14.3</b> Open Standards</a><ul>
+<li class="chapter" data-level="14.3.1" data-path="14.3-open-standards.html"><a href="14.3-open-standards.html#predictive-model-markup-language-pmml"><i class="fa fa-check"></i><b>14.3.1</b> Predictive Model Markup Language (PMML)</a></li>
+<li class="chapter" data-level="14.3.2" data-path="14.3-open-standards.html"><a href="14.3-open-standards.html#portable-format-for-analytics-pfa"><i class="fa fa-check"></i><b>14.3.2</b> Portable Format for Analytics (PFA)</a></li>
+<li class="chapter" data-level="14.3.3" data-path="14.3-open-standards.html"><a href="14.3-open-standards.html#open-neural-network-exchange-onnx"><i class="fa fa-check"></i><b>14.3.3</b> Open Neural Network Exchange (ONNX)</a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="14.4-general-summary.html"><a href="14.4-general-summary.html"><i class="fa fa-check"></i><b>14.4</b> General Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="15-appendix.html"><a href="15-appendix.html"><i class="fa fa-check"></i><b>15</b> Appendix</a><ul>
+<li class="chapter" data-level="15.1" data-path="15.1-appendix-a.html"><a href="15.1-appendix-a.html"><i class="fa fa-check"></i><b>15.1</b> Appendix A</a><ul>
+<li class="chapter" data-level="15.1.1" data-path="15.1-appendix-a.html"><a href="15.1-appendix-a.html#trigonometry"><i class="fa fa-check"></i><b>15.1.1</b> Trigonometry</a></li>
+<li class="chapter" data-level="15.1.2" data-path="15.1-appendix-a.html"><a href="15.1-appendix-a.html#logarithms"><i class="fa fa-check"></i><b>15.1.2</b> Logarithms</a></li>
+<li class="chapter" data-level="15.1.3" data-path="15.1-appendix-a.html"><a href="15.1-appendix-a.html#category-theory"><i class="fa fa-check"></i><b>15.1.3</b> Category Theory</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="15.2-appendix-b.html"><a href="15.2-appendix-b.html"><i class="fa fa-check"></i><b>15.2</b> Appendix B</a><ul>
+<li class="chapter" data-level="15.2.1" data-path="15.2-appendix-b.html"><a href="15.2-appendix-b.html#on-random-chances"><i class="fa fa-check"></i><b>15.2.1</b> On Random chances</a></li>
+<li class="chapter" data-level="15.2.2" data-path="15.2-appendix-b.html"><a href="15.2-appendix-b.html#on-replacements"><i class="fa fa-check"></i><b>15.2.2</b> On Replacements</a></li>
+<li class="chapter" data-level="15.2.3" data-path="15.2-appendix-b.html"><a href="15.2-appendix-b.html#on-permutations-and-combinations"><i class="fa fa-check"></i><b>15.2.3</b> On Permutations and Combinations</a></li>
+<li class="chapter" data-level="15.2.4" data-path="15.2-appendix-b.html"><a href="15.2-appendix-b.html#on-conditional-probabilities"><i class="fa fa-check"></i><b>15.2.4</b> On Conditional Probabilities</a></li>
+<li class="chapter" data-level="15.2.5" data-path="15.2-appendix-b.html"><a href="15.2-appendix-b.html#the-arithmetic-of-probabilities"><i class="fa fa-check"></i><b>15.2.5</b> The Arithmetic of Probabilities</a></li>
+<li class="chapter" data-level="15.2.6" data-path="15.2-appendix-b.html"><a href="15.2-appendix-b.html#on-dependent-and-independent-events"><i class="fa fa-check"></i><b>15.2.6</b> On Dependent and Independent Events</a></li>
+<li class="chapter" data-level="15.2.7" data-path="15.2-appendix-b.html"><a href="15.2-appendix-b.html#on-mutual-exclusivity"><i class="fa fa-check"></i><b>15.2.7</b> On Mutual Exclusivity</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="15.3-appendix-c.html"><a href="15.3-appendix-c.html"><i class="fa fa-check"></i><b>15.3</b> Appendix C</a></li>
+<li class="chapter" data-level="15.4" data-path="15.4-appendix-d.html"><a href="15.4-appendix-d.html"><i class="fa fa-check"></i><b>15.4</b> Appendix D</a><ul>
+<li class="chapter" data-level="15.4.1" data-path="15.4-appendix-d.html"><a href="15.4-appendix-d.html#lubridate-library"><i class="fa fa-check"></i><b>15.4.1</b> Lubridate Library</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i>Bibliography</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Power and Art of Approximation</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="inferential-statistics" class="section level2 hasAnchor">
+<h2><span class="header-section-number">6.2</span> Inferential Statistics<a href="6.2-inferential-statistics.html#inferential-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Inferential Statistics</strong> is <strong>Statistics</strong> focusing on the interpretation of sampled data with the intent to generalize its representation. For example, we formulate <strong>hypothetical</strong> claims about the nature of data distribution using <strong>Descriptive Statistics</strong> by predicting its <strong>Mean</strong> or <strong>Variance</strong>. </p>
+<p>Let us first review the definition of a few terminologies in this section:</p>
+<p><strong>Population</strong> refers to a complete set of data.</p>
+<p><strong>Sample</strong> refers to a subset of data (or observation) taken randomly from a population.</p>
+
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb299-1" data-line-number="1"><span class="co"># Here is a population of ten male and female </span></a>
+<a class="sourceLine" id="cb299-2" data-line-number="2"><span class="co"># marsupials from which we sample only 5</span></a>
+<a class="sourceLine" id="cb299-3" data-line-number="3"><span class="kw">set.seed</span>(<span class="dv">1228</span>) <span class="co"># set initial seed </span></a>
+<a class="sourceLine" id="cb299-4" data-line-number="4">population =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;F&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;F&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;F&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;F&quot;</span>, <span class="st">&quot;M&quot;</span>, <span class="st">&quot;F&quot;</span>)</a>
+<a class="sourceLine" id="cb299-5" data-line-number="5"><span class="kw">sample</span>(population, <span class="dv">5</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;F&quot; &quot;M&quot; &quot;F&quot; &quot;F&quot; &quot;M&quot;</code></pre>
+
+<p><strong>Group</strong> refers to discrete categorical grouping of samples.</p>
+
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb301-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">1228</span>) <span class="co"># set initial seed </span></a>
+<a class="sourceLine" id="cb301-2" data-line-number="2">treatments =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>)</a>
+<a class="sourceLine" id="cb301-3" data-line-number="3">population_size =<span class="st"> </span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb301-4" data-line-number="4">sample_size =<span class="st"> </span><span class="dv">30</span></a>
+<a class="sourceLine" id="cb301-5" data-line-number="5"><span class="co"># simulating a population</span></a>
+<a class="sourceLine" id="cb301-6" data-line-number="6">population =<span class="st"> </span><span class="kw">sample</span>(<span class="dt">x=</span>treatments, <span class="dt">size =</span> population_size, <span class="dt">replace=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb301-7" data-line-number="7">sample =<span class="st"> </span><span class="kw">sample</span>(<span class="dt">x=</span>population, <span class="dt">size =</span> sample_size)</a>
+<a class="sourceLine" id="cb301-8" data-line-number="8">treatmentA =<span class="st"> </span><span class="kw">length</span>(<span class="kw">which</span>(sample <span class="op">==</span><span class="st"> &quot;A&quot;</span>))</a>
+<a class="sourceLine" id="cb301-9" data-line-number="9">treatmentB =<span class="st"> </span><span class="kw">length</span>(<span class="kw">which</span>(sample <span class="op">==</span><span class="st"> &quot;B&quot;</span>))</a>
+<a class="sourceLine" id="cb301-10" data-line-number="10">treatmentC =<span class="st"> </span><span class="kw">length</span>(<span class="kw">which</span>(sample <span class="op">==</span><span class="st"> &quot;C&quot;</span>))</a>
+<a class="sourceLine" id="cb301-11" data-line-number="11"><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>=treatmentA, <span class="st">&quot;B&quot;</span>=treatmentB, <span class="st">&quot;C&quot;</span>=treatmentC)</a></code></pre></div>
+<pre><code>##  A  B  C 
+## 11  9 10</code></pre>
+
+<p><strong>Statistical data</strong> refers to data with observable and measurable quality that typically can be quantitatively analyzed based on statistics.</p>
+<p>In this section, we take a population sample and perform inferences. There are many ways to infer the data represented in a sample. Our approach covers reviewing the distribution of the sample, analyzing the significance of the differences of samples, analyzing the significance of regression of samples, and possibly dealing with exploratory analysis (which is covered in Chapter <strong>9</strong> (<strong>Computational Learning I</strong>).</p>
+<p><strong>Sufficient Statistic</strong> refers to a statistic such as a sample mean <span class="math inline">\(\bar{x}\)</span> from a sample distribution that contains enough information to represent a specific model parameter such as the population mean <span class="math inline">\(\mu\)</span> from a population distribution. Formally, the statistic <span class="math inline">\(\bar{x}\)</span> is sufficient if it can be independent of the model parameter <span class="math inline">\(\mu\)</span>. Note that the notation of a sufficient statistic is <span class="math inline">\(t = T(X)\)</span>, and the model parameter is denoted as <span class="math inline">\(\theta\)</span> where T(X) is an estimating function.</p>
+<p>In the next several sections under this Chapter, our main focus is <strong>Inferential Statistics</strong>.</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="6.1-descriptive-statistics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="6.3-the-significance-of-difference.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["DS.pdf", "DS.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
