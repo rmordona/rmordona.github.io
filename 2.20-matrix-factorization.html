@@ -132,7 +132,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">The Power and Art of Approximation</a></li>
+<li><a href="./">A Minimal Book Example</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
@@ -1014,7 +1014,7 @@ A = L_AU_A \tag{2.38}
 \end{array}
 \right]_{U_A}
 \]</span></p>
-<p>Using the <strong>LU</strong> matrices, let us now solve for <strong>x</strong>. There are two equations we will use to solve for x. First, we solve for <span class="math inline">\(u_y\)</span> using <span class="math inline">\(L_A^{-1}y\)</span>. Then with <span class="math inline">\(u_y\)</span>, we solve for x using Equation (<span class="math inline">\(\@ref(eq:eqnnumber102)\)</span>).</p>
+<p>Using the <strong>LU</strong> matrices, let us now solve for <strong>x</strong>. There are two equations we will use to solve for x. First, we solve for <span class="math inline">\(u_y\)</span> using <span class="math inline">\(L_A^{-1}y\)</span>. Then with <span class="math inline">\(u_y\)</span>, we solve for x using Equation (<a href="2.20-matrix-factorization.html#eq:eqnnumber102">(2.37)</a>).</p>
 <p>Solving for <span class="math inline">\(u_y\)</span> requires <span class="math inline">\(L^{-1}\)</span> and <span class="math inline">\(y\)</span>:</p>
 <p><span class="math display">\[
 u_y = 
@@ -2570,7 +2570,7 @@ v_{n1}  &amp; \ldots&amp; v_{nn}\\
 \right]_{V_{nxn}}^T
 \]</span>
 </p>
-<p>Recall the <strong>Eigen equation</strong> (<span class="math inline">\(\@ref(eq:eqnnumber58)\)</span>), where <span class="math inline">\(v\)</span> is an <strong>Eigenvector</strong> and <span class="math inline">\(\lambda\)</span> is an <strong>Eigenvalue</strong>. We know that <span class="math inline">\(A\)</span> is a transformation matrix - it is a utility to scale the Eigenvector <span class="math inline">\(v\)</span>. We also know that <span class="math inline">\(\lambda\)</span> is a transformation scalar - it is a utility to scale the same Eigenvector <span class="math inline">\(v\)</span>. In essence, both matrices <span class="math inline">\(A\)</span> and scalar <span class="math inline">\(\lambda\)</span> fulfill the same purpose - to scale the Eigenvector <span class="math inline">\(v\)</span>. We can say that, based on the formula, we can derive an <strong>Eigen decomposition</strong> formula:</p>
+<p>Recall the <strong>Eigen equation</strong> (<a href="2.14-eigenvectors-and-eigenvalues.html#eq:eqnnumber58">(2.17)</a>), where <span class="math inline">\(v\)</span> is an <strong>Eigenvector</strong> and <span class="math inline">\(\lambda\)</span> is an <strong>Eigenvalue</strong>. We know that <span class="math inline">\(A\)</span> is a transformation matrix - it is a utility to scale the Eigenvector <span class="math inline">\(v\)</span>. We also know that <span class="math inline">\(\lambda\)</span> is a transformation scalar - it is a utility to scale the same Eigenvector <span class="math inline">\(v\)</span>. In essence, both matrices <span class="math inline">\(A\)</span> and scalar <span class="math inline">\(\lambda\)</span> fulfill the same purpose - to scale the Eigenvector <span class="math inline">\(v\)</span>. We can say that, based on the formula, we can derive an <strong>Eigen decomposition</strong> formula:</p>
 <p><span class="math display" id="eq:eqnnumber140">\[\begin{align}
 A = v \lambda v^{-1} = P \Lambda P^{-1} \tag{2.55}
 \end{align}\]</span></p>
@@ -2630,7 +2630,7 @@ A^{(2)}U &amp;= U\Sigma^2 &amp; \{U^TU = I\}  \tag{2.72} \\
 A^{(2)}U &amp;= \Sigma^2U &amp; \{A \cdot u = \lambda \cdot u, where\ \lambda = \Sigma^2 \} \tag{2.73} 
 \end{align}\]</span>
 </p>
-<p><strong>Third</strong>, recall the derived equations below from <strong>Eigen Equation</strong> (<span class="math inline">\(\@ref(eq:eqnnumber58)\)</span>) and (<span class="math inline">\(\@ref(eq:eqnnumber60)\)</span>):</p>
+<p><strong>Third</strong>, recall the derived equations below from <strong>Eigen Equation</strong> (<a href="2.14-eigenvectors-and-eigenvalues.html#eq:eqnnumber58">(2.17)</a>) and (<a href="2.14-eigenvectors-and-eigenvalues.html#eq:eqnnumber60">(2.19)</a>):</p>
 <p><span class="math display">\[
 (A - \lambda I)v = 0 \ \ \ \ \ \ \ \ \ \leftarrow \ \ \ A v = \lambda v
 \]</span></p>
@@ -2968,7 +2968,7 @@ V &amp;=
 0.7028558 &amp; -0.2072144 &amp; -0.68048197
 \end{array}\right]
 \end{align*}\]</span></p>
-<p>We can validate by using Equation <span class="math inline">\(\@ref(eq:eqnnumber130)\)</span>.</p>
+<p>We can validate by using Equation <a href="2.20-matrix-factorization.html#eq:eqnnumber130">(2.54)</a>.</p>
 <p>Here is an implementation of <strong>SVD</strong> in R code using R’s library (notice a third option produced by the library in addition to the two previous solutions we provided - also see the discrepancy in accuracy):</p>
 
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">A =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dv">5</span>,   <span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">5</span>,   <span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>), <span class="dv">3</span>, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</a>
@@ -3017,13 +3017,13 @@ J = \left[\begin{array}{cccccc}
 0 &amp; 0 &amp; 0 &amp; 0 &amp; 0 &amp; \lambda
 \end{array}\right]
 \]</span></p>
-<p>Recall <strong>Rank and Nullity</strong> in this chapter in which we described <strong>Rank</strong> as the dimension of the column space, complementary to the <strong>nullity</strong>, which is the dimension of the null space. Here, we illustrate <strong>Jordan</strong> decomposition around these two spaces, but more importantly, around the <strong>Eigen equation</strong> (<span class="math inline">\(\@ref(eq:eqnnumber58)\)</span>).</p>
+<p>Recall <strong>Rank and Nullity</strong> in this chapter in which we described <strong>Rank</strong> as the dimension of the column space, complementary to the <strong>nullity</strong>, which is the dimension of the null space. Here, we illustrate <strong>Jordan</strong> decomposition around these two spaces, but more importantly, around the <strong>Eigen equation</strong> (<a href="2.14-eigenvectors-and-eigenvalues.html#eq:eqnnumber58">(2.17)</a>).</p>
 <p>Let us manipulate the equation to reduce it to the following format (note that <span class="math inline">\(\mathbf{\vec{v}}\)</span> is expressed based on a generalized eigenvector):</p>
 <p><span class="math display">\[
 \therefore A_\lambda v = 0\ \ \ \ \leftarrow\ \ \ \ \ where\ (A - \lambda I) = A_{\lambda} 
 \]</span>
 In this case, <span class="math inline">\(A_\lambda\)</span> is what we call the <strong>characteristic matrix</strong>.</p>
-<p>We are interested in the <strong>Eigenspace</strong> - the <strong>Nullspace</strong> of the <strong>characteristic matrix</strong> (See Equation <span class="math inline">\(\@ref(eq:eqnnumber92)\)</span>).</p>
+<p>We are interested in the <strong>Eigenspace</strong> - the <strong>Nullspace</strong> of the <strong>characteristic matrix</strong> (See Equation <a href="2.14-eigenvectors-and-eigenvalues.html#eq:eqnnumber92">(2.23)</a>).</p>
 <p>To illustrate <strong>Jordan decomposition</strong>, having the <strong>characteristic matrix</strong> format in mind, and given a <span class="math inline">\(4\times4\)</span> matrix where <span class="math inline">\(n=4\)</span>, let us construct several samples (or cases) of <strong>Jordan form</strong> first.</p>
 <p><strong>First Case</strong>: Suppose that the matrix is <strong>rank-three</strong>. The <strong>nullity is one</strong> in this case. So forming the equations:</p>
 
@@ -3436,7 +3436,7 @@ V = \left[\begin{array}{rrrr}
 \end{array}\right]
 \]</span>
 What we just did by using a new <span class="math inline">\(v_2\)</span> and <span class="math inline">\(v_3\)</span> to form <span class="math inline">\(V\)</span> is what we call a <strong>change of basis</strong>.</p>
-<p>With that, we can reconstruct our original matrix <span class="math inline">\(A\)</span> using Equation (<span class="math inline">\(\@ref(eq:eqnnumber70)\)</span>):</p>
+<p>With that, we can reconstruct our original matrix <span class="math inline">\(A\)</span> using Equation (<a href="2.20-matrix-factorization.html#eq:eqnnumber70">(2.85)</a>):</p>
 <p>As an exercise, try the following matrix to arrive at the following hints:</p>
 <p><span class="math display">\[
 A = \left[\begin{array}{cccc}
@@ -3545,7 +3545,7 @@ gitbook.start({
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
-"theme": "sepia",
+"theme": "white",
 "family": "sans",
 "size": 2
 },

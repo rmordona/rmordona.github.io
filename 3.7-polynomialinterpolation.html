@@ -132,7 +132,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">The Power and Art of Approximation</a></li>
+<li><a href="./">A Minimal Book Example</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
@@ -1111,7 +1111,7 @@ f[x0, x1, x2, x3, x4] &amp;= \frac{3.31+3.31}{1.00 +1.00} = 3.31
 <span class="math display">\[
 f[x_j] = f[x_0, ... x_4] = 3.31\ \ \ \sim \text{3.32, if 3-decimal precision}
 \]</span></p>
-<p>We can solve for N(x) from Equation (<span class="math inline">\(\@ref(eq:eqnnumber5)\)</span>) using R code. The expanded version is written as such:</p>
+<p>We can solve for N(x) from Equation (<a href="3.7-polynomialinterpolation.html#eq:eqnnumber5">(3.156)</a>) using R code. The expanded version is written as such:</p>
 <p><span class="math display">\[\begin{align*}
 N(x)  {}&amp;= f[x_0] + \Delta^1y_1(x-x_0) + \Delta^2y_2(x-x_0)(x-x_1) + ... \\
      &amp;+ \Delta^ky_k(x-x_0) ...(x - x_k) 
@@ -2151,7 +2151,7 @@ RSS = \sum_{i=1}^k |\hat{B}(t) - B(t)|^2 = \sum_{i=1}^k |\epsilon |^2 \tag{3.203
 \\
 \hat{c} &amp;= \{ \hat{c_0}, \hat{c_1}, \hat{c_2}, ..., \hat{c_n} \} \leftarrow\ \text{find optimal coefficients}
 \end{align*}\]</span></p>
-<p>Recall the formula below (See Equation <span class="math inline">\(\@ref(eq:eqnnumber3)\)</span>):</p>
+<p>Recall the formula below (See Equation <a href="3.5-polynomialregression.html#eq:eqnnumber3">(3.133)</a>):</p>
 <p><span class="math display">\[
 \hat{x} = (A^T \cdotp A)^{-1} \cdotp A^T \cdotp y
 \]</span></p>
@@ -2184,7 +2184,7 @@ B(t) = \sum_{i=0}^{n} \omega_{i}(c_i) \phi_{i,k}(t) \tag{3.207}
 <h3><span class="header-section-number">3.7.12</span> P-Spline Regression <a href="3.7-polynomialinterpolation.html#p-spline-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>P-spline regression</strong> is a <strong>“Penalized B-spline regression”</strong>. Here, <strong>penalty</strong> is a way to smoothen the roughness of spline curves.</p>
 <p><strong>Smoothness of splines</strong></p>
-<p>If we look carefully at our <strong>optimal coefficients</strong> in previous section, we have the following (See Equation <span class="math inline">\(\@ref(eq:eqnnumber3)\)</span>):</p>
+<p>If we look carefully at our <strong>optimal coefficients</strong> in previous section, we have the following (See Equation <a href="3.5-polynomialregression.html#eq:eqnnumber3">(3.133)</a>):</p>
 <p><span class="math display" id="eq:equate1050193">\[\begin{align}
 \hat{c} = (B^T \cdotp B)^{-1} \cdotp B^T \cdotp S \tag{3.208} 
 \end{align}\]</span></p>
@@ -2239,7 +2239,7 @@ gitbook.start({
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
-"theme": "sepia",
+"theme": "white",
 "family": "sans",
 "size": 2
 },

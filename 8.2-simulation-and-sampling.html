@@ -132,7 +132,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">The Power and Art of Approximation</a></li>
+<li><a href="./">A Minimal Book Example</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
@@ -1719,22 +1719,22 @@ Figure 8.35: JAGS Model
 ##    plus standard error of the mean:
 ## 
 ##        Mean     SD Naive SE Time-series SE
-## mu[1]  13.9   1.55   0.0155         0.0216
-## mu[2]  14.1   1.42   0.0142         0.0187
-## mu[3]  15.0   1.52   0.0152         0.0190
-## mu[4]  15.4   1.57   0.0157         0.0222
-## mu0    14.7   4.10   0.0410         0.1050
-## sigma0 62.9 147.00   1.4700        31.7863
+## mu[1]  13.9   1.57   0.0157         0.0201
+## mu[2]  14.1   1.44   0.0144         0.0184
+## mu[3]  15.0   1.52   0.0152         0.0203
+## mu[4]  15.5   1.57   0.0157         0.0235
+## mu0    14.5   4.00   0.0400         0.0992
+## sigma0 72.9 166.69   1.6669        31.1496
 ## 
 ## 2. Quantiles for each variable:
 ## 
-##          2.5%   25%   50%  75% 97.5%
-## mu[1]  10.737 12.94 13.99 15.0  16.9
-## mu[2]  11.206 13.21 14.18 15.1  16.9
-## mu[3]  12.043 13.96 14.96 16.0  18.1
-## mu[4]  12.554 14.38 15.39 16.5  18.7
-## mu0     6.673 13.40 14.62 15.9  23.5
-## sigma0  0.236  2.86  9.76 38.6 599.6</code></pre>
+##          2.5%   25%  50%  75% 97.5%
+## mu[1]  10.757 12.91 14.0 15.0  16.9
+## mu[2]  11.171 13.18 14.1 15.1  16.9
+## mu[3]  11.978 13.98 15.0 16.0  18.1
+## mu[4]  12.573 14.39 15.4 16.5  18.7
+## mu0     5.502 13.24 14.6 15.9  22.8
+## sigma0  0.252  3.04 10.7 44.4 708.8</code></pre>
 
 <p><strong>Sixth</strong>, we use <strong>Gelman-Rubin</strong> diagnostic tool to analyze convergence. The first diagram plots the iterations taken by JAGS for each of the sampled <span class="math inline">\(\mu\)</span>. Notice that each posterior sampling of <span class="math inline">\(\mu\)</span> consistently stays somewhere around 15 through the iterations from 2000 to 5000, accompanied by the corresponding density. </p>
 
@@ -1761,12 +1761,12 @@ Figure 8.37: Gelman-Rubin (Trace and Density)
 ## mu[2]        1.00       1.00
 ## mu[3]        1.00       1.00
 ## mu[4]        1.00       1.00
-## mu0          1.02       1.02
-## sigma0       1.16       1.36
+## mu0          1.07       1.08
+## sigma0       1.27       2.18
 ## 
 ## Multivariate psrf
 ## 
-## 1.02</code></pre>
+## 1.05</code></pre>
 
 <p>To complement that, Figure <a href="8.2-simulation-and-sampling.html#fig:gelmanrubin2">8.38</a> illustrates convergence to 1 of two chains for each of the parameters <span class="math inline">\(\mu\)</span>s.</p>
 
@@ -1851,7 +1851,7 @@ gitbook.start({
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
-"theme": "sepia",
+"theme": "white",
 "family": "sans",
 "size": 2
 },

@@ -132,7 +132,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">The Power and Art of Approximation</a></li>
+<li><a href="./">A Minimal Book Example</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
@@ -939,7 +939,7 @@ Figure 4.37: Unknown Digital Signal
 <p><span class="math display">\[
 F(x) = sin(x) + \frac{sin(3x)}{3} + \frac{sin(5x)}{5} 
 \]</span></p>
-<p>But if we only receive the signal as a dataset of samples, we need to approximate the solution that can closely match the signal. We do need to decipher the signal and approximate its frequency contents. To do that, we need to be familiar with the following <strong>DFT</strong> equation (<span class="math inline">\(\@ref(eq:eqnnumber6111)\)</span>):</p>
+<p>But if we only receive the signal as a dataset of samples, we need to approximate the solution that can closely match the signal. We do need to decipher the signal and approximate its frequency contents. To do that, we need to be familiar with the following <strong>DFT</strong> equation (<a href="4.7-approximation-using-fourier-series-and-transform.html#eq:eqnnumber6111">(4.261)</a>):</p>
 <p>From infinite continuous-time form (e.g., an analog signal) - in the time-domain:</p>
 <p><span class="math display" id="eq:equate1060253">\[\begin{align}
 X(f) = \int_{-\infty}^{\infty}  f(t) e^{-j2\pi ft} dt \tag{4.260} 
@@ -978,7 +978,7 @@ Figure 4.39: Frequency Domain
 <p><span class="math display">\[
 x \in \{\ 0.00,\ 0.10,\ 0.40,\ 0.10\ \}\ \ \ \ \ where\ k = \{0,1,2,3\}
 \]</span></p>
-<p>Using the <strong>DFT</strong> equation (<span class="math inline">\(\@ref(eq:eqnnumber6111)\)</span>) where <strong>N</strong> is the number of samples in the <strong>time-domain</strong>, e.g. N=4, our goal here is to solve for all the <strong>DFT coefficients</strong>, <span class="math inline">\(\mathbf{\{ X_1\ ... \ X_m \}}\)</span>. Here, we start by first solving <span class="math inline">\(\mathbf{X_1}\)</span>. Then iteratively, solving for the other coefficients.</p>
+<p>Using the <strong>DFT</strong> equation (<a href="4.7-approximation-using-fourier-series-and-transform.html#eq:eqnnumber6111">(4.261)</a>) where <strong>N</strong> is the number of samples in the <strong>time-domain</strong>, e.g. N=4, our goal here is to solve for all the <strong>DFT coefficients</strong>, <span class="math inline">\(\mathbf{\{ X_1\ ... \ X_m \}}\)</span>. Here, we start by first solving <span class="math inline">\(\mathbf{X_1}\)</span>. Then iteratively, solving for the other coefficients.</p>
 <p>For that, it does help to show the equation one more time:</p>
 <p><span class="math display" id="eq:equate1060256">\[\begin{align}
 X_m = \sum_{k=0}^{N-1}  x_k e^{\frac{1}{N}(-j 2\pi km)}, \tag{4.264} 
@@ -1271,7 +1271,7 @@ gitbook.start({
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
-"theme": "sepia",
+"theme": "white",
 "family": "sans",
 "size": 2
 },

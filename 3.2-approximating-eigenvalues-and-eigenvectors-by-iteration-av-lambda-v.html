@@ -132,7 +132,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">The Power and Art of Approximation</a></li>
+<li><a href="./">A Minimal Book Example</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
@@ -1323,7 +1323,7 @@ t {}&amp;= \frac{sign(\theta)}{|\theta| + \sqrt{\theta^2 + 1}}\ \ \ \leftarrow \
 c &amp;= \frac{1}{\sqrt{t^2 + 1}} \\
 s &amp;= ct
 \end{align*}\]</span></p>
-<p>From there, we construct the <span class="math inline">\(J\)</span> matrix and use that to approximate a <strong>diagonal</strong> matrix using Equation <span class="math inline">\(\@ref(eq:eqnnumber6)\)</span> or perhaps to validate, we can use the following list of equations to construct <span class="math inline">\(A&#39;\)</span>:</p>
+<p>From there, we construct the <span class="math inline">\(J\)</span> matrix and use that to approximate a <strong>diagonal</strong> matrix using Equation <a href="3.2-approximating-eigenvalues-and-eigenvectors-by-iteration-av-lambda-v.html#eq:eqnnumber6">(3.3)</a> or perhaps to validate, we can use the following list of equations to construct <span class="math inline">\(A&#39;\)</span>:</p>
 <p><span class="math display" id="eq:equate1050007" id="eq:equate1050006" id="eq:equate1050005" id="eq:equate1050004" id="eq:equate1050003">\[\begin{align}
 A&#39;_{ii} {}&amp;= c^2A_{ii} - 2csA_{ij} + s^2A_{jj}  \tag{3.4} \\
 A&#39;_{jj} &amp;= s^2A_{ii} + 2csA_{ij} + c^2A_{jj}  \tag{3.5} \\
@@ -1673,7 +1673,7 @@ end\ loop
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">eigen</span>(A)<span class="op">$</span>values</a></code></pre></div>
 <pre><code>## [1] 10.6771903  1.9109438 -0.5881341</code></pre>
 
-<p>We can easily validate using the following equations (See also Equation <span class="math inline">\(\@ref(eq:eqnnumber7)\)</span>) below:</p>
+<p>We can easily validate using the following equations (See also Equation <a href="3.2-approximating-eigenvalues-and-eigenvectors-by-iteration-av-lambda-v.html#eq:eqnnumber7">(3.15)</a>) below:</p>
 <p><span class="math display" id="eq:equate1050015">\[\begin{align}
 H = Q^TAQ\ \ \ \ \ \ \ \ A=QHQ^T  \tag{3.17} 
 \end{align}\]</span></p>
@@ -1906,7 +1906,7 @@ gitbook.start({
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
-"theme": "sepia",
+"theme": "white",
 "family": "sans",
 "size": 2
 },
