@@ -23,7 +23,7 @@
 <meta name="author" content="Raymond Michael Ofiaza Ordoña" />
 
 
-<meta name="date" content="2023-02-19" />
+<meta name="date" content="2023-02-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1285,7 +1285,7 @@ Figure 13.9: RNN (Softmax)
 <a class="sourceLine" id="cb2095-16" data-line-number="16">    dGt     =<span class="st"> </span>(dC <span class="op">*</span><span class="st"> </span>It) <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>Gt<span class="op">^</span><span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb2095-17" data-line-number="17">    dOt     =<span class="st"> </span>dH.next <span class="op">*</span><span class="st"> </span><span class="kw">rnn.tanh</span>(Ct) <span class="op">*</span><span class="st"> </span>Ot <span class="op">*</span><span class="st"> </span>( <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>Ot)</a>
 <a class="sourceLine" id="cb2095-18" data-line-number="18">    XH      =<span class="st"> </span><span class="kw">cbind</span>(X, H) <span class="co"># concatenate</span></a>
-<a class="sourceLine" id="cb2095-19" data-line-number="19">    <span class="co"># Calculate gradient wrt to shared Weights and Biases</span></a>
+<a class="sourceLine" id="cb2095-19" data-line-number="19">    <span class="co"># Calculate gradients wrt to shared Weights and Biases</span></a>
 <a class="sourceLine" id="cb2095-20" data-line-number="20">    dWft    =<span class="st"> </span><span class="kw">t</span>(XH) <span class="op">%*%</span><span class="st"> </span>dFt;       grad<span class="op">$</span>dF  =<span class="st"> </span>grad<span class="op">$</span>dF <span class="op">+</span><span class="st"> </span>dWft</a>
 <a class="sourceLine" id="cb2095-21" data-line-number="21">    dWit    =<span class="st"> </span><span class="kw">t</span>(XH) <span class="op">%*%</span><span class="st"> </span>dIt;       grad<span class="op">$</span>dI  =<span class="st"> </span>grad<span class="op">$</span>dI <span class="op">+</span><span class="st"> </span>dWit</a>
 <a class="sourceLine" id="cb2095-22" data-line-number="22">    dWgt    =<span class="st"> </span><span class="kw">t</span>(XH) <span class="op">%*%</span><span class="st"> </span>dGt;       grad<span class="op">$</span>dG  =<span class="st"> </span>grad<span class="op">$</span>dG <span class="op">+</span><span class="st"> </span>dWgt</a>
@@ -1366,7 +1366,7 @@ Figure 13.9: RNN (Softmax)
 ##  $ dbg: num [1:20] 2.52e-02 -4.17e-01 -3.78e-02 -5.07e-09 -7.10e-01 ...
 ##  $ dbo: num [1:20] -2.75e-02 2.11e-01 1.19e-03 7.13e-06 -4.29e-01 ...</code></pre>
 
-<p>Note that the calculation of our predicted output (<strong>Y.hat</strong>) using <strong>softmax</strong> and the gradients’ calculation are removed from the implementation. The calculations are relocated to another function. The reason becomes apparent in the <strong>Deep Stacked Bidirectional RNN</strong> section.</p>
+<p>Note that the calculation of our predicted output (<strong>Y.hat</strong>) using <strong>softmax</strong> and the calculation of the gradients are removed from the implementation. The calculations are relocated to another function. The reason becomes apparent in the <strong>Deep Stacked Bidirectional RNN</strong> section.</p>
 </div>
 <div id="gated-recurrent-units-gru" class="section level3 hasAnchor">
 <h3><span class="header-section-number">13.2.3</span> Gated Recurrent Units (GRU)  <a href="13.2-recurrent-neural-network-rnn.html#gated-recurrent-units-gru" class="anchor-section" aria-label="Anchor link to header"></a></h3>

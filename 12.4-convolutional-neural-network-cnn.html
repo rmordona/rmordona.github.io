@@ -23,7 +23,7 @@
 <meta name="author" content="Raymond Michael Ofiaza Ordoña" />
 
 
-<meta name="date" content="2023-02-19" />
+<meta name="date" content="2023-02-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -820,7 +820,7 @@ Figure 12.23: Apple, Oranges, and Banana
 </div>
 
 <p>We use the <strong>rasterImage(.)</strong> function to project the image to a pixelized format - this is also called <strong>rasterization</strong>.</p>
-<p>While our scope does not cover <strong>image processing</strong>, it helps to leave readers to investigate <strong>Graphics Pipelines</strong>, which is covered in <strong>Data Visualization</strong> courses. In addition, the topic touches on <strong>vertex processing</strong> such as <strong>tesselation</strong>, <strong>transformation</strong>, <strong>clipping</strong>, <strong>thresholding</strong>, and <strong>filtering or masking</strong>, which are mostly the processes we may use for illustration purposes when we get to <strong>Kernels</strong>.</p>
+<p>While our scope does not cover <strong>image processing</strong>, it helps to leave readers to investigate <strong>Graphics Pipelines</strong>, which is covered in <strong>Data Visualization</strong> courses. In addition, the topic touches on <strong>vertex processing</strong> such as <strong>tesselation</strong>, <strong>transformation</strong>, <strong>clipping</strong>, <strong>thresholding</strong>, and <strong>filtering or masking</strong>. We may use some of the processes for illustration purposes when we get to <strong>Kernels</strong>.</p>
 <p>Additionally, we know that <strong>3D Games</strong> perform heavy <strong>image processing</strong> and thus rely heavily on <strong>Graphics Processing Unit (GPU)</strong> for faster processing. Similarly, some, if not most, <strong>CNN</strong> standard packages are already built to have <strong>GPU</strong> support.</p>
 <p>Part of <strong>Computer Graphics</strong> also touches on <strong>Object Segmentation</strong>, <strong>Object Detection or Localization</strong>, and <strong>Object Selection</strong>, which are essential when dealing with <strong>Autonomous Vehicles</strong> in a more dynamic time-series fashion (which we cover in the <strong>RNN</strong> section). In the same line of thinking, recall our discussion on <strong>Lidar Sensors</strong> and <strong>Kalman Filters</strong> in Chapter <strong>8</strong> (<strong>Bayesian Computation II</strong>) for dynamic systems.</p>
 <p>Now, going back to our image of a handful of fruits, to manipulate the image, we first have to note that the image is stored in a 3D tensor form with a 500x500x3 dimension. It can easily be shown like so:</p>
@@ -888,7 +888,7 @@ Figure 12.25: Apple, Oranges, and Banana
 Figure 12.26: Convolution
 </p>
 </div>
-<p>The idea is to use a <strong>Filter</strong>, also called <strong>Kernel</strong>, which is a 2D matrix (in the case of Figure <a href="12.4-convolutional-neural-network-cnn.html#fig:convolution">12.26</a>). We slide the Filter over the input image in the direction from left to right and top to bottom, one step at a time. A <strong>step</strong> is called a <strong>stride</strong>, which dictates the pace or number of <strong>pixels</strong> to skip horizontally and vertically. As the <strong>Kernel</strong> lands on a <strong>patch</strong> which has the same dimension as the Kernel, we perform an <strong>element-wise</strong> multiplication and then sum the product. For example, the first patch (2x2) consists of the following pixels (1,2,5,6). We then multiply the patch with the Kernel like so:</p>
+<p>The idea is to use a <strong>Filter</strong>, also called <strong>Kernel</strong>, which is a 2D matrix (in the case of Figure <a href="12.4-convolutional-neural-network-cnn.html#fig:convolution">12.26</a>). We slide the Filter over the input image in the direction from left to right and top to bottom, one step at a time. A <strong>step</strong> is called a <strong>stride</strong>, which dictates the pace or number of <strong>pixels</strong> to skip horizontally and vertically. As the <strong>Kernel</strong> lands on a <strong>patch</strong> which has the same dimension as the Kernel, we perform an <strong>element-wise</strong> multiplication and then sum the product. For example, the first patch (2x2) consists of the following pixels (1, 2, 5, 6). We then multiply the patch with the Kernel like so:</p>
 <p><span class="math display">\[
 1 \times 1 + 2\times 0 + 5 \times 0 + 6 \times 1  = 7
 \]</span></p>
@@ -896,7 +896,7 @@ Figure 12.26: Convolution
 <p><span class="math display">\[
 5 \times 1 + 6 \times 0 + 9 \times 0 + 10 \times 1  = 15
 \]</span></p>
-<p>We perform the same operation for subsequent patches until we form a new matrix called <strong>Feature Map</strong>, also called <strong>Convolved Feature</strong>. </p>
+<p>We perform the same operation against subsequent patches until we form a new matrix called <strong>Feature Map</strong>, also called <strong>Convolved Feature</strong>. </p>
 <p>We can repeat the process by performing the same steps, yielding a new <strong>Feature Map</strong>. For example, in Figure <a href="12.4-convolutional-neural-network-cnn.html#fig:convolved">12.27</a>, our <strong>Feature Map</strong> becomes an input and goes through another round of convolution using a smaller filter (2x2) with one stride.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:convolved"></span>
 <img src="convolved.png" alt="Convolution (Repeated)" width="70%" />
@@ -1068,7 +1068,7 @@ O = (W - K + 2p) / s + 1 \tag{12.175}
 </div>
 <div id="stride-and-padding" class="section level3 hasAnchor">
 <h3><span class="header-section-number">12.4.3</span> Stride and Padding  <a href="12.4-convolutional-neural-network-cnn.html#stride-and-padding" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>In determining the optimal stride and padding for our <strong>CNN</strong>, we need to consider how we should avoid losing information which happens in a case in which an input of size <span class="math inline">\(4\times 4\)</span> and a filter of size <span class="math inline">\(3\times 3\)</span> force us to drop the right side edge and bottom edge of the input if using stride equal to two. Ideally, we can pad the edges with zeroes. Figure <a href="12.4-convolutional-neural-network-cnn.html#fig:paddingstride">12.29</a> shows an example of a convolution with no padding and two convolutions with paddings.</p>
+<p>In determining the optimal stride and padding for our <strong>CNN</strong>, we need to consider how we should avoid losing information which happens in a case in which an input of size <span class="math inline">\(4\times 4\)</span> and a filter of size <span class="math inline">\(3\times 3\)</span> force us to drop the right side edge and bottom edge of the input if using stride equal to two. Ideally, we can pad the edges with zeroes. Figure <a href="12.4-convolutional-neural-network-cnn.html#fig:paddingstride">12.29</a> shows an example of a convolution with no padding and an example of two convolutions with paddings.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:paddingstride"></span>
 <img src="paddingstride.png" alt="Stride and Padding" width="80%" />
 <p class="caption">
@@ -1186,7 +1186,7 @@ p &amp; otherwise
 <a class="sourceLine" id="cb1993-22" data-line-number="22">recessed.img =<span class="st"> </span><span class="kw">convolution</span>(apple.image , <span class="dt">filter =</span> filter, <span class="dt">normalize=</span><span class="ot">TRUE</span>, </a>
 <a class="sourceLine" id="cb1993-23" data-line-number="23">                       <span class="dt">ptype=</span><span class="st">&quot;mask&quot;</span>)<span class="op">$</span>feature.map</a></code></pre></div>
 
-<p>See Figure <a href="12.4-convolutional-neural-network-cnn.html#fig:appleorange3">12.30</a> for the effects of the kernels ordered as follows: Sobel kernel, negative photo, embossed (raised), embossed (recessed).</p>
+<p>See Figure <a href="12.4-convolutional-neural-network-cnn.html#fig:appleorange3">12.30</a> for the effects of the kernels ordered as follows (upper left to bottom right): Sobel kernel, negative photo, embossed (raised), embossed (recessed).</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:appleorange3"></span>
 <img src="appleorange3.png" alt="Apple, Oranges, and Banana" width="80%" />
 <p class="caption">
@@ -1419,7 +1419,7 @@ Figure 12.34: Pooling
 </div>
 <div id="cnn-architectures" class="section level3 hasAnchor">
 <h3><span class="header-section-number">12.4.7</span> CNN Architectures<a href="12.4-convolutional-neural-network-cnn.html#cnn-architectures" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>A few <strong>CNN</strong> architectures have earned their rightful place and can keep their respective prestigious names, namely <strong>LeNet-5</strong>, <strong>AlexNet</strong>, <strong>VGG-16</strong>, and <strong>ResNet</strong>. Such architectures have become classic models for object and image detection in popular competitions - one competition, in particular, is the <strong>ImageNet Large Scale Visual Recognition Challenge (ILSVRC)</strong> which promotes annual competition, eyeing for deserving architectures that may find their place in the top ranks based on performance, accuracy, and other criteria.    </p>
+<p>A few <strong>CNN</strong> architectures have earned their rightful place, keeping their respective prestigious names, namely <strong>LeNet-5</strong>, <strong>AlexNet</strong>, <strong>VGG-16</strong>, and <strong>ResNet</strong>. Such architectures have become classic models for object and image detection in popular competitions - one competition, in particular, is the <strong>ImageNet Large Scale Visual Recognition Challenge (ILSVRC)</strong> which promotes annual competition, eyeing for deserving architectures that may find their place in the top ranks based on performance, accuracy, and other criteria.    </p>
 <p>Designing <strong>CNN</strong> architecture involves determining the number of convolution layers to use, the number of filters to use, the number of pooling layers to use, the size of the minibatch to use, and the use of batch normalization and dropouts, among many other factors. Ultimately, we desire to reduce computation costs while achieving reasonable stability and accuracy across general cases.</p>
 <p>In this section, let us use a <strong>toy architecture</strong> to discuss the major components of a <strong>CNN</strong> architecture as shown in Figure <a href="12.4-convolutional-neural-network-cnn.html#fig:cnnarch">12.35</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:cnnarch"></span>
@@ -2857,16 +2857,16 @@ Figure 12.46: CIFAR-10 (20th Image)
 <a class="sourceLine" id="cb2063-2" data-line-number="2">cnn.model =<span class="st"> </span><span class="kw">my.CNN</span>(images, labels, <span class="dt">layers =</span> cnn.layers, <span class="dt">optimize=</span><span class="st">&quot;adam&quot;</span>,</a>
 <a class="sourceLine" id="cb2063-3" data-line-number="3">                               <span class="dt">minibatch=</span>minibatch, <span class="dt">epoch=</span><span class="dv">10</span>, <span class="dt">eta=</span><span class="fl">0.001</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;No of batches: 8&quot;
-## [1] &quot;epoch 1: loss 6.246 accuracy 0.146 val 0.161 lag time (sec): 13.128&quot;
-## [1] &quot;epoch 2: loss 3.078 accuracy 0.273 val 0.194 lag time (sec): 12.354&quot;
-## [1] &quot;epoch 3: loss 1.599 accuracy 0.508 val 0.000 lag time (sec): 11.731&quot;
-## [1] &quot;epoch 4: loss 1.251 accuracy 0.580 val 0.258 lag time (sec): 12.095&quot;
-## [1] &quot;epoch 5: loss 0.982 accuracy 0.689 val 0.000 lag time (sec): 11.752&quot;
-## [1] &quot;epoch 6: loss 0.842 accuracy 0.736 val 0.125 lag time (sec): 11.972&quot;
-## [1] &quot;epoch 7: loss 0.602 accuracy 0.845 val 0.065 lag time (sec): 11.753&quot;
-## [1] &quot;epoch 8: loss 0.408 accuracy 0.916 val 0.094 lag time (sec): 11.777&quot;
-## [1] &quot;epoch 9: loss 0.307 accuracy 0.959 val 0.194 lag time (sec): 11.847&quot;
-## [1] &quot;epoch 10: loss 0.262 accuracy 0.955 val 0.219 lag time (sec): 11.951&quot;</code></pre>
+## [1] &quot;epoch 1: loss 6.246 accuracy 0.146 val 0.161 lag time (sec): 13.159&quot;
+## [1] &quot;epoch 2: loss 3.078 accuracy 0.273 val 0.194 lag time (sec): 12.305&quot;
+## [1] &quot;epoch 3: loss 1.599 accuracy 0.508 val 0.000 lag time (sec): 12.786&quot;
+## [1] &quot;epoch 4: loss 1.251 accuracy 0.580 val 0.258 lag time (sec): 12.206&quot;
+## [1] &quot;epoch 5: loss 0.982 accuracy 0.689 val 0.000 lag time (sec): 12.073&quot;
+## [1] &quot;epoch 6: loss 0.842 accuracy 0.736 val 0.125 lag time (sec): 12.088&quot;
+## [1] &quot;epoch 7: loss 0.602 accuracy 0.845 val 0.065 lag time (sec): 11.934&quot;
+## [1] &quot;epoch 8: loss 0.408 accuracy 0.916 val 0.094 lag time (sec): 12.039&quot;
+## [1] &quot;epoch 9: loss 0.307 accuracy 0.959 val 0.194 lag time (sec): 11.697&quot;
+## [1] &quot;epoch 10: loss 0.262 accuracy 0.955 val 0.219 lag time (sec): 11.669&quot;</code></pre>
 <div class="sourceCode" id="cb2065"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2065-1" data-line-number="1">x =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">length</span>(cnn.model<span class="op">$</span>cost))</a>
 <a class="sourceLine" id="cb2065-2" data-line-number="2">y =<span class="st"> </span>cnn.model<span class="op">$</span>cost</a>
 <a class="sourceLine" id="cb2065-3" data-line-number="3">y1 =<span class="st"> </span>(y <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(y))<span class="op">/</span>(<span class="kw">max</span>(y) <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(y))</a>
@@ -2884,8 +2884,8 @@ Figure 12.47: CNN PLOT
 </p>
 </div>
 
-<p>Notice in the figure that we trained only 250 images. It is worth noting that our <strong>CNN</strong> implementation indeed demonstrates the ability to train. We can shoot to 96.8% (even up to 100%) <strong>top-1</strong> train accuracy. However, if we perform prediction, we may see our <strong>top-1</strong> test accuracy as low as 20%. That is because there is insufficient data to train; thus, we are overfitting the train data.</p>
-<p>Over time, we performed several iterations to achieve a better train and test accuracy using the entire 50,000 images. Our model was trained with a <strong>top-1</strong> train accuracy of 94.20% after epoch 22 for 50000 cifar-10 images, which took 19.8 hours with an average lag time of 3750 seconds per epoch using only four CPUs (from quad-core) with no GPU support. Here, we show how we can use our saved model:</p>
+<p>Notice in the figure that we trained only 250 images. It is worth noting that our <strong>CNN</strong> implementation indeed demonstrates the ability to train. We can shoot up to 96.8% (even up to 100%) <strong>top-1</strong> train accuracy. However, if we perform prediction, we may see our <strong>top-1</strong> test accuracy as low as 20%. That is because there is insufficient data to train; thus, we are overfitting the train data.</p>
+<p>For illustration, we performed several iterations over time to achieve a better train and test accuracy using the entire 50,000 images. Our model was trained with a <strong>top-1</strong> train accuracy of 94.20% after epoch 22 for 50000 cifar-10 images, which took 19.8 hours with an average lag time of 3750 seconds per epoch using only four CPUs (from quad-core) with no GPU support. Here, we show how we can use our saved model:</p>
 
 <div class="sourceCode" id="cb2066"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2066-1" data-line-number="1">transfer.cnn.model =<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;transfer_model.rds&quot;</span>) </a></code></pre></div>
 
@@ -2994,7 +2994,7 @@ Figure 12.48: Transferred Model (CNN)
 <div class="sourceCode" id="cb2070"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2070-1" data-line-number="1">result =<span class="st"> </span><span class="kw">my.predict.CNN</span>(test.images, labels, transfer.cnn.model, </a>
 <a class="sourceLine" id="cb2070-2" data-line-number="2">                        <span class="dt">first_batch_only =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;No of batches: 313&quot;
-## [1] &quot;batch 10 - loss: 0.170 t: 10, accuracy 0.969 lag time (sec): 6.642&quot;</code></pre>
+## [1] &quot;batch 10 - loss: 0.170 t: 10, accuracy 0.969 lag time (sec): 6.863&quot;</code></pre>
 
 <p>That gives us a <strong>top-1</strong> test accuracy of 87.78% and a loss of 0.122853209833548.</p>
 <p>Below, we see the actual predictions compared to the target:</p>
@@ -3035,7 +3035,7 @@ Figure 12.48: Transferred Model (CNN)
 <a class="sourceLine" id="cb2079-2" data-line-number="2">result =<span class="st"> </span><span class="kw">my.predict.CNN</span>(test.images, labels, retrained.cnn.model, </a>
 <a class="sourceLine" id="cb2079-3" data-line-number="3">                        <span class="dt">first_batch_only=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;No of batches: 313&quot;
-## [1] &quot;batch 10 - loss: 0.037 t: 10, accuracy 1.000 lag time (sec): 6.104&quot;</code></pre>
+## [1] &quot;batch 10 - loss: 0.037 t: 10, accuracy 1.000 lag time (sec): 6.169&quot;</code></pre>
 
 <p>That gives us a <strong>top-1</strong> test accuracy of 89.49% and a loss of 0.0718042660598904.</p>
 <p>Below, we see the actual predictions compared to the target:</p>
