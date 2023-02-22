@@ -28,11 +28,23 @@ pre code {
     font-size: 45px;
  }
 
-h1 { border-bottom: 3px solid #436D7A }
-h2 { border-bottom: 3px solid #436D7A }
+h1 { border-bottom: 3px solid #436D7A; 
+     font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif; 
+     font-style: italic }
+h2 { border-bottom: 3px solid #436D7A;
+     font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif; 
+     font-style: italic }
+
+h3 { font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif; 
+     font-style: italic }
+
 .book .book-body .page-wrapper .page-inner {
   max-width: 900px !important;
 }
+
+p {  font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif; 
+     font-size: 14pt }
+
 p.title    { display: inline-block; font-weight: bold; font-size: 24pt; text-align: center; width: 100%;
                         border: 3px solid #698BB4; background-color: #698BB4; color: #fafafa }
 p.subtitle { display: inline-block; font-weight: bold; font-size: 18pt; text-align: center; width: 100%; }
