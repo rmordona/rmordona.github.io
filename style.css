@@ -28,6 +28,9 @@ pre code {
     font-size: 45px;
  }
 
+li { font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;  }
+    
+
 h1 { border-bottom: 3px solid #436D7A; 
      font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif; 
      font-style: italic }
