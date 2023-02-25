@@ -2327,7 +2327,7 @@ E^x = 2 &amp; E^y = 2.5
 ## [49,]       21.71    21.47  0.05        0.02
 ## [50,]       21.68    21.48  0.05        0.02</code></pre>
 
-<p>Our final estimate is at 21.48 kilograms at 10 iterations. See Figure <a href="8.1-bayesian-models.html#fig:kalmanfilter1">8.20</a>.</p>
+<p>Our final estimate is at 21.48 kilograms after 10 iterations. See Figure <a href="8.1-bayesian-models.html#fig:kalmanfilter1">8.20</a>.</p>
 
 <div class="sourceCode" id="cb904"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb904-1" data-line-number="1"><span class="kw">plot</span>(<span class="ot">NULL</span>, <span class="dt">ylim=</span><span class="kw">range</span>(<span class="dv">20</span>, <span class="dv">23</span>), <span class="dt">xlim=</span><span class="kw">range</span>(<span class="dv">1</span>,<span class="dv">10</span>), </a>
 <a class="sourceLine" id="cb904-2" data-line-number="2">     <span class="dt">xlab=</span><span class="st">&quot;T&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;Weight (Lbs)&quot;</span>,</a>
@@ -2715,11 +2715,11 @@ K_t &amp;= S_t^{x,y}  (S_t^{y,y})^{-1} \tag{8.155} \\
 <h3><span class="header-section-number">8.1.10</span> Particle Filter <a href="8.1-bayesian-models.html#particle-filter" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Particle Filter (PF)</strong> follows the same concept as <strong>UKF</strong> in that <strong>Sigma points</strong> are derived. However, the <strong>Sigma points</strong> are derived from an arbitrary sample in <strong>PF</strong>; rather than following the equations presented in the previous <strong>UKF</strong> discussion to select a candidate set of data points. Note that <strong>PF</strong> becomes more computationally expensive with larger samples though more flexible than the three Kalman filters discussed previously.</p>
 <p>In later sections, we discuss <strong>simulation and sampling</strong> techniques such as <strong>Markov Chain Monte Carlo (MCMC)</strong> and <strong>Metropolis-Hastings MC</strong> algorithms that can be used to support the random draws of the <strong>Sigma points</strong>.</p>
-<p>We leave readers to investigate <strong>Particle Filters</strong>further.</p>
+<p>We leave readers to investigate <strong>Particle Filters</strong> further.</p>
 </div>
 <div id="ensemble-kalman-filter" class="section level3 hasAnchor">
 <h3><span class="header-section-number">8.1.11</span> Ensemble Kalman Filter <a href="8.1-bayesian-models.html#ensemble-kalman-filter" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Ensemble Kalman Filter (EnKF)</strong>uses <strong>Monte Carlo</strong> sampling to filter an <strong>ensemble</strong> of samples from a distribution. It is suitable for datasets with high dimensionality (high features). Similar to <strong>Particle Filter</strong>, <strong>EnKF</strong> uses multiple samples generated using <strong>Monte Carlo</strong>. However, the same steps apply as before with modifications in the equations to accommodate the datasets.</p>
+<p><strong>Ensemble Kalman Filter (EnKF)</strong> uses <strong>Monte Carlo</strong> sampling to filter an <strong>ensemble</strong> of samples from a distribution. It is suitable for datasets with high dimensionality (high features). Similar to <strong>Particle Filter</strong>, <strong>EnKF</strong> uses multiple samples generated using <strong>Monte Carlo</strong>. However, the same steps apply as before with modifications in the equations to accommodate the datasets.</p>
 <p>We leave readers to investigate <strong>Ensemble Kalman Filter</strong>further. In addition, it helps to be aware of topics around <strong>Data Assimilation</strong> and <strong>Sensor Fusion</strong> and the use of multiple sensors such as <strong>Lidar</strong>, <strong>Infrared</strong>, and <strong>Radar</strong> for autonomous objects.</p>
 </div>
 </div>
