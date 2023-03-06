@@ -794,14 +794,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Figure 3.2: Root Finding vs Fixed-Point
 </p>
 </div>
-<p>In <strong>Root-Finding Method</strong>, we are solving for <strong>x</strong> using the following equation <span class="citation">(Driscoll T. A. <a href="bibliography.html#ref-ref536w">2020</a>)</span>:</p>
+<p>In <strong>Root-Finding Method</strong>, we solve for <strong>x</strong> using the following equation <span class="citation">(Driscoll T. A. <a href="bibliography.html#ref-ref536w">2020</a>)</span>:</p>
 <p><span class="math display">\[
 f(x) = 0\ \ \ \ \ \rightarrow\ \ \ \ \ \ y = 0
 \]</span></p>
-<p>This is solving for <strong>x</strong> to find the zeroes of function <strong>f</strong>.</p>
-<p>In <strong>Fixed-point Method</strong>, we are solving for <strong>x</strong> using the following equation <span class="citation">(Driscoll T. A. <a href="bibliography.html#ref-ref536w">2020</a>)</span>:</p>
+<p>This is solving for values of <strong>x</strong> that make function <strong>f</strong> equal to zero.</p>
+<p>In <strong>Fixed-point Method</strong>, we solve for <strong>x</strong> using the following equation <span class="citation">(Driscoll T. A. <a href="bibliography.html#ref-ref536w">2020</a>)</span>:</p>
 <p><span class="math display">\[
-f(x) = x\ \ \ \ \ \rightarrow\ \ \ \ \ \ y = x
+f(x) = x\ \ \ \ \ \rightarrow\ \ \ \ \ \ \text{where y converges to x, such that}\ y = x
 \]</span></p>
 <p>We illustrate the <strong>Fixed-Point</strong> method in the next section.</p>
 <p>Here, for <strong>Root-Finding</strong>, consider a third-degree polynomial equation where <span class="math inline">\(f(x)=0\)</span>:</p>
@@ -816,25 +816,27 @@ x =0,\ \ \ \ \ x = - \sqrt{2},\ \ \ \ \ \ \ x = \sqrt{2}
 </div>
 <div id="fixed-point-method-fx-x" class="section level3 hasAnchor">
 <h3><span class="header-section-number">3.3.2</span> Fixed-Point Method (<span class="math inline">\(f(x) = x\)</span>) <a href="3.3-approximating-root-and-fixed-point-by-iteration.html#fixed-point-method-fx-x" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Fixed-point Method</strong> solves for <strong>x</strong> iteratively where <strong>x</strong> is the <strong>Fixed-Point</strong> output of a function that is equal to its input; expresssed as <span class="math inline">\(f(x) = x\)</span>.</p>
-<p>Here, we also can interpret it this way:</p>
+<p><strong>Fixed-point Method</strong> solves for <strong>x</strong> such that <strong>x</strong> eventually converges to a <strong>fixed point</strong> as we iterate repeatedly over a function.  We transform the equation this way:</p>
 <p><span class="math display">\[
-f(x) = y = x
+f(x) = x\ \ \ \ \rightarrow\ \ \ \ \ x = g(x)
 \]</span></p>
 <p>The method iterates until convergence:</p>
 <p><span class="math display" id="eq:equate1050026">\[\begin{align}
 x_{k+1} = g(x_k)\ \ \ \ \leftarrow\ \ \text{iterates until } \mathbf{ab}s(x_k - x_{k+1}) &lt; tol \tag{3.28} 
 \end{align}\]</span></p>
-<p>To use the <strong>Fixed-Point method</strong> for <strong>Root-Finding</strong>, we need to convert the equation, <span class="math inline">\(f(x)=0\)</span> into <span class="math inline">\((fx)=x\)</span>. To do that, suppose we have the following equation</p>
+<p>To use the <strong>Fixed-Point method</strong> for <strong>Root-Finding</strong>, we need to convert the equation, <span class="math inline">\(f(x)=x\)</span> into <span class="math inline">\(f(x)=0\)</span>. To do that, suppose we have the following equation</p>
 <p><span class="math display">\[
-f(x) = f(x) = x^3 + x^2 - 1 = y,\ \ \ \ \ where\ y=0
-\]</span>
-We need to assume y = x</p>
-<p>Therefore:</p>
-<p><span class="math display">\[
- f(x) = x^3 + x^2 - 1 = x\ \ \ \ \ \leftarrow \text{root-find form}
+x^3 + x^2 - 1 = x
 \]</span></p>
-<p>We now implement the fixed-point iteration in R code. Let us first construct an helper function for plotting the graphs:</p>
+<p>To find the roots, we rewrite the equation like so</p>
+<p><span class="math display">\[
+ x^3 + x^2 - x - 1 = 0 
+\]</span></p>
+<p>Such that we get the form:</p>
+<p><span class="math display">\[
+ f(x) = x^3 + x^2 - x - 1
+\]</span></p>
+<p>Let us implement the fixed-point iteration in R code. Let us first construct an helper function for plotting the graphs:</p>
 
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">plot_par &lt;-<span class="st"> </span><span class="cf">function</span>(f) {</a>
 <a class="sourceLine" id="cb52-2" data-line-number="2">    <span class="kw">par</span>(<span class="dt">pty=</span><span class="st">&quot;m&quot;</span>)</a>
