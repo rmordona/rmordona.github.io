@@ -815,14 +815,14 @@ Figure 7.9: Entropy
 \end{align}\]</span></p>
 <p>Entropy (<span class="math inline">\(\mathcal{H}\)</span>) measures the level of impurity (or surprise) of the probability of an outcome. If the expected information of a random event is always 100% to the point of perfection (or purity), then it becomes unsurprising. The <strong>entropy</strong> is therefore zero. For example, if we have four red marbles in an urn, no matter how many times we randomly pull a marble (with placement), we end up 100% probability of choosing a red marble. Thus, there are zero surprises right there.</p>
 <p><span class="math display" id="eq:equate1090322">\[\begin{align}
-\mathcal{H}(X) = -P(x) log P(x) = -1 \times \log_e (1) = 0,\ \ \ \ \ \ where\ P(x) = 100\% \tag{7.338} 
+\mathcal{H}(X) = -P(x) log P(x) = -1 \times \log_e (1) = 0\ \text{nats},\ \ \ \ \ \ where\ P(x) = 100\% \tag{7.338} 
 \end{align}\]</span></p>
 <p>Now, if we change one of the four red marbles into a green marble, then the information changes. Below is a computation of entropy based on the probability of choosing a red marble plus the probability of choosing a green marble in one event.</p>
 <p><span class="math display" id="eq:equate1090323">\[\begin{align}
 \mathcal{H}(X) &amp;= - P(x_1) \log_e P(x_1) - P(x_2) \log_e P(x_2)   \tag{7.339} \\
 &amp;= - \frac{3}{4} \log_e \left(\frac{3}{4} \right) - \frac{1}{4} \log_e \left( \frac{1}{4} \right)  \nonumber \\
 &amp;= - (-0.2157616) - (-0.3465736 ) \nonumber \\
-&amp;= 0.5623352 \nonumber
+&amp;= 0.5623352\ \text{nats}\ \ \ \ \text{(we use bits in } log_2\text{)} \nonumber
 \end{align}\]</span></p>
 <p>Notice that the higher the <strong>entropy</strong>, the more we see some information content. This measurement is proper when we split a dataset into corresponding features, similar to the techniques in decision trees in <strong>machine learning</strong>. Another contending measurement is the <strong>Gini Index</strong> which we discuss in the following subsection. </p>
 <p>Now, let us consider <strong>Joint Entropy</strong>, which has the following equation: </p>
@@ -839,7 +839,7 @@ P(X=B,Y=D) = 0.20
 then we can compute for the <strong>Joint Entropy</strong>:</p>
 <p><span class="math display">\[\begin{align*}
 \mathcal{H}(X, Y) {}&amp;= - \left[\ 0.30 \log_e (0.30) + 0.30 \log_e (0.30) + 0.20 \log_e (0.20) + 0.20 \log_e (0.20)\ \right]\\
-&amp;= 1.366159
+&amp;= 1.366159\ \text{nats}
 \end{align*}\]</span></p>
 <p><strong>Conditional Entropy</strong> computes the entropy of one possible event given another event which has the following equation: </p>
 <p><span class="math display" id="eq:equate1090325">\[\begin{align}
@@ -900,7 +900,7 @@ then we can compute for the <strong>Joint Entropy</strong>:</p>
 \mathcal{H}(x_2) &amp;= -\frac{7}{9}\ \log_e \left( \frac{7}{9} \right) - \frac{2}{9}\ \log_e \left( \frac{2}{9} \right) =  0.5297062 \\
 \mathcal{H}(T, X) &amp;= \frac{11}{20}\ \times 0.5859526  + \frac{9}{20}\ 0.5297062 = 0.5606417\\
 \\
-\mathcal{I} &amp;= 0.5623352 - 0.5606417 = 0.0016935
+\mathcal{I} &amp;= 0.5623352 - 0.5606417 = 0.0016935\ \text{nats}
 \end{align*}\]</span></p>
 <p>Note that the higher the Information Gain, the better the split. An Information Gain of zero means that the split is worst. For Information Gain using Gini, see <strong>Multi-Classification</strong> section in Chapter <strong>10</strong> (<strong>Computation Learning II</strong>).</p>
 </div>
@@ -926,7 +926,7 @@ P(X, T) \log_e \frac{P(X, T)}{P(X)P(T)} \nonumber \\
 P(Y, T) \log_e \frac{P(Y, T)}{P(Y)P(T)}  \tag{7.353} \\
 &amp;= 0.40\ \log_e \frac{0.40}{0.60 \times 0.60} + 0.20\ \log_e \frac{0.20}{0.60 \times 0.40 } \nonumber \\
 &amp;+ 0.20\ \log_e \frac{0.20}{0.40 \times 0.60}  + 0.20\ \log_e \frac{0.20}{0.40 \times 0.40}\nonumber \\
-&amp;= 0.01384429 \nonumber
+&amp;= 0.01384429\ \text{nats} \nonumber
 \end{align}\]</span></p>
 <p>Below is a list of a few important properties of <strong>Mutual Information</strong> in relation to <strong>entropy</strong>.</p>
 <p><span class="math display" id="eq:equate1090338" id="eq:equate1090337" id="eq:equate1090336">\[\begin{align}
