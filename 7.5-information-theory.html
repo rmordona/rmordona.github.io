@@ -813,11 +813,11 @@ Figure 7.9: Entropy
 - \int_x   P_X(x)\ \log_e  P_X(x) dx  &amp; \text{(continuous differential entropy)}\\
 \end{cases} \tag{7.337}
 \end{align}\]</span></p>
-<p>Entropy (<span class="math inline">\(\mathcal{H}\)</span>) measures the level of impurity (or surprise) of the probability of an outcome. If the expected information of a random event is always 100% to the point of perfection (or purity), then it becomes unsurprising. The <strong>entropy</strong> is therefore zero. For example, if we have a coin with a head on both sides, no matter how many times we flip the coin, there is always a 100% probability that it lands on a head. Thus, there are zero surprises right there.</p>
+<p>Entropy (<span class="math inline">\(\mathcal{H}\)</span>) measures the level of impurity (or surprise) of the probability of an outcome. If the expected information of a random event is always 100% to the point of perfection (or purity), then it becomes unsurprising. The <strong>entropy</strong> is therefore zero. For example, if we have four red marbles in an urn, no matter how many times we randomly pull a marble (with placement), we end up 100% probability of choosing a red marble. Thus, there are zero surprises right there.</p>
 <p><span class="math display" id="eq:equate1090322">\[\begin{align}
 \mathcal{H}(X) = -P(x) log P(x) = -1 \times \log_e (1) = 0,\ \ \ \ \ \ where\ P(x) = 100\% \tag{7.338} 
 \end{align}\]</span></p>
-<p>Now, let us assume that we have four coins. As strange as it may sound, let us suppose three coins have heads on both sides, and the last coin has tails on both sides. Let us then compute the entropy of the set.</p>
+<p>Now, if we change one of the four red marbles into a green marble, then the information changes. Let us compute the entropy of the set.</p>
 <p><span class="math display" id="eq:equate1090323">\[\begin{align}
 \mathcal{H}(X) &amp;= - P(x_1) \log_e P(x_1) - P(x_2) \log_e P(x_2)   \tag{7.339} \\
 &amp;= - \frac{3}{4} \log_e \left(\frac{3}{4} \right) - \frac{1}{4} \log_e \left( \frac{1}{4} \right)  \nonumber \\
