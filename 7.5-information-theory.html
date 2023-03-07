@@ -867,14 +867,14 @@ then we can compute for the <strong>Joint Entropy</strong>:</p>
 <p><span class="math display" id="eq:equate1090327">\[\begin{align}
 \mathcal{G}(X)  = \underbrace{1 - \underbrace{\sum_x P_X(x)^2}_{\text{Gini}}}_{\text{Gini Impurity}} \tag{7.344} 
 \end{align}\]</span></p>
-<p><strong>Gini Index</strong> (<span class="math inline">\(\mathcal{G}\)</span>) can be used to measure the impurity of information similar to <strong>Entropy</strong>. To illustrate, we use the same example we used for <strong>Entropy</strong>. Suppose we have four coins. The three coins have heads on both sides, and the last coin has tails on both sides. Compute for the Gini index of the set.</p>
+<p><strong>Gini Index</strong> (<span class="math inline">\(\mathcal{G}\)</span>) can be used to measure the impurity of information similar to <strong>Entropy</strong>. To illustrate, we use the same example we used for <strong>Entropy</strong>.  Suppose that there are three red marbles and one green marble in an urn.  Compute for the Gini index of the set.</p>
 <p><span class="math display" id="eq:equate1090328">\[\begin{align}
 \mathcal{G} {}&amp;= 1 - ( P(x_1)^2 + P(x_2)^2   \tag{7.345} \\
 &amp;= 1 - \left[ \left(\frac{3}{4}\right)^2 + \left(\frac{1}{4}\right)^2  \right] \nonumber \\
 &amp;= 1 - (0.5625 + 0.0625 ) = 1 - 0.625 \nonumber \\
 &amp;= 0.375 \nonumber
 \end{align}\]</span></p>
-<p>Similarly, if we have a coin with one side head and another side also head, no matter how many times we flip the coin, there is always a 100% probability that it lands on the head. Thus, there are zero surprises right there.</p>
+<p>Similarly,  if we have only red marbles in the urn, no matter how many times we pull a marble (with replacement), we end up 100% probability of choosing a red marble. Thus, there are zero surprises right there. </p>
 <p><span class="math display" id="eq:equate1090329">\[\begin{align}
 \mathcal{G} = 1- P(x)^2  = -1 \times (1)^2 = 0,\ \ \ \ \ \ where\ P(x) = 100\% \tag{7.346} 
 \end{align}\]</span></p>
