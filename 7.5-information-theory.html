@@ -23,7 +23,7 @@
 <meta name="author" content="Raymond Michael Ofiaza Ordoña" />
 
 
-<meta name="date" content="2023-03-06" />
+<meta name="date" content="2023-03-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -303,11 +303,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5.2" data-path="4.5-approximation-using-functional-differential-equations.html"><a href="4.5-approximation-using-functional-differential-equations.html#variational-methods"><i class="fa fa-check"></i><b>4.5.2</b> Variational Methods </a></li>
 </ul></li>
 <li class="chapter" data-level="4.6" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html"><i class="fa fa-check"></i><b>4.6</b> Approximation using Partial Differential Equations </a><ul>
-<li class="chapter" data-level="4.6.1" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-laplace-equation-elliptic-pde"><i class="fa fa-check"></i><b>4.6.1</b> The Laplace Equation (Elliptic PDE)  </a></li>
-<li class="chapter" data-level="4.6.2" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-heat-equation-parabolic-pde"><i class="fa fa-check"></i><b>4.6.2</b> The Heat equation (Parabolic PDE)  </a></li>
-<li class="chapter" data-level="4.6.3" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-wave-equation-hyperbolic-pde"><i class="fa fa-check"></i><b>4.6.3</b> The Wave equation (Hyperbolic PDE)  </a></li>
-<li class="chapter" data-level="4.6.4" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-crank-nicolson-equation"><i class="fa fa-check"></i><b>4.6.4</b> The Crank-Nicolson Equation </a></li>
-<li class="chapter" data-level="4.6.5" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-burgers-equation"><i class="fa fa-check"></i><b>4.6.5</b> The Burger’s Equation </a></li>
+<li class="chapter" data-level="4.6.1" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-poisson-equation"><i class="fa fa-check"></i><b>4.6.1</b> The Poisson Equation </a></li>
+<li class="chapter" data-level="4.6.2" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-laplace-equation-elliptic-pde"><i class="fa fa-check"></i><b>4.6.2</b> The Laplace Equation (Elliptic PDE)  </a></li>
+<li class="chapter" data-level="4.6.3" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-heat-equation-parabolic-pde"><i class="fa fa-check"></i><b>4.6.3</b> The Heat equation (Parabolic PDE)  </a></li>
+<li class="chapter" data-level="4.6.4" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-wave-equation-hyperbolic-pde"><i class="fa fa-check"></i><b>4.6.4</b> The Wave equation (Hyperbolic PDE)  </a></li>
+<li class="chapter" data-level="4.6.5" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-crank-nicolson-equation"><i class="fa fa-check"></i><b>4.6.5</b> The Crank-Nicolson Equation </a></li>
+<li class="chapter" data-level="4.6.6" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-burgers-equation"><i class="fa fa-check"></i><b>4.6.6</b> The Burger’s Equation </a></li>
 </ul></li>
 <li class="chapter" data-level="4.7" data-path="4.7-approximation-using-fourier-series-and-transform.html"><a href="4.7-approximation-using-fourier-series-and-transform.html"><i class="fa fa-check"></i><b>4.7</b> Approximation using Fourier Series And Transform </a><ul>
 <li class="chapter" data-level="4.7.1" data-path="4.7-approximation-using-fourier-series-and-transform.html"><a href="4.7-approximation-using-fourier-series-and-transform.html#discrete-fourier-transform-dft"><i class="fa fa-check"></i><b>4.7.1</b> Discrete Fourier Transform (DFT)  </a></li>
@@ -867,14 +868,14 @@ then we can compute for the <strong>Joint Entropy</strong>:</p>
 <p><span class="math display" id="eq:equate1090327">\[\begin{align}
 \mathcal{G}(X)  = \underbrace{1 - \underbrace{\sum_x P_X(x)^2}_{\text{Gini}}}_{\text{Gini Impurity}} \tag{7.344} 
 \end{align}\]</span></p>
-<p><strong>Gini Index</strong> (<span class="math inline">\(\mathcal{G}\)</span>) can be used to measure the impurity of information similar to <strong>Entropy</strong>. To illustrate, we use the same example we used for <strong>Entropy</strong>.  Suppose that there are three red marbles and one green marble in an urn.  Compute for the Gini index of the set.</p>
+<p><strong>Gini Index</strong> (<span class="math inline">\(\mathcal{G}\)</span>) can be used to measure the impurity of information similar to <strong>Entropy</strong>. To illustrate, we use the same example we used for <strong>Entropy</strong>. Suppose that there are three red marbles and one green marble in an urn. Compute for the Gini index of the set.</p>
 <p><span class="math display" id="eq:equate1090328">\[\begin{align}
 \mathcal{G} {}&amp;= 1 - ( P(x_1)^2 + P(x_2)^2   \tag{7.345} \\
 &amp;= 1 - \left[ \left(\frac{3}{4}\right)^2 + \left(\frac{1}{4}\right)^2  \right] \nonumber \\
 &amp;= 1 - (0.5625 + 0.0625 ) = 1 - 0.625 \nonumber \\
 &amp;= 0.375 \nonumber
 \end{align}\]</span></p>
-<p>Similarly,  if we have only red marbles in the urn, no matter how many times we pull a marble (with replacement), we end up 100% probability of choosing a red marble. Thus, there are zero surprises right there. </p>
+<p>Similarly, if we have only red marbles in the urn, no matter how many times we pull a marble (with replacement), we end up 100% probability of choosing a red marble. Thus, there are zero surprises right there.</p>
 <p><span class="math display" id="eq:equate1090329">\[\begin{align}
 \mathcal{G} = 1- P(x)^2  = -1 \times (1)^2 = 0,\ \ \ \ \ \ where\ P(x) = 100\% \tag{7.346} 
 \end{align}\]</span></p>

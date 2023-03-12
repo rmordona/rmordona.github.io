@@ -23,7 +23,7 @@
 <meta name="author" content="Raymond Michael Ofiaza Ordoña" />
 
 
-<meta name="date" content="2023-03-06" />
+<meta name="date" content="2023-03-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -303,11 +303,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5.2" data-path="4.5-approximation-using-functional-differential-equations.html"><a href="4.5-approximation-using-functional-differential-equations.html#variational-methods"><i class="fa fa-check"></i><b>4.5.2</b> Variational Methods </a></li>
 </ul></li>
 <li class="chapter" data-level="4.6" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html"><i class="fa fa-check"></i><b>4.6</b> Approximation using Partial Differential Equations </a><ul>
-<li class="chapter" data-level="4.6.1" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-laplace-equation-elliptic-pde"><i class="fa fa-check"></i><b>4.6.1</b> The Laplace Equation (Elliptic PDE)  </a></li>
-<li class="chapter" data-level="4.6.2" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-heat-equation-parabolic-pde"><i class="fa fa-check"></i><b>4.6.2</b> The Heat equation (Parabolic PDE)  </a></li>
-<li class="chapter" data-level="4.6.3" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-wave-equation-hyperbolic-pde"><i class="fa fa-check"></i><b>4.6.3</b> The Wave equation (Hyperbolic PDE)  </a></li>
-<li class="chapter" data-level="4.6.4" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-crank-nicolson-equation"><i class="fa fa-check"></i><b>4.6.4</b> The Crank-Nicolson Equation </a></li>
-<li class="chapter" data-level="4.6.5" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-burgers-equation"><i class="fa fa-check"></i><b>4.6.5</b> The Burger’s Equation </a></li>
+<li class="chapter" data-level="4.6.1" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-poisson-equation"><i class="fa fa-check"></i><b>4.6.1</b> The Poisson Equation </a></li>
+<li class="chapter" data-level="4.6.2" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-laplace-equation-elliptic-pde"><i class="fa fa-check"></i><b>4.6.2</b> The Laplace Equation (Elliptic PDE)  </a></li>
+<li class="chapter" data-level="4.6.3" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-heat-equation-parabolic-pde"><i class="fa fa-check"></i><b>4.6.3</b> The Heat equation (Parabolic PDE)  </a></li>
+<li class="chapter" data-level="4.6.4" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-wave-equation-hyperbolic-pde"><i class="fa fa-check"></i><b>4.6.4</b> The Wave equation (Hyperbolic PDE)  </a></li>
+<li class="chapter" data-level="4.6.5" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-crank-nicolson-equation"><i class="fa fa-check"></i><b>4.6.5</b> The Crank-Nicolson Equation </a></li>
+<li class="chapter" data-level="4.6.6" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-burgers-equation"><i class="fa fa-check"></i><b>4.6.6</b> The Burger’s Equation </a></li>
 </ul></li>
 <li class="chapter" data-level="4.7" data-path="4.7-approximation-using-fourier-series-and-transform.html"><a href="4.7-approximation-using-fourier-series-and-transform.html"><i class="fa fa-check"></i><b>4.7</b> Approximation using Fourier Series And Transform </a><ul>
 <li class="chapter" data-level="4.7.1" data-path="4.7-approximation-using-fourier-series-and-transform.html"><a href="4.7-approximation-using-fourier-series-and-transform.html#discrete-fourier-transform-dft"><i class="fa fa-check"></i><b>4.7.1</b> Discrete Fourier Transform (DFT)  </a></li>
@@ -1717,23 +1718,23 @@ Figure 8.35: JAGS Model
 ## 1. Empirical mean and standard deviation for each variable,
 ##    plus standard error of the mean:
 ## 
-##        Mean     SD Naive SE Time-series SE
-## mu[1]  13.9   1.56   0.0156         0.0221
-## mu[2]  14.2   1.43   0.0143         0.0182
-## mu[3]  15.0   1.50   0.0150         0.0176
-## mu[4]  15.5   1.57   0.0157         0.0210
-## mu0    14.7   3.44   0.0344         0.0688
-## sigma0 45.4 102.26   1.0226        10.7388
+##        Mean    SD Naive SE Time-series SE
+## mu[1]  14.0  1.54   0.0154         0.0216
+## mu[2]  14.2  1.41   0.0141         0.0193
+## mu[3]  15.0  1.50   0.0150         0.0192
+## mu[4]  15.5  1.55   0.0155         0.0235
+## mu0    14.5  3.04   0.0304         0.0915
+## sigma0 36.0 68.82   0.6882         7.1510
 ## 
 ## 2. Quantiles for each variable:
 ## 
-##          2.5%   25%  50%  75% 97.5%
-## mu[1]  10.683 12.92 14.0 15.0  16.9
-## mu[2]  11.308 13.21 14.2 15.1  16.9
-## mu[3]  12.025 14.00 15.0 16.0  17.9
-## mu[4]  12.487 14.46 15.5 16.5  18.7
-## mu0     7.784 13.40 14.6 15.9  22.4
-## sigma0  0.242  3.07 10.3 37.2 344.6</code></pre>
+##          2.5%   25%   50%  75% 97.5%
+## mu[1]  10.870 12.94 14.04 15.0  16.9
+## mu[2]  11.349 13.25 14.19 15.1  16.9
+## mu[3]  12.074 14.02 15.00 16.0  18.0
+## mu[4]  12.519 14.40 15.41 16.4  18.6
+## mu0     7.638 13.39 14.62 15.9  20.5
+## sigma0  0.169  2.87  9.31 34.4 262.5</code></pre>
 
 <p><strong>Sixth</strong>, we use <strong>Gelman-Rubin</strong> diagnostic tool to analyze convergence. The first diagram plots the iterations taken by JAGS for each of the sampled <span class="math inline">\(\mu\)</span>. Notice that each posterior sampling of <span class="math inline">\(\mu\)</span> consistently stays somewhere around 15 through the iterations from 2000 to 5000, accompanied by the corresponding density. </p>
 
@@ -1756,16 +1757,16 @@ Figure 8.37: Gelman-Rubin (Trace and Density)
 <pre><code>## Potential scale reduction factors:
 ## 
 ##        Point est. Upper C.I.
-## mu[1]        1.00       1.00
-## mu[2]        1.00       1.00
-## mu[3]        1.00       1.00
-## mu[4]        1.00       1.00
-## mu0          1.01       1.02
-## sigma0       1.13       1.19
+## mu[1]           1          1
+## mu[2]           1          1
+## mu[3]           1          1
+## mu[4]           1          1
+## mu0             1          1
+## sigma0          1          1
 ## 
 ## Multivariate psrf
 ## 
-## 1.01</code></pre>
+## 1</code></pre>
 
 <p>To complement that, Figure <a href="8.2-simulation-and-sampling.html#fig:gelmanrubin2">8.38</a> illustrates convergence to 1 of two chains for each of the parameters <span class="math inline">\(\mu\)</span>s.</p>
 

@@ -23,7 +23,7 @@
 <meta name="author" content="Raymond Michael Ofiaza Ordoña" />
 
 
-<meta name="date" content="2023-03-06" />
+<meta name="date" content="2023-03-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -303,11 +303,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5.2" data-path="4.5-approximation-using-functional-differential-equations.html"><a href="4.5-approximation-using-functional-differential-equations.html#variational-methods"><i class="fa fa-check"></i><b>4.5.2</b> Variational Methods </a></li>
 </ul></li>
 <li class="chapter" data-level="4.6" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html"><i class="fa fa-check"></i><b>4.6</b> Approximation using Partial Differential Equations </a><ul>
-<li class="chapter" data-level="4.6.1" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-laplace-equation-elliptic-pde"><i class="fa fa-check"></i><b>4.6.1</b> The Laplace Equation (Elliptic PDE)  </a></li>
-<li class="chapter" data-level="4.6.2" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-heat-equation-parabolic-pde"><i class="fa fa-check"></i><b>4.6.2</b> The Heat equation (Parabolic PDE)  </a></li>
-<li class="chapter" data-level="4.6.3" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-wave-equation-hyperbolic-pde"><i class="fa fa-check"></i><b>4.6.3</b> The Wave equation (Hyperbolic PDE)  </a></li>
-<li class="chapter" data-level="4.6.4" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-crank-nicolson-equation"><i class="fa fa-check"></i><b>4.6.4</b> The Crank-Nicolson Equation </a></li>
-<li class="chapter" data-level="4.6.5" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-burgers-equation"><i class="fa fa-check"></i><b>4.6.5</b> The Burger’s Equation </a></li>
+<li class="chapter" data-level="4.6.1" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-poisson-equation"><i class="fa fa-check"></i><b>4.6.1</b> The Poisson Equation </a></li>
+<li class="chapter" data-level="4.6.2" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-laplace-equation-elliptic-pde"><i class="fa fa-check"></i><b>4.6.2</b> The Laplace Equation (Elliptic PDE)  </a></li>
+<li class="chapter" data-level="4.6.3" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-heat-equation-parabolic-pde"><i class="fa fa-check"></i><b>4.6.3</b> The Heat equation (Parabolic PDE)  </a></li>
+<li class="chapter" data-level="4.6.4" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-wave-equation-hyperbolic-pde"><i class="fa fa-check"></i><b>4.6.4</b> The Wave equation (Hyperbolic PDE)  </a></li>
+<li class="chapter" data-level="4.6.5" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-crank-nicolson-equation"><i class="fa fa-check"></i><b>4.6.5</b> The Crank-Nicolson Equation </a></li>
+<li class="chapter" data-level="4.6.6" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-burgers-equation"><i class="fa fa-check"></i><b>4.6.6</b> The Burger’s Equation </a></li>
 </ul></li>
 <li class="chapter" data-level="4.7" data-path="4.7-approximation-using-fourier-series-and-transform.html"><a href="4.7-approximation-using-fourier-series-and-transform.html"><i class="fa fa-check"></i><b>4.7</b> Approximation using Fourier Series And Transform </a><ul>
 <li class="chapter" data-level="4.7.1" data-path="4.7-approximation-using-fourier-series-and-transform.html"><a href="4.7-approximation-using-fourier-series-and-transform.html#discrete-fourier-transform-dft"><i class="fa fa-check"></i><b>4.7.1</b> Discrete Fourier Transform (DFT)  </a></li>
@@ -2856,16 +2857,16 @@ Figure 12.46: CIFAR-10 (20th Image)
 <a class="sourceLine" id="cb2063-2" data-line-number="2">cnn.model =<span class="st"> </span><span class="kw">my.CNN</span>(images, labels, <span class="dt">layers =</span> cnn.layers, <span class="dt">optimize=</span><span class="st">&quot;adam&quot;</span>,</a>
 <a class="sourceLine" id="cb2063-3" data-line-number="3">                               <span class="dt">minibatch=</span>minibatch, <span class="dt">epoch=</span><span class="dv">10</span>, <span class="dt">eta=</span><span class="fl">0.001</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;No of batches: 8&quot;
-## [1] &quot;epoch 1: loss 6.246 accuracy 0.146 val 0.161 lag time (sec): 13.306&quot;
-## [1] &quot;epoch 2: loss 3.078 accuracy 0.273 val 0.194 lag time (sec): 12.435&quot;
-## [1] &quot;epoch 3: loss 1.599 accuracy 0.508 val 0.000 lag time (sec): 11.840&quot;
-## [1] &quot;epoch 4: loss 1.251 accuracy 0.580 val 0.258 lag time (sec): 11.985&quot;
-## [1] &quot;epoch 5: loss 0.982 accuracy 0.689 val 0.000 lag time (sec): 12.142&quot;
-## [1] &quot;epoch 6: loss 0.842 accuracy 0.736 val 0.125 lag time (sec): 12.001&quot;
-## [1] &quot;epoch 7: loss 0.602 accuracy 0.845 val 0.065 lag time (sec): 12.041&quot;
-## [1] &quot;epoch 8: loss 0.408 accuracy 0.916 val 0.094 lag time (sec): 12.455&quot;
-## [1] &quot;epoch 9: loss 0.307 accuracy 0.959 val 0.194 lag time (sec): 11.794&quot;
-## [1] &quot;epoch 10: loss 0.262 accuracy 0.955 val 0.219 lag time (sec): 12.025&quot;</code></pre>
+## [1] &quot;epoch 1: loss 6.246 accuracy 0.146 val 0.161 lag time (sec): 14.485&quot;
+## [1] &quot;epoch 2: loss 3.078 accuracy 0.273 val 0.194 lag time (sec): 12.269&quot;
+## [1] &quot;epoch 3: loss 1.599 accuracy 0.508 val 0.000 lag time (sec): 12.143&quot;
+## [1] &quot;epoch 4: loss 1.251 accuracy 0.580 val 0.258 lag time (sec): 12.286&quot;
+## [1] &quot;epoch 5: loss 0.982 accuracy 0.689 val 0.000 lag time (sec): 11.893&quot;
+## [1] &quot;epoch 6: loss 0.842 accuracy 0.736 val 0.125 lag time (sec): 12.567&quot;
+## [1] &quot;epoch 7: loss 0.602 accuracy 0.845 val 0.065 lag time (sec): 12.462&quot;
+## [1] &quot;epoch 8: loss 0.408 accuracy 0.916 val 0.094 lag time (sec): 12.159&quot;
+## [1] &quot;epoch 9: loss 0.307 accuracy 0.959 val 0.194 lag time (sec): 12.438&quot;
+## [1] &quot;epoch 10: loss 0.262 accuracy 0.955 val 0.219 lag time (sec): 12.335&quot;</code></pre>
 <div class="sourceCode" id="cb2065"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2065-1" data-line-number="1">x =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">length</span>(cnn.model<span class="op">$</span>cost))</a>
 <a class="sourceLine" id="cb2065-2" data-line-number="2">y =<span class="st"> </span>cnn.model<span class="op">$</span>cost</a>
 <a class="sourceLine" id="cb2065-3" data-line-number="3">y1 =<span class="st"> </span>(y <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(y))<span class="op">/</span>(<span class="kw">max</span>(y) <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(y))</a>
@@ -2993,7 +2994,7 @@ Figure 12.48: Transferred Model (CNN)
 <div class="sourceCode" id="cb2070"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2070-1" data-line-number="1">result =<span class="st"> </span><span class="kw">my.predict.CNN</span>(test.images, labels, transfer.cnn.model, </a>
 <a class="sourceLine" id="cb2070-2" data-line-number="2">                        <span class="dt">first_batch_only =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;No of batches: 313&quot;
-## [1] &quot;batch 10 - loss: 0.170 t: 10, accuracy 0.969 lag time (sec): 7.279&quot;</code></pre>
+## [1] &quot;batch 10 - loss: 0.170 t: 10, accuracy 0.969 lag time (sec): 6.898&quot;</code></pre>
 
 <p>That gives us a <strong>top-1</strong> test accuracy of 87.78% and a loss of 0.122853209833548.</p>
 <p>Below, we see the actual predictions compared to the target:</p>
@@ -3034,7 +3035,7 @@ Figure 12.48: Transferred Model (CNN)
 <a class="sourceLine" id="cb2079-2" data-line-number="2">result =<span class="st"> </span><span class="kw">my.predict.CNN</span>(test.images, labels, retrained.cnn.model, </a>
 <a class="sourceLine" id="cb2079-3" data-line-number="3">                        <span class="dt">first_batch_only=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;No of batches: 313&quot;
-## [1] &quot;batch 10 - loss: 0.037 t: 10, accuracy 1.000 lag time (sec): 6.137&quot;</code></pre>
+## [1] &quot;batch 10 - loss: 0.037 t: 10, accuracy 1.000 lag time (sec): 6.984&quot;</code></pre>
 
 <p>That gives us a <strong>top-1</strong> test accuracy of 89.49% and a loss of 0.0718042660598904.</p>
 <p>Below, we see the actual predictions compared to the target:</p>

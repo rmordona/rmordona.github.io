@@ -23,7 +23,7 @@
 <meta name="author" content="Raymond Michael Ofiaza Ordoña" />
 
 
-<meta name="date" content="2023-03-06" />
+<meta name="date" content="2023-03-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -303,11 +303,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5.2" data-path="4.5-approximation-using-functional-differential-equations.html"><a href="4.5-approximation-using-functional-differential-equations.html#variational-methods"><i class="fa fa-check"></i><b>4.5.2</b> Variational Methods </a></li>
 </ul></li>
 <li class="chapter" data-level="4.6" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html"><i class="fa fa-check"></i><b>4.6</b> Approximation using Partial Differential Equations </a><ul>
-<li class="chapter" data-level="4.6.1" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-laplace-equation-elliptic-pde"><i class="fa fa-check"></i><b>4.6.1</b> The Laplace Equation (Elliptic PDE)  </a></li>
-<li class="chapter" data-level="4.6.2" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-heat-equation-parabolic-pde"><i class="fa fa-check"></i><b>4.6.2</b> The Heat equation (Parabolic PDE)  </a></li>
-<li class="chapter" data-level="4.6.3" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-wave-equation-hyperbolic-pde"><i class="fa fa-check"></i><b>4.6.3</b> The Wave equation (Hyperbolic PDE)  </a></li>
-<li class="chapter" data-level="4.6.4" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-crank-nicolson-equation"><i class="fa fa-check"></i><b>4.6.4</b> The Crank-Nicolson Equation </a></li>
-<li class="chapter" data-level="4.6.5" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-burgers-equation"><i class="fa fa-check"></i><b>4.6.5</b> The Burger’s Equation </a></li>
+<li class="chapter" data-level="4.6.1" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-poisson-equation"><i class="fa fa-check"></i><b>4.6.1</b> The Poisson Equation </a></li>
+<li class="chapter" data-level="4.6.2" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-laplace-equation-elliptic-pde"><i class="fa fa-check"></i><b>4.6.2</b> The Laplace Equation (Elliptic PDE)  </a></li>
+<li class="chapter" data-level="4.6.3" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-heat-equation-parabolic-pde"><i class="fa fa-check"></i><b>4.6.3</b> The Heat equation (Parabolic PDE)  </a></li>
+<li class="chapter" data-level="4.6.4" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-wave-equation-hyperbolic-pde"><i class="fa fa-check"></i><b>4.6.4</b> The Wave equation (Hyperbolic PDE)  </a></li>
+<li class="chapter" data-level="4.6.5" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-crank-nicolson-equation"><i class="fa fa-check"></i><b>4.6.5</b> The Crank-Nicolson Equation </a></li>
+<li class="chapter" data-level="4.6.6" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-burgers-equation"><i class="fa fa-check"></i><b>4.6.6</b> The Burger’s Equation </a></li>
 </ul></li>
 <li class="chapter" data-level="4.7" data-path="4.7-approximation-using-fourier-series-and-transform.html"><a href="4.7-approximation-using-fourier-series-and-transform.html"><i class="fa fa-check"></i><b>4.7</b> Approximation using Fourier Series And Transform </a><ul>
 <li class="chapter" data-level="4.7.1" data-path="4.7-approximation-using-fourier-series-and-transform.html"><a href="4.7-approximation-using-fourier-series-and-transform.html#discrete-fourier-transform-dft"><i class="fa fa-check"></i><b>4.7.1</b> Discrete Fourier Transform (DFT)  </a></li>
@@ -1325,21 +1326,21 @@ Figure 3.9: Gradient and Conjugacy
 \right]^T\ \ \ \ \leftarrow \text{ gradient of } f(x) \in R^n \tag{3.85}
 \end{align}\]</span></p>
 <p>Here, for the sake of explanation, <strong>gradient</strong> <span class="math inline">\(\nabla f(x_n)\)</span> equals the <strong>direction</strong> <span class="math inline">\(d_n\)</span>. Other methods may manipulate the <strong>direction</strong> however for better optimization which becomes apparent later.</p>
-<p><span class="math display">\[
+<p><span class="math display">\[\begin{align*}
 d_n = \nabla f(x_n) 
-\]</span></p>
-<p>In the figure, each <strong>gradient</strong> obeys <strong>conjugacy</strong> between two contour lines if the direction of its path is orthogonal to the curves (contour lines) that it intersects. For example, there are nine contour lines labeled consecutively (5, 10, 15, 20, 25, 30). The point (in black) at which we start our travel intersects at contour line 25. We make a <span class="math inline">\(90^\circ\)</span> (orthogonal) hop to the next contour line at 20. In other words, the direction is orthogonal to the tangent line that follows the slope of the curvatures of the contour lines.  However, because we are descending, our path therefore follows a negative gradient direction.</p>
+\end{align*}\]</span></p>
+<p>In the figure, each <strong>gradient</strong> obeys <strong>conjugacy</strong> between two contour lines if the direction of its path is orthogonal to the curves (contour lines) that it intersects. For example, there are nine contour lines labeled consecutively (5, 10, 15, 20, 25, 30). The point (in black) at which we start our travel intersects at contour line 25. We make a <span class="math inline">\(90^\circ\)</span> (orthogonal) hop to the next contour line at 20. In other words, the direction is orthogonal to the tangent line that follows the slope of the curvatures of the contour lines. However, because we are descending, our path therefore follows a negative gradient direction.</p>
 <p><span class="math display" id="eq:equate1050082">\[\begin{align}
 d_n = \left(- \nabla f(x_n) \right) \tag{3.86}
 \end{align}\]</span></p>
-<p>The length of a gradient (<span class="math inline">\(d_n\)</span>) is denoted as <span class="math inline">\(\mathbf{\alpha_n}\)</span>. We also call the length a <strong>stepsize</strong> (or <strong>steplength</strong>). It can be seen that a combination of the direction (the gradient) and steplength, <span class="math inline">\(\alpha_nd_n\)</span>, represents a <strong>step</strong> to the next sub-solution <span class="math inline">\(\mathbf{x_{k+1}}\)</span> - where <span class="math inline">\(\mathbf{x_k}\)</span> is the current position - which is one step closer towards the final destination. It can be expressed in an equation called the <strong>line search method</strong>:</p>
+<p>The length of a gradient (e.g. <span class="math inline">\(d_n\)</span>) is denoted as <span class="math inline">\(\mathbf{\alpha_n}\)</span>. We also call the length a <strong>stepsize</strong> (or <strong>steplength</strong>). It can be seen that a combination of the direction (the gradient) and steplength, <span class="math inline">\(\alpha_nd_n\)</span>, represents a <strong>step</strong> to the next sub-solution <span class="math inline">\(\mathbf{x_{k+1}}\)</span> - where <span class="math inline">\(\mathbf{x_k}\)</span> is the current position - which is one step closer towards the final destination. It can be expressed in an equation called the <strong>line search method</strong>:</p>
 <p><span class="math display" id="eq:equate1050083">\[\begin{align}
 x_{k+1} = x_k + \alpha_{k}d_{k}\ \ \text{where}\ d_k = -\nabla f(x_k) \tag{3.87} 
 \end{align}\]</span></p>
 <p>Note that the graph in Figure <a href="3.4-approximating-solutions-to-systems-of-eqns-by-iteration-ax-b.html#fig:gradientconjugacy">3.9</a> is quite tuned to try to reach an explanation around the concept of <strong>gradient</strong> and <strong>conjugacy</strong> - however, <strong>steepest descent</strong> and <strong>conjugate gradient</strong> do not necessarily walk the path that lands orthogonal unto each contour lines. Two directions are used to walk the path: the <strong>gradient direction</strong> and the <strong>conjugate direction</strong>.</p>
 <p>The <strong>steepest descent</strong> walks the path in a negative <strong>gradient direction</strong>. Mathematically, it is expressed as:</p>
 <p><span class="math display" id="eq:equate1050084">\[\begin{align}
-x_{k+1} = x_{k} + \mathbf{\alpha_k}\left(- \nabla f(x_k) \right)  \tag{3.88} 
+x_{k+1} = x_{k} + \mathbf{\alpha_k}\left( - \nabla f(x_k) \right)  \tag{3.88} 
 \end{align}\]</span></p>
 <p>where <span class="math inline">\(\nabla f(x_k)\)</span> is the gradient direction.</p>
 <p>The method iterates all the way until it reaches a <strong>critical point</strong> - the solution <span class="math inline">\(\mathbf{x^*}\)</span>:</p>
@@ -1350,18 +1351,18 @@ x_{k+1} = x_{k} + \mathbf{\alpha_k}\left(- \nabla f(x_k) \right)  \tag{3.88}
 \end{align*}\]</span></p>
 <p><span class="math display" id="eq:equate1050086" id="eq:equate1050085">\[\begin{align}
 \mathbf{x^*} &amp;= (( x_{0} - \mathbf{\alpha_0} \nabla f(x_0)) - \mathbf{\alpha_1} \nabla f(x_1)) - \mathbf{\alpha_2} \nabla f(x_2)  \tag{3.89} \\
-\mathbf{x^*} &amp;= x_{0} + \sum_k^m \mathbf{\alpha_k} \left(- \nabla f(x_k) \right) \tag{3.90} 
+\mathbf{x^*} &amp;= x_{0} + \sum_k^m \mathbf{\alpha_k} \left( - \nabla f(x_k) \right) \tag{3.90} 
 \end{align}\]</span></p>
 <p>It is notable to talk about <strong>gradient descent</strong> as a side note. The difference between <strong>gradient descent</strong> and <strong>steepest descent</strong> is the use of the <strong>stepsize</strong>. In <strong>gradient descent</strong>, the <strong>stepsize</strong> is initialized to a fixed scalar value and then used repeatedly in the iteration:</p>
 <p><span class="math display" id="eq:equate1050087">\[\begin{align}
 \alpha {}&amp;=  &lt;initial\ value&gt; \nonumber \\
-\mathbf{x^*} &amp;= x_{0} + \sum_k^m \mathbf{\alpha} \left(- \nabla f(x_k) \right)   \tag{3.91} 
+\mathbf{x^*} &amp;= x_{0} + \sum_k^m \mathbf{\alpha} \left( - \nabla f(x_k) \right)  \tag{3.91} 
 \end{align}\]</span></p>
 <p>As for <strong>conjugate descent</strong>, the method follows a <strong>gradient direction</strong> as the first step, similar to <strong>steepest descent</strong>; after which, the rest of the steps follow a <strong>conjugate direction</strong>.</p>
 <p><span class="math display" id="eq:eqnnumber700">\[\begin{align}
 d_k = \begin{cases}
--\nabla (f{x_k}) &amp; if\ k=0\ \ \ \ \ \ \leftarrow \text{gradient direction}\\ 
--\nabla (f{x_k}) + \beta_k d_{k-1} &amp;  if\ k &gt;= 1\ \ \  \leftarrow \text{conjugate direction}
+- \nabla (f{x_k}) &amp; if\ k=0\ \ \ \ \ \ \leftarrow \text{gradient direction}\\ 
+- \nabla (f{x_k}) + \beta_k d_{k-1} &amp;  if\ k &gt;= 1\ \ \  \leftarrow \text{conjugate direction}
 \end{cases} \tag{3.92}
 \end{align}\]</span></p>
 <p>Here, a <strong>conjugate direction</strong> is a direction in which two vectors, u and v, are A-orthogonal (or conjugate) which is a <strong>conjugate property</strong> expressed as:</p>

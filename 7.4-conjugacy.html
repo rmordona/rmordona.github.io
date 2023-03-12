@@ -23,7 +23,7 @@
 <meta name="author" content="Raymond Michael Ofiaza Ordoña" />
 
 
-<meta name="date" content="2023-03-06" />
+<meta name="date" content="2023-03-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -303,11 +303,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5.2" data-path="4.5-approximation-using-functional-differential-equations.html"><a href="4.5-approximation-using-functional-differential-equations.html#variational-methods"><i class="fa fa-check"></i><b>4.5.2</b> Variational Methods </a></li>
 </ul></li>
 <li class="chapter" data-level="4.6" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html"><i class="fa fa-check"></i><b>4.6</b> Approximation using Partial Differential Equations </a><ul>
-<li class="chapter" data-level="4.6.1" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-laplace-equation-elliptic-pde"><i class="fa fa-check"></i><b>4.6.1</b> The Laplace Equation (Elliptic PDE)  </a></li>
-<li class="chapter" data-level="4.6.2" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-heat-equation-parabolic-pde"><i class="fa fa-check"></i><b>4.6.2</b> The Heat equation (Parabolic PDE)  </a></li>
-<li class="chapter" data-level="4.6.3" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-wave-equation-hyperbolic-pde"><i class="fa fa-check"></i><b>4.6.3</b> The Wave equation (Hyperbolic PDE)  </a></li>
-<li class="chapter" data-level="4.6.4" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-crank-nicolson-equation"><i class="fa fa-check"></i><b>4.6.4</b> The Crank-Nicolson Equation </a></li>
-<li class="chapter" data-level="4.6.5" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-burgers-equation"><i class="fa fa-check"></i><b>4.6.5</b> The Burger’s Equation </a></li>
+<li class="chapter" data-level="4.6.1" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-poisson-equation"><i class="fa fa-check"></i><b>4.6.1</b> The Poisson Equation </a></li>
+<li class="chapter" data-level="4.6.2" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-laplace-equation-elliptic-pde"><i class="fa fa-check"></i><b>4.6.2</b> The Laplace Equation (Elliptic PDE)  </a></li>
+<li class="chapter" data-level="4.6.3" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-heat-equation-parabolic-pde"><i class="fa fa-check"></i><b>4.6.3</b> The Heat equation (Parabolic PDE)  </a></li>
+<li class="chapter" data-level="4.6.4" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-wave-equation-hyperbolic-pde"><i class="fa fa-check"></i><b>4.6.4</b> The Wave equation (Hyperbolic PDE)  </a></li>
+<li class="chapter" data-level="4.6.5" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-crank-nicolson-equation"><i class="fa fa-check"></i><b>4.6.5</b> The Crank-Nicolson Equation </a></li>
+<li class="chapter" data-level="4.6.6" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-burgers-equation"><i class="fa fa-check"></i><b>4.6.6</b> The Burger’s Equation </a></li>
 </ul></li>
 <li class="chapter" data-level="4.7" data-path="4.7-approximation-using-fourier-series-and-transform.html"><a href="4.7-approximation-using-fourier-series-and-transform.html"><i class="fa fa-check"></i><b>4.7</b> Approximation using Fourier Series And Transform </a><ul>
 <li class="chapter" data-level="4.7.1" data-path="4.7-approximation-using-fourier-series-and-transform.html"><a href="4.7-approximation-using-fourier-series-and-transform.html#discrete-fourier-transform-dft"><i class="fa fa-check"></i><b>4.7.1</b> Discrete Fourier Transform (DFT)  </a></li>
@@ -1996,17 +1997,6 @@ P(\rho|x_1,...,x_k)  &amp;\propto
 <p><span class="math display" id="eq:equate1090320">\[\begin{align}
 \lambda \sim Gamma\left(\alpha_0 =  \frac{1}{2}, \beta_0 =  \frac{1}{2}\right)\ \ \text{(weakly-informed prior)} \tag{7.335} 
 \end{align}\]</span></p>
-<p>Figure <a href="7.4-conjugacy.html#fig:flatprior">7.8</a> shows graph of the <strong>prior distribution</strong> with corresponding <strong>hyperparameter</strong>.</p>
-
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:flatprior"></span>
-<img src="DS_files/figure-html/flatprior-1.png" alt="Flat Prior (Hyperparameter)" width="70%" />
-<p class="caption">
-Figure 7.8: Flat Prior (Hyperparameter)
-</p>
-</div>
-
-<p>We leave readers to investigate the topic around <strong>Jeffrey’s prior</strong> for the chosen <strong>hyperparameters</strong> above.</p>
-<p>Also, we illustrate the use of <strong>flat prior</strong> and <strong>hyperparameter</strong> in the <strong>Bayesian modeling</strong> section.</p>
 <p>In summary, Table <a href="7.4-conjugacy.html#tab:conjugacy">7.3</a> lists conjugate priors for a few distribution families corresponding to their <strong>likelihood</strong> distributions. That includes the corresponding <strong>hyperparameters</strong>.</p>
 
 <table>
@@ -2083,6 +2073,17 @@ Figure 7.8: Flat Prior (Hyperparameter)
 </tbody>
 </table>
 
+<p>Figure <a href="7.4-conjugacy.html#fig:flatprior">7.8</a> shows graph of the <strong>prior distribution</strong> with corresponding <strong>hyperparameter</strong>.</p>
+
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:flatprior"></span>
+<img src="DS_files/figure-html/flatprior-1.png" alt="Flat Prior (Hyperparameter)" width="70%" />
+<p class="caption">
+Figure 7.8: Flat Prior (Hyperparameter)
+</p>
+</div>
+
+<p>We leave readers to investigate the topic around <strong>Jeffrey’s prior</strong> for the chosen <strong>hyperparameters</strong> above.</p>
+<p>Also, we illustrate the use of <strong>flat prior</strong> and <strong>hyperparameter</strong> in the <strong>Bayesian modeling</strong> section.</p>
 </div>
 </div>
             </section>

@@ -23,7 +23,7 @@
 <meta name="author" content="Raymond Michael Ofiaza Ordoña" />
 
 
-<meta name="date" content="2023-03-06" />
+<meta name="date" content="2023-03-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -303,11 +303,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5.2" data-path="4.5-approximation-using-functional-differential-equations.html"><a href="4.5-approximation-using-functional-differential-equations.html#variational-methods"><i class="fa fa-check"></i><b>4.5.2</b> Variational Methods </a></li>
 </ul></li>
 <li class="chapter" data-level="4.6" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html"><i class="fa fa-check"></i><b>4.6</b> Approximation using Partial Differential Equations </a><ul>
-<li class="chapter" data-level="4.6.1" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-laplace-equation-elliptic-pde"><i class="fa fa-check"></i><b>4.6.1</b> The Laplace Equation (Elliptic PDE)  </a></li>
-<li class="chapter" data-level="4.6.2" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-heat-equation-parabolic-pde"><i class="fa fa-check"></i><b>4.6.2</b> The Heat equation (Parabolic PDE)  </a></li>
-<li class="chapter" data-level="4.6.3" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-wave-equation-hyperbolic-pde"><i class="fa fa-check"></i><b>4.6.3</b> The Wave equation (Hyperbolic PDE)  </a></li>
-<li class="chapter" data-level="4.6.4" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-crank-nicolson-equation"><i class="fa fa-check"></i><b>4.6.4</b> The Crank-Nicolson Equation </a></li>
-<li class="chapter" data-level="4.6.5" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-burgers-equation"><i class="fa fa-check"></i><b>4.6.5</b> The Burger’s Equation </a></li>
+<li class="chapter" data-level="4.6.1" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-poisson-equation"><i class="fa fa-check"></i><b>4.6.1</b> The Poisson Equation </a></li>
+<li class="chapter" data-level="4.6.2" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-laplace-equation-elliptic-pde"><i class="fa fa-check"></i><b>4.6.2</b> The Laplace Equation (Elliptic PDE)  </a></li>
+<li class="chapter" data-level="4.6.3" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-heat-equation-parabolic-pde"><i class="fa fa-check"></i><b>4.6.3</b> The Heat equation (Parabolic PDE)  </a></li>
+<li class="chapter" data-level="4.6.4" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-wave-equation-hyperbolic-pde"><i class="fa fa-check"></i><b>4.6.4</b> The Wave equation (Hyperbolic PDE)  </a></li>
+<li class="chapter" data-level="4.6.5" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-crank-nicolson-equation"><i class="fa fa-check"></i><b>4.6.5</b> The Crank-Nicolson Equation </a></li>
+<li class="chapter" data-level="4.6.6" data-path="4.6-approximation-using-partial-differential-equations.html"><a href="4.6-approximation-using-partial-differential-equations.html#the-burgers-equation"><i class="fa fa-check"></i><b>4.6.6</b> The Burger’s Equation </a></li>
 </ul></li>
 <li class="chapter" data-level="4.7" data-path="4.7-approximation-using-fourier-series-and-transform.html"><a href="4.7-approximation-using-fourier-series-and-transform.html"><i class="fa fa-check"></i><b>4.7</b> Approximation using Fourier Series And Transform </a><ul>
 <li class="chapter" data-level="4.7.1" data-path="4.7-approximation-using-fourier-series-and-transform.html"><a href="4.7-approximation-using-fourier-series-and-transform.html#discrete-fourier-transform-dft"><i class="fa fa-check"></i><b>4.7.1</b> Discrete Fourier Transform (DFT)  </a></li>
@@ -785,8 +786,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.6</span> Approximation using Partial Differential Equations <a href="4.6-approximation-using-partial-differential-equations.html#approximation-using-partial-differential-equations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Partial Differential Equations (PDE)</strong> deal with more than one input (independent variables). The intuition becomes more apparent as we go through three common <strong>PDE</strong> equations: Heat, Wave, and Laplace.</p>
 <p>In the previous sections, we introduce <strong>Finite Element Methods (FEM)</strong> using several <strong>Weighted Residual methods (WRM)</strong> to solve for <strong>ODE</strong> and briefly cover <strong>Variational methods</strong>.</p>
-<p>In this section, we use <strong>Finite Difference Methods (FDM)</strong> to solve for <strong>PDE</strong>, although we can use <strong>FEM</strong> also.
-### The Poisson Equation </p>
+<p>In this section, we use <strong>Finite Difference Methods (FDM)</strong> to solve for <strong>PDE</strong>, although we can use <strong>FEM</strong> also.</p>
+<div id="the-poisson-equation" class="section level3 hasAnchor">
+<h3><span class="header-section-number">4.6.1</span> The Poisson Equation <a href="4.6-approximation-using-partial-differential-equations.html#the-poisson-equation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Many dynamic systems are <strong>governed</strong> by <strong>PDEs</strong>. For example, an equation used to <strong>describe</strong> the dynamics of newton’s gravity is expressed as such:</p>
 <p><span class="math display" id="eq:equate1060186">\[\begin{align}
 \nabla \cdot \mathbf{g} = -4 \pi G \rho \tag{4.193} 
@@ -829,8 +831,9 @@ u_{xx} \rightarrow \frac{\partial^2 u}{\partial x^2} \tag{4.202}
 \ \ \ \ \rightarrow\ \ \ \ \ u_{xx}\ +\ u_{yy} = f \tag{4.203} 
 \end{align}\]</span></p>
 <p>There are dynamic systems that have unknown functions <span class="math inline">\(\mathbf{u(x,...)}\)</span>. Others have known (analytical) functions but are computationally impractical. Our goal is to use numerical methods that provide approximate solutions. In subsequent sections, we use the <strong>Finite Difference</strong> methods to perform <strong>PDE</strong> approximation to the solution of the three equations we mentioned. Note that in PDE, our solution definition is a function solution rather than a value solution, which means that we are looking for a function that can best describe a domain (e.g., See Figure <a href="4.6-approximation-using-partial-differential-equations.html#fig:pde">4.24</a>).</p>
+</div>
 <div id="the-laplace-equation-elliptic-pde" class="section level3 hasAnchor">
-<h3><span class="header-section-number">4.6.1</span> The Laplace Equation (Elliptic PDE)  <a href="4.6-approximation-using-partial-differential-equations.html#the-laplace-equation-elliptic-pde" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">4.6.2</span> The Laplace Equation (Elliptic PDE)  <a href="4.6-approximation-using-partial-differential-equations.html#the-laplace-equation-elliptic-pde" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>If a particular dynamic system reaches the steady-state or equilibrium, e.g. no heat, then we have the following <strong>Laplace</strong> equation:</p>
 <p><span class="math display" id="eq:equate1060197">\[\begin{align}
 \Delta u = 0 \tag{4.204} 
@@ -1008,7 +1011,7 @@ Here is a naive R implementation of solving for the initial temperature distribu
 <p>After convergence, we see the <strong>final solution</strong> of the <strong>initial heat distribution</strong> across the plate. Note that this does not imply that the temperature across the plate has diffused in equilibrium. The solution is only for one specific point in time. Suppose we account for a time-dependent dynamic system. In that case, we have to capture each solution for every step over time until heat diffuses in equilibrium - meaning that the nodal temperature across the plate is the same.</p>
 </div>
 <div id="the-heat-equation-parabolic-pde" class="section level3 hasAnchor">
-<h3><span class="header-section-number">4.6.2</span> The Heat equation (Parabolic PDE)  <a href="4.6-approximation-using-partial-differential-equations.html#the-heat-equation-parabolic-pde" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">4.6.3</span> The Heat equation (Parabolic PDE)  <a href="4.6-approximation-using-partial-differential-equations.html#the-heat-equation-parabolic-pde" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>It helps to understand <strong>PDE</strong> by introducing the <strong>dynamics of heat and wave</strong> on a simple one-dimension manifold such as a line - in our case, we use <strong>rod</strong> for our physical material. To illustrate <strong>heat</strong>, we assume a thin <strong>metallic rod</strong> tightly bolted onto two heat sink materials or ice blocks. See Figure <a href="4.6-approximation-using-partial-differential-equations.html#fig:pde">4.24</a>.</p>
 <p>We may need to assume a few things also. First, the heat in the cross-section of the rod is constant as we heat the metallic rod in the middle. Second, we assume that the rod is insulated to disallow heat flux from escaping the rod. Then we assume that the metallic rod has already heated to an initial temperature. Our goal is to demonstrate that as we apply heat in the middle of the rod, the heat diffuses towards the left and right edges of the rod until the temperature across the rod meets equilibrium.</p>
 <p>For illustration, we use a one-dimension <strong>homogeneous heat equation</strong>, which is expressed as such:</p>
@@ -1155,7 +1158,7 @@ Figure 4.28: 3D view of heat diffusion
 <p>Notice in the FTCS implementation of the heat equation that the <span class="math inline">\(\lambda\)</span> affects the stability of the system. A value less than 0.5 renders stability.</p>
 </div>
 <div id="the-wave-equation-hyperbolic-pde" class="section level3 hasAnchor">
-<h3><span class="header-section-number">4.6.3</span> The Wave equation (Hyperbolic PDE)  <a href="4.6-approximation-using-partial-differential-equations.html#the-wave-equation-hyperbolic-pde" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">4.6.4</span> The Wave equation (Hyperbolic PDE)  <a href="4.6-approximation-using-partial-differential-equations.html#the-wave-equation-hyperbolic-pde" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Hyperbolic systems</strong> deal with vibrations (oscillations) and waves. Unlike <strong>Heat diffusion</strong> where temperature settles down to equilibrium immediately, the behavior of vibration in particular starts from an initial state (say high altitude). But instead of slowing down to equilibrium, it tends to overshoot to the other side, eventually reaching a pulling resistance, causing the system to oscillate back and forth like a pendulum or a vibrating string. Each oscillation, however, exponentially manifests a slow-down decay until such that it eventually reaches equilibrium. The resistance - restoring force - encountered by the oscillation is the inertia that conserves energy.</p>
 <p>The <strong>Wave equation</strong> we use is slightly different from the <strong>Heat equation</strong> by raising the left side of the equation to the power of 2.</p>
 <p>To illustrate the use of <strong>Wave equation</strong>, we likewise use the <strong>Finite Difference</strong> method to approximate the one-dimension <strong>homogeneous Wave equation</strong> below for a vibrating string:</p>
@@ -1278,7 +1281,7 @@ u_{k}^{t+1} =  \lambda(u_{k+1}^t + u_{k-1}^t) + 2(1 - \lambda)u_k^t - u_k^{t-1} 
 <p>Lastly, for a more accurate (or precise) result, we leave readers to also investigate <strong>Modern Tailor Series Method (MTSM)</strong>.</p>
 </div>
 <div id="the-crank-nicolson-equation" class="section level3 hasAnchor">
-<h3><span class="header-section-number">4.6.4</span> The Crank-Nicolson Equation <a href="4.6-approximation-using-partial-differential-equations.html#the-crank-nicolson-equation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">4.6.5</span> The Crank-Nicolson Equation <a href="4.6-approximation-using-partial-differential-equations.html#the-crank-nicolson-equation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>An alternate approximation for the <strong>heat equation</strong> is the <strong>Crank-Nicolson Equation</strong> which is unconditionally stable.</p>
 <p>Our approximation approach account for the average between two time-intervals using <strong>explicit and implicit finite difference</strong>, a.l.a, forward Euler and backward Euler).</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:cranknicolson"></span>
@@ -1355,7 +1358,7 @@ u_k^{t+1} - u_k^t &amp;= \frac{\lambda}{2}
 <p>Approximation methods such as <strong>Gauss-Seidel</strong>, <strong>SOR</strong>, etc., can then be used to solve the unknown functions for each time interval. Also, our naive implementation in R for the <strong>heat equation</strong> shows the <strong>Crank-Nicolson</strong> method of solving the solution using a greedy loop rather than matrix manipulation methods.</p>
 </div>
 <div id="the-burgers-equation" class="section level3 hasAnchor">
-<h3><span class="header-section-number">4.6.5</span> The Burger’s Equation <a href="4.6-approximation-using-partial-differential-equations.html#the-burgers-equation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">4.6.6</span> The Burger’s Equation <a href="4.6-approximation-using-partial-differential-equations.html#the-burgers-equation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>It helps to introduce <strong>Burger’s equation</strong> because this <strong>PDE</strong> has essential applications in areas such as <strong>fluid dynamics</strong> and <strong>traffic flow</strong>.</p>
 <p><span class="math display" id="eq:equate1060243">\[\begin{align}
 \frac{\partial u}{\partial t}  + u\frac{\partial u}{\partial x} = \alpha\frac{\partial^2 u}{\partial x^2}
