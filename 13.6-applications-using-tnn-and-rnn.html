@@ -1724,9 +1724,8 @@ d(y_3, x_6)
 <div id="model-evaluation" class="section level3 hasAnchor">
 <h3><span class="header-section-number">13.6.4</span> Model Evaluation<a href="13.6-applications-using-tnn-and-rnn.html#model-evaluation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To close this section around <strong>Speech Recognition</strong> and its equivalent applications, such as <strong>Text Summarization</strong> and <strong>Machine Translation</strong>, we cover three evaluation metrics that help evaluate our models’ effectiveness.</p>
-<ul>
-<li><strong>WER</strong> stands for <strong>Word Error Rate</strong>, which is based on <strong>Levenstein distance</strong>, and it is simply a measure of the rate of error. The equation is written below:</li>
-</ul>
+<p><strong>Word Error Rate (WER)</strong>: </p>
+<p><strong>WER</strong> is based on <strong>Levenstein distance</strong>, and it is simply a measure of the rate of error. The equation is written below:</p>
 <p><span class="math display" id="eq:equate1150126">\[\begin{align}
 \mathbf{\text{WER}} = \frac{S + D + 1}{N} \tag{13.132} 
 \end{align}\]</span></p>
@@ -1750,9 +1749,8 @@ d(y_3, x_6)
 \mathbf{\text{WER}} = \frac{1 + 2 + 1}{11} = 0.3636364 = 36\%
 \]</span></p>
 <p>Note that <strong>WER</strong> relies only on word operations; thus, if we pre-process the texts such that we account for lemmatization and stemming, we may be able to reduce the error rate, granting our application necessitates to use those pre-processing methods. Otherwise, we begin to see the limitation of <strong>WER</strong>.  </p>
-<ul>
-<li><strong>Perplexity</strong> is a measure of randomness and is somewhat related to <strong>entropy</strong> which we covered in the <strong>Information Theory</strong> section under <strong>Bayesian Computation</strong>. Other literature commonly describes this metric as to how well a probability distribution can predict a sample (Wikipedia). We use the following equation. </li>
-</ul>
+<p><strong>Perplexity</strong>:</p>
+<p><strong>Perplexity</strong> is a measure of randomness and is somewhat related to <strong>entropy</strong> which we covered in the <strong>Information Theory</strong> section under <strong>Bayesian Computation</strong>. Other literature commonly describes this metric as to how well a probability distribution can predict a sample (Wikipedia). We use the following equation.</p>
 <p><span class="math display" id="eq:equate1150127">\[\begin{align}
 \mathbf{Perplexity}(W) = P(w_1 \times w_2 \times ... \times w_n)^{-\frac{1}{N}}  \tag{13.133} 
 \end{align}\]</span></p>
@@ -1784,9 +1782,8 @@ d(y_3, x_6)
 
 <p>A perplexity of 1 indicates high probability.</p>
 <p>Note that N-grams also apply in this case.</p>
-<ul>
-<li><strong>BLEU</strong> stands for <strong>BiLingual Evaluation Understudy</strong> introduced by Kishore Papineni et al. <span class="citation">(<a href="bibliography.html#ref-ref1556k">2002</a>)</span>. It is a measure between 0 and 1 that evaluates machine translation quality. Below, we reference the formulations from the paper.  </li>
-</ul>
+<p><strong>BiLingual Evaluation Understudy (BLEU)</strong>:</p>
+<p><strong>BLEU</strong> was introduced by Kishore Papineni et al. <span class="citation">(<a href="bibliography.html#ref-ref1556k">2002</a>)</span>. It is a measure between 0 and 1 that evaluates machine translation quality. Below, we reference the formulations from the paper.</p>
 <p><span class="math display" id="eq:equate1150129">\[\begin{align}
 P_n = 
 \frac{\sum_{C\in \{Candidates\}} \sum_{\text{n-gram}\in C}  \mathbf{Count}(clip(\text{n-gram}))}
@@ -1843,7 +1840,7 @@ Here, there are no <strong>3-grams</strong> that match.</p>
 \text{4-gram Precision Score} (P_4) = \frac{0}{4} = 0
 \]</span>
 Here, there are no 4-gram combinations that match.</p>
-<p>Now, to get the <strong>BLUE</strong> score, we take the average of the log of <span class="math inline">\(P_n\)</span>. Notice below that if there are no matching grams, we obtain the log of zero, which renders <span class="math inline">\(-\infty\)</span>. Therefore, it may help mathematically to add <span class="math inline">\(\text{eps}=1e^-100\)</span> (our choice).</p>
+<p>Now, to get the <strong>BLEU</strong> score, we take the average of the log of <span class="math inline">\(P_n\)</span>. Notice below that if there are no matching grams, we obtain the log of zero, which renders <span class="math inline">\(-\infty\)</span>. Therefore, it may help mathematically to add <span class="math inline">\(\text{eps}=1e^-100\)</span> (our choice).</p>
 <p><span class="math display">\[
 \begin{array}{ll}
 \text{BLEU} &amp;= BP \times \exp\left(\frac{1}{4}\left[
