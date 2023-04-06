@@ -798,7 +798,7 @@ Q(s, a) = \mathbb{E}\left[r + \gamma \underset{a}{\max} Q(s&#39;, a&#39;)|s,a\ri
 <p><span class="math display" id="eq:equate3150133">\[\begin{align}
 Q&#39;(s, a) \leftarrow Q(s, a) + \alpha \left[R(s,a) + \gamma\ \underset{a&#39;}{\max} Q(s&#39;,a&#39;) - Q(s,a)\right] \tag{13.141} 
 \end{align}\]</span></p>
-<p>where <strong>Q</strong> is the <strong>value function</strong>, <strong>R</strong> is the reward, <strong>alpha</strong> (<span class="math inline">\(\alpha\)</span>) is the learning rate and <strong>gamma</strong> (<span class="math inline">\(\gamma\)</span>) is discount factor used to determine the importance of future rewards versus immediate rewards.</p>
+<p>where <strong>Q</strong> is the <strong>value function</strong>, <strong>R</strong> is the reward, <strong>alpha</strong> (<span class="math inline">\(\alpha\)</span>) is the learning rate and <strong>gamma</strong> (<span class="math inline">\(\gamma\)</span>) is the discount factor used to determine the importance of future rewards versus immediate rewards.</p>
 <p>The rudimentary algorithm for the <strong>value</strong> function (based on <strong>Temporal Difference</strong> learning) is as follows <span class="citation">(Mnih, V. et. al <a href="bibliography.html#ref-ref1357m">2013</a> ; Sutton, R. S., &amp; Barto, A.G. <a href="bibliography.html#ref-ref1365s">2018</a>; Cini, A. et. al <a href="bibliography.html#ref-ref1349c">2022</a>)</span>:</p>
 <p><span class="math display">\[
 \begin{array}{ll}
@@ -820,7 +820,7 @@ Note that the <span class="math inline">\(\epsilon-{greedy}\)</span> is an explo
 \theta \leftarrow \theta + \alpha \nabla_{\theta}\log \pi\left(a_t|s_t; \theta\right) G_t
 \ \ \ \ \ \ \ \ \ \ \ \text{where } G_t = \sum_{k=0}^{\infty} \gamma_k R_{t+k+1} \tag{13.142} 
 \end{align}\]</span></p>
-<p>The <strong>gamma</strong> (<span class="math inline">\(\gamma\)</span>) is the discount factor.</p>
+<p>The <strong>alpha</strong> (<span class="math inline">\(\alpha\)</span>) is the learning rate and the <strong>gamma</strong> (<span class="math inline">\(\gamma\)</span>) is the discount factor.</p>
 <p>For continuous problems, in which we use trajectories, we use the following equation:</p>
 <p><span class="math display" id="eq:equate3150135">\[\begin{align}
 \theta \leftarrow \theta + \alpha \sum_{t=0}^{T-1}\nabla_{\theta}\log \pi\left(a_t|s_t; \theta\right) G_t \tag{13.143} 
