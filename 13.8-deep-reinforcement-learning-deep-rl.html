@@ -820,6 +820,7 @@ Note that the <span class="math inline">\(\epsilon-{greedy}\)</span> is an explo
 \theta \leftarrow \theta + \alpha \nabla_{\theta}\log \pi\left(a_t|s_t; \theta\right) G_t
 \ \ \ \ \ \ \ \ \ \ \ \text{where } G_t = \sum_{k=0}^{\infty} \gamma_k R_{t+k+1} \tag{13.142} 
 \end{align}\]</span></p>
+<p>The <strong>gamma</strong> (<span class="math inline">\(\gamma\)</span>) is the discount factor.</p>
 <p>For continuous problems, in which we use trajectories, we use the following equation:</p>
 <p><span class="math display" id="eq:equate3150135">\[\begin{align}
 \theta \leftarrow \theta + \alpha \sum_{t=0}^{T-1}\nabla_{\theta}\log \pi\left(a_t|s_t; \theta\right) G_t \tag{13.143} 
