@@ -992,6 +992,13 @@ Figure 9.10: Standardization
 <p>Here is the formula:</p>
 <p><span class="math display">\[centered\ x = x - mean(x)\]</span></p>
 <p>Between <strong>centering</strong> and <strong>standardizing</strong>, centering does not require the transformed value to be divided by standard deviation. However, standardizing can also be considered another form of centering. The only difference is that centering is not scaled.</p>
+<p>Since centering does not scale, it sometimes makes it a challenge to compare plots between centering and standardization since the gap between their values is significant, as seen in Figure <a href="9.3-primitive-methods.html#fig:centerstandard">9.11</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:centerstandard"></span>
+<img src="DS_files/figure-html/centerstandard-1.png" alt="Centering" width="70%" />
+<p class="caption">
+Figure 9.11: Centering
+</p>
+</div>
 <p>Let us now compare centering and standardizing in a table.</p>
 <table>
 <caption><span id="tab:centered">Table 9.24: </span>Standardization vs Centering</caption>
@@ -1032,13 +1039,6 @@ Figure 9.10: Standardization
 </tr>
 </tbody>
 </table>
-<p>Since centering does not scale, it sometimes makes it a challenge to compare plots between centering and standardization since the gap between their values is significant, as seen in Figure <a href="9.3-primitive-methods.html#fig:centerstandard">9.11</a>.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:centerstandard"></span>
-<img src="DS_files/figure-html/centerstandard-1.png" alt="Centering" width="70%" />
-<p class="caption">
-Figure 9.11: Centering
-</p>
-</div>
 </div>
 <div id="scaling-1" class="section level3 hasAnchor">
 <h3><span class="header-section-number">9.3.6</span> Scaling <a href="9.3-primitive-methods.html#scaling-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
