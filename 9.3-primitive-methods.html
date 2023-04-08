@@ -1489,7 +1489,7 @@ clipped\ x = \begin{cases}
 </div>
 <div id="regularizing" class="section level3 hasAnchor">
 <h3><span class="header-section-number">9.3.9</span> Regularizing<a href="9.3-primitive-methods.html#regularizing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Regularization is about reward and penalty - it is about rewarding the right and penalizing the wrong. It is about tipping the scales to favor the right side (See Figure <a href="9.3-primitive-methods.html#regularizing">9.3.9</a>). However, when it comes to <strong>ML</strong>, it can be used to demote the value of coefficients, as we shall see later.</p>
+<p>Regularization is about reward and penalty - it is about rewarding the right and penalizing the wrong. It is about tipping the scales to favor the right side (See Figure <a href="9.3-primitive-methods.html#regularizing">9.3.9</a>). However, when it comes to <strong>ML</strong>, it can be used to demote the value of coefficients, thus reducing the complexity of models, effectively avoiding overfitting, as we shall see later. </p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:regularizing"></span>
 <img src="regularizing.png" alt="Regularizing" width="60%" />
 <p class="caption">
@@ -1509,7 +1509,7 @@ where\ 0 \le \lambda \le 1,\ \ \beta_0 = 1,\ and \ \beta_1 = 1
 <p>So then we have:</p>
 <p><span class="math display">\[A + B = 1\]</span></p>
 <p>For the simplest demonstration, we intentionally set the two beta coefficients (<span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>) to 1.</p>
-<p>So how does it work? It works by <strong>sneaking</strong> in a parameter, the lambda (<span class="math inline">\(\lambda\)</span>), whose responsibility is to offset the balance of power. The lambda parameter attaches itself to the coefficients via multiplication, and thus it either promotes or maximizes; otherwise, it demotes or minimizes the influence of <strong>coefficients</strong>; in the process, it is an effective way of regulating the relevance of features - or in another way to see it, it is an effective way to reduce the complexity of our model. We shall cover that in a later section when we get to discuss <strong>Lasso</strong> and <strong>Ridge</strong> regularization.</p>
+<p>So how does it work?  It works by <strong>sneaking</strong> in a parameter, the lambda (<span class="math inline">\(\lambda\)</span>), whose responsibility is to offset the balance of power.  The lambda parameter attaches itself to the coefficients via multiplication, and thus it either promotes or maximizes; otherwise, it demotes or minimizes the influence of <strong>coefficients</strong>; in the process, it is an effective way of regulating the relevance of features - or another way to say it, it is an effective way to reduce the complexity of our model.  We shall cover that later when we discuss <strong>Lasso</strong> and <strong>Ridge</strong> regularization.</p>
 <p>We use the lambda parameter to introduce appropriate values to induce an effect, whether as a reward for or as a penalty against values or computations that may seem extreme or undesirable. Therefore, this parameter can also be considered a tunable parameter used to tune expressions in the direction we deem fit.</p>
 <p>Let us test some values for the lambda in the range between 0 and 1:</p>
 <table>
