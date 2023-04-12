@@ -1007,7 +1007,7 @@ P(\mu,\sigma^2|x1,...,x_n) {}&amp;\propto Lik_X(\mu, \sigma^2|x_1,...,x_n) \time
  \frac{1}{\sqrt{2\pi\sigma^2_0}} exp\left[-\frac{(\mu - \mu_0)^2}{2\sigma^2_0}\right] \tag{7.407} 
 \end{align}\]</span>
 </p>
-<p>We then calculate for the log a-posteriori (dropping constants up-front):</p>
+<p>We then calculate the log a-posteriori (dropping constants up-front):</p>
 <p><span class="math display" id="eq:equate1090390">\[\begin{align}
 {}&amp;\log_e P(\mu,\sigma^2|x1,...,x_n) \nonumber \\
 &amp;\propto \sum_{i=1}^nln\ \left(\frac{1}{\sqrt{2\pi\sigma^2}}\right) + \left[-\frac{\sum_{i=1}^n (x_i - \mu)^2}{2\sigma^2}\right] + 
@@ -1055,7 +1055,7 @@ v = \sigma^2\ \ \ \ \ \ \ \ \ \ \ \ \ Q_x = \sum_{i=1}^n (x_i - \mu)^2 \tag{7.41
 P(n,\rho|x_1,...,x_m) {}&amp;\propto Lik(n,\rho|x_1,...,x_m) \times P(n,\rho)  \tag{7.421} \\
 &amp;\propto \underbrace{ \prod_{i=1}^m \binom{n}{x_i}  \rho^{x_i}(1-\rho)^{n-x_i}}_\text{binomial likelihood}  \times \underbrace{ \frac{1}{\mathcal{B}(\alpha_0,\beta_0)}\rho^{\alpha_0 - 1} (1 - \rho)^{\beta_0 - 1} }_\text{beta prior} \tag{7.422} 
 \end{align}\]</span></p>
-<p>We then calculate for the log a-posteriori (dropping constants up-front):</p>
+<p>We then calculate the log a-posteriori (dropping constants up-front):</p>
 <p><span class="math display" id="eq:equate1090407" id="eq:equate1090406" id="eq:equate1090405">\[\begin{align}
 \log_e  P(n,\rho|x_1,...,x_m)  {}&amp;\propto  ln\left[ \prod_{i=1}^m \binom{n}{x_i}  \rho^{x_i}(1-\rho)^{n-x_i}  \times \frac{1}{\mathcal{B}(\alpha_0,\beta_0)}\rho^{\alpha_0 - 1} (1 - \rho)^{\beta_0 - 1} \right] \tag{7.423} \\
 &amp;\propto   ln\left[ \prod_{i=1}^m \binom{n}{x_i}  \rho^{x_i}(1-\rho)^{n-x_i} \right] +  ln \left[ \frac{1}{\mathcal{B}(\alpha_0,\beta_0)}\rho^{\alpha_0 - 1} (1 - \rho)^{\beta_0 - 1} \right] \tag{7.424} \\
@@ -1299,7 +1299,7 @@ Figure 7.16: Gaussian Mixture Model - 3 hidden components
 ## [2,] 0.0012 0.0009 0.0000 0.0000 0.000 0.0513 0.0428 0.0648
 ## [3,] 0.0000 0.0000 0.0000 0.0000 0.000 0.0022 0.0038 0.0001</code></pre>
 
-<p>Then we calculate for the normalizer - the joint probability of the <strong>Gaussian mixture</strong>.</p>
+<p>Then we calculate the normalizer - the joint probability of the <strong>Gaussian mixture</strong>.</p>
 
 <div class="sourceCode" id="cb854"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb854-1" data-line-number="1">normalizer =<span class="st"> </span>weight.likelihd1 <span class="op">+</span><span class="st"> </span>weight.likelihd2 <span class="op">+</span><span class="st"> </span>weight.likelihd3</a>
 <a class="sourceLine" id="cb854-2" data-line-number="2"><span class="kw">round</span>(normalizer,<span class="dv">3</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>] <span class="co"># display 1st 10 columns</span></a></code></pre></div>
@@ -1341,7 +1341,7 @@ Figure 7.16: Gaussian Mixture Model - 3 hidden components
 <pre><code>##   sd1   sd2 mean3 
 ## 6.145 1.252 2.124</code></pre>
 
-<p>We also re-calculate for the next value of our <strong>prior weights</strong> <span class="math inline">\(\omega_j^{(t=1)}\)</span>:</p>
+<p>We also re-calculate the next value of our <strong>prior weights</strong> <span class="math inline">\(\omega_j^{(t=1)}\)</span>:</p>
 
 <div class="sourceCode" id="cb864"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb864-1" data-line-number="1">w1 =<span class="st"> </span>comp.normalizer1 <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(X) </a>
 <a class="sourceLine" id="cb864-2" data-line-number="2">w2 =<span class="st"> </span>comp.normalizer2 <span class="op">/</span><span class="st"> </span><span class="kw">length</span>(X) </a>
