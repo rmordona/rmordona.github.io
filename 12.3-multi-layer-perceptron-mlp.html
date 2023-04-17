@@ -822,7 +822,7 @@ Figure 12.8: Multi-Layer Perceptron
 </ul>
 <div id="forward-feed" class="section level3 hasAnchor">
 <h3><span class="header-section-number">12.3.1</span> Forward Feed <a href="12.3-multi-layer-perceptron-mlp.html#forward-feed" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>In the <strong>Forward Feed</strong> (also called <strong>Forward Pass</strong>) portion, our first hidden layer performs a dot product of the input <span class="math inline">\(x_{(i:p)}\)</span> and the weights <span class="math inline">\(\omega_{(i:p,1:2)}\)</span>, and then it feeds the result to a <strong>sigmoid function</strong>. Our choice of <strong>activation function</strong> is scaled between 0 and 1. Here, <strong>p</strong> represents the dimensionality of our model, e.g., the number of features.</p>
+<p>In the <strong>Forward Feed</strong> (also called <strong>Forward Pass</strong>) portion, our first hidden layer performs a dot product of the <strong>input</strong> (<span class="math inline">\(x_{(i:p)}\)</span>) and the <strong>weights</strong> (<span class="math inline">\(\omega_{(i:p,1:2)}\)</span>), and then it feeds the result to a <strong>sigmoid function</strong>. Our choice of <strong>activation function</strong> is scaled between 0 and 1. Here, <strong>p</strong> represents the dimensionality of our model, e.g., the number of features.</p>
 <p><span class="math display">\[\begin{align*}
 \begin{array}{ll}
 \hat{z}_1 = \sum_{i=0}^{p=2} \omega_{(i,1)} x_{i}\ \ \ \ \ z_1 = \text{sigmoid}\left( \hat{z}_1 \right)\\
@@ -842,7 +842,7 @@ where\ \ x_0 = 1\ \ \text{(constant used for bias)}
 where\ \ x_0 = 1\ \ \text{(constant for bias)}
 \end{align*}\]</span></p>
 <p>In this first hidden layer, we have six parameters to optimize.</p>
-<p>Then, our second hidden layer performs a dot product of the output from the first hidden layer and the weights <span class="math inline">\(\alpha_{(i:p,1:2)}\)</span>, and then it feeds the result to a <strong>sigmoid function</strong>.</p>
+<p>Then, our second hidden layer performs a dot product of the output from the first hidden layer and the <strong>weights</strong> (<span class="math inline">\(\alpha_{(i:p,1:2)}\)</span>), and then it feeds the result to a <strong>sigmoid function</strong>.</p>
 <p><span class="math display">\[\begin{align*}
 \begin{array}{ll}
 \hat{h}_1 = \sum_{i=0}^{p=2} \alpha_{(i,1)} z_{i}\ \ \ \ \ h_1 = \text{sigmoid}\left( \hat{h}_1 \right)\\
@@ -853,7 +853,7 @@ where\ \ z_0 = 1\ \ \text{(constant used for bias)}
 \end{align*}\]</span></p>
 <p>Let us also consider <span class="math inline">\(\hat{h}_1\)</span> and <span class="math inline">\(\hat{h}_2\)</span> to be the <strong>net input</strong> and <span class="math inline">\(h_1\)</span> and <span class="math inline">\(h_2\)</span> to be the <strong>activation output</strong>.</p>
 <p>In this second hidden layer, we have six parameters to optimize.</p>
-<p>Finally, our output layer performs a dot product of the output from the second hidden layer and the weights <span class="math inline">\(\varphi_{(i:p,1:2)}\)</span>, and then it feeds the result to a <strong>sigmoid function</strong>.  Note that <span class="math inline">\(\hat{o}_1\)</span> and <span class="math inline">\(\hat{o}_2\)</span> are the final raw output of the neural network, typically called <strong>logits</strong.</p>
+<p>Finally, our output layer performs a dot product of the output from the second hidden layer and the <strong>weights</strong> (<span class="math inline">\(\varphi_{(i:p,1:2)}\)</span>), and then it feeds the result to a <strong>sigmoid function</strong>.  Note that <span class="math inline">\(\hat{o}_1\)</span> and <span class="math inline">\(\hat{o}_2\)</span> are the final raw output of the neural network, typically called <strong>logits</strong>.</p>
 <p><span class="math display">\[\begin{align*}
 \begin{array}{ll}
 \hat{o}_1 = \sum_{i=0}^{p=2} \varphi_{(i,1)} h_{i}\ \ \ \ \ o_1 = \text{sigmoid}\left( \hat{o}_1 \right)\\
