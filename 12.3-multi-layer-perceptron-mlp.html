@@ -853,7 +853,7 @@ where\ \ z_0 = 1\ \ \text{(constant used for bias)}
 \end{align*}\]</span></p>
 <p>Let us also consider <span class="math inline">\(\hat{h}_1\)</span> and <span class="math inline">\(\hat{h}_2\)</span> to be the <strong>net input</strong> and <span class="math inline">\(h_1\)</span> and <span class="math inline">\(h_2\)</span> to be the <strong>activation output</strong>.</p>
 <p>In this second hidden layer, we have six parameters to optimize.</p>
-<p>Finally, our output layer performs a dot product of the output from the second hidden layer and the weights <span class="math inline">\(\varphi_{(i:p,1:2)}\)</span>, and then it feeds the result to a <strong>sigmoid function</strong>.</p>
+<p>Finally, our output layer performs a dot product of the output from the second hidden layer and the weights <span class="math inline">\(\varphi_{(i:p,1:2)}\)</span>, and then it feeds the result to a <strong>sigmoid function</strong>.  Note that <span class="math inline">\(\hat{o}_1\)</span> and <span class="math inline">\(\hat{o}_2\)</span> are the final raw output of the neural network, typically called <strong>logits</strong.</p>
 <p><span class="math display">\[\begin{align*}
 \begin{array}{ll}
 \hat{o}_1 = \sum_{i=0}^{p=2} \varphi_{(i,1)} h_{i}\ \ \ \ \ o_1 = \text{sigmoid}\left( \hat{o}_1 \right)\\
@@ -1684,7 +1684,7 @@ a&#39;(x) = \begin{cases}
 <a class="sourceLine" id="cb1799-16" data-line-number="16"><span class="st">                                         </span><span class="kw">kronecker</span>(<span class="kw">t</span>(o[i,]), o[i,])</a>
 <a class="sourceLine" id="cb1799-17" data-line-number="17">                            }; J }</a></code></pre></div>
 
-<p>For a plot of the activation functions and corresponding derivatives, see Figure <a href="12.3-multi-layer-perceptron-mlp.html#fig:activationfunction">12.11</a>.</p>
+<p>For a plot of the activation functions and corresponding derivatives (in deep sky blue color), see Figure <a href="12.3-multi-layer-perceptron-mlp.html#fig:activationfunction">12.11</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:activationfunction"></span>
 <img src="activationfunction.png" alt="Activation Function" width="100%" />
 <p class="caption">
