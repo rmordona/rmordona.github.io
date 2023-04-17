@@ -2574,7 +2574,7 @@ Figure 12.15: MLP Plot
 ##  [9,] 0.93496225 0.13496225 -4.7431521e+205 -6.0776792e+205
 ## [10,] 0.42822478 0.62822478 -4.6490108e+205 -5.9570505e+205</code></pre>
 
-<p>Similarly, let us now try to use a <strong>DNN</strong> that is thin or deep - meaning that we have increased the number of layers with a smaller number of neurons.</p>
+<p>Similarly, let us now try to use a <strong>DNN</strong> that is thin or deep - meaning that we increase the number of layers with a smaller number of neurons.</p>
 
 <div class="sourceCode" id="cb1862"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1862-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">2021</span>)</a>
 <a class="sourceLine" id="cb1862-2" data-line-number="2">layers =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;X&quot;</span> =<span class="st"> </span>X, <span class="kw">list</span>(<span class="dt">size=</span><span class="dv">5</span>), <span class="kw">list</span>(<span class="dt">size=</span><span class="dv">5</span>), <span class="kw">list</span>(<span class="dt">size=</span><span class="dv">5</span>), <span class="kw">list</span>(<span class="dt">size=</span><span class="dv">5</span>),</a>
