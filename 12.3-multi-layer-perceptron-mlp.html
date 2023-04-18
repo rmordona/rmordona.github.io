@@ -2043,89 +2043,89 @@ act.output^{(L-1)} &amp; \text{(otherwise)}
 
 <p>For our <strong>Forward Feed</strong>, we use <strong>forward.pass(.)</strong> function implemented like so:</p>
 
-<div class="sourceCode" id="cb1815"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1815-1" data-line-number="1">forward.pass &lt;-<span class="st"> </span><span class="cf">function</span>(X, layers, <span class="dt">afunc=</span><span class="st">&quot;sigmoid&quot;</span>, <span class="dt">mode=</span><span class="st">&quot;train&quot;</span>) {</a>
-<a class="sourceLine" id="cb1815-2" data-line-number="2">  afunc                  =<span class="st"> </span><span class="kw">get</span>(afunc)</a>
-<a class="sourceLine" id="cb1815-3" data-line-number="3">  H                      =<span class="st"> </span><span class="kw">length</span>(layers)</a>
-<a class="sourceLine" id="cb1815-4" data-line-number="4">  act.output             =<span class="st"> </span>X</a>
-<a class="sourceLine" id="cb1815-5" data-line-number="5">  <span class="cf">for</span> (L <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>H) {</a>
-<a class="sourceLine" id="cb1815-6" data-line-number="6">    <span class="co"># add constant (bias)</span></a>
-<a class="sourceLine" id="cb1815-7" data-line-number="7">    layer =<span class="st"> </span>layers[[L]]</a>
-<a class="sourceLine" id="cb1815-8" data-line-number="8">    net.input            =<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(X)), act.output)  </a>
-<a class="sourceLine" id="cb1815-9" data-line-number="9">    net.input            =<span class="st"> </span>net.input <span class="op">%*%</span><span class="st"> </span>layer<span class="op">$</span>omega<span class="op">$</span>weight </a>
-<a class="sourceLine" id="cb1815-10" data-line-number="10">    <span class="cf">if</span> (L <span class="op">==</span><span class="st"> </span>H) {          <span class="co"># output layer</span></a>
-<a class="sourceLine" id="cb1815-11" data-line-number="11">        act.output       =<span class="st"> </span><span class="kw">activation</span>(net.input, afunc)</a>
-<a class="sourceLine" id="cb1815-12" data-line-number="12">    } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb1815-13" data-line-number="13">        act.output =<span class="st"> </span>net.input</a>
-<a class="sourceLine" id="cb1815-14" data-line-number="14">        <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.null</span>(layer<span class="op">$</span>drop)) {</a>
-<a class="sourceLine" id="cb1815-15" data-line-number="15">            act.output =<span class="st"> </span><span class="kw">drop.out</span>(act.output, <span class="dt">prob=</span>layer<span class="op">$</span>drop)</a>
-<a class="sourceLine" id="cb1815-16" data-line-number="16">        }</a>
-<a class="sourceLine" id="cb1815-17" data-line-number="17">        <span class="cf">if</span> (layer<span class="op">$</span>batchnorm <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>) {</a>
-<a class="sourceLine" id="cb1815-18" data-line-number="18">           <span class="cf">if</span> (mode <span class="op">==</span><span class="st"> &quot;train&quot;</span>) {</a>
-<a class="sourceLine" id="cb1815-19" data-line-number="19">             normalized       =<span class="st"> </span><span class="kw">batchnorm.forward</span>(act.output,  layer)</a>
-<a class="sourceLine" id="cb1815-20" data-line-number="20">             act.output       =<span class="st"> </span>normalized<span class="op">$</span>act.output</a>
-<a class="sourceLine" id="cb1815-21" data-line-number="21">             layer<span class="op">$</span>moments    =<span class="st"> </span>normalized<span class="op">$</span>moments</a>
-<a class="sourceLine" id="cb1815-22" data-line-number="22">           } <span class="cf">else</span> { <span class="co"># if test</span></a>
-<a class="sourceLine" id="cb1815-23" data-line-number="23">             normalized       =<span class="st"> </span><span class="kw">batchnorm.prediction</span>(act.output,  layer)</a>
-<a class="sourceLine" id="cb1815-24" data-line-number="24">             act.output       =<span class="st"> </span>normalized<span class="op">$</span>prediction</a>
-<a class="sourceLine" id="cb1815-25" data-line-number="25">           }</a>
-<a class="sourceLine" id="cb1815-26" data-line-number="26">        }</a>
-<a class="sourceLine" id="cb1815-27" data-line-number="27">        act.output       =<span class="st"> </span><span class="kw">activation</span>(net.input, leaky.relu)</a>
-<a class="sourceLine" id="cb1815-28" data-line-number="28">    } </a>
-<a class="sourceLine" id="cb1815-29" data-line-number="29">    layer<span class="op">$</span>output =<span class="st"> </span>act.output</a>
-<a class="sourceLine" id="cb1815-30" data-line-number="30">    layers[[L]]  =<span class="st"> </span>layer</a>
-<a class="sourceLine" id="cb1815-31" data-line-number="31">  }</a>
-<a class="sourceLine" id="cb1815-32" data-line-number="32">  <span class="kw">list</span>(<span class="st">&quot;layers&quot;</span> =<span class="st"> </span>layers)</a>
-<a class="sourceLine" id="cb1815-33" data-line-number="33">}</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">forward.pass &lt;-<span class="st"> </span><span class="cf">function</span>(X, layers, <span class="dt">afunc=</span><span class="st">&quot;sigmoid&quot;</span>, <span class="dt">mode=</span><span class="st">&quot;train&quot;</span>) {</a>
+<a class="sourceLine" id="cb33-2" data-line-number="2">  afunc                  =<span class="st"> </span><span class="kw">get</span>(afunc)</a>
+<a class="sourceLine" id="cb33-3" data-line-number="3">  H                      =<span class="st"> </span><span class="kw">length</span>(layers)</a>
+<a class="sourceLine" id="cb33-4" data-line-number="4">  act.output             =<span class="st"> </span>X</a>
+<a class="sourceLine" id="cb33-5" data-line-number="5">  <span class="cf">for</span> (L <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>H) {</a>
+<a class="sourceLine" id="cb33-6" data-line-number="6">    layer =<span class="st"> </span>layers[[L]]</a>
+<a class="sourceLine" id="cb33-7" data-line-number="7">    <span class="co"># add constant (bias)</span></a>
+<a class="sourceLine" id="cb33-8" data-line-number="8">    net.input            =<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(X)), act.output)  </a>
+<a class="sourceLine" id="cb33-9" data-line-number="9">    net.input            =<span class="st"> </span>net.input <span class="op">%*%</span><span class="st"> </span>layer<span class="op">$</span>omega<span class="op">$</span>weight </a>
+<a class="sourceLine" id="cb33-10" data-line-number="10">    <span class="cf">if</span> (L <span class="op">==</span><span class="st"> </span>H) {          <span class="co"># output layer</span></a>
+<a class="sourceLine" id="cb33-11" data-line-number="11">        act.output       =<span class="st"> </span><span class="kw">activation</span>(net.input, afunc)</a>
+<a class="sourceLine" id="cb33-12" data-line-number="12">    } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb33-13" data-line-number="13">        act.output =<span class="st"> </span>net.input</a>
+<a class="sourceLine" id="cb33-14" data-line-number="14">        <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.null</span>(layer<span class="op">$</span>drop)) {</a>
+<a class="sourceLine" id="cb33-15" data-line-number="15">            act.output =<span class="st"> </span><span class="kw">drop.out</span>(act.output, <span class="dt">prob=</span>layer<span class="op">$</span>drop)</a>
+<a class="sourceLine" id="cb33-16" data-line-number="16">        }</a>
+<a class="sourceLine" id="cb33-17" data-line-number="17">        <span class="cf">if</span> (layer<span class="op">$</span>batchnorm <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>) {</a>
+<a class="sourceLine" id="cb33-18" data-line-number="18">           <span class="cf">if</span> (mode <span class="op">==</span><span class="st"> &quot;train&quot;</span>) {</a>
+<a class="sourceLine" id="cb33-19" data-line-number="19">             normalized       =<span class="st"> </span><span class="kw">batchnorm.forward</span>(act.output,  layer)</a>
+<a class="sourceLine" id="cb33-20" data-line-number="20">             act.output       =<span class="st"> </span>normalized<span class="op">$</span>act.output</a>
+<a class="sourceLine" id="cb33-21" data-line-number="21">             layer<span class="op">$</span>moments    =<span class="st"> </span>normalized<span class="op">$</span>moments</a>
+<a class="sourceLine" id="cb33-22" data-line-number="22">           } <span class="cf">else</span> { <span class="co"># if test</span></a>
+<a class="sourceLine" id="cb33-23" data-line-number="23">             normalized       =<span class="st"> </span><span class="kw">batchnorm.prediction</span>(act.output,  layer)</a>
+<a class="sourceLine" id="cb33-24" data-line-number="24">             act.output       =<span class="st"> </span>normalized<span class="op">$</span>prediction</a>
+<a class="sourceLine" id="cb33-25" data-line-number="25">           }</a>
+<a class="sourceLine" id="cb33-26" data-line-number="26">        }</a>
+<a class="sourceLine" id="cb33-27" data-line-number="27">        act.output       =<span class="st"> </span><span class="kw">activation</span>(act.output, leaky.relu)</a>
+<a class="sourceLine" id="cb33-28" data-line-number="28">    } </a>
+<a class="sourceLine" id="cb33-29" data-line-number="29">    layer<span class="op">$</span>output =<span class="st"> </span>act.output</a>
+<a class="sourceLine" id="cb33-30" data-line-number="30">    layers[[L]]  =<span class="st"> </span>layer</a>
+<a class="sourceLine" id="cb33-31" data-line-number="31">  }</a>
+<a class="sourceLine" id="cb33-32" data-line-number="32">  <span class="kw">list</span>(<span class="st">&quot;layers&quot;</span> =<span class="st"> </span>layers)</a>
+<a class="sourceLine" id="cb33-33" data-line-number="33">}</a></code></pre></div>
 
 <p>For our <strong>Back Propagation</strong>, we use <strong>back.propagation(.)</strong> function implemented like so:</p>
 
-<div class="sourceCode" id="cb1816"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1816-1" data-line-number="1">back.propagation &lt;-<span class="st"> </span><span class="cf">function</span>(X, Y, model, <span class="dt">afunc=</span><span class="st">&quot;sigmoid&quot;</span>) {</a>
-<a class="sourceLine" id="cb1816-2" data-line-number="2">    afunc.loss                  =<span class="st"> </span><span class="kw">get</span>(<span class="kw">paste0</span>(<span class="st">&quot;gradient.&quot;</span>, afunc, <span class="st">&quot;.loss&quot;</span>))</a>
-<a class="sourceLine" id="cb1816-3" data-line-number="3">    actfunc                     =<span class="st"> </span><span class="kw">get</span>(<span class="kw">paste0</span>(<span class="st">&quot;gradient.&quot;</span>, afunc))</a>
-<a class="sourceLine" id="cb1816-4" data-line-number="4">    H                           =<span class="st"> </span><span class="kw">length</span>(model<span class="op">$</span>layers)  </a>
-<a class="sourceLine" id="cb1816-5" data-line-number="5">    delta                       =<span class="st"> </span><span class="kw">list</span>()</a>
-<a class="sourceLine" id="cb1816-6" data-line-number="6">    delta.params                =<span class="st"> </span><span class="kw">list</span>()</a>
-<a class="sourceLine" id="cb1816-7" data-line-number="7">    layers                      =<span class="st"> </span>model<span class="op">$</span>layers</a>
-<a class="sourceLine" id="cb1816-8" data-line-number="8">    <span class="cf">for</span> (L <span class="cf">in</span> H<span class="op">:</span><span class="dv">1</span>) {</a>
-<a class="sourceLine" id="cb1816-9" data-line-number="9">        layer =<span class="st"> </span>layers[[L]]</a>
-<a class="sourceLine" id="cb1816-10" data-line-number="10">        delta.params[[L]] =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;omega&quot;</span>=<span class="st"> </span><span class="ot">NULL</span>, <span class="st">&quot;gamma&quot;</span>=<span class="st"> </span><span class="ot">NULL</span>, <span class="st">&quot;beta&quot;</span>=<span class="st"> </span><span class="ot">NULL</span>)</a>
-<a class="sourceLine" id="cb1816-11" data-line-number="11">        act.output             =<span class="st"> </span>layer<span class="op">$</span>output</a>
-<a class="sourceLine" id="cb1816-12" data-line-number="12">        <span class="cf">if</span> (L <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) { net.input =<span class="st"> </span>layers[[L<span class="dv">-1</span>]]<span class="op">$</span>output } <span class="cf">else</span> { net.input=X }</a>
-<a class="sourceLine" id="cb1816-13" data-line-number="13">        <span class="co"># include constant for bias</span></a>
-<a class="sourceLine" id="cb1816-14" data-line-number="14">        net.input               =<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(X)), net.input)</a>
-<a class="sourceLine" id="cb1816-15" data-line-number="15">        <span class="cf">if</span> (L <span class="op">==</span><span class="st"> </span>H) { <span class="co"># output layer</span></a>
-<a class="sourceLine" id="cb1816-16" data-line-number="16">            <span class="cf">if</span> (afunc <span class="op">==</span><span class="st"> &quot;sigmoid&quot;</span> <span class="op">||</span><span class="st"> </span>afunc <span class="op">==</span><span class="st"> &quot;softmax&quot;</span>) {  </a>
-<a class="sourceLine" id="cb1816-17" data-line-number="17">               <span class="co"># the derivation of delta cancels out the activation gradient, </span></a>
-<a class="sourceLine" id="cb1816-18" data-line-number="18">               <span class="co"># e.g. simplified version: delta = o - t</span></a>
-<a class="sourceLine" id="cb1816-19" data-line-number="19">               delta[[L]]       =<span class="st"> </span><span class="kw">gradient.loss</span>(Y, act.output, </a>
-<a class="sourceLine" id="cb1816-20" data-line-number="20">                                                gradient.relu.loss)</a>
-<a class="sourceLine" id="cb1816-21" data-line-number="21">            } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb1816-22" data-line-number="22">               gradient.loss    =<span class="st"> </span><span class="kw">gradient.loss</span>(Y, act.output, afunc.loss)</a>
-<a class="sourceLine" id="cb1816-23" data-line-number="23">               gradient.output  =<span class="st"> </span><span class="kw">gradient.activation</span>(act.output, actfunc)</a>
-<a class="sourceLine" id="cb1816-24" data-line-number="24">               delta[[L]]       =<span class="st"> </span>gradient.loss  <span class="op">*</span><span class="st"> </span>gradient.output  </a>
-<a class="sourceLine" id="cb1816-25" data-line-number="25">            }</a>
-<a class="sourceLine" id="cb1816-26" data-line-number="26">        } <span class="cf">else</span> {    </a>
-<a class="sourceLine" id="cb1816-27" data-line-number="27">            net.weights         =<span class="st"> </span>layers[[L<span class="op">+</span><span class="dv">1</span>]]<span class="op">$</span>omega<span class="op">$</span>weight</a>
-<a class="sourceLine" id="cb1816-28" data-line-number="28">            gradient.loss       =<span class="st"> </span>delta[[L<span class="op">+</span><span class="dv">1</span>]] <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(net.weights) </a>
-<a class="sourceLine" id="cb1816-29" data-line-number="29">            gradient.loss       =<span class="st"> </span>gradient.loss[,<span class="op">-</span><span class="dv">1</span>] <span class="co"># exclude bias</span></a>
-<a class="sourceLine" id="cb1816-30" data-line-number="30">            gradient.output     =<span class="st"> </span><span class="kw">gradient.activation</span>(act.output, </a>
-<a class="sourceLine" id="cb1816-31" data-line-number="31">                                                      gradient.leaky.relu) </a>
-<a class="sourceLine" id="cb1816-32" data-line-number="32">            bnorm               =<span class="st"> </span><span class="ot">FALSE</span></a>
-<a class="sourceLine" id="cb1816-33" data-line-number="33">            <span class="cf">if</span> (layers[[L]]<span class="op">$</span>batchnorm <span class="op">==</span><span class="ot">TRUE</span>) {</a>
-<a class="sourceLine" id="cb1816-34" data-line-number="34">                normalized            =<span class="st"> </span><span class="kw">batchnorm.backward</span>( gradient.output, </a>
-<a class="sourceLine" id="cb1816-35" data-line-number="35">                                          layer<span class="op">$</span>batch.gamma<span class="op">$</span>weight, </a>
-<a class="sourceLine" id="cb1816-36" data-line-number="36">                                          layer<span class="op">$</span>moments)</a>
-<a class="sourceLine" id="cb1816-37" data-line-number="37">                gradient.output         =<span class="st"> </span>normalized<span class="op">$</span>gradient.output</a>
-<a class="sourceLine" id="cb1816-38" data-line-number="38">                delta.params[[L]]<span class="op">$</span>gamma =<span class="st"> </span>normalized<span class="op">$</span>delta.gamma</a>
-<a class="sourceLine" id="cb1816-39" data-line-number="39">                delta.params[[L]]<span class="op">$</span>beta  =<span class="st"> </span>normalized<span class="op">$</span>delta.beta</a>
-<a class="sourceLine" id="cb1816-40" data-line-number="40">            } </a>
-<a class="sourceLine" id="cb1816-41" data-line-number="41"></a>
-<a class="sourceLine" id="cb1816-42" data-line-number="42">            delta[[L]]           =<span class="st"> </span>gradient.loss  <span class="op">*</span><span class="st"> </span>gradient.output </a>
-<a class="sourceLine" id="cb1816-43" data-line-number="43">        }</a>
-<a class="sourceLine" id="cb1816-44" data-line-number="44">        delta.params[[L]]<span class="op">$</span>omega  =<span class="st"> </span><span class="kw">clipping</span>(<span class="kw">t</span>(net.input) <span class="op">%*%</span><span class="st"> </span>delta[[L]])</a>
-<a class="sourceLine" id="cb1816-45" data-line-number="45">    }</a>
-<a class="sourceLine" id="cb1816-46" data-line-number="46">    <span class="kw">list</span>( <span class="st">&quot;delta.output&quot;</span>  =<span class="st"> </span>delta, <span class="st">&quot;delta.params&quot;</span> =<span class="st"> </span>delta.params)</a>
-<a class="sourceLine" id="cb1816-47" data-line-number="47">}</a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">back.propagation &lt;-<span class="st"> </span><span class="cf">function</span>(X, Y, model, <span class="dt">afunc=</span><span class="st">&quot;sigmoid&quot;</span>) {</a>
+<a class="sourceLine" id="cb34-2" data-line-number="2">    afunc.loss                  =<span class="st"> </span><span class="kw">get</span>(<span class="kw">paste0</span>(<span class="st">&quot;gradient.&quot;</span>, afunc, <span class="st">&quot;.loss&quot;</span>))</a>
+<a class="sourceLine" id="cb34-3" data-line-number="3">    actfunc                     =<span class="st"> </span><span class="kw">get</span>(<span class="kw">paste0</span>(<span class="st">&quot;gradient.&quot;</span>, afunc))</a>
+<a class="sourceLine" id="cb34-4" data-line-number="4">    H                           =<span class="st"> </span><span class="kw">length</span>(model<span class="op">$</span>layers)  </a>
+<a class="sourceLine" id="cb34-5" data-line-number="5">    delta                       =<span class="st"> </span><span class="kw">list</span>()</a>
+<a class="sourceLine" id="cb34-6" data-line-number="6">    delta.params                =<span class="st"> </span><span class="kw">list</span>()</a>
+<a class="sourceLine" id="cb34-7" data-line-number="7">    layers                      =<span class="st"> </span>model<span class="op">$</span>layers</a>
+<a class="sourceLine" id="cb34-8" data-line-number="8">    <span class="cf">for</span> (L <span class="cf">in</span> H<span class="op">:</span><span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb34-9" data-line-number="9">        layer =<span class="st"> </span>layers[[L]]</a>
+<a class="sourceLine" id="cb34-10" data-line-number="10">        delta.params[[L]] =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;omega&quot;</span>=<span class="st"> </span><span class="ot">NULL</span>, <span class="st">&quot;gamma&quot;</span>=<span class="st"> </span><span class="ot">NULL</span>, <span class="st">&quot;beta&quot;</span>=<span class="st"> </span><span class="ot">NULL</span>)</a>
+<a class="sourceLine" id="cb34-11" data-line-number="11">        act.output             =<span class="st"> </span>layer<span class="op">$</span>output</a>
+<a class="sourceLine" id="cb34-12" data-line-number="12">        <span class="cf">if</span> (L <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span>) { net.input =<span class="st"> </span>layers[[L<span class="dv">-1</span>]]<span class="op">$</span>output } <span class="cf">else</span> { net.input=X }</a>
+<a class="sourceLine" id="cb34-13" data-line-number="13">        <span class="co"># include constant for bias</span></a>
+<a class="sourceLine" id="cb34-14" data-line-number="14">        net.input               =<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">rep</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(X)), net.input)</a>
+<a class="sourceLine" id="cb34-15" data-line-number="15">        <span class="cf">if</span> (L <span class="op">==</span><span class="st"> </span>H) { <span class="co"># output layer</span></a>
+<a class="sourceLine" id="cb34-16" data-line-number="16">            <span class="cf">if</span> (afunc <span class="op">==</span><span class="st"> &quot;sigmoid&quot;</span> <span class="op">||</span><span class="st"> </span>afunc <span class="op">==</span><span class="st"> &quot;softmax&quot;</span>) {  </a>
+<a class="sourceLine" id="cb34-17" data-line-number="17">               <span class="co"># the derivation of delta cancels out the activation gradient, </span></a>
+<a class="sourceLine" id="cb34-18" data-line-number="18">               <span class="co"># e.g. simplified version: delta = o - t</span></a>
+<a class="sourceLine" id="cb34-19" data-line-number="19">               delta[[L]]       =<span class="st"> </span><span class="kw">gradient.loss</span>(Y, act.output, </a>
+<a class="sourceLine" id="cb34-20" data-line-number="20">                                                gradient.relu.loss)</a>
+<a class="sourceLine" id="cb34-21" data-line-number="21">            } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb34-22" data-line-number="22">               gradient.loss    =<span class="st"> </span><span class="kw">gradient.loss</span>(Y, act.output, afunc.loss)</a>
+<a class="sourceLine" id="cb34-23" data-line-number="23">               gradient.output  =<span class="st"> </span><span class="kw">gradient.activation</span>(act.output, actfunc)</a>
+<a class="sourceLine" id="cb34-24" data-line-number="24">               delta[[L]]       =<span class="st"> </span>gradient.loss  <span class="op">*</span><span class="st"> </span>gradient.output  </a>
+<a class="sourceLine" id="cb34-25" data-line-number="25">            }</a>
+<a class="sourceLine" id="cb34-26" data-line-number="26">        } <span class="cf">else</span> {    </a>
+<a class="sourceLine" id="cb34-27" data-line-number="27">            net.weights         =<span class="st"> </span>layers[[L<span class="op">+</span><span class="dv">1</span>]]<span class="op">$</span>omega<span class="op">$</span>weight</a>
+<a class="sourceLine" id="cb34-28" data-line-number="28">            gradient.loss       =<span class="st"> </span>delta[[L<span class="op">+</span><span class="dv">1</span>]] <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(net.weights) </a>
+<a class="sourceLine" id="cb34-29" data-line-number="29">            gradient.loss       =<span class="st"> </span>gradient.loss[,<span class="op">-</span><span class="dv">1</span>] <span class="co"># exclude bias</span></a>
+<a class="sourceLine" id="cb34-30" data-line-number="30">            gradient.output     =<span class="st"> </span><span class="kw">gradient.activation</span>(act.output, </a>
+<a class="sourceLine" id="cb34-31" data-line-number="31">                                                      gradient.leaky.relu) </a>
+<a class="sourceLine" id="cb34-32" data-line-number="32">            <span class="co"># bnorm               = FALSE</span></a>
+<a class="sourceLine" id="cb34-33" data-line-number="33">            <span class="cf">if</span> (layers[[L]]<span class="op">$</span>batchnorm <span class="op">==</span><span class="ot">TRUE</span>) {</a>
+<a class="sourceLine" id="cb34-34" data-line-number="34">                normalized            =<span class="st"> </span><span class="kw">batchnorm.backward</span>( gradient.output, </a>
+<a class="sourceLine" id="cb34-35" data-line-number="35">                                          layer<span class="op">$</span>batch.gamma<span class="op">$</span>weight, </a>
+<a class="sourceLine" id="cb34-36" data-line-number="36">                                          layer<span class="op">$</span>moments)</a>
+<a class="sourceLine" id="cb34-37" data-line-number="37">                gradient.output         =<span class="st"> </span>normalized<span class="op">$</span>gradient.output</a>
+<a class="sourceLine" id="cb34-38" data-line-number="38">                delta.params[[L]]<span class="op">$</span>gamma =<span class="st"> </span>normalized<span class="op">$</span>delta.gamma</a>
+<a class="sourceLine" id="cb34-39" data-line-number="39">                delta.params[[L]]<span class="op">$</span>beta  =<span class="st"> </span>normalized<span class="op">$</span>delta.beta</a>
+<a class="sourceLine" id="cb34-40" data-line-number="40">            } </a>
+<a class="sourceLine" id="cb34-41" data-line-number="41"></a>
+<a class="sourceLine" id="cb34-42" data-line-number="42">            delta[[L]]           =<span class="st"> </span>gradient.loss  <span class="op">*</span><span class="st"> </span>gradient.output </a>
+<a class="sourceLine" id="cb34-43" data-line-number="43">        }</a>
+<a class="sourceLine" id="cb34-44" data-line-number="44">        delta.params[[L]]<span class="op">$</span>omega  =<span class="st"> </span><span class="kw">clipping</span>(<span class="kw">t</span>(net.input) <span class="op">%*%</span><span class="st"> </span>delta[[L]])</a>
+<a class="sourceLine" id="cb34-45" data-line-number="45">    }</a>
+<a class="sourceLine" id="cb34-46" data-line-number="46">    <span class="kw">list</span>( <span class="st">&quot;delta.output&quot;</span>  =<span class="st"> </span>delta, <span class="st">&quot;delta.params&quot;</span> =<span class="st"> </span>delta.params)</a>
+<a class="sourceLine" id="cb34-47" data-line-number="47">}</a></code></pre></div>
 
 <p>For our <strong>updates</strong> of parameters as we propagate our gradients backward, we use <strong>backward.pass(.)</strong> function implemented like so:</p>
 
@@ -3361,7 +3361,7 @@ Figure 12.20: MLP (Batch Normalization)
 ## [10,] 0.42822478 0.62822478 0.54 0.52</code></pre>
 
 <p>Note that while the prediction for the normalization seems a bit off in our particular case, we leave readers to try to use a learning rate of 0.01 for improvement. Additionally, the learning speed for batch normalization is more visible in the next section when we deal with <strong>CNN</strong> against the <strong>cifar-10</strong> dataset.</p>
-<p>Also, the <strong>batch normalization</strong> step is positioned before the activation function in our implementation. In a section up ahead, dealing with <strong>CNN</strong>, we shall try to position the <strong>batch normalization</strong> after the activation function at the convolution layers. We leave readers to investigate the effectiveness of <strong>batch normalization</strong> based on whether it should be before or after the activation function.</p>
+<p>Also, note that the <strong>batch normalization</strong> step is typically positioned before the activation function.  This is to normalize the <strong>net.input</strong> (the <strong>raw output</strong>) before feeding to the activation function.  We leave readers to investigate the effectiveness of <strong>batch normalization</strong> for cases where normalization is necessary after the activation function.</p>
 </div>
 <div id="optimization" class="section level3 hasAnchor">
 <h3><span class="header-section-number">12.3.14</span> Optimization <a href="12.3-multi-layer-perceptron-mlp.html#optimization" class="anchor-section" aria-label="Anchor link to header"></a></h3>

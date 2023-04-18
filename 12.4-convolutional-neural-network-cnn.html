@@ -1636,80 +1636,81 @@ Figure 12.35: CNN (Toy Architecture)
 
 <p>With the structure of the <strong>CNN</strong> layers in place, let us now have our example implementation of <strong>forward pass</strong> for our <strong>CNN</strong>, passing the input and the filters, and yielding a flattened vector as output.</p>
 
-<div class="sourceCode" id="cb2028"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2028-1" data-line-number="1">forward.pass.cnn &lt;-<span class="st"> </span><span class="cf">function</span>(X, layers,  <span class="dt">train=</span><span class="ot">TRUE</span>) {</a>
-<a class="sourceLine" id="cb2028-2" data-line-number="2">  cnn.output   =<span class="st"> </span><span class="kw">list</span>()</a>
-<a class="sourceLine" id="cb2028-3" data-line-number="3">  cache.output =<span class="st"> </span><span class="kw">list</span>()</a>
-<a class="sourceLine" id="cb2028-4" data-line-number="4">  pool.cache   =<span class="st"> </span><span class="kw">list</span>()</a>
-<a class="sourceLine" id="cb2028-5" data-line-number="5">  feature.map =<span class="st"> </span>X</a>
-<a class="sourceLine" id="cb2028-6" data-line-number="6">  H =<span class="st"> </span><span class="kw">length</span>(layers)</a>
-<a class="sourceLine" id="cb2028-7" data-line-number="7">  <span class="cf">for</span> (L <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>H) {</a>
-<a class="sourceLine" id="cb2028-8" data-line-number="8">    layer =<span class="st"> </span>layers[[L]]</a>
-<a class="sourceLine" id="cb2028-9" data-line-number="9">    <span class="cf">if</span> (layer<span class="op">$</span>istype <span class="op">==</span><span class="st"> &quot;convolv&quot;</span>) {</a>
-<a class="sourceLine" id="cb2028-10" data-line-number="10">      fmaps   =<span class="st"> </span><span class="ot">NULL</span>; v =<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb2028-11" data-line-number="11">      conv.output      =<span class="st"> </span><span class="kw">convolution</span>(feature.map,                   </a>
-<a class="sourceLine" id="cb2028-12" data-line-number="12">             <span class="dt">filter    =</span> layer<span class="op">$</span>dw.kernel<span class="op">$</span>weight,</a>
-<a class="sourceLine" id="cb2028-13" data-line-number="13">             <span class="dt">dw.kernel =</span> layer<span class="op">$</span>dw.kernel<span class="op">$</span>weight,</a>
-<a class="sourceLine" id="cb2028-14" data-line-number="14">             <span class="dt">pw.kernel =</span> layer<span class="op">$</span>pw.kernel<span class="op">$</span>weight,</a>
-<a class="sourceLine" id="cb2028-15" data-line-number="15">             <span class="dt">dw.bias   =</span> layer<span class="op">$</span>dw.bias<span class="op">$</span>weight,</a>
-<a class="sourceLine" id="cb2028-16" data-line-number="16">             <span class="dt">pw.bias   =</span> layer<span class="op">$</span>pw.bias<span class="op">$</span>weight,</a>
-<a class="sourceLine" id="cb2028-17" data-line-number="17">             <span class="dt">bias      =</span> layer<span class="op">$</span>bias,</a>
-<a class="sourceLine" id="cb2028-18" data-line-number="18">             <span class="dt">stride    =</span> layer<span class="op">$</span>stride, </a>
-<a class="sourceLine" id="cb2028-19" data-line-number="19">             <span class="dt">padding   =</span> layer<span class="op">$</span>padding,</a>
-<a class="sourceLine" id="cb2028-20" data-line-number="20">             <span class="dt">dil_rate  =</span> layer<span class="op">$</span>dil_rate,</a>
-<a class="sourceLine" id="cb2028-21" data-line-number="21">             <span class="dt">autopad   =</span> <span class="st">&quot;right&quot;</span>,</a>
-<a class="sourceLine" id="cb2028-22" data-line-number="22">             <span class="dt">auto.pad  =</span> <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb2028-23" data-line-number="23">             <span class="dt">afunc     =</span> <span class="ot">NULL</span>)</a>
-<a class="sourceLine" id="cb2028-24" data-line-number="24">      feature.map =<span class="st"> </span>conv.output<span class="op">$</span>feature.map<span class="op">$</span>pw.fmap</a>
-<a class="sourceLine" id="cb2028-25" data-line-number="25">      <span class="co"># Dropout Before Activation</span></a>
-<a class="sourceLine" id="cb2028-26" data-line-number="26">      <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.null</span>(layer<span class="op">$</span>drop) <span class="op">&amp;&amp;</span><span class="st"> </span>train<span class="op">==</span><span class="ot">TRUE</span>) {</a>
-<a class="sourceLine" id="cb2028-27" data-line-number="27">          feature.map =<span class="st"> </span><span class="kw">drop.out</span>(feature.map, layer<span class="op">$</span>drop)</a>
-<a class="sourceLine" id="cb2028-28" data-line-number="28">      }</a>
-<a class="sourceLine" id="cb2028-29" data-line-number="29">      <span class="co"># Activation Before Normalization</span></a>
-<a class="sourceLine" id="cb2028-30" data-line-number="30">      <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.null</span>(layer<span class="op">$</span>afunc)) {</a>
-<a class="sourceLine" id="cb2028-31" data-line-number="31">        feature.map =<span class="st"> </span><span class="kw">activation</span>(feature.map, <span class="kw">get</span>(layer<span class="op">$</span>afunc))</a>
-<a class="sourceLine" id="cb2028-32" data-line-number="32">      }</a>
-<a class="sourceLine" id="cb2028-33" data-line-number="33">      <span class="co"># Normalization After Activation</span></a>
-<a class="sourceLine" id="cb2028-34" data-line-number="34">      <span class="cf">if</span> (layer<span class="op">$</span>batchnorm<span class="op">$</span>normalize <span class="op">!=</span><span class="st"> </span><span class="ot">FALSE</span>) { </a>
-<a class="sourceLine" id="cb2028-35" data-line-number="35">        normalize    =<span class="st"> </span><span class="kw">normalize.forward</span>(feature.map, layer, train)</a>
-<a class="sourceLine" id="cb2028-36" data-line-number="36">        feature.map  =<span class="st"> </span>normalize<span class="op">$</span>feature.map</a>
-<a class="sourceLine" id="cb2028-37" data-line-number="37">        layer        =<span class="st"> </span>normalize<span class="op">$</span>layer</a>
-<a class="sourceLine" id="cb2028-38" data-line-number="38">        layers[[L]]  =<span class="st"> </span>layer</a>
-<a class="sourceLine" id="cb2028-39" data-line-number="39">      }</a>
-<a class="sourceLine" id="cb2028-40" data-line-number="40">      conv.output<span class="op">$</span>featuremap<span class="op">$</span>pw.fmap =<span class="st"> </span>feature.map</a>
-<a class="sourceLine" id="cb2028-41" data-line-number="41">      cnn.output[[L]]   =<span class="st"> </span>conv.output<span class="op">$</span>feature.map</a>
-<a class="sourceLine" id="cb2028-42" data-line-number="42"></a>
-<a class="sourceLine" id="cb2028-43" data-line-number="43">      cache.output[[L]] =<span class="st"> </span>conv.output<span class="op">$</span>bkprop.cache</a>
-<a class="sourceLine" id="cb2028-44" data-line-number="44">    } <span class="cf">else</span> </a>
-<a class="sourceLine" id="cb2028-45" data-line-number="45">    <span class="cf">if</span> (layer<span class="op">$</span>istype <span class="op">==</span><span class="st"> &quot;pooling&quot;</span>) {</a>
-<a class="sourceLine" id="cb2028-46" data-line-number="46">      conv.output =<span class="st"> </span><span class="kw">pooling</span>(feature.map, </a>
-<a class="sourceLine" id="cb2028-47" data-line-number="47">                           <span class="dt">filter  =</span> layer<span class="op">$</span>window,</a>
-<a class="sourceLine" id="cb2028-48" data-line-number="48">                           <span class="dt">stride  =</span> layer<span class="op">$</span>stride, </a>
-<a class="sourceLine" id="cb2028-49" data-line-number="49">                           <span class="dt">padding =</span> layer<span class="op">$</span>padding,</a>
-<a class="sourceLine" id="cb2028-50" data-line-number="50">                           <span class="dt">ptype   =</span> layer<span class="op">$</span>ptype)</a>
-<a class="sourceLine" id="cb2028-51" data-line-number="51">      pmaps             =<span class="st"> </span>conv.output<span class="op">$</span>feature.map </a>
-<a class="sourceLine" id="cb2028-52" data-line-number="52">      feature.map       =<span class="st"> </span>pmaps</a>
-<a class="sourceLine" id="cb2028-53" data-line-number="53">      cnn.output[[L]]   =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;pw.fmap&quot;</span> =<span class="st"> </span>feature.map )</a>
-<a class="sourceLine" id="cb2028-54" data-line-number="54">      cache.output[[L]] =<span class="st"> </span>conv.output<span class="op">$</span>bkprop.cache</a>
-<a class="sourceLine" id="cb2028-55" data-line-number="55">      pool.cache[[L]]   =<span class="st"> </span>conv.output<span class="op">$</span>pool.cache</a>
-<a class="sourceLine" id="cb2028-56" data-line-number="56">    } <span class="cf">else</span></a>
-<a class="sourceLine" id="cb2028-57" data-line-number="57">    <span class="cf">if</span> (layer<span class="op">$</span>istype <span class="op">==</span><span class="st"> &quot;dense&quot;</span>) {</a>
-<a class="sourceLine" id="cb2028-58" data-line-number="58">      di =<span class="st"> </span><span class="kw">dim</span>(feature.map)</a>
-<a class="sourceLine" id="cb2028-59" data-line-number="59">      feature.map =<span class="st">  </span><span class="kw">t</span>(<span class="kw">array</span>(feature.map, <span class="kw">c</span>( di[<span class="dv">1</span>] <span class="op">*</span><span class="st"> </span>di[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>di[<span class="dv">3</span>], di[<span class="dv">4</span>])))</a>
-<a class="sourceLine" id="cb2028-60" data-line-number="60">      <span class="cf">if</span> (layer<span class="op">$</span>init <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>) {</a>
-<a class="sourceLine" id="cb2028-61" data-line-number="61">          fclayers             =<span class="st"> </span>layer<span class="op">$</span>fc.layers</a>
-<a class="sourceLine" id="cb2028-62" data-line-number="62">          fclayers[[<span class="st">&quot;X&quot;</span>]]      =<span class="st"> </span>feature.map</a>
-<a class="sourceLine" id="cb2028-63" data-line-number="63">          dnn =<span class="st"> </span><span class="kw">do.call</span>(deep.neural.layers, fclayers)</a>
-<a class="sourceLine" id="cb2028-64" data-line-number="64">          layers[[L]]<span class="op">$</span>fc.layers =<span class="st"> </span>dnn<span class="op">$</span>layers</a>
-<a class="sourceLine" id="cb2028-65" data-line-number="65">          layers[[L]]<span class="op">$</span>init      =<span class="st"> </span><span class="ot">FALSE</span></a>
-<a class="sourceLine" id="cb2028-66" data-line-number="66">      } </a>
-<a class="sourceLine" id="cb2028-67" data-line-number="67">      fc.layers =<span class="st"> </span>layers[[L]]<span class="op">$</span>fc.layers</a>
-<a class="sourceLine" id="cb2028-68" data-line-number="68">      fc.model  =<span class="st"> </span><span class="kw">forward.pass</span>(feature.map, fc.layers, <span class="dt">afunc=</span><span class="st">&quot;softmax&quot;</span>) </a>
-<a class="sourceLine" id="cb2028-69" data-line-number="69">    }</a>
-<a class="sourceLine" id="cb2028-70" data-line-number="70">  }  </a>
-<a class="sourceLine" id="cb2028-71" data-line-number="71">  <span class="kw">list</span>(<span class="st">&quot;cnn.output&quot;</span>   =<span class="st"> </span>cnn.output,        <span class="st">&quot;flattened.output&quot;</span> =<span class="st"> </span>feature.map,</a>
-<a class="sourceLine" id="cb2028-72" data-line-number="72">       <span class="st">&quot;cache.output&quot;</span> =<span class="st"> </span>cache.output,      <span class="st">&quot;pool.cache&quot;</span>       =<span class="st"> </span>pool.cache,</a>
-<a class="sourceLine" id="cb2028-73" data-line-number="73">       <span class="st">&quot;fc.model&quot;</span>    =<span class="st"> </span>fc.model ,          <span class="st">&quot;layers&quot;</span>           =<span class="st"> </span>layers)</a>
-<a class="sourceLine" id="cb2028-74" data-line-number="74">}</a></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb248-1" data-line-number="1">forward.pass.cnn &lt;-<span class="st"> </span><span class="cf">function</span>(X, layers,  <span class="dt">train=</span><span class="ot">TRUE</span>) {</a>
+<a class="sourceLine" id="cb248-2" data-line-number="2">  cnn.output   =<span class="st"> </span><span class="kw">list</span>()</a>
+<a class="sourceLine" id="cb248-3" data-line-number="3">  cache.output =<span class="st"> </span><span class="kw">list</span>()</a>
+<a class="sourceLine" id="cb248-4" data-line-number="4">  pool.cache   =<span class="st"> </span><span class="kw">list</span>()</a>
+<a class="sourceLine" id="cb248-5" data-line-number="5">  feature.map =<span class="st"> </span>X</a>
+<a class="sourceLine" id="cb248-6" data-line-number="6">  H =<span class="st"> </span><span class="kw">length</span>(layers)</a>
+<a class="sourceLine" id="cb248-7" data-line-number="7">  <span class="cf">for</span> (L <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>H) {</a>
+<a class="sourceLine" id="cb248-8" data-line-number="8">    layer =<span class="st"> </span>layers[[L]]</a>
+<a class="sourceLine" id="cb248-9" data-line-number="9">    <span class="cf">if</span> (layer<span class="op">$</span>istype <span class="op">==</span><span class="st"> &quot;convolv&quot;</span>) {</a>
+<a class="sourceLine" id="cb248-10" data-line-number="10">      fmaps   =<span class="st"> </span><span class="ot">NULL</span>; v =<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb248-11" data-line-number="11">      conv.output      =<span class="st"> </span><span class="kw">convolution</span>(feature.map,                   </a>
+<a class="sourceLine" id="cb248-12" data-line-number="12">             <span class="dt">filter    =</span> layer<span class="op">$</span>dw.kernel<span class="op">$</span>weight,</a>
+<a class="sourceLine" id="cb248-13" data-line-number="13">             <span class="dt">dw.kernel =</span> layer<span class="op">$</span>dw.kernel<span class="op">$</span>weight,</a>
+<a class="sourceLine" id="cb248-14" data-line-number="14">             <span class="dt">pw.kernel =</span> layer<span class="op">$</span>pw.kernel<span class="op">$</span>weight,</a>
+<a class="sourceLine" id="cb248-15" data-line-number="15">             <span class="dt">dw.bias   =</span> layer<span class="op">$</span>dw.bias<span class="op">$</span>weight,</a>
+<a class="sourceLine" id="cb248-16" data-line-number="16">             <span class="dt">pw.bias   =</span> layer<span class="op">$</span>pw.bias<span class="op">$</span>weight,</a>
+<a class="sourceLine" id="cb248-17" data-line-number="17">             <span class="dt">bias      =</span> layer<span class="op">$</span>bias,</a>
+<a class="sourceLine" id="cb248-18" data-line-number="18">             <span class="dt">stride    =</span> layer<span class="op">$</span>stride, </a>
+<a class="sourceLine" id="cb248-19" data-line-number="19">             <span class="dt">padding   =</span> layer<span class="op">$</span>padding,</a>
+<a class="sourceLine" id="cb248-20" data-line-number="20">             <span class="dt">dil_rate  =</span> layer<span class="op">$</span>dil_rate,</a>
+<a class="sourceLine" id="cb248-21" data-line-number="21">             <span class="dt">autopad   =</span> <span class="st">&quot;right&quot;</span>,</a>
+<a class="sourceLine" id="cb248-22" data-line-number="22">             <span class="dt">auto.pad  =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb248-23" data-line-number="23">             <span class="dt">afunc     =</span> <span class="ot">NULL</span>)</a>
+<a class="sourceLine" id="cb248-24" data-line-number="24">      feature.map =<span class="st"> </span>conv.output<span class="op">$</span>feature.map<span class="op">$</span>pw.fmap</a>
+<a class="sourceLine" id="cb248-25" data-line-number="25">      <span class="co"># Dropout Before Activation</span></a>
+<a class="sourceLine" id="cb248-26" data-line-number="26">      <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.null</span>(layer<span class="op">$</span>drop) <span class="op">&amp;&amp;</span><span class="st"> </span>train<span class="op">==</span><span class="ot">TRUE</span>) {</a>
+<a class="sourceLine" id="cb248-27" data-line-number="27">          feature.map =<span class="st"> </span><span class="kw">drop.out</span>(feature.map, layer<span class="op">$</span>drop)</a>
+<a class="sourceLine" id="cb248-28" data-line-number="28">      }</a>
+<a class="sourceLine" id="cb248-29" data-line-number="29"></a>
+<a class="sourceLine" id="cb248-30" data-line-number="30">      <span class="co"># Normalization Before Activation</span></a>
+<a class="sourceLine" id="cb248-31" data-line-number="31">      <span class="cf">if</span> (layer<span class="op">$</span>batchnorm<span class="op">$</span>normalize <span class="op">!=</span><span class="st"> </span><span class="ot">FALSE</span>) { </a>
+<a class="sourceLine" id="cb248-32" data-line-number="32">        normalize    =<span class="st"> </span><span class="kw">normalize.forward</span>(feature.map, layer, train)</a>
+<a class="sourceLine" id="cb248-33" data-line-number="33">        feature.map  =<span class="st"> </span>normalize<span class="op">$</span>feature.map</a>
+<a class="sourceLine" id="cb248-34" data-line-number="34">        layer        =<span class="st"> </span>normalize<span class="op">$</span>layer</a>
+<a class="sourceLine" id="cb248-35" data-line-number="35">        layers[[L]]  =<span class="st"> </span>layer</a>
+<a class="sourceLine" id="cb248-36" data-line-number="36">      }</a>
+<a class="sourceLine" id="cb248-37" data-line-number="37">      <span class="co"># Activation After Normalization</span></a>
+<a class="sourceLine" id="cb248-38" data-line-number="38">      <span class="cf">if</span> (<span class="op">!</span><span class="kw">is.null</span>(layer<span class="op">$</span>afunc)) {</a>
+<a class="sourceLine" id="cb248-39" data-line-number="39">        feature.map =<span class="st"> </span><span class="kw">activation</span>(feature.map, <span class="kw">get</span>(layer<span class="op">$</span>afunc))</a>
+<a class="sourceLine" id="cb248-40" data-line-number="40">      }</a>
+<a class="sourceLine" id="cb248-41" data-line-number="41">      conv.output<span class="op">$</span>featuremap<span class="op">$</span>pw.fmap =<span class="st"> </span>feature.map</a>
+<a class="sourceLine" id="cb248-42" data-line-number="42">      cnn.output[[L]]   =<span class="st"> </span>conv.output<span class="op">$</span>feature.map</a>
+<a class="sourceLine" id="cb248-43" data-line-number="43"></a>
+<a class="sourceLine" id="cb248-44" data-line-number="44">      cache.output[[L]] =<span class="st"> </span>conv.output<span class="op">$</span>bkprop.cache</a>
+<a class="sourceLine" id="cb248-45" data-line-number="45">    } <span class="cf">else</span> </a>
+<a class="sourceLine" id="cb248-46" data-line-number="46">    <span class="cf">if</span> (layer<span class="op">$</span>istype <span class="op">==</span><span class="st"> &quot;pooling&quot;</span>) {</a>
+<a class="sourceLine" id="cb248-47" data-line-number="47">      conv.output =<span class="st"> </span><span class="kw">pooling</span>(feature.map, </a>
+<a class="sourceLine" id="cb248-48" data-line-number="48">                           <span class="dt">filter  =</span> layer<span class="op">$</span>window,</a>
+<a class="sourceLine" id="cb248-49" data-line-number="49">                           <span class="dt">stride  =</span> layer<span class="op">$</span>stride, </a>
+<a class="sourceLine" id="cb248-50" data-line-number="50">                           <span class="dt">padding =</span> layer<span class="op">$</span>padding,</a>
+<a class="sourceLine" id="cb248-51" data-line-number="51">                           <span class="dt">ptype   =</span> layer<span class="op">$</span>ptype)</a>
+<a class="sourceLine" id="cb248-52" data-line-number="52">      pmaps             =<span class="st"> </span>conv.output<span class="op">$</span>feature.map </a>
+<a class="sourceLine" id="cb248-53" data-line-number="53">      feature.map       =<span class="st"> </span>pmaps</a>
+<a class="sourceLine" id="cb248-54" data-line-number="54">      cnn.output[[L]]   =<span class="st"> </span><span class="kw">list</span>(<span class="st">&quot;pw.fmap&quot;</span> =<span class="st"> </span>feature.map )</a>
+<a class="sourceLine" id="cb248-55" data-line-number="55">      cache.output[[L]] =<span class="st"> </span>conv.output<span class="op">$</span>bkprop.cache</a>
+<a class="sourceLine" id="cb248-56" data-line-number="56">      pool.cache[[L]]   =<span class="st"> </span>conv.output<span class="op">$</span>pool.cache</a>
+<a class="sourceLine" id="cb248-57" data-line-number="57">    } <span class="cf">else</span></a>
+<a class="sourceLine" id="cb248-58" data-line-number="58">    <span class="cf">if</span> (layer<span class="op">$</span>istype <span class="op">==</span><span class="st"> &quot;dense&quot;</span>) {</a>
+<a class="sourceLine" id="cb248-59" data-line-number="59">      di =<span class="st"> </span><span class="kw">dim</span>(feature.map)</a>
+<a class="sourceLine" id="cb248-60" data-line-number="60">      feature.map =<span class="st">  </span><span class="kw">t</span>(<span class="kw">array</span>(feature.map, <span class="kw">c</span>( di[<span class="dv">1</span>] <span class="op">*</span><span class="st"> </span>di[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span>di[<span class="dv">3</span>], di[<span class="dv">4</span>])))</a>
+<a class="sourceLine" id="cb248-61" data-line-number="61">      <span class="cf">if</span> (layer<span class="op">$</span>init <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>) {</a>
+<a class="sourceLine" id="cb248-62" data-line-number="62">          fclayers             =<span class="st"> </span>layer<span class="op">$</span>fc.layers</a>
+<a class="sourceLine" id="cb248-63" data-line-number="63">          fclayers[[<span class="st">&quot;X&quot;</span>]]      =<span class="st"> </span>feature.map</a>
+<a class="sourceLine" id="cb248-64" data-line-number="64">          dnn =<span class="st"> </span><span class="kw">do.call</span>(deep.neural.layers, fclayers)</a>
+<a class="sourceLine" id="cb248-65" data-line-number="65">          layers[[L]]<span class="op">$</span>fc.layers =<span class="st"> </span>dnn<span class="op">$</span>layers</a>
+<a class="sourceLine" id="cb248-66" data-line-number="66">          layers[[L]]<span class="op">$</span>init      =<span class="st"> </span><span class="ot">FALSE</span></a>
+<a class="sourceLine" id="cb248-67" data-line-number="67">      } </a>
+<a class="sourceLine" id="cb248-68" data-line-number="68">      fc.layers =<span class="st"> </span>layers[[L]]<span class="op">$</span>fc.layers</a>
+<a class="sourceLine" id="cb248-69" data-line-number="69">      fc.model  =<span class="st"> </span><span class="kw">forward.pass</span>(feature.map, fc.layers, <span class="dt">afunc=</span><span class="st">&quot;softmax&quot;</span>) </a>
+<a class="sourceLine" id="cb248-70" data-line-number="70">    }</a>
+<a class="sourceLine" id="cb248-71" data-line-number="71">  }  </a>
+<a class="sourceLine" id="cb248-72" data-line-number="72">  <span class="kw">list</span>(<span class="st">&quot;cnn.output&quot;</span>   =<span class="st"> </span>cnn.output,        <span class="st">&quot;flattened.output&quot;</span> =<span class="st"> </span>feature.map,</a>
+<a class="sourceLine" id="cb248-73" data-line-number="73">       <span class="st">&quot;cache.output&quot;</span> =<span class="st"> </span>cache.output,      <span class="st">&quot;pool.cache&quot;</span>       =<span class="st"> </span>pool.cache,</a>
+<a class="sourceLine" id="cb248-74" data-line-number="74">       <span class="st">&quot;fc.model&quot;</span>    =<span class="st"> </span>fc.model ,          <span class="st">&quot;layers&quot;</span>           =<span class="st"> </span>layers)</a>
+<a class="sourceLine" id="cb248-75" data-line-number="75">}</a></code></pre></div>
 
 <p>Assume a tiny <span class="math inline">\(15 \times 15\)</span> image of depth 3 (RGB channels). Let us run a forward pass using the generated layers.</p>
 
@@ -2884,7 +2885,7 @@ Figure 12.47: CNN PLOT
 </p>
 </div>
 
-<p>Notice in the figure that we trained only 250 images. It is worth noting that our <strong>CNN</strong> implementation indeed demonstrates the ability to train. We can shoot up to 96.8% (even up to 100%) <strong>top-1</strong> train accuracy. However, if we perform prediction, we may see our <strong>top-1</strong> test accuracy as low as 20%. That is because there is insufficient data to train; thus, we are overfitting the train data.</p>
+<p>Notice in the figure that we trained only 250 images. It is worth noting that our <strong>CNN</strong> implementation indeed demonstrates the ability to train. We can shoot up to 80.8% <strong>top-1</strong> train accuracy. However, if we perform prediction, we may see our <strong>top-1</strong> test accuracy as low as 20%. That is because there is insufficient data to train; thus, we are overfitting the train data.</p>
 <p>For illustration, we performed several iterations over time to achieve a better train and test accuracy using the entire 50,000 images. Our model was trained with a <strong>top-1</strong> train accuracy of 94.20% after epoch 22 for 50000 cifar-10 images, which took 19.8 hours with an average lag time of 3750 seconds per epoch using only four CPUs (from quad-core) with no GPU support. Here, we show how we can use our saved model:</p>
 
 <div class="sourceCode" id="cb2066"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2066-1" data-line-number="1">transfer.cnn.model =<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;transfer_model.rds&quot;</span>) </a></code></pre></div>
