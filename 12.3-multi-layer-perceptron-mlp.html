@@ -2700,13 +2700,14 @@ Figure 12.15: MLP Plot
 
 <p>See a plot of the <strong>COST</strong> for the model in Figure <a href="12.3-multi-layer-perceptron-mlp.html#fig:mlpplotdc">12.16</a>.</p>
 
-<div class="sourceCode" id="cb1887"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1887-1" data-line-number="1">x =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">length</span>(mlp.model.deep<span class="op">$</span>cost))</a>
-<a class="sourceLine" id="cb1887-2" data-line-number="2">y =<span class="st"> </span>mlp.model.deep<span class="op">$</span>cost</a>
-<a class="sourceLine" id="cb1887-3" data-line-number="3"><span class="kw">plot</span>(<span class="ot">NULL</span>, <span class="dt">xlim=</span><span class="kw">range</span>(x), <span class="dt">ylim=</span><span class="kw">range</span>(y),   <span class="dt">xlab=</span><span class="st">&quot;ITERATION&quot;</span>,  <span class="dt">ylab=</span><span class="st">&quot;COST&quot;</span>,   </a>
-<a class="sourceLine" id="cb1887-4" data-line-number="4">     <span class="dt">main=</span><span class="st">&quot;DNN Plot (Gradient Clipping)&quot;</span>,  <span class="dt">frame=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb1887-5" data-line-number="5"><span class="kw">grid</span>(<span class="dt">lty=</span><span class="dv">3</span>, <span class="dt">col=</span><span class="st">&quot;lightgrey&quot;</span>) </a>
-<a class="sourceLine" id="cb1887-6" data-line-number="6">color =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;darksalmon&quot;</span>, <span class="st">&quot;brown&quot;</span>)</a>
-<a class="sourceLine" id="cb1887-7" data-line-number="7"><span class="kw">lines</span>(x, y, <span class="dt">col=</span>color[<span class="dv">1</span>], <span class="dt">lwd=</span><span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" data-line-number="1">cost =<span class="st"> </span>mlp.model.deep<span class="op">$</span>cost[<span class="op">-</span><span class="dv">1</span><span class="op">:-</span><span class="dv">100</span>]  <span class="co"># exclude first iterations</span></a>
+<a class="sourceLine" id="cb107-2" data-line-number="2">x =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">length</span>(cost))</a>
+<a class="sourceLine" id="cb107-3" data-line-number="3">y =<span class="st"> </span>cost</a>
+<a class="sourceLine" id="cb107-4" data-line-number="4"><span class="kw">plot</span>(<span class="ot">NULL</span>, <span class="dt">xlim=</span><span class="kw">range</span>(x), <span class="dt">ylim=</span><span class="kw">range</span>(y),   <span class="dt">xlab=</span><span class="st">&quot;ITERATION&quot;</span>,  <span class="dt">ylab=</span><span class="st">&quot;COST&quot;</span>,   </a>
+<a class="sourceLine" id="cb107-5" data-line-number="5">     <span class="dt">main=</span><span class="st">&quot;DNN Plot (Gradient Clipping)&quot;</span>,  <span class="dt">frame=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb107-6" data-line-number="6"><span class="kw">grid</span>(<span class="dt">lty=</span><span class="dv">3</span>, <span class="dt">col=</span><span class="st">&quot;lightgrey&quot;</span>) </a>
+<a class="sourceLine" id="cb107-7" data-line-number="7">color =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;darksalmon&quot;</span>, <span class="st">&quot;brown&quot;</span>)</a>
+<a class="sourceLine" id="cb107-8" data-line-number="8"><span class="kw">lines</span>(x, y, <span class="dt">col=</span>color[<span class="dv">1</span>], <span class="dt">lwd=</span><span class="dv">2</span>)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:mlpplotdc"></span>
 <img src="DS_files/figure-html/mlpplotdc-1.png" alt="DNN Plot (Gradient Clipping)" width="70%" />
 <p class="caption">
@@ -2731,6 +2732,7 @@ Figure 12.16: DNN Plot (Gradient Clipping)
 ## [10,] 0.42822478 0.62822478 0.56 0.50</code></pre>
 
 <p>The important note is that we can avoid the <strong>exploding gradient</strong> by clipping our <strong>gradients</strong>. At the same time, we should still be able to obtain higher performance by adjusting the learning rate, epoch limit, and tolerance level. Additionally, notice that our <strong>minimum and maximum thresholds</strong> are hand-selected for our clips. The chosen values are heuristically obtained. However, other literature may provide better ways to derive such thresholds automatically. We leave readers to investigate such techniques.</p>
+<p>Notice in our code for the graph that we removed the first few iterations as they render a very large cost. That is because we did not anticipate a close estimate of our initial weights. In the next section, we cover parameter initialization that helps us perform better initialization estimates.</p>
 </div>
 <div id="parameter-initialization" class="section level3 hasAnchor">
 <h3><span class="header-section-number">12.3.11</span> Parameter Initialization <a href="12.3-multi-layer-perceptron-mlp.html#parameter-initialization" class="anchor-section" aria-label="Anchor link to header"></a></h3>
