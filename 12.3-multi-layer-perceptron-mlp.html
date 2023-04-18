@@ -2700,7 +2700,7 @@ Figure 12.15: MLP Plot
 
 <p>See a plot of the <strong>COST</strong> for the model in Figure <a href="12.3-multi-layer-perceptron-mlp.html#fig:mlpplotdc">12.16</a>.</p>
 
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" data-line-number="1">cost =<span class="st"> </span>mlp.model.deep<span class="op">$</span>cost[<span class="op">-</span><span class="dv">1</span><span class="op">:-</span><span class="dv">100</span>]  <span class="co"># exclude first iterations</span></a>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" data-line-number="1">cost =<span class="st"> </span>mlp.model.deep<span class="op">$</span>cost[<span class="op">-</span><span class="dv">1</span><span class="op">:-</span><span class="dv">65</span>]  <span class="co"># exclude first iterations</span></a>
 <a class="sourceLine" id="cb107-2" data-line-number="2">x =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">length</span>(cost))</a>
 <a class="sourceLine" id="cb107-3" data-line-number="3">y =<span class="st"> </span>cost</a>
 <a class="sourceLine" id="cb107-4" data-line-number="4"><span class="kw">plot</span>(<span class="ot">NULL</span>, <span class="dt">xlim=</span><span class="kw">range</span>(x), <span class="dt">ylim=</span><span class="kw">range</span>(y),   <span class="dt">xlab=</span><span class="st">&quot;ITERATION&quot;</span>,  <span class="dt">ylab=</span><span class="st">&quot;COST&quot;</span>,   </a>
