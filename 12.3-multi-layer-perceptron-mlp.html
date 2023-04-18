@@ -3301,7 +3301,7 @@ h^{(norm)}_i = \frac{h_i - \vec{\mu}_B}{\sqrt{\vec{\sigma^2}_B + \epsilon}}  \ta
 ## X1 0.011910041   -1   -1 -0.18591176    1
 ## X2 0.016637621   -1   -1 -0.32358615    1</code></pre>
 
-<p>The model with <strong>Batch Normalization</strong> seems to oscillate, which may be due to the use of small-size batches; otherwise, adjust the hyperparameters.  See Figure <a href="12.3-multi-layer-perceptron-mlp.html#fig:mlpplot2">12.20</a>.</p>
+<p>Notice that the model with <strong>Batch Normalization</strong> shows some jittering, possibly due to the use of small-sized batches. However, this behavior does not necessarily indicate bad normalization. Otherwise, adjust the hyperparameters and batch sizes.  See Figure <a href="12.3-multi-layer-perceptron-mlp.html#fig:mlpplot2">12.20</a>.</p>
 
 <div class="sourceCode" id="cb1968"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1968-1" data-line-number="1">x =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">length</span>(mlp.model.noBN<span class="op">$</span>cost))</a>
 <a class="sourceLine" id="cb1968-2" data-line-number="2"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</a>
