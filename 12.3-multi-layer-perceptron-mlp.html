@@ -2732,7 +2732,7 @@ Figure 12.16: DNN Plot (Gradient Clipping)
 ## [10,] 0.42822478 0.62822478 0.56 0.50</code></pre>
 
 <p>The important note is that we can avoid the <strong>exploding gradient</strong> by clipping our <strong>gradients</strong>. At the same time, we should still be able to obtain higher performance by adjusting the learning rate, epoch limit, and tolerance level. Additionally, notice that our <strong>minimum and maximum thresholds</strong> are hand-selected for our clips. The chosen values are heuristically obtained. However, other literature may provide better ways to derive such thresholds automatically. We leave readers to investigate such techniques.</p>
-<p>Notice in our code for the graph that we removed the first few iterations as they render a very large cost. That is because we did not anticipate a close estimate of our initial weights. In the next section, we cover parameter initialization that helps us perform better initialization estimates.</p>
+<p>Notice in our code for the graph that we did not show the first few iterations as they render a very large cost. That is because we did not anticipate a close estimate of our initial weights. In the next section, we cover parameter initialization that helps us perform better initialization estimates.</p>
 </div>
 <div id="parameter-initialization" class="section level3 hasAnchor">
 <h3><span class="header-section-number">12.3.11</span> Parameter Initialization <a href="12.3-multi-layer-perceptron-mlp.html#parameter-initialization" class="anchor-section" aria-label="Anchor link to header"></a></h3>
