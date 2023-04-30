@@ -784,23 +784,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="residual-network-resnet" class="section level2 hasAnchor">
 <h2><span class="header-section-number">13.1</span> Residual Network (ResNet)  <a href="13.1-residual-network-resnet.html#residual-network-resnet" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Recall in <strong>MLP</strong> and <strong>CNN</strong> that <strong>DropOut</strong> is one of the strategies we use to inject regularization into the network. The idea is to push the output of randomly selected neurons to zero, thus negating their effects on subsequent layers. Doing so also helps to generalize our model. In essence, <strong>DropOut</strong> by its description, is a type of a <strong>skip connection</strong> strategy.</p>
-<p>There is another <strong>skip connection</strong> strategy called <strong>residual connection</strong> as introduced in <strong>ResNet</strong> architecture. To illustrate, let us use Figure <a href="13.1-residual-network-resnet.html#fig:resnetunit">13.1</a>.</p>
+<p>
+Recall in <strong>MLP</strong> and <strong>CNN</strong> that <strong>DropOut</strong> is one of the strategies we use to inject regularization into the network. The idea is to push the output of randomly selected neurons to zero, thus negating their effects on subsequent layers. Doing so also helps to generalize our model.  On the other hand, <strong>Residual Network (ResNet)</strong> introduces the concept of <strong>skip connection</strong> or <strong>residual connection</strong> <span class="citation">(He, K., Zhang, X., Ren, S., & Sun, J. <a href="bibliography.html#ref-ref1186a">2016</a>)</span>.  The idea is to pass information (the input) from one layer to another layer by combining the input information to the output information of the receiving layer. This added information attempts to preserve the original information through stacks of layers, preventing gradients from vanishing or exploding during backpropagation. See Figure <a href="13.1-residual-network-resnet.html#fig:resnetunit">13.1</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:resnetunit"></span>
 <img src="resnetunit.png" alt="Residual Network (ResNet) Unit" width="70%" />
 <p class="caption">
 Figure 13.1: Residual Network (ResNet) Unit
 </p>
 </div>
-<p>There are two ways to visualize <strong>ResNet</strong>. In the figure, the left diagram can be perceived in such a way that a connection skips a network block (or a set of network blocks) and directly adds <strong>X</strong> to the output, <strong>f(X)</strong>, of the network block(s). The correct diagram can be perceived such that a residual block is added to the network. The residual output, <strong>R(X)</strong>, is added to <strong>X</strong>, and by doing so, we allow the network to learn the residual.</p>
-<p>A slightly complex architecture is shown in Figure <a href="13.1-residual-network-resnet.html#fig:resnet">13.2</a>. However, the architecture is still simpler than known architectures such as <strong>ResNet152</strong>. Nevertheless, there is no limit to our creativity as long as we design a neural network architecture that we see fits our purposes and expectations.</p>
+<p>In the figure, the  diagram can be interpreted in such a way that a connection skips a network block (or a set of network blocks) and directly adds the input, <strong>X</strong>, to the output, <strong>f(X)</strong>, of the network block(s).  The residual, <strong>R(x)</strong>,  is the sum of the input and the output. By doing so, we allow the network to learn the residual.</p>
+<p>A possible  architecture (though for illustration purpose only) is shown in Figure <a href="13.1-residual-network-resnet.html#fig:resnet">13.2</a>. However, the architecture is still simpler than known architectures such as <strong>ResNet152</strong>. Nevertheless, there is no limit to our creativity as long as we design a neural network architecture that we see fits our purposes and expectations.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:resnet"></span>
 <img src="resnet.png" alt="Residual Network (ResNet) Architecture" width="70%" />
 <p class="caption">
 Figure 13.2: Residual Network (ResNet) Architecture
 </p>
 </div>
-<p>The placement of the <strong>skip connection</strong> and the <strong>residual block</strong> size varies depending on the design. For example, extending the connection right after the weight layer is possible but before the activation function. The size of the <strong>residual block</strong> is dictated by the number of layers we skip.</p>
+<p>The placement and size of the <strong>residual block</strong> varies depending on the design and is dictated by the number of layers we skip.</p>
 <p>We skip showing an implementation of <strong>ResNet</strong> in this section. On the other hand, let us discuss <strong>RNN</strong> next which shows a case of a <strong>skip connection</strong>, but more importantly, in addition to that, it also introduces the concept of <strong>gated connections</strong>, which regulate the flow of information apart from only considering the effect of residuals.</p>
 </div>
             </section>
