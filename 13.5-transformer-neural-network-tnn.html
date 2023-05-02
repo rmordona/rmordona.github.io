@@ -1036,9 +1036,9 @@ Figure 13.22: Multi-Head Attention
 <p>Having multi-head attention comes from the fact that a single sentence (an input sequence) may contain multiple aspects or perspectives. In analogy, each attention head is similar to a convolution filter in <strong>CNN</strong> designed to capture different features of an image. Similarly, each attention head can focus on different aspects or perspectives of an input sequence.  So, for example, we can break our  example sentence in the previous section into three possible aspects like so:</p>
 <p><span class="math display">\[
 \begin{array}{lll}
-\mathbf{\text{context 1}} &amp;\rightarrow\ \text{I travel the world} &amp; \ \ \ \ (\text{traveling aspect})\\
-\mathbf{\text{context 2}} &amp;\rightarrow\ \text{search for the fountain} &amp; \ \ \ \ (\text{searching aspect})\\
-\mathbf{\text{context 3}} &amp;\rightarrow\ \text{fountain of youth} &amp; \ \ \ \ (\text{magical aspect})
+\mathbf{\text{aspect 1}} &amp;\rightarrow\ \text{I travel the world} &amp; \ \ \ \ (\text{traveling aspect})\\
+\mathbf{\text{aspect 2}} &amp;\rightarrow\ \text{search for the fountain} &amp; \ \ \ \ (\text{searching aspect})\\
+\mathbf{\text{aspect 3}} &amp;\rightarrow\ \text{fountain of youth} &amp; \ \ \ \ (\text{magical aspect})
 \end{array}
 \]</span></p>
 <p>We may allow each of three <strong>attention</strong> heads to focus on a different aspect of the input sequence. We can choose to use even more heads if we <strong>feel</strong> that there are more hidden aspects. Each head uses a set of <strong>Q</strong>, <strong>K</strong>, <strong>V</strong> matrices containing learned parameters to attend to different aspect.</p>
