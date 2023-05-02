@@ -1033,15 +1033,15 @@ c_i = \sum \alpha_i \cdot v_i  \tag{13.93}
 Figure 13.22: Multi-Head Attention
 </p>
 </div>
-<p>Having multi-head attention comes from the fact that a single sentence may contain multiple contexts. So, for example, we can break our example sentence in the previous section into three possible contexts like so:</p>
+<p>Having multi-head attention comes from the fact that a single sentence (an input sequence) may contain multiple aspects or perspectives. In analogy, each attention head is similar to a convolution filter in <strong>CNN</strong> designed to capture different features of an image. Similarly, each attention head can focus on different aspects or perspectives of an input sequence.  So, for example, we can break our  example sentence in the previous section into three possible aspects like so:</p>
 <p><span class="math display">\[
-\begin{array}{ll}
-\mathbf{\text{context 1}} &amp;\rightarrow\ \text{I travel the world}\\
-\mathbf{\text{context 2}} &amp;\rightarrow\ \text{search for the fountain}\\
-\mathbf{\text{context 3}} &amp;\rightarrow\ \text{fountain of youth}
+\begin{array}{lll}
+\mathbf{\text{context 1}} &amp;\rightarrow\ \text{I travel the world} &amp; \ \ \ \ (\text{traveling aspect})\\
+\mathbf{\text{context 2}} &amp;\rightarrow\ \text{search for the fountain} &amp; \ \ \ \ (\text{searching aspect})\\
+\mathbf{\text{context 3}} &amp;\rightarrow\ \text{fountain of youth} &amp; \ \ \ \ (\text{magical aspect})
 \end{array}
 \]</span></p>
-<p>The three contexts may require us to create three <strong>attention</strong> heads. We can choose to use even more heads if we <strong>feel</strong> that there are more hidden contexts (perhaps we can do so heuristically). Each context delivers a set of <strong>Q</strong>, <strong>K</strong>, <strong>V</strong> matrices containing learned parameters.</p>
+<p>We may allow each of three <strong>attention</strong> heads to focus on a different aspect of the input sequence. We can choose to use even more heads if we <strong>feel</strong> that there are more hidden aspects. Each head uses a set of <strong>Q</strong>, <strong>K</strong>, <strong>V</strong> matrices containing learned parameters to attend to different aspect.</p>
 <p>In terms of computation, notice in the figure that each of the three instances of the embedding, namely <strong>q</strong>, <strong>k</strong>, and <strong>v</strong>, runs through matrix multiplication with each corresponding matrix. Because we are dealing with three attention heads for the three contexts in our example above, it means that <strong>q</strong> gets multiplied with <strong>Q1</strong>, <strong>Q2</strong>, and <strong>Q3</strong> matrices, resulting in three <strong>score matrices</strong>. Similarly, <strong>k</strong> gets multiplied with <strong>K1</strong>, <strong>K2</strong>, and <strong>K3</strong> matrices, resulting in three <strong>score matrices</strong>. The same applies to <strong>v</strong>. Next, the scores are scaled using a normalizer, e.g., <span class="math inline">\(\sqrt{d_k}\)</span>, followed by <strong>softmax</strong> to derive the attention weights - or attention probabilities. The final context is obtained by performing another matrix multiplication between the output of the <strong>softmax</strong> and the output of the score matrices from <strong>v</strong> and the three <strong>V</strong> matrices. For example, in the multi-head attention, the softmax accepts the following input:</p>
 <p><span class="math display" id="eq:equate1150091">\[\begin{align}
 \text{attention}(Q,K,V) = \text{softmax}\left(\frac{QK^\text{T}}{\sqrt{d_k}}\right)\cdot V  \tag{13.94} 
