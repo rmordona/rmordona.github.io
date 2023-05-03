@@ -792,36 +792,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <caption><span id="tab:nicevariables1">Table 9.34: </span>Variables</caption>
 <thead>
 <tr class="header">
-<th align="left">Answer</th>
 <th align="left">Question</th>
+<th align="left">Answer</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Dependent variable</td>
 <td align="left">Independent variables</td>
+<td align="left">Dependent variable</td>
 </tr>
 <tr class="even">
-<td align="left">Response variable (Variate)</td>
 <td align="left">Predictor variables (Regressor / Covariate)</td>
+<td align="left">Response variable (Variate)</td>
 </tr>
 <tr class="odd">
-<td align="left">Explained variable</td>
 <td align="left">Explanatory variables</td>
+<td align="left">Explained variable</td>
 </tr>
 <tr class="even">
-<td align="left">Label</td>
 <td align="left">Features</td>
+<td align="left">Label</td>
 </tr>
 <tr class="odd">
+<td align="left">Input</td>
 <td align="left">Output</td>
-<td align="left">Inputs</td>
 </tr>
 </tbody>
 </table>
-<p>Barring statistics for a moment, we can treat features as traits, characteristics, or properties of entities. They describe the profile or personality of entities. For example, the weather has properties such as humidity, temperature, and wind velocity. Another example is a person with unique traits and characteristics that embody the personality of the individual. With machine learning data, we also need to give a name for the person. In other words, we need to label the personality. In essence, a label represents an object’s attributes. While we explain this concept using objects, machine learning data is not limited to just characterizing an object. We can treat features also in terms of inputs that result in an output (the label). As in statistics, any input may have the quality of being observable and measurable and thus can result in a definitive output that can be labeled. For example, humidity, temperature, and wind velocity are inputs (features) in our study of the effect of climate change. The effect of climate change represents the focus of our study and our labeling efforts.</p>
-<p>Recall that while we are interested in data that is only observable and measurable entities, we prefer to narrow down data into features that contribute significance and relevance for analysis in data science. Here, it is important to note that not all such attributes or features can <strong>contribute</strong> or <strong>influence</strong>; therefore, we have algorithms that reduce the number of <strong>Features</strong> to those more <strong>relevant</strong>. </p>
-<p>There seems to be a consensus about the lack of a unified formal definition of <strong>Feature Engineering</strong>. If so, perhaps we can prescribe our overarching definition with no intention to solicit merit. Let us first describe the basic premise of <strong>Engineering</strong>, which is a systematic and creative application of scientific, mathematical, theoretical, and empirical knowledge (sourced from britannica.com, linkengineering.org, bccampus.ca) to produce consumables (usable products) from raw materials. With that said, it seems sensible to regard <strong>Feature Engineering</strong> as both methodological (bearing the application of math and science) and ideological (bearing the demand for artful creativity) in the context of creating, selecting or extracting, and transforming features, bearing in mind the domain for which we apply such processes. One has to develop a system of methodologies describing the creation and reduction of features from a set of raw inputs unique to a domain. The goal is to eliminate <strong>redundant</strong> and <strong>irrelevant</strong> information. Furthermore, the intent is to enhance the predictive power of models, increase the accuracy of output, and enhance the performance of algorithms, among many other benefits.</p>
+<p>Here, entities are described based on their traits, characteristics, or properties. We can regard all such attributes as features. They describe the profile or personality of entities. For example, the weather has properties such as humidity, temperature, and wind velocity. Likewise, a person has a unique personality, though we identify the person by the first and last name. Characterizing an entity is one thing. However, identifying the entity is another. This identification is called labeling. In essence, a label represents an object's attributes. While we explain this concept using objects, machine learning data is not limited to just characterizing an object. We can also treat features in terms of inputs that result in an output (that requires labeling). As in statistics, any input may have the quality of being observable and measurable and thus can result in a final output that can be labeled. For example, humidity, temperature, and wind velocity are inputs (features) in our study of the effect of climate change. The effect of climate change represents our study's focus and labeling efforts.</p>
+<p>Recall that while we are interested in only observable and measurable data, we prefer to narrow down our analysis around features that are more relevant and significant. Here, it is essential to note that not all such attributes or features can <strong>contribute</strong> or <strong>influence</strong>; therefore, we have algorithms that reduce the number of <strong>Features</strong> to those more <strong>relevant</strong>.   In other words,  we perform <strong>Feature Engineering</strong>.</p>
+<p>Let us first describe the basic premise of <strong>Engineering</strong>, which is a systematic and creative application of scientific, mathematical, theoretical, and empirical knowledge (sourced from britannica.com, linkengineering.org, bccampus.ca) to produce consumables (usable products) from raw materials. With that said, it seems sensible to regard <strong>Feature Engineering</strong> as both methodological (bearing the application of math and science) and ideological (bearing the demand for artful creativity) in the context of creating, selecting or extracting, and transforming features, bearing in mind the domain for which we apply such processes. One has to develop a system of methodologies describing the creation and reduction of features from a set of raw inputs unique to a domain. The goal is to eliminate <strong>redundant</strong> and <strong>irrelevant</strong> information. Furthermore,  the intent is to enhance the predictive power of models, increase the accuracy of output,  and enhance the performance of algorithms, among many other benefits.</p>
 <p>In this section, our view of <strong>Feature Engineering</strong> covers a system of three overlapping methodologies: <strong>Construction</strong>, <strong>Selection</strong>, and <strong>Transformation</strong> of <strong>Features</strong>. In some cases, these methodologies are more ideological, and thus other literature follows specific descriptions, categories, or order. However, ultimately, we follow the <strong>GIGO</strong> philosophy - garbage in, garbage out. In other words, we are more unified to believe that a solid, relevant feature provides more valuable and informative data that guides us toward better decision choices.</p>
 </div>
 <div id="dimensionality-reduction" class="section level3 hasAnchor">
