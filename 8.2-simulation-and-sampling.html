@@ -915,19 +915,38 @@ Figure 8.27: Triangular Chirp Modulation for an FMCW system
 </p>
 </div>
 
-<p>The diagram demonstrates a triangular chirp (or beat) modulation for the two frequencies allowing a calculation of the distance and velocity of a moving source to a stationary target. To a moving object (being the source) and a stationary observer (being the target), classic radar sensors detect changes in wave frequency called Doppler shifts (denoted <span class="math inline">\(\mathbf{f_D}\)</span>). As for light-based sensors, Doppler frequency has the following equation:</p>
-<p><span class="math display" id="eq:equate1100152">\[\begin{align}
-f_D = \frac{2V_r f_o}{C}  \tag{8.162} 
+<p>The diagram demonstrates a triangular chirp (or beat) modulation for the two frequencies allowing a calculation of the distance and velocity of a moving source to a stationary target. To a moving object (being the source) and a stationary observer (being the target), classic radar sensors detect changes in wave frequency called Doppler shifts (denoted <span class="math inline">\(\mathbf{f_D}\)</span>). The general equation for Doppler shift is as follows:</p>
+
+<p><span class="math display" id="eq:equate101100152">\[\begin{align}
+f_o = \frac{(v + v_o)}{(v - v_s)} f \tag{8.162}
 \end{align}\]</span></p>
 <p>where:</p>
 <ul>
-<li><span class="math inline">\(\mathbf{V_r}\)</span> is relative Velocity,</li>
-<li><span class="math inline">\(\mathbf{f_o}\)</span> is operating frequency of transmitted signal,</li>
+<li><span class="math inline">\(\mathbf{f_o}\)</span> is observed frequency,</li>
+<li><span class="math inline">\(\mathbf{f}\)</span> is actual frequency,</li>
+<li><span class="math inline">\(\mathbf{v}\)</span> is velocity of the sound waves,</li>
+<li><span class="math inline">\(\mathbf{v_o}\)</span> is velocity of the observer,</li>
+<li><span class="math inline">\(\mathbf{v_s}\)</span> is velocity of the source.</li>
+</ul>
+
+<p>However, for Frequency-Modulated Continuous-Wave (FMCW) Lidar, we use the following Doppler shift equation:</p>
+
+<p><span class="math display" id="eq:equate1100152">\[\begin{align}
+\Delta f = f_D = \frac{2V_r f_m}{C}  \tag{8.163} 
+\end{align}\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(\mathbf{\Delta f = f_D}\)</span> is the Doppler shift,</li>
+<li><span class="math inline">\(\mathbf{V_r}\)</span> is the radial velocity of the target object,</li>
+<li><span class="math inline">\(\mathbf{f_o}\)</span> is modulation frequency of the transmitted signal,</li>
 <li><strong>C</strong> is a constant for speed of light, e.g. <span class="math inline">\(3\times 10^8\)</span> m/s.</li>
 </ul>
-<p>For example, suppose a moving vehicle has a speed of 30 m/s with a lidar signal transmitted at a frequency of 77 GHz. Therefore, the Doppler frequency is calculated to be:</p>
+
+
+<p>For example, suppose a moving vehicle has a FMCW Lidar system that emits a laser beam with a modulation frequency equal to 15MHz and that an approaching car is detected with a radial velocity of 45 meters/sec. Therefore, the Doppler shift (shift in frequency) due to the moving car is:</p>
+
 <p><span class="math display">\[
-f_D = \frac{2 (30) (77\times 10^9)} {(3\times 10^8)} = 15.4\ \text{kHz}
+f_D = \frac{2 (45) (15\times 10^6)} {(3\times 10^8)} = 4.5\ \text{MHz}
 \]</span></p>
 <p>Now, suppose our goal is to prevent a collision by allowing a moving vehicle to autonomously slow down to a stop at a safe stopping distance from multiple stationary targets detected straight ahead. For that, we need to measure the distance and velocity of the moving object using the following series of equations and their derivations based on Figure <a href="8.2-simulation-and-sampling.html#fig:fmcw">8.27</a>:</p>
 <p><span class="math display" id="eq:eqnnumber334">\[\begin{align}
@@ -936,7 +955,7 @@ f_D = \frac{2 (30) (77\times 10^9)} {(3\times 10^8)} = 15.4\ \text{kHz}
 f_{bu} &amp;= f_b - f_D&amp;\ \ \ \ &amp;f_{bd} &amp;= f_b + f_D\\
 R &amp;= \frac{CT_s}{2B} \times\frac{(f_{bd} + f_{bu})}{2}&amp;\ \ \ \ 
 &amp;V_r &amp;= \frac{C}{2 f_o}\times\frac{(f_{bd} - f_{bu})}{2}
-\end{array} \tag{8.163}
+\end{array} \tag{8.164}
 \end{align}\]</span></p>
 <p>where:</p>
 <ul>
@@ -1016,7 +1035,7 @@ Figure 8.29: Random Walk (MCMC)
 <p><strong>Metropolis-Hastings Monte Carlo (MHMC)</strong> is an <strong>MCMC</strong> technique so that given an approximation (proposal) distribution, namely <span class="math inline">\(\mathcal{Q}(x^*|x)\)</span>, the goal is to refine the distribution until such that it settles into a target (equilibrium) distribution, namely <span class="math inline">\(\pi(x)\)</span>. While <strong>MHMC</strong> may best suit distributions that do not rather fall under the common list of distributions, let us use <strong>Gaussian</strong> distribution as a case in our discussion for simplicity and illustration, but only up to the constant (meaning, we ignore the normalizer). This section includes supplemental references: <span class="citation">(C.P. Robert <a href="bibliography.html#ref-ref523c">2016</a>; Burke N. <a href="bibliography.html#ref-ref1011n">2018</a>)</span>.</p>
 <p><span class="math display" id="eq:equate1100153">\[\begin{align}
 \mathcal{Q}(x^*|x)  
- \propto \left\{ \pi(x; \mu, \sigma^2)= exp \left(-\frac{(x - \mu)^2}{2 \sigma^2}\right) \right\} \tag{8.164} 
+ \propto \left\{ \pi(x; \mu, \sigma^2)= exp \left(-\frac{(x - \mu)^2}{2 \sigma^2}\right) \right\} \tag{8.165} 
 \end{align}\]</span></p>
 <p>where <span class="math inline">\(x^*\)</span> is a proposed candidate data point.</p>
 <p><strong>MHMC</strong> has the following algorithm:</p>
@@ -1052,11 +1071,11 @@ x_i = x_{i-1}\\
 <p>Note that <span class="math inline">\(\frac{\mathcal{Q}(x_{i-1}|x^*)}{\mathcal{Q}(x^*|x_{i-1})}\)</span> is called the <strong>Hasting ratio</strong>. If the <strong>ratio</strong> is 1, it means that the distribution is symmetric; thus, we can use the <strong>symmetric</strong> version of the <strong>acceptance probability</strong> equation.</p>
 <p>The <strong>proposed candidate</strong> uses the previous sample value with added noise (perturbation) so that, in our case, we have the following:</p>
 <p><span class="math display" id="eq:equate1100154">\[\begin{align}
-x^* = x_{i-1} + \mathcal{N}(0, 1) \tag{8.165} 
+x^* = x_{i-1} + \mathcal{N}(0, 1) \tag{8.166} 
 \end{align}\]</span></p>
 <p>Or in the case of simulating a random walk for <strong>MHMC</strong>, we also can use:</p>
 <p><span class="math display" id="eq:equate1100155">\[\begin{align}
-x^* = x_{i-1} + \mathcal{U}(x_{i-1} - 1, x_{i-1} + 1) \tag{8.166} 
+x^* = x_{i-1} + \mathcal{U}(x_{i-1} - 1, x_{i-1} + 1) \tag{8.167} 
 \end{align}\]</span></p>
 <p>Below is a simple example of <strong>MHMC</strong> implementation in R code (see Figure <a href="8.2-simulation-and-sampling.html#fig:mhmc">8.30</a>).</p>
 
@@ -1108,17 +1127,17 @@ Figure 8.30: Metropolis-Hastings MC (MHMC)
 <p><strong>Hamiltonian Monte Carlo (HMC)</strong> algorithm, also called <strong>Hybrid Monte Carlo</strong>, extends the concept of the <strong>Metropolis-Hastings</strong> algorithm <span class="citation">(Tianqi Chen et al. <a href="bibliography.html#ref-ref542t">2014</a>)</span>.</p>
 <p>We start with the simple <strong>Monte Carlo</strong> concept of operating on a posterior distribution, given by the notation <span class="math inline">\(\mathcal{Q}(q) \propto P(q|D)\)</span> where <strong>q</strong> is a <strong>latent variable</strong> for which we simulate drawing samples from <strong>D</strong> observations. We then introduce an <strong>auxiliary variable</strong>, namely <strong>p</strong>, so that we form a joint distribution like so:</p>
 <p><span class="math display" id="eq:equate1100156">\[\begin{align}
-\mathcal{Q}(q, p) = \mathcal{Q}(q|p)\mathcal{Q}(p)\ \ \ \ \ \leftarrow \text{(chain rule)} \tag{8.167} 
+\mathcal{Q}(q, p) = \mathcal{Q}(q|p)\mathcal{Q}(p)\ \ \ \ \ \leftarrow \text{(chain rule)} \tag{8.168} 
 \end{align}\]</span></p>
 <p>Here, <strong>HMC</strong> uses the Hamiltonian dynamics in physics to describe the conservation of energy so that our joint distribution adapts to the <strong>Hamiltonian</strong> equation below:</p>
 <p><span class="math display" id="eq:equate1100157">\[\begin{align}
-\mathcal{Q}(q, p) \propto exp^{-H(q,p)}  \tag{8.168} 
+\mathcal{Q}(q, p) \propto exp^{-H(q,p)}  \tag{8.169} 
 \end{align}\]</span></p>
 <p>The idea is to decompose the equation above into <strong>kinetic (kinematic) energy</strong> and <strong>potential energy</strong> functions so that we then have the following:</p>
 <p><span class="math display" id="eq:equate1100159" id="eq:equate1100158">\[\begin{align}
-\mathcal{H}(q, p) {}&amp;= - \log_e \mathcal{Q}(q,p)  \tag{8.169} \\
+\mathcal{H}(q, p) {}&amp;= - \log_e \mathcal{Q}(q,p)  \tag{8.170} \\
 &amp;= \underbrace{ \underbrace{-\log_e \mathcal{Q}(p|q)}_\text{Kinetic Energy}}_\text{K(p)} - 
-   \underbrace{ \underbrace{\log_e \mathcal{Q}(q)}_\text{Potential Energy}}_\text{U(q)} \tag{8.170} 
+   \underbrace{ \underbrace{\log_e \mathcal{Q}(q)}_\text{Potential Energy}}_\text{U(q)} \tag{8.171} 
 \end{align}\]</span></p>
 <p>where:</p>
 <ul>
@@ -1132,7 +1151,7 @@ Figure 8.30: Metropolis-Hastings MC (MHMC)
 <p><span class="math display" id="eq:equate1100160">\[\begin{align}
 \underbrace{ U(q) = \frac{q^2}{2} \ \ \ \ \ \ \ \ \ \  K(p) = \frac{p^2}{2}}_\text{univariate}
 \ \ \ or \ \ \ \ \
-\underbrace{ U(q) = \frac{q\Sigma^{-1}q}{2} \ \ \ \ \ \ \ \ \ \  K(p) = \frac{p \cdot p}{2}}_\text{multivariate} \tag{8.171} 
+\underbrace{ U(q) = \frac{q\Sigma^{-1}q}{2} \ \ \ \ \ \ \ \ \ \  K(p) = \frac{p \cdot p}{2}}_\text{multivariate} \tag{8.172} 
 \end{align}\]</span></p>
 <p>where <span class="math inline">\(\Sigma^{-1}\)</span> is a covariance matrix for a gaussian distribution - assuming some rough perturbation.</p>
 <p>The Hamiltonian functions are implemented as such:</p>
@@ -1154,11 +1173,11 @@ Figure 8.30: Metropolis-Hastings MC (MHMC)
 <p><span class="math display" id="eq:equate1100161">\[\begin{align}
 \frac{dq}{dt} = +\frac{\partial H}{\partial p} = +\frac{\partial K}{\partial p}
 \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 
-\frac{dp}{dt} = - \frac{\partial H}{\partial q} = -\frac{\partial K}{\partial q} - \frac{\partial U}{\partial q}  \tag{8.172} 
+\frac{dp}{dt} = - \frac{\partial H}{\partial q} = -\frac{\partial K}{\partial q} - \frac{\partial U}{\partial q}  \tag{8.173} 
 \end{align}\]</span></p>
 <p>The idea is to calculate the gradient of the Hamiltonian function - the direction towards the next state (next position and momentum):</p>
 <p><span class="math display" id="eq:equate1100162">\[\begin{align}
-(q_{t+1}, p_{t+1}) = (q_t, p_t) + \epsilon \times \nabla \mathcal{H}(q_t, p_t) \tag{8.173} 
+(q_{t+1}, p_{t+1}) = (q_t, p_t) + \epsilon \times \nabla \mathcal{H}(q_t, p_t) \tag{8.174} 
 \end{align}\]</span></p>
 <p>Alternatively in <strong>HMC</strong>, we use the <strong>LeapFrog algorithm</strong> as outlined below <span class="citation">(Wei-Lun Chao <a href="bibliography.html#ref-ref657w">2015</a>; Mohammed Alfaki M. <a href="bibliography.html#ref-ref1020m">2008</a>)</span>:</p>
 <p><span class="math display">\[
@@ -1286,12 +1305,12 @@ Figure 8.31: Hamiltonian Monte Carlo (HMC)
 <h3><span class="header-section-number">8.2.6</span> Gibbs Sampling <a href="8.2-simulation-and-sampling.html#gibbs-sampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Gibbs Sampler</strong> algorithm is a variant of the <strong>Metropolis-Hastings MCMC</strong> algorithm in that instead of performing an acceptance-rejection evaluation, proposed probabilities are always accepted <span class="citation">(Burke N. <a href="bibliography.html#ref-ref1011n">2018</a>)</span>. The algorithm operates on conditional probabilities such that we estimate the distribution of one random variable conditioned on all other random variables so that given the following (for a case with <strong>p</strong> dimensions),</p>
 <p><span class="math display" id="eq:equate1100163">\[\begin{align}
-X = (X_1, X_2,...,X_p) \tag{8.174} 
+X = (X_1, X_2,...,X_p) \tag{8.175} 
 \end{align}\]</span></p>
 <p>the goal is to generate a random sample from the following joint distribution:</p>
 <p><span class="math display" id="eq:equate1100164">\[\begin{align}
 P(X_i|X_1,X_2,...,X_p) =
-\frac{P(X_1,X_2,...,X_p)}{\int P(X_1,X_2,...,X_p) d_{X_i}} \tag{8.175} 
+\frac{P(X_1,X_2,...,X_p)}{\int P(X_1,X_2,...,X_p) d_{X_i}} \tag{8.176} 
 \end{align}\]</span></p>
 <p>Here, <strong>Gibbs sampler</strong> simplifies the calculation by handling individual random variables like so:</p>
 <p><span class="math display">\[\begin{align}
@@ -1365,18 +1384,18 @@ Figure 8.32: Gibbs Sampler
 <p><span class="math display" id="eq:eqnnumber335">\[\begin{align}
 \begin{array}{ll}
 \mathcal{I}_p = \int f(x) P(x) dx &amp;\ \ \ \ \ \ \ \ where\ \mathcal{I}_p = \mathbb{E}_p\left[f(x)\right]\\
-\end{array} \tag{8.176}
+\end{array} \tag{8.177}
 \end{align}\]</span></p>
 <p>Here, we prescribe what we call an <strong>importance weight</strong> or a <strong>likelihood ratio</strong> by introducing an approximating distribution like so:  </p>
 <p><span class="math display" id="eq:eqnnumber336">\[\begin{align}
 \begin{array}{ll}
 \mathcal{I}_q = \int f(x) P(x) \frac{\mathbf{Q}(x)}{\mathbf{Q}(x)} dx 
 &amp;\ \ \ \ \ \ \ \ where\ \mathcal{I}_q = \mathbb{E}_q\left[\frac{f(x)P(x)}{\mathcal{Q}(x)}\right]
-\end{array} \tag{8.177}
+\end{array} \tag{8.178}
 \end{align}\]</span></p>
 <p>The prescribed <strong>importance weight</strong> or <strong>likelihood ratio</strong> is written as:</p>
 <p><span class="math display" id="eq:equate1100165">\[\begin{align}
-\mathcal{I}_q  = \int f(x)\mathcal{Q}(x) \omega(x) dx\ \ \ \leftarrow\ \ \ \ \ \omega(x) = \frac{P(x)}{\mathcal{Q}(x)}\ \ \text{(importance weight)} \tag{8.178} 
+\mathcal{I}_q  = \int f(x)\mathcal{Q}(x) \omega(x) dx\ \ \ \leftarrow\ \ \ \ \ \omega(x) = \frac{P(x)}{\mathcal{Q}(x)}\ \ \text{(importance weight)} \tag{8.179} 
 \end{align}\]</span></p>
 <p>This ratio bears weight to the region of interest.</p>
 <p>Note that choosing a distribution for <span class="math inline">\(\mathcal{Q}(x)\)</span> is arbitrary with no hard rules. However, ideally, it may be best to choose one that closely matches <span class="math inline">\(P(x)\)</span> or <span class="math inline">\(| f(x) | \mathcal{\omega}(x)\)</span>.</p>
@@ -1440,23 +1459,23 @@ Figure 8.33: Importance Sampling
 <p><strong>Rejection Sampling</strong>, also called <strong>Acceptance-Rejection Sampling</strong>, introduces the concept of an <strong>envelope distribution</strong> (our proposal distribution) <span class="citation">(Erraqabi A. et al. <a href="bibliography.html#ref-ref1111a">2016</a>; Gilks, W. R., &amp; Wild, P. <a href="bibliography.html#ref-ref1120g">1992</a>)</span>. The idea is to scale (or stretch) an approximating distribution, namely <span class="math inline">\(\mathcal{Q}(x)\)</span>, such that it is tall and wide enough to <strong>envelope</strong> or <strong>cover</strong> the entire target distribution, <span class="math inline">\(P(x)\)</span>. It is natural and perhaps intuitive to use <strong>uniform distribution</strong> for our <strong>envelope distribution</strong> that is scaled to cover the target distribution; however, we use a <strong>normal distribution</strong>in our example. See Figure <a href="8.2-simulation-and-sampling.html#fig:rejection">8.34</a> for the plot of the <strong>Rejection Sampling</strong>.  </p>
 <p>To illustrate, let us implement a <strong>univariate bimodal mixture distribution</strong> for our target distribution using a function called <strong>dnorml.mixt(.)</strong> from a third-party library called <strong>ks</strong>. Our bimodal mixture has an equal proportion.</p>
 <p><span class="math display" id="eq:equate1100166">\[\begin{align}
-P(x) \sim \mathcal{N}(\mu=25, \sigma = 2 ) + \mathcal{N}(\mu=35, \sigma = 4 ) \tag{8.179} 
+P(x) \sim \mathcal{N}(\mu=25, \sigma = 2 ) + \mathcal{N}(\mu=35, \sigma = 4 ) \tag{8.180} 
 \end{align}\]</span></p>
 <p>We then can choose any <strong>approximating distribution</strong> that closely match our target distribution. Here, we choose <strong>Gaussian distribution</strong>:</p>
 <p><span class="math display" id="eq:equate1100167">\[\begin{align}
-\mathcal{Q}(x) \sim \mathcal{N}(\mu = 30, \sigma = 6) \tag{8.180} 
+\mathcal{Q}(x) \sim \mathcal{N}(\mu = 30, \sigma = 6) \tag{8.181} 
 \end{align}\]</span></p>
 <p>Next, we compute for the scale factor denoted as <strong>k</strong>:</p>
 <p><span class="math display" id="eq:equate1100168">\[\begin{align}
-k = max\left(\frac{P(x)}{\mathcal{Q}(x)}\right) \tag{8.181} 
+k = max\left(\frac{P(x)}{\mathcal{Q}(x)}\right) \tag{8.182} 
 \end{align}\]</span></p>
 <p>Therefore, our <strong>envelope distribution</strong> is generated using the following equation - represented by an <strong>envelope function</strong>, <span class="math inline">\(Q^*(x)\)</span>:</p>
 <p><span class="math display" id="eq:equate1100169">\[\begin{align}
-Q^*(x) = k \times \mathcal{Q}(x) \tag{8.182} 
+Q^*(x) = k \times \mathcal{Q}(x) \tag{8.183} 
 \end{align}\]</span></p>
 <p>We then generate sufficient samples from a uniform distribution with a height equal to our <strong>envelope distribution</strong>.</p>
 <p><span class="math display" id="eq:equate1100170">\[\begin{align}
-U \sim \mathcal{U}(N=1000, 0, max(Q^*{(x)})) \tag{8.183} 
+U \sim \mathcal{U}(N=1000, 0, max(Q^*{(x)})) \tag{8.184} 
 \end{align}\]</span></p>
 <p>We then use the uniformly generated sample to accept data points as our primary sample with a height below our <strong>target distribution</strong>.</p>
 <p><span class="math display">\[
@@ -1567,9 +1586,9 @@ Figure 8.34: Rejection Sampling
 <p><strong>Normal-Normal Model</strong></p>
 <p>Let us recall <strong>normal-normal conjugacy</strong> with unknown mean, <span class="math inline">\(\mu\)</span>, and known variance, <span class="math inline">\(\sigma^2\)</span>. For this family of <strong>conjugacy</strong>, we have the following description of <strong>prior distribution</strong> and <strong>sampling density (likelihood)</strong>:</p>
 <p><span class="math display" id="eq:equate1100172" id="eq:equate1100171">\[\begin{align}
-P(\mu) {}&amp;\rightarrow\ \ \ \ \ \mu \sim \mathcal{N}(\mu_0, \sigma^2_0) \tag{8.184} \\
+P(\mu) {}&amp;\rightarrow\ \ \ \ \ \mu \sim \mathcal{N}(\mu_0, \sigma^2_0) \tag{8.185} \\
 \nonumber \\
-Lik(x_1,...,x_n|\mu) &amp;\rightarrow\ \ \ \ \ x_1,...,x_n|\mu, \sigma^2 \sim \mathcal{N}(\mu, \sigma^2)\ \ \ \text{(sampling density)} \tag{8.185} 
+Lik(x_1,...,x_n|\mu) &amp;\rightarrow\ \ \ \ \ x_1,...,x_n|\mu, \sigma^2 \sim \mathcal{N}(\mu, \sigma^2)\ \ \ \text{(sampling density)} \tag{8.186} 
 \end{align}\]</span></p>
 <p>We use BUGS language to model in Jags. Below is an example of implementing Jags model for the prior and sampling density in R based on the two distributions above (note in JAGS that we use precision which is the inverse of the variance):</p>
 <pre><code>model {
@@ -1608,9 +1627,9 @@ Lik(x_1,...,x_n|\sigma^2) &amp;\rightarrow\ \ \ \ \ x|\sigma \sim \mathcal{N}(\m
 <p><strong>Binomial-Beta Model</strong></p>
 <p>For <strong>Binomial-Beta conjugacy</strong>, we have the following description of <strong>prior distribution</strong> and <strong>sampling density (likelihood)</strong>:</p>
 <p><span class="math display" id="eq:equate1100174" id="eq:equate1100173">\[\begin{align}
-P(\rho) {}&amp;\rightarrow\ \ \ \ \ \rho \sim Beta(\alpha_0, \beta_0) \tag{8.186} \\
+P(\rho) {}&amp;\rightarrow\ \ \ \ \ \rho \sim Beta(\alpha_0, \beta_0) \tag{8.187} \\
 \nonumber \\
-Lik(x_1,...,x_n|\rho) &amp;\rightarrow\ \ \ \ \ x_1,...,x_n|\rho \sim Bin(n, \rho)\ \ \ \text{(sampling density)} \tag{8.187} 
+Lik(x_1,...,x_n|\rho) &amp;\rightarrow\ \ \ \ \ x_1,...,x_n|\rho \sim Bin(n, \rho)\ \ \ \text{(sampling density)} \tag{8.188} 
 \end{align}\]</span></p>
 <p>Below is an example of implementing the Jags model for the prior and sampling density in R code based on the two distributions above:</p>
 <pre><code>model {
