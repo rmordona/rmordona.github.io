@@ -1084,7 +1084,7 @@ Figure 13.22: Multi-Head Attention
 <a class="sourceLine" id="cb2158-5" data-line-number="5">}</a></code></pre></div>
 <p>The dimension is [5, 4, 5].</p>
 
-<p>Note that the output of the multi-head attention is a list of <strong>contextualized</strong> matrices. The list has a size equal to the number of heads. To obtain only one <strong>contextualized matrix</strong> with the same dimension as the original embedding, we need to merge the list. The <strong>merge</strong> approach is to concatenate and then run through a linear layer, reshaping into the original size in the output layer, then using softmax past the output layer.</p>
+<p>Note that the output of the multi-head attention is a list of <strong>contextualized</strong> matrices. The list has a size equal to the number of heads. To obtain only one <strong>contextualized matrix</strong> with the same dimension as the original embedding, we need to merge the list. The <strong>merging</strong> approach is to concatenate and then run through a linear layer, reshaping it into the original size in the output layer, then using softmax past the output layer.</p>
 <p><strong>Multihead Attention</strong> is seen in the paper by Ashish Vaswani et al. <span class="citation">(<a href="bibliography.html#ref-ref1339a">2017</a>)</span>. It is used as one of the core components of a novel <strong>Attention-based</strong> architecture called <strong>Transformer</strong>.</p>
 <p>Before we jump to <strong>Transformers</strong>, let us discuss a few essential topics, focusing on <strong>sequence-to-sequence</strong> applications. Among many others, we need to build our intuition around the following topics:</p>
 <ul>
