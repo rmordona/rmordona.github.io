@@ -1212,16 +1212,16 @@ Figure 13.27: Sinusoidal Position Encoding
 </div>
 
 <p>Notice that the absolute position of a word is reduced to a sinusoidal value that ranges between -1 and 1. For example, in the plot for the first dimension (i=1), the position of the first word at zero renders a frequency value of 1, but the same word at position 15 has a frequency value of -0.75.</p>
-<p>From here, we can add the computed positional encodings to the word embeddings, so that assumes we have a word embedding of vector size 40 (40-dimensional features),</p>
+<p>From here, we can add the computed positional encodings to the word embeddings.  So that suppose we have a word embedding of vector size 40 (40-dimensional features):</p>
 <p><span class="math display">\[
 \begin{array}{ll}
 \text{W1} &amp;= \text{[0.734, 0.123, 0.512, ..., 0.111]}\ \ \ \ (1 \times 40 )\\
 \text{W2} &amp;= \text{[0.813, 0.022, 0.762, ..., 0.212]}\ \ \ \ (1 \times 40 ) \\
 &amp;... \\
-\text{W15} &amp;= \text{[0.544, 0.653, 0.912, ..., 0.433]}\ \ \ \ (1 \times 40 )
+\text{W15} &amp;= \text{[0.544, 0.653, 0.912, ..., 0.433]}\ \ \ \ (1 \times 40 ).
 \end{array}
 \]</span>
-we can then, as an example, add the vector of the first dimension like so:</p>
+We can then, as an example, add the vector of the first dimension like so:</p>
 <p><span class="math display">\[\begin{align*}
 \underbrace{\text{[0.734, 0.123, 0.512, ..., 0.111]}}_{\text{Word Embedding}} + 
 \underbrace{\text{[1.000, 0.653, -0.241, ..., 0.988]}}_{\text{Positional Embedding}} = \\
