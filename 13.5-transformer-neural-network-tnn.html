@@ -913,116 +913,127 @@ Figure 13.21: Attention with Weights
 <p>Based on <strong>Retrieval Information</strong> theory, particularly in <strong>search engine</strong> systems, we supply a query keyword to the engine and expect the engine to respond with a list of relevant documents. In the context of <strong>Self-Attention</strong>, we supply a query keyword in search for <strong>contextual words</strong> in a list of words called <strong>keys</strong>. The idea is to know which of these keys will pay more <strong>attention</strong> to the query. For a better intuition, let us step through the operations.</p>
 <p><strong>First</strong>, for illustration, let us cut the sentence above to only the subject line, <strong>I travel the world</strong>, giving us only about four tokens (or word embeddings). Assume for a moment that our embeddings have five dimensions (dk=5). For now, let us randomly assign some continuous numbers.</p>
 
-<div class="sourceCode" id="cb2141"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2141-1" data-line-number="1"><span class="kw">options</span>(<span class="dt">digits=</span><span class="dv">8</span>)</a>
-<a class="sourceLine" id="cb2141-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">12</span>)</a>
-<a class="sourceLine" id="cb2141-3" data-line-number="3">t    =<span class="st"> </span><span class="dv">4</span>  <span class="co"># number of tokens (embedding)</span></a>
-<a class="sourceLine" id="cb2141-4" data-line-number="4">dk   =<span class="st"> </span><span class="dv">5</span>  <span class="co"># dimension per token</span></a>
-<a class="sourceLine" id="cb2141-5" data-line-number="5">random &lt;-<span class="st"> </span><span class="cf">function</span>(dk) { <span class="kw">round</span>(<span class="kw">runif</span>(<span class="dt">n=</span>dk, <span class="dt">min=</span><span class="fl">0.100</span>, <span class="dt">max=</span><span class="fl">0.900</span>), <span class="dv">3</span>)   }</a>
-<a class="sourceLine" id="cb2141-6" data-line-number="6"><span class="co"># assume hidden states produced by RNN for each word</span></a>
-<a class="sourceLine" id="cb2141-7" data-line-number="7">h1   =<span class="st"> </span><span class="kw">random</span>(dk)  <span class="co"># I       </span></a>
-<a class="sourceLine" id="cb2141-8" data-line-number="8">h2   =<span class="st"> </span><span class="kw">random</span>(dk)  <span class="co"># travel   </span></a>
-<a class="sourceLine" id="cb2141-9" data-line-number="9">h3   =<span class="st"> </span><span class="kw">random</span>(dk)  <span class="co"># the</span></a>
-<a class="sourceLine" id="cb2141-10" data-line-number="10">h4   =<span class="st"> </span><span class="kw">random</span>(dk)  <span class="co"># world </span></a>
-<a class="sourceLine" id="cb2141-11" data-line-number="11">(<span class="dt">h    =</span> <span class="kw">rbind</span>(h1, h2, h3, h4))</a></code></pre></div>
-<pre><code>##     [,1]  [,2]  [,3]  [,4]  [,5]
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">options</span>(<span class="dt">digits=</span><span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">12</span>)</a>
+<a class="sourceLine" id="cb57-3" data-line-number="3">t    =<span class="st"> </span><span class="dv">4</span>  <span class="co"># number of tokens in a sequence</span></a>
+<a class="sourceLine" id="cb57-4" data-line-number="4">dk   =<span class="st"> </span><span class="dv">5</span>  <span class="co"># embedding size</span></a>
+<a class="sourceLine" id="cb57-5" data-line-number="5">random &lt;-<span class="st"> </span><span class="cf">function</span>(dk) { <span class="kw">round</span>(<span class="kw">runif</span>(<span class="dt">n=</span>dk, <span class="dt">min=</span><span class="fl">0.100</span>, <span class="dt">max=</span><span class="fl">0.900</span>), <span class="dv">3</span>)   }</a>
+<a class="sourceLine" id="cb57-6" data-line-number="6"><span class="co"># assume hidden states produced by RNN for each word (tokens)</span></a>
+<a class="sourceLine" id="cb57-7" data-line-number="7">h1   =<span class="st"> </span><span class="kw">random</span>(dk)  <span class="co"># I       </span></a>
+<a class="sourceLine" id="cb57-8" data-line-number="8">h2   =<span class="st"> </span><span class="kw">random</span>(dk)  <span class="co"># travel   </span></a>
+<a class="sourceLine" id="cb57-9" data-line-number="9">h3   =<span class="st"> </span><span class="kw">random</span>(dk)  <span class="co"># the</span></a>
+<a class="sourceLine" id="cb57-10" data-line-number="10">h4   =<span class="st"> </span><span class="kw">random</span>(dk)  <span class="co"># world </span></a>
+<a class="sourceLine" id="cb57-11" data-line-number="11">h    =<span class="st"> </span><span class="kw">rbind</span>(h1, h2, h3, h4); <span class="kw">colnames</span>(h) =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;e&quot;</span>, <span class="kw">seq</span>(<span class="dv">1</span>,dk)); h</a></code></pre></div>
+<pre><code>##       e1    e2    e3    e4    e5
 ## h1 0.155 0.754 0.854 0.316 0.235
 ## h2 0.127 0.243 0.613 0.118 0.107
 ## h3 0.414 0.751 0.401 0.405 0.312
 ## h4 0.451 0.466 0.533 0.633 0.190</code></pre>
 
-<p><strong>Second</strong>, let us query the keys to obtain scores. Mathematically, we have the following expression, including the normalizer:</p>
-<p><span class="math display" id="eq:equate1150087">\[\begin{align}
-\text{scaled scores} = \frac{(\text{query})\ (\text{keys}^\text{T})} {\sqrt{d_k}}  \tag{13.90} 
+<p><strong>Second</strong>, using <strong>learnable weights</strong>, we first initialize three weight matrices (<strong>Q</strong>, <strong>K</strong>, <strong>V</strong>) using a random uniform distribution. We assume a dimension of (dk x ws) where ws is the weight size. So then, we have the following weight matrices.</p>
+
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">ws =<span class="st"> </span><span class="dv">3</span> <span class="co"># weight size</span></a>
+<a class="sourceLine" id="cb59-2" data-line-number="2">Q =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="dt">n=</span>dk <span class="op">*</span><span class="st"> </span>ws, <span class="dt">min=</span><span class="op">-</span><span class="fl">0.5</span>, <span class="dt">max=</span><span class="fl">0.5</span>), <span class="dt">nrow=</span>dk)</a>
+<a class="sourceLine" id="cb59-3" data-line-number="3">K =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="dt">n=</span>dk <span class="op">*</span><span class="st"> </span>ws, <span class="dt">min=</span><span class="op">-</span><span class="fl">0.5</span>, <span class="dt">max=</span><span class="fl">0.5</span>), <span class="dt">nrow=</span>dk)</a>
+<a class="sourceLine" id="cb59-4" data-line-number="4">V =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="dt">n=</span>dk <span class="op">*</span><span class="st"> </span>ws, <span class="dt">min=</span><span class="op">-</span><span class="fl">0.5</span>, <span class="dt">max=</span><span class="fl">0.5</span>), <span class="dt">nrow=</span>dk)</a>
+<a class="sourceLine" id="cb59-5" data-line-number="5"><span class="kw">colnames</span>(Q) =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;w&quot;</span>, <span class="kw">seq</span>(<span class="dv">1</span>,<span class="kw">ncol</span>(Q)))</a>
+<a class="sourceLine" id="cb59-6" data-line-number="6"><span class="kw">rownames</span>(Q) =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;e&quot;</span>, <span class="kw">seq</span>(<span class="dv">1</span>,<span class="kw">nrow</span>(Q)))</a>
+<a class="sourceLine" id="cb59-7" data-line-number="7">Q <span class="co"># example output of weight Q</span></a></code></pre></div>
+<pre><code>##             w1            w2          w3
+## e1 -0.28163283 -0.2320564070 -0.25911677
+## e2  0.28783635  0.0047679518  0.39326490
+## e3 -0.40214696 -0.3114130732  0.38275639
+## e4  0.20983047 -0.0605706749  0.31406325
+## e5 -0.28217696  0.1698192959  0.13326461</code></pre>
+
+
+<p><strong>Third</strong>, we then apply linear transformation using the weight matrices. Here, we perform <strong>matmul</strong> like so:</p>
+
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">q =<span class="st"> </span>queries =<span class="st"> </span>h <span class="op">%*%</span><span class="st"> </span>Q</a>
+<a class="sourceLine" id="cb61-2" data-line-number="2">k =<span class="st"> </span>keys    =<span class="st"> </span>h <span class="op">%*%</span><span class="st"> </span>K</a>
+<a class="sourceLine" id="cb61-3" data-line-number="3">v =<span class="st"> </span>values  =<span class="st"> </span>h <span class="op">%*%</span><span class="st"> </span>V</a>
+<a class="sourceLine" id="cb61-4" data-line-number="4">q  <span class="co"># example output of q</span></a></code></pre></div>
+<pre><code>##              w1          w2         w3
+## h1 -0.170063145 -0.27755327 0.71379376
+## h2 -0.217772163 -0.20818544 0.34860398
+## h3 -0.064749699 -0.18891477 0.51032708
+## h4 -0.128019936 -0.27449431 0.49453125</code></pre>
+
+<p><strong>Fourth</strong>, let us query the keys to obtain the scores. Mathematically, we have the following expression, including the normalizer:</p>
+<p><span class="math display">\[\begin{align}
+\text{scaled scores} = \frac{(\text{query})\ (\text{keys}^\text{T})} {\sqrt{d_k}} \tag{13.90}
 \end{align}\]</span></p>
 
-<div class="sourceCode" id="cb2143"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2143-1" data-line-number="1">query  =<span class="st"> </span>keys =<span class="st"> </span>h</a>
-<a class="sourceLine" id="cb2143-2" data-line-number="2">scores =<span class="st"> </span>(query) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(keys)</a>
-<a class="sourceLine" id="cb2143-3" data-line-number="3">scaled.scores =<span class="st"> </span><span class="kw">round</span>(scores <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(dk), <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb2143-4" data-line-number="4"><span class="kw">colnames</span>(scaled.scores) =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;q&quot;</span>, <span class="kw">seq</span>(<span class="dv">1</span>,t))</a>
-<a class="sourceLine" id="cb2143-5" data-line-number="5"><span class="kw">rownames</span>(scaled.scores) =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;s&quot;</span>, <span class="kw">seq</span>(<span class="dv">1</span>,t))</a>
-<a class="sourceLine" id="cb2143-6" data-line-number="6">scaled.scores</a></code></pre></div>
-<pre><code>##       q1    q2    q3    q4
-## s1 0.661 0.353 0.525 0.501
-## s2 0.353 0.213 0.251 0.265
-## s3 0.525 0.251 0.518 0.477
-## s4 0.501 0.265 0.477 0.510</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">scaled.scores =<span class="st">  </span>queries <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(keys) <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(dk) </a>
+<a class="sourceLine" id="cb63-2" data-line-number="2"><span class="kw">colnames</span>(scaled.scores) =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;k&quot;</span>, <span class="kw">seq</span>(<span class="dv">1</span>,t))</a>
+<a class="sourceLine" id="cb63-3" data-line-number="3"><span class="kw">rownames</span>(scaled.scores) =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;q&quot;</span>, <span class="kw">seq</span>(<span class="dv">1</span>,t))</a>
+<a class="sourceLine" id="cb63-4" data-line-number="4">scaled.scores</a></code></pre></div>
+<pre><code>##             k1          k2          k3          k4
+## q1 -0.27416595 -0.17894736 -0.21629363 -0.25826375
+## q2 -0.17473743 -0.11493368 -0.13651751 -0.15488645
+## q3 -0.18284601 -0.11927247 -0.14383864 -0.17423977
+## q4 -0.20778714 -0.13678537 -0.16028559 -0.18737410</code></pre>
 
-<p><strong>Third</strong>, we perform softmax for each query like so:</p>
-<p><span class="math display" id="eq:equate1150088">\[\begin{align}
-\alpha_i = \frac{exp(s_i)} {\sum_j^t(exp(s_{i,j}))} \tag{13.91} 
+<p><strong>Fifth</strong>, we then perform softmax against the scaled scores like so:</p>
+<p><span class="math display">\[\begin{align}
+\alpha_i = \frac{exp(s_i)} {\sum_j^t(exp(s_{i,j}))} \tag{13.91}
 \end{align}\]</span></p>
 
-<div class="sourceCode" id="cb2145"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2145-1" data-line-number="1">attention.weights =<span class="st"> </span><span class="kw">softmax</span>(scaled.scores)</a>
-<a class="sourceLine" id="cb2145-2" data-line-number="2"><span class="kw">colnames</span>(attention.weights) =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;q&quot;</span>, <span class="kw">seq</span>(<span class="dv">1</span>,t))</a>
-<a class="sourceLine" id="cb2145-3" data-line-number="3"><span class="kw">rownames</span>(attention.weights) =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;w&quot;</span>, <span class="kw">seq</span>(<span class="dv">1</span>,t))</a>
-<a class="sourceLine" id="cb2145-4" data-line-number="4">attention.weights</a></code></pre></div>
-<pre><code>##       q1    q2    q3    q4
-## w1 0.289 0.212 0.252 0.246
-## w2 0.271 0.236 0.245 0.248
-## w3 0.270 0.205 0.268 0.257
-## w4 0.265 0.209 0.259 0.267</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">attention.weights =<span class="st"> </span><span class="kw">softmax</span>(scaled.scores)</a>
+<a class="sourceLine" id="cb65-2" data-line-number="2"><span class="kw">colnames</span>(attention.weights) =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;k&quot;</span>, <span class="kw">seq</span>(<span class="dv">1</span>,t))</a>
+<a class="sourceLine" id="cb65-3" data-line-number="3"><span class="kw">rownames</span>(attention.weights) =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;q&quot;</span>, <span class="kw">seq</span>(<span class="dv">1</span>,t))</a>
+<a class="sourceLine" id="cb65-4" data-line-number="4">attention.weights</a></code></pre></div>
+<pre><code>##            k1         k2         k3         k4
+## q1 0.23949180 0.26341685 0.25376065 0.24333069
+## q2 0.24268091 0.25763690 0.25213569 0.24754650
+## q3 0.24306893 0.25902345 0.25273776 0.24516987
+## q4 0.24137951 0.25914096 0.25312210 0.24635743</code></pre>
 
-<p>So that if we add the softmax scores, we should get a 1 for all attention weights.</p>
-<p><span class="math display" id="eq:equate1150089">\[\begin{align}
-\sum_i^t \left( \alpha_i\right) = 1 \tag{13.92} 
+<p>So that if we add the softmax scores, each query should add up to 1 across the keys.</p>
+<p><span class="math display">\[\begin{align}
+\sum_i^t \left( \alpha_i\right) = 1 \tag{13.92}
 \end{align}\]</span></p>
 
-<div class="sourceCode" id="cb2147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2147-1" data-line-number="1"><span class="kw">round</span>(<span class="kw">apply</span>(attention.weights, <span class="dv">1</span>, sum), <span class="dv">2</span>)</a></code></pre></div>
-<pre><code>## w1 w2 w3 w4 
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1"><span class="kw">round</span>(<span class="kw">apply</span>(attention.weights, <span class="dv">1</span>, sum), <span class="dv">2</span>)</a></code></pre></div>
+<pre><code>## q1 q2 q3 q4
 ##  1  1  1  1</code></pre>
 
-<p><strong>Finally</strong>, we obtain the contextual embeddings using the below formula per embedding. Alternatively, we can perform matrix multiplication instead.</p>
-<p><span class="math display" id="eq:equate1150090">\[\begin{align}
-c_i = \sum \alpha_i \cdot v_i  \tag{13.93} 
+<p><strong>Finally</strong>, we obtain the contextual embeddings using the below formula. Alternatively, we can perform matrix multiplication instead.</p>
+<p><span class="math display">\[\begin{align}
+c_i = \sum \alpha_i \cdot v_i \tag{13.93}
 \end{align}\]</span></p>
 
-<div class="sourceCode" id="cb2149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2149-1" data-line-number="1">values =<span class="st"> </span>h</a>
-<a class="sourceLine" id="cb2149-2" data-line-number="2">context =<span class="st"> </span><span class="kw">round</span>(attention.weights <span class="op">%*%</span><span class="st"> </span>(values), <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb2149-3" data-line-number="3"><span class="kw">colnames</span>(context) =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;f&quot;</span>, <span class="kw">seq</span>(<span class="dv">1</span>,dk))</a>
-<a class="sourceLine" id="cb2149-4" data-line-number="4"><span class="kw">rownames</span>(context) =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;c&quot;</span>, <span class="kw">seq</span>(<span class="dv">1</span>,t))</a>
-<a class="sourceLine" id="cb2149-5" data-line-number="5"><span class="kw">t</span>(context)</a></code></pre></div>
-<pre><code>##       c1    c2    c3    c4
-## f1 0.287 0.285 0.295 0.295
-## f2 0.573 0.561 0.574 0.570
-## f3 0.609 0.607 0.601 0.601
-## f4 0.374 0.370 0.381 0.382
-## f5 0.216 0.212 0.218 0.216</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1">context =<span class="st"> </span>attention.weights <span class="op">%*%</span><span class="st"> </span>values</a>
+<a class="sourceLine" id="cb69-2" data-line-number="2"><span class="kw">colnames</span>(context) =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;w&quot;</span>, <span class="kw">seq</span>(<span class="dv">1</span>,<span class="kw">ncol</span>(context)))</a>
+<a class="sourceLine" id="cb69-3" data-line-number="3"><span class="kw">rownames</span>(context) =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;c&quot;</span>, <span class="kw">seq</span>(<span class="dv">1</span>,<span class="kw">nrow</span>(context)))</a>
+<a class="sourceLine" id="cb69-4" data-line-number="4">context</a></code></pre></div>
+<pre><code>##             w1         w2         w3
+## c1 -0.20695793 0.32995654 0.29988023
+## c2 -0.20775859 0.33104907 0.30042943
+## c3 -0.20753335 0.33063725 0.30031018
+## c4 -0.20754964 0.33082379 0.30019739</code></pre>
 
-<p>Using <strong>learnable weights</strong>, we first initialize three matrices (<strong>Q</strong>, <strong>K</strong>, <strong>V</strong>) using a random uniform distribution.</p>
+<p>Here, we try to implement our example of an attention function. We go through the same operations as above to get our context using the <strong>query</strong>, <strong>keys</strong>, and <strong>values</strong>.</p>
 
-<div class="sourceCode" id="cb2151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2151-1" data-line-number="1">Q =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="dt">n=</span>dk <span class="op">*</span><span class="st"> </span>dk, <span class="dt">min=</span><span class="op">-</span><span class="fl">0.5</span>, <span class="dt">max=</span><span class="fl">0.5</span>), <span class="dt">nrow=</span>dk)</a>
-<a class="sourceLine" id="cb2151-2" data-line-number="2">K =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="dt">n=</span>dk <span class="op">*</span><span class="st"> </span>dk, <span class="dt">min=</span><span class="op">-</span><span class="fl">0.5</span>, <span class="dt">max=</span><span class="fl">0.5</span>), <span class="dt">nrow=</span>dk)</a>
-<a class="sourceLine" id="cb2151-3" data-line-number="3">V =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="dt">n=</span>dk <span class="op">*</span><span class="st"> </span>dk, <span class="dt">min=</span><span class="op">-</span><span class="fl">0.5</span>, <span class="dt">max=</span><span class="fl">0.5</span>), <span class="dt">nrow=</span>dk)</a></code></pre></div>
-
-<p>We then multiply <strong>q</strong>, <strong>k</strong>, and <strong>v</strong> embeddings with the corresponding matrix like so (noting that <strong>q</strong>, <strong>k</strong>, and <strong>v</strong> are sourced from <strong>e</strong>):</p>
-
-<div class="sourceCode" id="cb2152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2152-1" data-line-number="1">q =<span class="st"> </span>k =<span class="st"> </span>v =<span class="st"> </span>h</a>
-<a class="sourceLine" id="cb2152-2" data-line-number="2">query  =<span class="st"> </span>q <span class="op">%*%</span><span class="st"> </span>Q</a>
-<a class="sourceLine" id="cb2152-3" data-line-number="3">keys   =<span class="st"> </span>k <span class="op">%*%</span><span class="st"> </span>K</a>
-<a class="sourceLine" id="cb2152-4" data-line-number="4">values =<span class="st"> </span>v <span class="op">%*%</span><span class="st"> </span>V </a></code></pre></div>
-
-<p>Note that we created <strong>q</strong>, <strong>k</strong>, <strong>v</strong> as three separate instances for demonstration. In actual implementation, we may use <strong>e</strong> for the three computations instead to save memory.</p>
-<p>We go through the same operations as above to get our context using the <strong>query</strong>, <strong>keys</strong>, and <strong>values</strong>. Here, we try to implement our example of an attention function:</p>
-
-<div class="sourceCode" id="cb2153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2153-1" data-line-number="1">attention.unit &lt;-<span class="st"> </span><span class="cf">function</span>(query, keys, values) {</a>
-<a class="sourceLine" id="cb2153-2" data-line-number="2">   t                 =<span class="st"> </span><span class="kw">ncol</span>(query) <span class="co"># t-tokens</span></a>
-<a class="sourceLine" id="cb2153-3" data-line-number="3">   dk                =<span class="st"> </span><span class="kw">nrow</span>(query) <span class="co"># k-dimension </span></a>
-<a class="sourceLine" id="cb2153-4" data-line-number="4">   scores            =<span class="st"> </span><span class="kw">t</span>(query) <span class="op">%*%</span><span class="st"> </span>keys  </a>
-<a class="sourceLine" id="cb2153-5" data-line-number="5">   scaled.scores     =<span class="st"> </span>scores <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(dk)       <span class="co"># scaled</span></a>
-<a class="sourceLine" id="cb2153-6" data-line-number="6">   attention.weights =<span class="st"> </span><span class="kw">softmax</span>(scaled.scores) <span class="co"># column-wise </span></a>
-<a class="sourceLine" id="cb2153-7" data-line-number="7">   context           =<span class="st"> </span><span class="kw">round</span>(attention.weights <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(values), <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb2153-8" data-line-number="8">   <span class="kw">colnames</span>(context) =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;f&quot;</span>, <span class="kw">seq</span>(<span class="dv">1</span>,dk))</a>
-<a class="sourceLine" id="cb2153-9" data-line-number="9">   <span class="kw">rownames</span>(context) =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;c&quot;</span>, <span class="kw">seq</span>(<span class="dv">1</span>,t))</a>
-<a class="sourceLine" id="cb2153-10" data-line-number="10">   <span class="kw">t</span>(context) <span class="co"># transpose</span></a>
-<a class="sourceLine" id="cb2153-11" data-line-number="11">}</a>
-<a class="sourceLine" id="cb2153-12" data-line-number="12"><span class="kw">attention.unit</span>(query, keys, values)</a></code></pre></div>
-<pre><code>##        c1     c2     c3     c4     c5
-## f1 -0.032 -0.026 -0.075 -0.067 -0.063
-## f2 -0.010 -0.006 -0.031 -0.027 -0.024
-## f3 -0.035 -0.029 -0.079 -0.069 -0.066
-## f4 -0.086 -0.081 -0.123 -0.115 -0.111</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1">attention.unit &lt;-<span class="st"> </span><span class="cf">function</span>(query, keys, values) {</a>
+<a class="sourceLine" id="cb71-2" data-line-number="2">   dk                =<span class="st"> </span><span class="kw">nrow</span>(query) <span class="co"># embedding size</span></a>
+<a class="sourceLine" id="cb71-3" data-line-number="3">   scores            =<span class="st"> </span>query <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(keys)  </a>
+<a class="sourceLine" id="cb71-4" data-line-number="4">   scaled.scores     =<span class="st"> </span>scores <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(dk)       <span class="co"># scaled</span></a>
+<a class="sourceLine" id="cb71-5" data-line-number="5">   attention.weights =<span class="st"> </span><span class="kw">softmax</span>(scaled.scores) <span class="co"># column-wise </span></a>
+<a class="sourceLine" id="cb71-6" data-line-number="6">   context           =<span class="st"> </span>attention.weights <span class="op">%*%</span><span class="st"> </span>values</a>
+<a class="sourceLine" id="cb71-7" data-line-number="7">   <span class="kw">colnames</span>(context) =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;w&quot;</span>, <span class="kw">seq</span>(<span class="dv">1</span>,<span class="kw">ncol</span>(context)))</a>
+<a class="sourceLine" id="cb71-8" data-line-number="8">   <span class="kw">rownames</span>(context) =<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;c&quot;</span>, <span class="kw">seq</span>(<span class="dv">1</span>,<span class="kw">nrow</span>(context)))</a>
+<a class="sourceLine" id="cb71-9" data-line-number="9">   context</a>
+<a class="sourceLine" id="cb71-10" data-line-number="10">}</a>
+<a class="sourceLine" id="cb71-11" data-line-number="11"><span class="kw">attention.unit</span>(queries, keys, values)</a></code></pre></div>
+<pre><code>##             w1         w2         w3
+## c1 -0.20674462 0.32969783 0.29971914
+## c2 -0.20764181 0.33092346 0.30033211
+## c3 -0.20738962 0.33046266 0.30019875
+## c4 -0.20740784 0.33067070 0.30007298</code></pre>
 
 <p>We should note that the context produced by our attention function is still raw because we relied on the initial values of the <strong>learnable weights</strong>. Similar to our discussion on <strong>MLP</strong> and other types of networks, we need to plug the attention unit into a neural network to allow gradients to flow through the attention layer through <strong>backpropagation</strong>. We will discuss this further once we get to the <strong>Transformer</strong> architecture.</p>
+
 </div>
 <div id="multi-head-attention" class="section level3 hasAnchor">
 <h3><span class="header-section-number">13.5.3</span> Multi-Head Attention <a href="13.5-transformer-neural-network-tnn.html#multi-head-attention" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1043,50 +1054,16 @@ Figure 13.22: Multi-Head Attention
 \mathbf{\text{aspect 3}} &amp;\rightarrow\ \text{fountain of youth} &amp; \ \ \ \ (\text{magical context})
 \end{array}
 \]</span></p>
-<p>Depending on computational resources, we may increase the <strong>attention heads</strong> to allow each token to focus on and attend to different aspects of an input sequence.  Each head uses a set of <strong>Q</strong>, <strong>K</strong>, and <strong>V</strong> matrices containing learned parameters to attend to a different aspect.</p>
-<p>In terms of computation, notice in the figure that each of the three instances of the embedding, namely <strong>q</strong>, <strong>k</strong>, and <strong>v</strong>, runs through matrix multiplication with each corresponding matrix. Because we are dealing with three attention heads for the three contexts in our example above, it means that <strong>q</strong> gets multiplied with <strong>Q1</strong>, <strong>Q2</strong>, and <strong>Q3</strong> matrices, resulting in three <strong>score matrices</strong>. Similarly, <strong>k</strong> gets multiplied with <strong>K1</strong>, <strong>K2</strong>, and <strong>K3</strong> matrices, resulting in three <strong>score matrices</strong>. The same applies to <strong>v</strong>. Next, the scores are scaled using a normalizer, e.g., <span class="math inline">\(\sqrt{d_k}\)</span>, followed by <strong>softmax</strong> to derive the attention weights - or attention probabilities. The final context is obtained by performing another matrix multiplication between the output of the <strong>softmax</strong> and the output of the score matrices from <strong>v</strong> and the three <strong>V</strong> matrices. For example, in the multi-head attention, the softmax accepts the following input:</p>
-<p><span class="math display" id="eq:equate1150091">\[\begin{align}
-\text{attention}(Q,K,V) = \text{softmax}\left(\frac{QK^\text{T}}{\sqrt{d_k}}\right)\cdot V  \tag{13.94} 
+
+<p>There could be more aspects, however, which hopefully can be represented in the input embeddings. Depending on computational resources, we may increase the attention heads to allow each token to focus on and attend to different aspects of an input sequence. Each head uses a set of <strong>Q</strong>, <strong>K</strong>, and <strong>V</strong> matrices containing learned parameters to attend to different aspects. We then apply the same attention unit function such as:</p>
+<p><span class="math display">\[\begin{align}
+\text{attention}(Q,K,V) = \text{softmax}\left(\frac{QK^\text{T}}{\sqrt{d_k}}\right)\cdot V \tag{13.94}
 \end{align}\]</span></p>
-<p>To give an example of how we use <strong>Multi-head Attention</strong>, suppose we have the number of heads equal to 5. Let us randomly initialize the <strong>Q</strong>, <strong>K</strong>, and <strong>V</strong> tensors, noting that the tensors have dimension <span class="math inline">\((k \times k \times h)\)</span>:</p>
 
-<div class="sourceCode" id="cb2155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2155-1" data-line-number="1">h =<span class="st"> </span><span class="dv">5</span>;  t =<span class="st"> </span><span class="dv">4</span> <span class="co"># here, h equals no. of heads, t equals no. of tokens</span></a>
-<a class="sourceLine" id="cb2155-2" data-line-number="2">Q =<span class="st"> </span><span class="kw">array</span>(<span class="kw">runif</span>(<span class="dt">n=</span>dk <span class="op">*</span><span class="st"> </span>dk, <span class="dt">min=</span><span class="op">-</span><span class="fl">0.5</span>, <span class="dt">max=</span><span class="fl">0.5</span>), <span class="kw">c</span>(dk, dk, h))</a>
-<a class="sourceLine" id="cb2155-3" data-line-number="3">K =<span class="st"> </span><span class="kw">array</span>(<span class="kw">runif</span>(<span class="dt">n=</span>dk <span class="op">*</span><span class="st"> </span>dk, <span class="dt">min=</span><span class="op">-</span><span class="fl">0.5</span>, <span class="dt">max=</span><span class="fl">0.5</span>), <span class="kw">c</span>(dk, dk, h))</a>
-<a class="sourceLine" id="cb2155-4" data-line-number="4">V =<span class="st"> </span><span class="kw">array</span>(<span class="kw">runif</span>(<span class="dt">n=</span>dk <span class="op">*</span><span class="st"> </span>dk, <span class="dt">min=</span><span class="op">-</span><span class="fl">0.5</span>, <span class="dt">max=</span><span class="fl">0.5</span>), <span class="kw">c</span>(dk, dk, h))</a>
-<a class="sourceLine" id="cb2155-5" data-line-number="5">K[,,<span class="dv">1</span>]  <span class="co"># display an initialized K matrix for the first head.</span></a></code></pre></div>
-<pre><code>##            [,1]        [,2]        [,3]        [,4]
-## [1,] 0.15782952 0.158294656  0.30144395 0.389498414
-## [2,] 0.38407710 0.078136669 -0.28551430 0.334255804
-## [3,] 0.33999093 0.155190383  0.47465562 0.140585024
-## [4,] 0.44216319 0.297951073 -0.32631462 0.373908170
-## [5,] 0.30393706 0.069033058 -0.48419310 0.094678544
-##             [,5]
-## [1,] -0.20034764
-## [2,]  0.34011628
-## [3,]  0.09883009
-## [4,]  0.21031208
-## [5,] -0.16618633</code></pre>
+<p>
+In terms of computation, suppose that our input sequence has 11 tokens (<strong>t</strong>) and that the chosen size of the embeddings is 768 (<strong>d_model</strong>).  If we decide to use eight attention heads, that means that we divide the embedding size by eight heads, e.g., 768 / 8 = 96  (<span class="math inline">\(\mathbf{d_k}\)</span>).  We follow the same steps as enumerated in the self-attention section for each head.  We go through a linear transformation with three weight matrices per head, namely <strong>Q</strong>, <strong>K</strong>, and <strong>V</strong>, having the same <span class="math inline">\(\mathbf{d_k}\)</span> x <strong>ws</strong> dimensions but initialized randomly, resulting in three <strong>score matrices</strong>, namely <strong>q</strong>, <strong>k</strong>, and <strong>v</strong> of <strong>t</strong> x <strong>ws</strong> dimension. Next, we perform dot product between <strong>q</strong> and <strong>k</strong>, resulting in a matrix of <strong>t</strong> x <strong>t</strong> dimension.  We then scale the result using a normalizer, e.g., <span class="math inline">\(\sqrt{\mathbf{d_k}}\)</span>, followed by <strong>softmax</strong> to derive the attention weights.  We follow this by performing a matmul between the matrix and <strong>v</strong> matrix, resulting in an output matrix of <strong>t</strong> x <strong>ws</strong> dimension.  Given that we have eight heads, we concatenate the eight output matrices, resulting in a matrix of <strong>t</strong> x (<strong>ws</strong> * <strong>heads</strong>) dimension.  From there, we apply a linear transformation with another weight, call it <span class="math inline">\(\mathbf{W_o}\)</span>, of (<strong>ws</strong> * <strong>heads</strong>) x <strong>d_model</strong> dimension.  This results in the final multi-head attention output of <strong>t</strong> x <strong>d_model</strong> dimension similar to the dimension of the input.</p>
 
-<p>We then multiply <strong>q</strong>, <strong>k</strong>, and <strong>v</strong> embeddings with the corresponding matrix like so (noting that <strong>q</strong>, <strong>k</strong>, and <strong>v</strong> are sourced from <strong>e</strong>:</p>
-
-<div class="sourceCode" id="cb2157"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2157-1" data-line-number="1">query =<span class="st"> </span>keys =<span class="st"> </span>values =<span class="st"> </span><span class="kw">array</span>(<span class="dv">0</span>, <span class="kw">c</span>(dk, t, h)) <span class="co"># create the q,k,v structures</span></a>
-<a class="sourceLine" id="cb2157-2" data-line-number="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>h) {</a>
-<a class="sourceLine" id="cb2157-3" data-line-number="3">  query[,,i]  =<span class="st"> </span>q <span class="op">%*%</span><span class="st"> </span>Q[,,i]</a>
-<a class="sourceLine" id="cb2157-4" data-line-number="4">  keys[,,i]   =<span class="st"> </span>k <span class="op">%*%</span><span class="st"> </span>K[,,i]</a>
-<a class="sourceLine" id="cb2157-5" data-line-number="5">  values[,,i] =<span class="st"> </span>v <span class="op">%*%</span><span class="st"> </span>V[,,i] </a>
-<a class="sourceLine" id="cb2157-6" data-line-number="6">}</a></code></pre></div>
-
-<p>Let us now invoke our <strong>attention.unit</strong> function.</p>
-
-<div class="sourceCode" id="cb2158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2158-1" data-line-number="1"><span class="kw">options</span>(<span class="dt">width=</span><span class="dv">56</span>)</a>
-<a class="sourceLine" id="cb2158-2" data-line-number="2">contextualized =<span class="st"> </span><span class="kw">array</span>(<span class="dv">0</span>, <span class="kw">c</span>(dk, t, h)) </a>
-<a class="sourceLine" id="cb2158-3" data-line-number="3"><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>h) {</a>
-<a class="sourceLine" id="cb2158-4" data-line-number="4">   contextualized[,,i] =<span class="st"> </span><span class="kw">attention.unit</span>(query[,,i], keys[,,i], values[,,i])</a>
-<a class="sourceLine" id="cb2158-5" data-line-number="5">}</a></code></pre></div>
-<p>The dimension is [5, 4, 5].</p>
-
-<p>Note that the output of the multi-head attention is a list of <strong>contextualized</strong> matrices. The list has a size equal to the number of heads. To obtain only one <strong>contextualized matrix</strong> with the same dimension as the original embedding, we need to merge the list. The <strong>merging</strong> approach is to concatenate and then run through a linear layer, reshaping it into the original size before feeding it to the next layer higher up  the stack.</p>
+<p>Note that the output of the multi-head attention is a list of <strong>contextualized</strong> matrices. The list has a size equal to the number of heads. To obtain only one <strong>contextualized matrix</strong> with the same dimension as the original embedding, we need to merge the list. The <strong>merging</strong> approach is to concatenate and then run through a linear layer, reshaping it into the original size before feeding it to the next layer higher up the stack.</p>
 <p><strong>Multihead Attention</strong> is seen in the paper by Ashish Vaswani et al. <span class="citation">(<a href="bibliography.html#ref-ref1339a">2017</a>)</span>. It is used as one of the core components of a novel <strong>Attention-based</strong> architecture called <strong>Transformer</strong>.</p>
 <p>Before we jump to <strong>Transformers</strong>, let us discuss a few essential topics, focusing on <strong>sequence-to-sequence</strong> applications. Among many others, we need to build our intuition around the following topics:</p>
 <ul>
@@ -1094,6 +1071,7 @@ Figure 13.22: Multi-Head Attention
 <li><strong>Positional Embedding</strong> - numerical representation of the position of sequence elements, and</li>
 <li><strong>Sequence Alignment</strong> - alignment between sequences if we are to translate one sequence to another.</li>
 </ul>
+
 </div>
 <div id="word-embedding" class="section level3 hasAnchor">
 <h3><span class="header-section-number">13.5.4</span> Word Embedding <a href="13.5-transformer-neural-network-tnn.html#word-embedding" class="anchor-section" aria-label="Anchor link to header"></a></h3>
