@@ -609,7 +609,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.1.1" data-path="10.1-regression.html"><a href="10.1-regression.html#regression-trees"><i class="fa fa-check"></i><b>10.1.1</b> Regression Trees </a></li>
 <li class="chapter" data-level="10.1.2" data-path="10.1-regression.html"><a href="10.1-regression.html#ensemble-methods"><i class="fa fa-check"></i><b>10.1.2</b> Ensemble Methods </a></li>
 <li class="chapter" data-level="10.1.3" data-path="10.1-regression.html"><a href="10.1-regression.html#random-forest"><i class="fa fa-check"></i><b>10.1.3</b> Random Forest </a></li>
-<li class="chapter" data-level="10.1.4" data-path="10.1-regression.html"><a href="10.1-regression.html#Adaoost"><i class="fa fa-check"></i><b>10.1.4</b> AdaBoost</a></li>
+<li class="chapter" data-level="10.1.4" data-path="10.1-regression.html"><a href="10.1-regression.html#AdaBoost"><i class="fa fa-check"></i><b>10.1.4</b> AdaBoost</a></li>
 <li class="chapter" data-level="10.1.5" data-path="10.1-regression.html"><a href="10.1-regression.html#gradient-boost"><i class="fa fa-check"></i><b>10.1.5</b> Gradient Boost </a></li>
 <li class="chapter" data-level="10.1.6" data-path="10.1-regression.html"><a href="10.1-regression.html#xgboost"><i class="fa fa-check"></i><b>10.1.6</b> XGBoost </a></li>
 <li class="chapter" data-level="10.1.7" data-path="10.1-regression.html"><a href="10.1-regression.html#generalized-linear-modeling-glm"><i class="fa fa-check"></i><b>10.1.7</b> Generalized Linear Modeling (GLM)  </a></li>
@@ -626,7 +626,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.3.2" data-path="10.3-multi-class-classification-supervised.html"><a href="10.3-multi-class-classification-supervised.html#classification-trees"><i class="fa fa-check"></i><b>10.3.2</b> Classification Trees </a></li>
 <li class="chapter" data-level="10.3.3" data-path="10.3-multi-class-classification-supervised.html"><a href="10.3-multi-class-classification-supervised.html#ensemble-methods-1"><i class="fa fa-check"></i><b>10.3.3</b> Ensemble Methods </a></li>
 <li class="chapter" data-level="10.3.4" data-path="10.3-multi-class-classification-supervised.html"><a href="10.3-multi-class-classification-supervised.html#random-forest-1"><i class="fa fa-check"></i><b>10.3.4</b> Random Forest </a></li>
-<li class="chapter" data-level="10.3.5" data-path="10.3-multi-class-classification-supervised.html"><a href="10.3-multi-class-classification-supervised.html#AdaBoost"><i class="fa fa-check"></i><b>10.3.5</b> AdaBoost &amp; SAMME</a></li>
+<li class="chapter" data-level="10.3.5" data-path="10.3-multi-class-classification-supervised.html"><a href="10.3-multi-class-classification-supervised.html#AdaBoostandSAMME"><i class="fa fa-check"></i><b>10.3.5</b> AdaBoost and SAMME</a></li>
 <li class="chapter" data-level="10.3.6" data-path="10.3-multi-class-classification-supervised.html"><a href="10.3-multi-class-classification-supervised.html#logitboost-j-classes"><i class="fa fa-check"></i><b>10.3.6</b> LogitBoost (J Classes)</a></li>
 <li class="chapter" data-level="10.3.7" data-path="10.3-multi-class-classification-supervised.html"><a href="10.3-multi-class-classification-supervised.html#gradient-boost-1"><i class="fa fa-check"></i><b>10.3.7</b> Gradient Boost </a></li>
 <li class="chapter" data-level="10.3.8" data-path="10.3-multi-class-classification-supervised.html"><a href="10.3-multi-class-classification-supervised.html#k-next-neighbors-knn"><i class="fa fa-check"></i><b>10.3.8</b> K-Next Neighbors (KNN)  </a></li>
@@ -2044,8 +2044,8 @@ Figure 10.9: Weights
 <pre><code>## Predicted.Mazda RX4              Actual 
 ##                  21                  21</code></pre>
 </div>
-<div id="Adaoost" class="section level3 hasAnchor">
-<h3><span class="header-section-number">10.1.4</span> AdaBoost<a href="10.1-regression.html#Adaoost" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="AdaBoost" class="section level3 hasAnchor">
+<h3><span class="header-section-number">10.1.4</span> AdaBoost<a href="10.1-regression.html#AdaBoost" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>AdaBoost</strong> is short for <strong>Adaptive Boosting</strong> developed by Yoav Freund and Robert Schapire <span class="citation">(<a href="bibliography.html#ref-ref510">1999</a>)</span>. This <strong>Boosting</strong> ensemble algorithm introduces a few concepts, namely <strong>weighted errors</strong>, <strong>weak learners</strong>, and <strong>decision stumps</strong>. </p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:boosting"></span>
 <img src="boosting.png" alt="AdaBoost" width="70%" />
