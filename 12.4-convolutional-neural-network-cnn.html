@@ -1781,7 +1781,7 @@ Figure 12.36: CNN (BackPropagation)
  \right)  = \sum_i \delta o_i \varphi_{2,i} =
  \delta o_1 \varphi_{2,1} + \delta o_2 \varphi_{2,2}  + \delta o_3 \varphi_{2,3}  \tag{12.183} 
 \end{align}\]</span></p>
-<p><strong>Fifth</strong>, we continue to the next hidden FC layer and perform the same, taking derivative with respect to next previous weight:</p>
+<p><strong>Fifth</strong>, we continue to the next hidden FC layer and perform the same, taking derivative with respect to the next previous weight:</p>
 <p><span class="math display" id="eq:equate1140173">\[\begin{align}
 \frac{\partial \mathcal{L}}{\partial \omega_{1,1}} = \delta h_1 \left(\frac{\partial \hat{h}_1}{\partial \omega_{1,1}}\right ) = \delta h_1\ p_1 
 \ \ \ \ \ \ \ 
