@@ -3060,9 +3060,39 @@ Figure 12.48: Transferred Model (CNN)
 </div>
 <div id="summary-7" class="section level3 hasAnchor">
 <h3><span class="header-section-number">12.4.17</span> Summary<a href="12.4-convolutional-neural-network-cnn.html#summary-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Convolutional Neural Network</strong> is a topic that is wide and deep. There are more than a handful of knobs to cover. The interplay of these knobs is essential to get where we want to be in train and test accuracy. Each knob deserves a section for illustration and discussion. However, one section alone does not give justice to each. Our previous discussions perhaps only scratch the surface.</p>
-<p>Nevertheless, we leave readers to continue investigating novel tricks and techniques to improve <strong>CNN</strong> and to read about <strong>Data Augmentation</strong> and <strong>Adversarial Sampling</strong>. The former - <strong>Data Augmentation</strong> - allows us to use newly added datasets for further training based on existing datasets that are synthetically altered (e.g., image transformation). Given an insufficient dataset, the technique is helpful if we need to improve test accuracy. The latter - <strong>Adversarial Sampling</strong> - performs a similar technique as <strong>Augmentation</strong>; however, we need to be wary about intentionally tampered datasets that could mislead training.</p>
-<p>It is also worth mentioning that our <strong>CNN</strong> implementation is tailored based on a machine with minimal computing capability. However, advanced frameworks can perform <strong>distributed</strong> (parallel) processing across powerful machines with <strong>GPU</strong> support, achieving speeds down to seconds instead of hours. We leave readers to explore this next.</p>
+
+
+<p><strong>Convolutional Neural Network</strong> is a topic that is wide and deep.  There are more than a handful of knobs to cover.  The interplay of these knobs is essential to get where we want to be in train and test accuracy.  Each knob deserves a section for illustration and discussion.  However, one section alone does not give justice to each.  Our previous discussions perhaps only scratch the surface.</p>
+
+<p>Nevertheless, we leave readers to continue investigating novel tricks and techniques to improve CNN and to read about Data Augmentation and Adversarial Sampling. The former - Data Augmentation - allows us to use newly added datasets for further training based on existing datasets that are synthetically altered (e.g., image transformation). Given an insufficient dataset, the technique is helpful if we need to improve test accuracy. The latter - Adversarial Sampling - performs a similar technique as Augmentation; however, we need to be wary about intentionally tampered datasets that could mislead training.</p>
+
+<p>It is worth mentioning that our <strong>CNN</strong> implementation is tailored based on a machine with minimal computing capability.  However, advanced frameworks can perform <strong>distributed</strong> (parallel) processing across powerful machines with <strong>GPU</strong> support, achieving speeds down to seconds instead of hours.  Also, building a <strong>CNN</strong> from scratch is a good way to understand its internal mechanics.  However, in practice, we use frameworks such as <strong>PyTorch</strong> and <strong>Tensorflow</strong> that are already optimized for the job and are built to use <strong>CBAS</strong> for matrix manipulation.  Such frameworks are written in programming languages that support <strong>automatic differentiation</strong> and <strong>computational graphs</strong> for backpropagation.  Here is an example code that uses <strong>PyTorch</strong> framework (e.g. <strong>torch</strong> library in R):</p>
+
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb305-1" data-line-number="1"><span class="kw">library</span>(torch)</a>
+<a class="sourceLine" id="cb305-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb305-3" data-line-number="3"><span class="co"># The module uses one convolutional layer,  </span></a>
+<a class="sourceLine" id="cb305-4" data-line-number="4"><span class="co"># one pooling layer, and two fully connected layers</span></a>
+<a class="sourceLine" id="cb305-5" data-line-number="5">myCNN &lt;-<span class="st"> </span><span class="kw">nn_module</span>(</a>
+<a class="sourceLine" id="cb305-6" data-line-number="6">  <span class="st">&quot;myCNN&quot;</span>,</a>
+<a class="sourceLine" id="cb305-7" data-line-number="7">  <span class="dt">initialize =</span> <span class="cf">function</span>() {</a>
+<a class="sourceLine" id="cb305-8" data-line-number="8">     self<span class="op">$</span>conv_layer =<span class="st"> </span><span class="kw">nn_conv2d</span>(<span class="dv">3</span>, <span class="dv">16</span>, <span class="dt">kernel_size =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb305-9" data-line-number="9">     self<span class="op">$</span>pool_layer =<span class="st"> </span><span class="kw">nn_max_pool2d</span>(<span class="dt">kernel_size =</span> <span class="dv">2</span>, <span class="dt">stride =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb305-10" data-line-number="10">     self<span class="op">$</span>fc1 =<span class="st"> </span><span class="kw">nn_linear</span>(<span class="dv">16</span> <span class="op">*</span><span class="st"> </span><span class="dv">12</span> <span class="op">*</span><span class="st"> </span><span class="dv">12</span>, <span class="dv">128</span>)</a>
+<a class="sourceLine" id="cb305-11" data-line-number="11">     self<span class="op">$</span>fc2 =<span class="st"> </span><span class="kw">nn_linear</span>(<span class="dv">128</span>, <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb305-12" data-line-number="12">  },</a>
+<a class="sourceLine" id="cb305-13" data-line-number="13">  <span class="dt">forward =</span> <span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb305-14" data-line-number="14">     x =<span class="st"> </span>self<span class="op">$</span><span class="kw">conv_layer</span>(x)</a>
+<a class="sourceLine" id="cb305-15" data-line-number="15">     x =<span class="st"> </span><span class="kw">nn_relu</span>(x)</a>
+<a class="sourceLine" id="cb305-16" data-line-number="16">     x =<span class="st"> </span>self<span class="op">$</span><span class="kw">pool_layer</span>(x)</a>
+<a class="sourceLine" id="cb305-17" data-line-number="17">     x =<span class="st"> </span><span class="kw">nn_view</span>(x, <span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">16</span> <span class="op">*</span><span class="st"> </span><span class="dv">12</span> <span class="op">*</span><span class="st"> </span><span class="dv">12</span>))</a>
+<a class="sourceLine" id="cb305-18" data-line-number="18">     x =<span class="st"> </span><span class="kw">nn_relu</span>(self<span class="op">$</span><span class="kw">fc1</span>(x))</a>
+<a class="sourceLine" id="cb305-19" data-line-number="19">     x =<span class="st"> </span>self<span class="op">$</span><span class="kw">fc2</span>(x)</a>
+<a class="sourceLine" id="cb305-20" data-line-number="20">     <span class="kw">return</span>(x)</a>
+<a class="sourceLine" id="cb305-21" data-line-number="21">  }</a>
+<a class="sourceLine" id="cb305-22" data-line-number="22">)</a></code></pre></div>
+
+<p>We leave readers to explore common frameworks for <strong>Neural Networks</strong>.</p>
+
 
 </div>
 </div>
