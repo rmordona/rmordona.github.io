@@ -1754,7 +1754,7 @@ Figure 12.36: CNN (BackPropagation)
 <p><span class="math display" id="eq:equate1140169">\[\begin{align}
 \delta_o = \sum_i \frac{\partial \mathcal{L}}{\partial o_i} \left( \frac{\partial o_i}{\partial \hat{o}_i}\right) =  \delta o_1 + \delta o_2 + \delta o_3 \tag{12.180} 
 \end{align}\]</span></p>
-<p><strong>Third</strong>, we calculate the derivative of the <strong>Loss Function</strong> with respect to weights:</p>
+<p><strong>Third</strong>, we calculate the derivative of the <strong>Loss Function</strong> with respect to the weights:</p>
 <p><span class="math display" id="eq:equate1140170">\[\begin{align}
 \frac{\partial \mathcal{L}}{\partial \varphi_{1,1}} = \delta o_1 \left( \frac{\partial \hat{o}_1}{\partial \varphi_{1,1}}\right) = \delta {o_1} h_1
 \ \ \ \ \ \ \ 
@@ -1762,7 +1762,7 @@ Figure 12.36: CNN (BackPropagation)
 \ \ \ \ \ \ \ 
 \frac{\partial \mathcal{L}}{\partial \varphi_{2,3}} = \delta o_3 \left( \frac{\partial \hat{o}_3}{\partial \varphi_{2,3}}\right) = \delta {o_3} h_2 \tag{12.181} 
 \end{align}\]</span></p>
-<p><strong>Fourth</strong>, we calculate the derivative of the <strong>Loss Function</strong> with respect to <strong>activation output</strong>:</p>
+<p><strong>Fourth</strong>, we calculate the derivative of the <strong>Loss Function</strong> with respect to the <strong>activation output</strong>:</p>
 <p><span class="math display" id="eq:equate1140171">\[\begin{align}
 \frac{\partial \mathcal{L}}{\partial h_{1}} =  \sum_i 
  \left(
