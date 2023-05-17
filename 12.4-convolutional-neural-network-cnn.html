@@ -947,11 +947,11 @@ O = (W - K + 2p) / s + 1 \tag{12.175}
 
 <div class="sourceCode" id="cb1989"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1989-1" data-line-number="1"><span class="kw">library</span>(dequer)</a>
 <a class="sourceLine" id="cb1989-2" data-line-number="2">convolution &lt;-<span class="st"> </span><span class="cf">function</span>(images, filter, </a>
-<a class="sourceLine" id="cb1989-3" data-line-number="3">                 <span class="dt">cur.fmaps =</span> <span class="ot">NULL</span>, <span class="dt">dw.kernel =</span> <span class="ot">NULL</span>, <span class="dt">pw.kernel =</span> <span class="ot">NULL</span>,</a>
-<a class="sourceLine" id="cb1989-4" data-line-number="4">                 <span class="dt">Dout=</span><span class="ot">NULL</span>, <span class="dt">stride=</span><span class="dv">1</span>, <span class="dt">padding =</span> <span class="dv">0</span>, <span class="dt">dil_rate=</span><span class="dv">0</span>, <span class="dt">dil_input=</span><span class="dv">0</span>, </a>
-<a class="sourceLine" id="cb1989-5" data-line-number="5">                 <span class="dt">autopad =</span> <span class="ot">NULL</span>, <span class="dt">auto.pad=</span><span class="dv">0</span>, <span class="dt">normalize=</span><span class="ot">FALSE</span>, <span class="dt">clipping=</span><span class="ot">FALSE</span>, </a>
-<a class="sourceLine" id="cb1989-6" data-line-number="6">                 <span class="dt">afunc=</span><span class="ot">NULL</span>, <span class="dt">pool.cache =</span> <span class="ot">NULL</span>, <span class="dt">pool =</span> <span class="ot">NULL</span>, <span class="dt">bias =</span> <span class="ot">TRUE</span>, </a>
-<a class="sourceLine" id="cb1989-7" data-line-number="7">                 <span class="dt">dw.bias =</span> <span class="ot">NULL</span>, <span class="dt">pw.bias =</span> <span class="ot">NULL</span>, <span class="dt">ptype=</span><span class="st">&quot;convolv&quot;</span>) {</a>
+<a class="sourceLine" id="cb1989-3" data-line-number="3">                 <span class="dt">cur.fmaps =</span> <span class="ot">NULL</span>, <span class="dt">dw.kernel =</span> <span class="ot">NULL</span>, <span class="dt">pw.kernel = </span> <span class="ot">NULL</span>,</a>
+<a class="sourceLine" id="cb1989-4" data-line-number="4">                 <span class="dt">Dout = </span><span class="ot">NULL</span>, <span class="dt">stride = </span><span class="dv">1</span>, <span class="dt">padding =</span> <span class="dv">0</span>, <span class="dt">dil_rate = </span><span class="dv">1</span>, <span class="dt">dil_input = </span><span class="dv">0</span>, </a>
+<a class="sourceLine" id="cb1989-5" data-line-number="5">                 <span class="dt">autopad = </span> <span class="ot">NULL</span>, <span class="dt">auto.pad = </span><span class="dv">0</span>, <span class="dt">normalize = </span><span class="ot">FALSE</span>, <span class="dt">clipping = </span><span class="ot">FALSE</span>, </a>
+<a class="sourceLine" id="cb1989-6" data-line-number="6">                 <span class="dt">afunc = </span><span class="ot">NULL</span>, <span class="dt">pool.cache =</span> <span class="ot">NULL</span>, <span class="dt">pool =</span> <span class="ot">NULL</span>, <span class="dt">bias = </span> <span class="ot">TRUE</span>, </a>
+<a class="sourceLine" id="cb1989-7" data-line-number="7">                 <span class="dt">dw.bias =</span> <span class="ot">NULL</span>, <span class="dt">pw.bias =</span> <span class="ot">NULL</span>, <span class="dt">ptype = </span><span class="st">&quot;convolv&quot;</span>) {</a>
 <a class="sourceLine" id="cb1989-8" data-line-number="8">  gaps      =<span class="st"> </span>dil_input</a>
 <a class="sourceLine" id="cb1989-9" data-line-number="9">  d         =<span class="st"> </span><span class="kw">dim</span>(images)</a>
 <a class="sourceLine" id="cb1989-10" data-line-number="10">  img.h     =<span class="st"> </span>d[<span class="dv">1</span>]; img.w =<span class="st"> </span>d[<span class="dv">2</span>]; img.d =<span class="st"> </span>d[<span class="dv">3</span>]; img.s =<span class="st"> </span>d[<span class="dv">4</span>]</a>
@@ -1259,39 +1259,41 @@ Figure 12.32: Dilation
 </div>
 <p>Below is our example implementation of <strong>Dilation</strong>. Note that for our own purposes only, we use a <strong>dilate rate</strong> equal to zero for normal convolution with no gaps. And a rate of one corresponds to a one-pixel gap.</p>
 
-<div class="sourceCode" id="cb2002"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2002-1" data-line-number="1">dilate  &lt;-<span class="st"> </span><span class="cf">function</span>(image, <span class="dt">dil_rate=</span><span class="dv">0</span>) {</a>
-<a class="sourceLine" id="cb2002-2" data-line-number="2">   <span class="cf">if</span> (dil_rate <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>) { <span class="kw">return</span>(image) }  </a>
-<a class="sourceLine" id="cb2002-3" data-line-number="3">   d       =<span class="st"> </span><span class="kw">dim</span>(image) </a>
-<a class="sourceLine" id="cb2002-4" data-line-number="4">   img.h   =<span class="st"> </span>d[<span class="dv">1</span>]; img.w =<span class="st"> </span>d[<span class="dv">2</span>]; img.d =<span class="st"> </span>d[<span class="dv">3</span>]; img.s =<span class="st"> </span>d[<span class="dv">4</span>]</a>
-<a class="sourceLine" id="cb2002-5" data-line-number="5">   h =<span class="st"> </span>img.h <span class="op">+</span><span class="st"> </span>dil_rate <span class="op">*</span><span class="st"> </span>(img.h <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) </a>
-<a class="sourceLine" id="cb2002-6" data-line-number="6">   w =<span class="st"> </span>img.w <span class="op">+</span><span class="st"> </span>dil_rate <span class="op">*</span><span class="st"> </span>(img.w <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb2002-7" data-line-number="7">   img =<span class="st"> </span><span class="kw">array</span>(<span class="dv">0</span>, <span class="kw">c</span>(h,w, img.d, img.s))</a>
-<a class="sourceLine" id="cb2002-8" data-line-number="8">   <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>img.h) {</a>
-<a class="sourceLine" id="cb2002-9" data-line-number="9">     <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>img.w) {</a>
-<a class="sourceLine" id="cb2002-10" data-line-number="10">       img[i<span class="op">*</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>,j<span class="op">*</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>,,] =<span class="st"> </span>image[i,j,,]</a>
-<a class="sourceLine" id="cb2002-11" data-line-number="11">     }</a>
-<a class="sourceLine" id="cb2002-12" data-line-number="12">   }</a>
-<a class="sourceLine" id="cb2002-13" data-line-number="13">   img</a>
-<a class="sourceLine" id="cb2002-14" data-line-number="14">}</a></code></pre></div>
-<div class="sourceCode" id="cb2003"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2003-1" data-line-number="1">dilate.filters &lt;-<span class="st"> </span><span class="cf">function</span>(filters, <span class="dt">dil_rate =</span> <span class="dv">0</span>) {</a>
-<a class="sourceLine" id="cb2003-2" data-line-number="2">   <span class="cf">if</span> (dil_rate <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>) { <span class="kw">return</span>(filters) }  </a>
-<a class="sourceLine" id="cb2003-3" data-line-number="3">   len =<span class="st"> </span><span class="kw">length</span>(filters)</a>
-<a class="sourceLine" id="cb2003-4" data-line-number="4">   <span class="cf">for</span> (l <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>len) {</a>
-<a class="sourceLine" id="cb2003-5" data-line-number="5">       filter =<span class="st"> </span>filters[[l]]</a>
-<a class="sourceLine" id="cb2003-6" data-line-number="6">       d       =<span class="st"> </span><span class="kw">dim</span>(filter) </a>
-<a class="sourceLine" id="cb2003-7" data-line-number="7">       img.h   =<span class="st"> </span>d[<span class="dv">1</span>]; img.w =<span class="st"> </span>d[<span class="dv">2</span>]; img.d =<span class="st"> </span>d[<span class="dv">3</span>]; img.s =<span class="st"> </span>d[<span class="dv">4</span>]</a>
-<a class="sourceLine" id="cb2003-8" data-line-number="8">       h =<span class="st"> </span>img.h <span class="op">+</span><span class="st"> </span>dil_rate <span class="op">*</span><span class="st"> </span>(img.h <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) </a>
-<a class="sourceLine" id="cb2003-9" data-line-number="9">       w =<span class="st"> </span>img.w <span class="op">+</span><span class="st"> </span>dil_rate <span class="op">*</span><span class="st"> </span>(img.w <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb2003-10" data-line-number="10">       img =<span class="st"> </span><span class="kw">array</span>(<span class="dv">0</span>, <span class="kw">c</span>(h,w, img.d, img.s))</a>
-<a class="sourceLine" id="cb2003-11" data-line-number="11">       <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>img.h) {</a>
-<a class="sourceLine" id="cb2003-12" data-line-number="12">         <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>img.w) {</a>
-<a class="sourceLine" id="cb2003-13" data-line-number="13">           img[i<span class="op">*</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>,j<span class="op">*</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">1</span>,,] =<span class="st"> </span>image[i,j,,]</a>
-<a class="sourceLine" id="cb2003-14" data-line-number="14">         }</a>
-<a class="sourceLine" id="cb2003-15" data-line-number="15">       }</a>
-<a class="sourceLine" id="cb2003-16" data-line-number="16">       filters[[l]] =<span class="st"> </span>img</a>
-<a class="sourceLine" id="cb2003-17" data-line-number="17">   }</a>
-<a class="sourceLine" id="cb2003-18" data-line-number="18">   filters</a>
-<a class="sourceLine" id="cb2003-19" data-line-number="19">}</a></code></pre></div>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" data-line-number="1">dilate  &lt;-<span class="st"> </span><span class="cf">function</span>(filter, <span class="dt">dil_rate=</span><span class="dv">1</span>) { </a>
+<a class="sourceLine" id="cb222-2" data-line-number="2">   <span class="cf">if</span> (dil_rate <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>) { <span class="kw">return</span>(filter) }  </a>
+<a class="sourceLine" id="cb222-3" data-line-number="3">   dl =<span class="st"> </span>dil_rate <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb222-4" data-line-number="4">   fi       =<span class="st"> </span><span class="kw">dim</span>(filter) </a>
+<a class="sourceLine" id="cb222-5" data-line-number="5">   rf.h   =<span class="st"> </span>fi[<span class="dv">1</span>]; rf.w =<span class="st"> </span>fi[<span class="dv">2</span>]; rf.d =<span class="st"> </span>fi[<span class="dv">3</span>]; rf.s =<span class="st"> </span>fi[<span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb222-6" data-line-number="6">   h =<span class="st"> </span>rf.h <span class="op">+</span><span class="st"> </span>dl <span class="op">*</span><span class="st"> </span>(rf.h <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) </a>
+<a class="sourceLine" id="cb222-7" data-line-number="7">   w =<span class="st"> </span>rf.w <span class="op">+</span><span class="st"> </span>dl <span class="op">*</span><span class="st"> </span>(rf.w <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb222-8" data-line-number="8">   r_field =<span class="st"> </span><span class="kw">array</span>(<span class="dv">0</span>, <span class="kw">c</span>(h,w, rf.d, rf.s ))</a>
+<a class="sourceLine" id="cb222-9" data-line-number="9">   <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>rf.h) {</a>
+<a class="sourceLine" id="cb222-10" data-line-number="10">     <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>rf.w) {</a>
+<a class="sourceLine" id="cb222-11" data-line-number="11">        r_field[(i<span class="dv">-1</span>) <span class="op">*</span><span class="st"> </span>dl <span class="op">+</span><span class="st"> </span>i, (j<span class="dv">-1</span>) <span class="op">*</span><span class="st"> </span>dl <span class="op">+</span><span class="st"> </span>j,,] =<span class="st"> </span>filter[i,j,,]</a>
+<a class="sourceLine" id="cb222-12" data-line-number="12">     }</a>
+<a class="sourceLine" id="cb222-13" data-line-number="13">   }</a>
+<a class="sourceLine" id="cb222-14" data-line-number="14">   r_field</a>
+<a class="sourceLine" id="cb222-15" data-line-number="15">}</a></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb223-1" data-line-number="1">dilate.filters &lt;-<span class="st"> </span><span class="cf">function</span>(filters, <span class="dt">dil_rate =</span> <span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb223-2" data-line-number="2">   <span class="cf">if</span> (dil_rate <span class="op">&lt;=</span><span class="st"> </span><span class="dv">1</span>) { <span class="kw">return</span>(filters) }  </a>
+<a class="sourceLine" id="cb223-3" data-line-number="3">   len =<span class="st"> </span><span class="kw">length</span>(filters)</a>
+<a class="sourceLine" id="cb223-4" data-line-number="4">   dl =<span class="st"> </span>dil_rate <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
+<a class="sourceLine" id="cb223-5" data-line-number="5">   <span class="cf">for</span> (l <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>len) {</a>
+<a class="sourceLine" id="cb223-6" data-line-number="6">       filter =<span class="st"> </span>filters[[l]]</a>
+<a class="sourceLine" id="cb223-7" data-line-number="7">       fi       =<span class="st"> </span><span class="kw">dim</span>(filter) </a>
+<a class="sourceLine" id="cb223-8" data-line-number="8">       rf.h   =<span class="st"> </span>fi[<span class="dv">1</span>]; rf.w =<span class="st"> </span>fi[<span class="dv">2</span>]; rf.d =<span class="st"> </span>fi[<span class="dv">3</span>]; rf.s =<span class="st"> </span>fi[<span class="dv">4</span>]</a>
+<a class="sourceLine" id="cb223-9" data-line-number="9">       h =<span class="st"> </span>rf.h <span class="op">+</span><span class="st"> </span>dl <span class="op">*</span><span class="st"> </span>(rf.h <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) </a>
+<a class="sourceLine" id="cb223-10" data-line-number="10">       w =<span class="st"> </span>rf.w <span class="op">+</span><span class="st"> </span>dl <span class="op">*</span><span class="st"> </span>(rf.w <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb223-11" data-line-number="11">       r_field =<span class="st"> </span><span class="kw">array</span>(<span class="dv">0</span>, <span class="kw">c</span>(h,w, rf.d, rf.s ))</a>
+<a class="sourceLine" id="cb223-12" data-line-number="12">       <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>rf.h) {</a>
+<a class="sourceLine" id="cb223-13" data-line-number="13">           <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>rf.w) {</a>
+<a class="sourceLine" id="cb223-14" data-line-number="14">              r_field[(i<span class="dv">-1</span>) <span class="op">*</span><span class="st"> </span>dl <span class="op">+</span><span class="st"> </span>i, (j<span class="dv">-1</span>) <span class="op">*</span><span class="st"> </span>dl <span class="op">+</span><span class="st"> </span>j,,] =<span class="st"> </span>filter[i,j,,]</a>
+<a class="sourceLine" id="cb223-15" data-line-number="15">           }</a>
+<a class="sourceLine" id="cb223-16" data-line-number="16">       }</a>
+<a class="sourceLine" id="cb223-17" data-line-number="17">       filters[[l]] =<span class="st"> </span>r_field</a>
+<a class="sourceLine" id="cb223-18" data-line-number="18">   }</a>
+<a class="sourceLine" id="cb223-19" data-line-number="19">   filters</a>
+<a class="sourceLine" id="cb223-20" data-line-number="20">}</a></code></pre></div>
 
 <p>A simple example of using the <strong>dilate(.)</strong> function is shown below:</p>
 
@@ -1959,7 +1961,7 @@ Figure 12.38: CNN (Full Convolution with Padding)
 </p>
 </div>
 <p>Notice this time that the <strong>Full Convolution</strong> does not require padding during backpropagation, whereas during the <strong>feedforward</strong>, we have padding set to 1.</p>
-<p>Therefore, we should notice that performing a <strong>Full Convolution</strong> with a rotated kernel at <span class="math inline">\(180^\circ\)</span> requires careful tracing of the influence of every neuron and weight to the <strong>Loss Function</strong>. With the many permutations of image size, kernel size, and the number of stride and paddings, it requires a bit of heuristic iteration to arrive at the correct combination of knobs to use (in terms of stride, padding, dilation, auto padding) for our full convolution. Figure <a href="12.4-convolutional-neural-network-cnn.html#fig:heuristicbp">12.39</a> illustrates a combination table as a result of heuristically iterating over a few adjustments of the hyperparameters.</p>
+<p>Therefore, we should notice that performing a <strong>Full Convolution</strong> with a rotated kernel at <span class="math inline">\(180^\circ\)</span> requires careful tracing of the influence of every neuron and weight to the <strong>Loss Function</strong>. With the many permutations of image size, kernel size, and the number of stride and paddings, it requires a bit of heuristic iteration to arrive at the correct combination of knobs to use (in terms of stride, padding, dilation, auto padding) for our full convolution. Figure <a href="12.4-convolutional-neural-network-cnn.html#fig:heuristicbp">12.39</a> illustrates a  table of hyperparameter combinations derived based on simple experimentation.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:heuristicbp"></span>
 <img src="heuristicbp.png" alt="BackProp Combination (Heuristic)" width="70%" />
 <p class="caption">
@@ -1972,7 +1974,7 @@ Figure 12.39: BackProp Combination (Heuristic)
 <a class="sourceLine" id="cb2033-2" data-line-number="2">            <span class="dt">stride  =</span> <span class="dv">1</span>,      <span class="dt">padding =</span> <span class="dv">2</span>,  <span class="dt">dil_input =</span> <span class="dv">0</span>,  <span class="dt">auto.pad =</span> <span class="dv">0</span>,</a>
 <a class="sourceLine" id="cb2033-3" data-line-number="3">            <span class="dt">autopad =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">ptype   =</span> <span class="st">&quot;gradient.I.wrt.K&quot;</span>)</a></code></pre></div>
 
-<p>To automatically determine the proper combination, a few patterns in the table expose the below set of formulas:</p>
+<p>A few patterns in the table expose the below set of formulas we can use only for our implementation.  Note that existing frameworks have their own implementation of <strong>Deconvolution</strong.</p>
 <p><span class="math display" id="eq:eqnnumber619">\[\begin{align}
 \begin{array}{ll}
 \text{stride} &amp;= 1\\
@@ -1982,8 +1984,8 @@ Figure 12.39: BackProp Combination (Heuristic)
 \text{auto.pad} &amp;= \text{left}
 \end{array}  \tag{12.201}
 \end{align}\]</span></p>
-<p>Note here that we can pass <strong>dilation rate</strong> (e.g., dil_input) to dilate the jacobian matrix of the gradients, and we can also pass <strong>dilation rate</strong> hyperparameter (e.g., dil_rate) to dilate receptive fields (which is always set to zero). Additionally, auto padding is done to the left and top edges.</p>
-<p>Also, our brief experimentation does show that an image size of 4 and a kernel size of 3 does not produce a combination for our full convolution if our stride and paddings are set to 2, as shown in Figure <a href="12.4-convolutional-neural-network-cnn.html#fig:heuristicbp">12.39</a>. This experiment tells us that while the formulas above work in reasonably general cases, there are configurations that may not apply. Here, a decent general case implies that a kernel size of 3 and stride of 1 is a good choice versus a stride of 4, which leaves a gap between receptive fields, causing loss of information. Thus, in our later implementation of <strong>CNN</strong>, we constrain the stride size not to be equal to or greater than the kernel size. We leave readers to investigate this combination and re-evaluate the general case above.</p>
+<p>Also, note here that we can pass  <strong>dilation rate</strong> (e.g., dil_input) to dilate the jacobian matrix of the gradients, and we can also pass <strong>dilation rate</strong> hyperparameter (e.g., dil_rate) to dilate receptive fields (which is always set to zero). Additionally, auto padding is done to the left and top edges.</p>
+<p>Our brief experimentation does show that an image size of 4 and a kernel size of 3 does not produce a combination for our full convolution if our stride and paddings are set to 2, as shown in Figure <a href="12.4-convolutional-neural-network-cnn.html#fig:heuristicbp">12.39</a>. This experiment tells us that while the formulas above work in reasonably general cases, there are configurations that may not apply. Here, a decent general case implies that a kernel size of 3 and stride of 1 is a good choice versus a stride of 4, which leaves a gap between receptive fields, causing loss of information. Thus, in our later implementation of <strong>CNN</strong>, we constrain the stride size not to be equal to or greater than the kernel size. We leave readers to investigate this combination and re-evaluate the general case above.</p>
 <p><strong>Ninth</strong>, in terms of solving for the gradient of the <strong>Loss function</strong> with respect to the individual weights (parameters in the kernels) in a <strong>convolutional layer</strong>, we take one of the learnable weights as an example, e.g., <span class="math inline">\(\mathbf{k_1}\)</span>, from Figure <a href="12.4-convolutional-neural-network-cnn.html#fig:cnnbackprop">12.36</a>. In such a case, we have the following equation:</p>
 <p><span class="math display" id="eq:equate1140181">\[\begin{align}
 \nabla_{k_1} \mathcal{L} = \frac{\partial \mathcal{L}} {\partial k_1} = 
