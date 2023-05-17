@@ -2374,7 +2374,7 @@ k_4 = k_4 - \eta \times \nabla k_4 \mathcal{L} \tag{12.204}
 <a class="sourceLine" id="cb2042-3" data-line-number="3">    eta <span class="op">*</span><span class="st"> </span>(decay.factor <span class="op">^</span><span class="st"> </span><span class="kw">floor</span>(epoch<span class="op">/</span>step.size)) </a>
 <a class="sourceLine" id="cb2042-4" data-line-number="4">}</a></code></pre></div>
 
-<p>To illustrate the use, below is an example of scheduled decay we use for a cifar-10 dataset of 50,000 images for training. The idea is to try to get the most (fastest) learning during the first five epochs using a large learning rate, then decay at a slightly lower learning rate between 5 and 10 epochs before we conveniently settle below <span class="math inline">\(\text{1e-3}\)</span> range past 15 epochs.</p>
+<p>To illustrate the use, below is an example of a scheduled decay we use for a cifar-10 dataset of 50,000 images for training. The idea is to try to get the most (fastest) learning during the first five epochs using a large learning rate, then decay at a slightly lower learning rate between 5 and 10 epochs before we conveniently settle below <span class="math inline">\(\text{1e-3}\)</span> range past 15 epochs.</p>
 
 <div class="sourceCode" id="cb2043"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2043-1" data-line-number="1"><span class="kw">step.decay</span>(<span class="fl">0.05</span>, <span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">20</span>), <span class="dt">decay.factor=</span><span class="fl">0.80</span>, <span class="dt">step.size=</span><span class="dv">1</span>)</a></code></pre></div>
 <pre><code>##  [1] 0.04000000000 0.03200000000 0.02560000000
@@ -2860,16 +2860,16 @@ Figure 12.46: CIFAR-10 (20th Image)
 <a class="sourceLine" id="cb2063-2" data-line-number="2">cnn.model =<span class="st"> </span><span class="kw">my.CNN</span>(images, labels, <span class="dt">layers =</span> cnn.layers, <span class="dt">optimize=</span><span class="st">&quot;adam&quot;</span>,</a>
 <a class="sourceLine" id="cb2063-3" data-line-number="3">                               <span class="dt">minibatch=</span>minibatch, <span class="dt">epoch=</span><span class="dv">10</span>, <span class="dt">eta=</span><span class="fl">0.001</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;No of batches: 8&quot;
-## [1] &quot;epoch 1: loss 6.246 accuracy 0.146 val 0.161 lag time (sec): 14.485&quot;
-## [1] &quot;epoch 2: loss 3.078 accuracy 0.273 val 0.194 lag time (sec): 12.269&quot;
-## [1] &quot;epoch 3: loss 1.599 accuracy 0.508 val 0.000 lag time (sec): 12.143&quot;
-## [1] &quot;epoch 4: loss 1.251 accuracy 0.580 val 0.258 lag time (sec): 12.286&quot;
-## [1] &quot;epoch 5: loss 0.982 accuracy 0.689 val 0.000 lag time (sec): 11.893&quot;
-## [1] &quot;epoch 6: loss 0.842 accuracy 0.736 val 0.125 lag time (sec): 12.567&quot;
-## [1] &quot;epoch 7: loss 0.602 accuracy 0.845 val 0.065 lag time (sec): 12.462&quot;
-## [1] &quot;epoch 8: loss 0.408 accuracy 0.916 val 0.094 lag time (sec): 12.159&quot;
-## [1] &quot;epoch 9: loss 0.307 accuracy 0.959 val 0.194 lag time (sec): 12.438&quot;
-## [1] &quot;epoch 10: loss 0.262 accuracy 0.955 val 0.219 lag time (sec): 12.335&quot;</code></pre>
+## [1] &quot;epoch 1: loss 13.079 accuracy 0.109 val 0.065 lag time (sec): 13.660&quot;
+## [1] &quot;epoch 2: loss 6.351 accuracy 0.178 val 0.062 lag time (sec): 14.256&quot;
+## [1] &quot;epoch 3: loss 3.152 accuracy 0.150 val 0.125 lag time (sec): 13.249&quot;
+## [1] &quot;epoch 4: loss 2.869 accuracy 0.197 val 0.031 lag time (sec): 12.979&quot;
+## [1] &quot;epoch 5: loss 2.552 accuracy 0.138 val 0.031 lag time (sec): 13.835&quot;
+## [1] &quot;epoch 6: loss 2.456 accuracy 0.187 val 0.129 lag time (sec): 13.171&quot;
+## [1] &quot;epoch 7: loss 2.662 accuracy 0.183 val 0.094 lag time (sec): 13.615&quot;
+## [1] &quot;epoch 8: loss 2.645 accuracy 0.201 val 0.125 lag time (sec): 13.463&quot;
+## [1] &quot;epoch 9: loss 2.446 accuracy 0.183 val 0.065 lag time (sec): 14.742&quot;
+## [1] &quot;epoch 10: loss 2.596 accuracy 0.180 val 0.067 lag time (sec): 12.846&quot;</code></pre>
 <div class="sourceCode" id="cb2065"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2065-1" data-line-number="1">x =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">length</span>(cnn.model<span class="op">$</span>cost))</a>
 <a class="sourceLine" id="cb2065-2" data-line-number="2">y =<span class="st"> </span>cnn.model<span class="op">$</span>cost</a>
 <a class="sourceLine" id="cb2065-3" data-line-number="3">y1 =<span class="st"> </span>(y <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(y))<span class="op">/</span>(<span class="kw">max</span>(y) <span class="op">-</span><span class="st"> </span><span class="kw">min</span>(y))</a>
