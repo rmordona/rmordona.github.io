@@ -1250,14 +1250,14 @@ Figure 12.31: Apple, Oranges, and Banana
 </div>
 <div id="dilation" class="section level3 hasAnchor">
 <h3><span class="header-section-number">12.4.5</span> Dilation <a href="12.4-convolutional-neural-network-cnn.html#dilation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Dilation</strong> is the method of stretching or inflating a <strong>receptive field</strong> such that it skips or leaves gaps in between elements. For example, in Figure <a href="12.4-convolutional-neural-network-cnn.html#fig:dilating">12.32</a>, we use a <strong>dilate rate</strong> of two, resulting in a feature map element of 453 after convolution. In general, a <strong>dilate rate</strong> of one is equivalent to a normal convolution with no gaps. Moreover, a <strong>dilate rate</strong> of two corresponds to a one-pixel gap.</p>
+<p><strong>Dilation</strong> is the method of stretching or inflating a <strong>receptive field</strong> such that it skips or leaves gaps in between elements. For example, in Figure <a href="12.4-convolutional-neural-network-cnn.html#fig:dilating">12.32</a>, we use a <strong>dilation rate</strong> of two, resulting in a feature map element of 453 after convolution. In general, a <strong>dilation rate</strong> of one is equivalent to a normal convolution with no gaps. Moreover, a <strong>dilation rate</strong> of two corresponds to a one-pixel gap.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:dilating"></span>
 <img src="dilating.png" alt="Dilation" width="80%" />
 <p class="caption">
 Figure 12.32: Dilation
 </p>
 </div>
-<p>Below is our example implementation of <strong>Dilation</strong>. Note that for our own purposes only, we use a <strong>dilate rate</strong> equal to zero for normal convolution with no gaps. And a rate of one corresponds to a one-pixel gap.</p>
+<p>Below is our example implementation of <strong>Dilation</strong>.  Note that while other implementations may use one to indicate no gap for <strong>dilation rate</strong>, for our purposes only,  we use zero instead. And a rate of one corresponds to a one-pixel gap.</p> 
 
 <div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb222-1" data-line-number="1">dilate  &lt;-<span class="st"> </span><span class="cf">function</span>(filter, <span class="dt">dil_rate = </span><span class="dv">0</span>) { </a>
 <a class="sourceLine" id="cb222-2" data-line-number="2">   <span class="cf">if</span> (dil_rate <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>) { <span class="kw">return</span>(filter) }  </a>
