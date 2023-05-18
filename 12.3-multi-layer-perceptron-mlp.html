@@ -2990,17 +2990,19 @@ H = activation( X \cdotp \omega + b) \circ \mathbf{r}\ \ \ \ \ \leftarrow H = ac
 \end{align}\]</span></p>
 <p>where <strong>r</strong> is a Bernoulli distribution, e.g. <span class="math inline">\(r \sim Bernoulli(p)\)</span>, with <strong>p</strong> probability set preferably greater than or equal to 0.50. A higher probability indicates a lesser dropout. The random dropout is also scaled by <span class="math inline">\(1/p\)</span> to compensate for dropping some neurons. For example, below is our implementation of the <strong>drop.out(.)</strong> function motivated by a python code segment from CS231n PPT by Fei Fei et. al.</p>
 
-<div class="sourceCode" id="cb1926"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1926-1" data-line-number="1">drop.out &lt;-<span class="st"> </span><span class="cf">function</span>(data, prob) {  </a>
-<a class="sourceLine" id="cb1926-2" data-line-number="2">    v =<span class="st"> </span>data</a>
-<a class="sourceLine" id="cb1926-3" data-line-number="3">    di  =<span class="st"> </span><span class="kw">length</span>(v)</a>
-<a class="sourceLine" id="cb1926-4" data-line-number="4">    is.dim =<span class="st"> </span><span class="kw">is.matrix</span>(data) <span class="op">||</span><span class="st"> </span><span class="kw">is.array</span>(data)</a>
-<a class="sourceLine" id="cb1926-5" data-line-number="5">    <span class="cf">if</span> (is.dim) {</a>
-<a class="sourceLine" id="cb1926-6" data-line-number="6">        di =<span class="st"> </span><span class="kw">dim</span>(data); v =<span class="st"> </span><span class="kw">c</span>(data)</a>
-<a class="sourceLine" id="cb1926-7" data-line-number="7">    }</a>
-<a class="sourceLine" id="cb1926-8" data-line-number="8">    len =<span class="st"> </span><span class="kw">prod</span>(di)</a>
-<a class="sourceLine" id="cb1926-9" data-line-number="9">    p =<span class="st"> </span>(<span class="kw">runif</span>(<span class="dt">n =</span> len, <span class="dt">min=</span><span class="dv">0</span>, <span class="dt">max=</span><span class="dv">1</span>) <span class="op">&lt;</span><span class="st"> </span>prob) <span class="op">/</span><span class="st"> </span>prob  </a>
-<a class="sourceLine" id="cb1926-10" data-line-number="10">    <span class="kw">array</span>(v <span class="op">*</span><span class="st"> </span>p, di)</a>
-<a class="sourceLine" id="cb1926-11" data-line-number="11">}</a></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" data-line-number="1">drop.out &lt;-<span class="st"> </span><span class="cf">function</span>(data, prob) {</a>
+<a class="sourceLine" id="cb146-2" data-line-number="2">    v =<span class="st"> </span>data</a>
+<a class="sourceLine" id="cb146-3" data-line-number="3">    di  =<span class="st"> </span><span class="kw">length</span>(v)</a>
+<a class="sourceLine" id="cb146-4" data-line-number="4">    is.dim =<span class="st"> </span><span class="kw">is.matrix</span>(data) <span class="op">||</span><span class="st"> </span><span class="kw">is.array</span>(data)</a>
+<a class="sourceLine" id="cb146-5" data-line-number="5">    <span class="cf">if</span> (is.dim) {</a>
+<a class="sourceLine" id="cb146-6" data-line-number="6">        di =<span class="st"> </span><span class="kw">dim</span>(data); v =<span class="st"> </span><span class="kw">c</span>(data)</a>
+<a class="sourceLine" id="cb146-7" data-line-number="7">    }</a>
+<a class="sourceLine" id="cb146-8" data-line-number="8">    probn =<span class="st"> </span><span class="kw">round</span>(prob <span class="op">*</span><span class="st"> </span><span class="kw">prod</span>(di))</a>
+<a class="sourceLine" id="cb146-9" data-line-number="9">    len   =<span class="st"> </span><span class="kw">prod</span>(di)</a>
+<a class="sourceLine" id="cb146-10" data-line-number="10">    drop  =<span class="st"> </span><span class="kw">sample</span>(<span class="kw">seq</span>(<span class="dv">1</span>, len), probn, <span class="ot">FALSE</span>) </a>
+<a class="sourceLine" id="cb146-11" data-line-number="11">    v[drop] =<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb146-12" data-line-number="12">    <span class="kw">array</span>(v, di)</a>
+<a class="sourceLine" id="cb146-13" data-line-number="13">}</a></code></pre></div>
 
 <p>To illustrate further, we modify our original implementation of <strong>forward.pass(.)</strong> and <strong>my.MLP(.)</strong> to accommodate our <strong>dropout</strong> functionality. All other code and functions in our <strong>MLP implementation</strong> are unchanged. See below:</p>
 
