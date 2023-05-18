@@ -2888,7 +2888,7 @@ Figure 12.47: CNN PLOT
 </p>
 </div>
 
-<p>Notice in the figure that we trained only 250 images. It is worth noting that our <strong>CNN</strong> implementation indeed demonstrates the ability to train. We can shoot up to 80.8% <strong>top-1</strong> train accuracy. However, if we perform prediction, we may see our <strong>top-1</strong> test accuracy as low as 20%. That is because there is insufficient data to train; thus, we are overfitting the train data.</p>
+<p>Notice in the figure that we trained only 250 images. It is worth noting that our <strong>CNN</strong> implementation indeed demonstrates the ability to train. We can shoot up over 80.8%+ <strong>top-1</strong> train accuracy. However, if we perform prediction, we may see our <strong>top-1</strong> test accuracy as low as 20%. That is because there is insufficient data to train; thus, we are overfitting the train data.</p>
 <p>For illustration, we performed several iterations over time to achieve a better train and test accuracy using the entire 50,000 images. Our model was trained with a <strong>top-1</strong> train accuracy of 94.20% after epoch 22 for 50000 cifar-10 images, which took 19.8 hours with an average lag time of 3750 seconds per epoch using only four CPUs (from quad-core) with no GPU support. Here, we show how we can use our saved model:</p>
 
 <div class="sourceCode" id="cb2066"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2066-1" data-line-number="1">transfer.cnn.model =<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;transfer_model.rds&quot;</span>) </a></code></pre></div>
