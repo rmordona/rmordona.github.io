@@ -2185,7 +2185,7 @@ k_4 = k_4 - \eta \times \nabla k_4 \mathcal{L} \tag{12.204}
 \end{align}\]</span></p>
 <p>Our implementation of the backward pass is encapsulated into the <strong>optimizer(.)</strong> function. Recall our discussion of <strong>optimization</strong> in <strong>MLP</strong> section. Here, we implement a few of the known optimizers. See below:</p>
 
-<div class="sourceCode" id="cb2039"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2039-1" data-line-number="1">optimizer   &lt;-<span class="st"> </span><span class="cf">function</span>(backprop, layers, <span class="dt">optimize=</span><span class="st">&quot;momentum&quot;</span>, t, eta) {</a>
+<div class="sourceCode" id="cb2039"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2039-1" data-line-number="1">optimizer &lt;-<span class="st"> </span><span class="cf">function</span>(backprop, layers, <span class="dt">optimize=</span><span class="st">&quot;momentum&quot;</span>, t, eta) {</a>
 <a class="sourceLine" id="cb2039-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb2039-3" data-line-number="3">  optimize.sgd =<span class="st"> </span>sgd &lt;-<span class="st"> </span><span class="cf">function</span>(param, gradient, eta, <span class="dt">t =</span> <span class="ot">NULL</span>) {</a>
 <a class="sourceLine" id="cb2039-4" data-line-number="4">    param<span class="op">$</span>weight =<span class="st"> </span>param<span class="op">$</span>weight <span class="op">-</span><span class="st"> </span>eta <span class="op">*</span><span class="st"> </span>gradient</a>
