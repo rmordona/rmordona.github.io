@@ -955,8 +955,8 @@ O = (W - K + 2p) / s + 1 \tag{12.175}
 <a class="sourceLine" id="cb1989-8" data-line-number="8">  gaps      =<span class="st"> </span>dil_input</a>
 <a class="sourceLine" id="cb1989-9" data-line-number="9">  d         =<span class="st"> </span><span class="kw">dim</span>(images)</a>
 <a class="sourceLine" id="cb1989-10" data-line-number="10">  img.h     =<span class="st"> </span>d[<span class="dv">1</span>]; img.w =<span class="st"> </span>d[<span class="dv">2</span>]; img.d =<span class="st"> </span>d[<span class="dv">3</span>]; img.s =<span class="st"> </span>d[<span class="dv">4</span>]</a>
-<a class="sourceLine" id="cb209-11" data-line-number="x">  <span class="co"># Here, image is the feature map. dilating the feature map</span></a>
-<a class="sourceLine" id="cb209-12" data-line-number="y">  <span class="co"># using dil_input applies only as needed for deconvolution. </span></a>
+<a class="sourceLine" id="cb209-11" data-line-number="x">  <span class="co"># We dilate our feature map (the image) using dil_input only if needed</span></a>
+<a class="sourceLine" id="cb209-12" data-line-number="y">  <span class="co"># for deconvolution; otherwise, dil_input is zero, causing no dilation. </span></a>
 <a class="sourceLine" id="cb1989-11" data-line-number="11">  padded    =<span class="st"> </span><span class="kw">pad</span>(<span class="kw">dilate</span>(images, dil_input), filter, padding)</a>
 <a class="sourceLine" id="cb1989-12" data-line-number="12">  image     =<span class="st"> </span>padded<span class="op">$</span>image</a>
 <a class="sourceLine" id="cb1989-13" data-line-number="13">  padding   =<span class="st"> </span>padded<span class="op">$</span>padding</a>
