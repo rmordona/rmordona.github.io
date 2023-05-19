@@ -955,8 +955,8 @@ O = (W - K + 2p) / s + 1 \tag{12.175}
 <a class="sourceLine" id="cb1989-8" data-line-number="8">  gaps      =<span class="st"> </span>dil_input</a>
 <a class="sourceLine" id="cb1989-9" data-line-number="9">  d         =<span class="st"> </span><span class="kw">dim</span>(images)</a>
 <a class="sourceLine" id="cb1989-10" data-line-number="10">  img.h     =<span class="st"> </span>d[<span class="dv">1</span>]; img.w =<span class="st"> </span>d[<span class="dv">2</span>]; img.d =<span class="st"> </span>d[<span class="dv">3</span>]; img.s =<span class="st"> </span>d[<span class="dv">4</span>]</a>
-<a class="sourceLine" id="cb209-11" data-line-number="x">  <span class="co"># Here, image is the feature map. dilating the feature map</span></a>
-<a class="sourceLine" id="cb209-12" data-line-number="y">  <span class="co"># using dil_input applies only as needed for deconvolution. </span></a>
+<a class="sourceLine" id="cb209-11" data-line-number="x">  <span class="co"># We dilate our feature map (the image) using dil_input only if needed</span></a>
+<a class="sourceLine" id="cb209-12" data-line-number="y">  <span class="co"># for deconvolution; otherwise, dil_input is zero, causing no dilation. </span></a>
 <a class="sourceLine" id="cb1989-11" data-line-number="11">  padded    =<span class="st"> </span><span class="kw">pad</span>(<span class="kw">dilate</span>(images, dil_input), filter, padding)</a>
 <a class="sourceLine" id="cb1989-12" data-line-number="12">  image     =<span class="st"> </span>padded<span class="op">$</span>image</a>
 <a class="sourceLine" id="cb1989-13" data-line-number="13">  padding   =<span class="st"> </span>padded<span class="op">$</span>padding</a>
@@ -2852,7 +2852,7 @@ Figure 12.46: CIFAR-10 (20th Image)
 <a class="sourceLine" id="cb2062-5" data-line-number="5"><span class="kw">list</span>( <span class="dt">type =</span> <span class="st">&quot;convolv&quot;</span>, <span class="dt">size=</span><span class="dv">3</span>, <span class="dt">filters=</span><span class="dv">64</span>, <span class="dt">stride=</span><span class="dv">1</span>, <span class="dt">padding=</span><span class="dv">1</span>, </a>
 <a class="sourceLine" id="cb2062-6" data-line-number="6">      <span class="dt">normalize=</span><span class="st">&quot;batch&quot;</span>, <span class="dt">afunc=</span><span class="st">&quot;leaky.relu&quot;</span>),</a>
 <a class="sourceLine" id="cb2062-7" data-line-number="7"><span class="kw">list</span>( <span class="dt">type =</span> <span class="st">&quot;pooling&quot;</span>, <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">stride=</span><span class="dv">2</span>, <span class="dt">ptype=</span><span class="st">&quot;maxpool&quot;</span>),</a>
-<a class="sourceLine" id="cb2062-8" data-line-number="8"><span class="kw">list</span>( <span class="dt">type =</span> <span class="st">&quot;dense&quot;</span>,  <span class="kw">list</span>(  <span class="dt">size=</span><span class="dv">256</span>, <span class="dt">drop=</span><span class="fl">0.05</span> ),<span class="kw">list</span>(  <span class="dt">size=</span><span class="dv">10</span> ))</a>
+<a class="sourceLine" id="cb2062-8" data-line-number="8"><span class="kw">list</span>( <span class="dt">type =</span> <span class="st">&quot;dense&quot;</span>,  <span class="kw">list</span>(  <span class="dt">size=</span><span class="dv">256</span>, <span class="dt">drop=</span><span class="fl">0.01</span> ),<span class="kw">list</span>(  <span class="dt">size=</span><span class="dv">10</span> ))</a>
 <a class="sourceLine" id="cb2062-9" data-line-number="9">)</a></code></pre></div>
 
 <p>We then invoke our <strong>my.CNN(.)</strong> function, feeding a minibatch=32 and epoch=10. See plot in Figure <a href="12.4-convolutional-neural-network-cnn.html#fig:cnnplot">12.47</a>.</p>
@@ -2888,7 +2888,7 @@ Figure 12.47: CNN PLOT
 </p>
 </div>
 
-<p>Notice in the figure that we trained only 250 images. It is worth noting that our <strong>CNN</strong> implementation indeed demonstrates the ability to train. We can shoot up to 80.8% <strong>top-1</strong> train accuracy. However, if we perform prediction, we may see our <strong>top-1</strong> test accuracy as low as 20%. That is because there is insufficient data to train; thus, we are overfitting the train data.</p>
+<p>Notice in the figure that we trained only 250 images. It is worth noting that our <strong>CNN</strong> implementation indeed demonstrates the ability to train. We can shoot up over 80.8%+ <strong>top-1</strong> train accuracy. However, if we perform prediction, we may see our <strong>top-1</strong> test accuracy as low as 20%. That is because there is insufficient data to train; thus, we are overfitting the train data.</p>
 <p>For illustration, we performed several iterations over time to achieve a better train and test accuracy using the entire 50,000 images. Our model was trained with a <strong>top-1</strong> train accuracy of 94.20% after epoch 22 for 50000 cifar-10 images, which took 19.8 hours with an average lag time of 3750 seconds per epoch using only four CPUs (from quad-core) with no GPU support. Here, we show how we can use our saved model:</p>
 
 <div class="sourceCode" id="cb2066"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2066-1" data-line-number="1">transfer.cnn.model =<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;transfer_model.rds&quot;</span>) </a></code></pre></div>
@@ -2911,7 +2911,7 @@ Figure 12.47: CNN PLOT
 <a class="sourceLine" id="cb2067-14" data-line-number="14">      <span class="dt">normalize=</span><span class="st">&quot;batch&quot;</span>, <span class="dt">afunc=</span><span class="st">&quot;leaky.relu&quot;</span>), </a>
 <a class="sourceLine" id="cb2067-15" data-line-number="15"><span class="kw">list</span>( <span class="dt">type =</span> <span class="st">&quot;convolv&quot;</span>, <span class="dt">size=</span><span class="dv">3</span>, <span class="dt">filters=</span><span class="dv">92</span>, <span class="dt">stride=</span><span class="dv">2</span>,  <span class="dt">padding=</span><span class="dv">1</span>, </a>
 <a class="sourceLine" id="cb2067-16" data-line-number="16">      <span class="dt">normalize=</span><span class="st">&quot;batch&quot;</span>, <span class="dt">afunc=</span><span class="st">&quot;leaky.relu&quot;</span>),</a>
-<a class="sourceLine" id="cb2067-17" data-line-number="17"><span class="kw">list</span>( <span class="dt">type =</span> <span class="st">&quot;dense&quot;</span>, <span class="kw">list</span>(  <span class="dt">size=</span><span class="dv">1024</span>, <span class="dt">drop=</span><span class="fl">0.95</span>),<span class="kw">list</span>(  <span class="dt">size=</span><span class="dv">10</span> ))</a>
+<a class="sourceLine" id="cb2067-17" data-line-number="17"><span class="kw">list</span>( <span class="dt">type =</span> <span class="st">&quot;dense&quot;</span>, <span class="kw">list</span>(  <span class="dt">size=</span><span class="dv">1024</span>, <span class="dt">drop=</span><span class="fl">0.05</span>),<span class="kw">list</span>(  <span class="dt">size=</span><span class="dv">10</span> ))</a>
 <a class="sourceLine" id="cb2067-18" data-line-number="18">)</a></code></pre></div>
 
 <p>The <strong>CNN</strong> architecture shows only four convolution layers and one dense layer with dropout. Instead of pooling, we adjust the stride to be 2 in the first and fourth convolution layers to reduce dimensionality.</p>
