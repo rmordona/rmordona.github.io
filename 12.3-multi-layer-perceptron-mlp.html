@@ -3469,7 +3469,7 @@ s^{(t+1)}  = \rho  \times s^{(t)}   + (1 - \rho)(g^{(t+1)})^2
 \end{align}\]</span></p>
 <p><span class="math display" id="eq:equate1140150">\[\begin{align}
 \omega^{(t+1)} = \omega^{(t)} - \pi\ \times \hat{\tau}
-\ \ \ \ \ \ \ \ where\ \pi = \frac{\eta}{\sqrt{\hat{v}} + \epsilon} \tag{12.160} 
+\ \ \ \ \ \ \ \ where\ \pi = \frac{\eta}{\sqrt{\hat{v} + \epsilon}} \tag{12.160} 
 \end{align}\]</span></p>
 <p>with a corresponding implementation:</p>
 
@@ -3479,7 +3479,7 @@ s^{(t+1)}  = \rho  \times s^{(t)}   + (1 - \rho)(g^{(t+1)})^2
 <a class="sourceLine" id="cb1977-4" data-line-number="4">    v      =<span class="st"> </span>B2 <span class="op">*</span><span class="st"> </span>v <span class="op">+</span><span class="st">  </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>B2) <span class="op">*</span><span class="st"> </span>g<span class="op">^</span><span class="dv">2</span></a>
 <a class="sourceLine" id="cb1977-5" data-line-number="5">    r.hat  =<span class="st"> </span>r <span class="op">/</span><span class="st"> </span>( <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>B1<span class="op">^</span>t)  </a>
 <a class="sourceLine" id="cb1977-6" data-line-number="6">    v.hat  =<span class="st"> </span>v <span class="op">/</span><span class="st"> </span>( <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>B2<span class="op">^</span>t)</a>
-<a class="sourceLine" id="cb1977-7" data-line-number="7">    pi     =<span class="st"> </span>eta <span class="op">/</span><span class="st"> </span><span class="kw">(sqrt</span>(v.hat) <span class="op">+</span><span class="st"> </span>eps) </a>
+<a class="sourceLine" id="cb1977-7" data-line-number="7">    pi     =<span class="st"> </span>eta <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(v.hat <span class="op">+</span><span class="st"> </span>eps) </a>
 <a class="sourceLine" id="cb1977-8" data-line-number="8">    w      =<span class="st"> </span>w <span class="op">-</span><span class="st"> </span>pi <span class="op">*</span><span class="st"> </span>r.hat</a>
 <a class="sourceLine" id="cb1977-9" data-line-number="9">}</a></code></pre></div>
 
@@ -3496,7 +3496,7 @@ s^{(t+1)}  = \rho  \times s^{(t)}   + (1 - \rho)(g^{(t+1)})^2
 \end{align}\]</span></p>
 <p><span class="math display" id="eq:equate1140154">\[\begin{align}
 \omega^{(t+1)} = \omega^{(t)} - \pi\ \times \tau^{(t+1)}
-\ \ \ \ \ \ \ \ where\ \pi = \frac{\eta}{\sqrt{\hat{v}^{(t+1)}} + \epsilon} \tag{12.164} 
+\ \ \ \ \ \ \ \ where\ \pi = \frac{\eta}{\sqrt{\hat{v}^{(t+1)} + \epsilon}} \tag{12.164} 
 \end{align}\]</span></p>
 <p>with a corresponding implementation:</p>
 
@@ -3505,7 +3505,7 @@ s^{(t+1)}  = \rho  \times s^{(t)}   + (1 - \rho)(g^{(t+1)})^2
 <a class="sourceLine" id="cb1978-3" data-line-number="3">    r     =<span class="st"> </span>B1 <span class="op">*</span><span class="st"> </span>r <span class="op">+</span><span class="st">  </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>B1) <span class="op">*</span><span class="st"> </span>g</a>
 <a class="sourceLine" id="cb1978-4" data-line-number="4">    v     =<span class="st"> </span>B2 <span class="op">*</span><span class="st"> </span>v <span class="op">+</span><span class="st">  </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>B2) <span class="op">*</span><span class="st"> </span>g<span class="op">^</span><span class="dv">2</span></a>
 <a class="sourceLine" id="cb1978-5" data-line-number="5">    v.hat =<span class="st"> </span><span class="kw">max</span>(v, v.hat)</a>
-<a class="sourceLine" id="cb1978-6" data-line-number="6">    pi    =<span class="st"> </span>eta <span class="op">/</span><span class="st"> </span><span class="kw">(sqrt</span>(v.hat) <span class="op">+</span><span class="st"> </span>eps) </a>
+<a class="sourceLine" id="cb1978-6" data-line-number="6">    pi    =<span class="st"> </span>eta <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(v.hat <span class="op">+</span><span class="st"> </span>eps) </a>
 <a class="sourceLine" id="cb1978-7" data-line-number="7">    w     =<span class="st"> </span>w <span class="op">-</span><span class="st"> </span>pi <span class="op">*</span><span class="st"> </span>r</a>
 <a class="sourceLine" id="cb1978-8" data-line-number="8">}</a></code></pre></div>
 
@@ -3531,7 +3531,7 @@ s^{(t+1)}  = \rho  \times s^{(t)}   + (1 - \rho)(g^{(t+1)})^2
 <a class="sourceLine" id="cb1979-3" data-line-number="3">    r     =<span class="st"> </span>B1 <span class="op">*</span><span class="st"> </span>r <span class="op">+</span><span class="st">  </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>B1) <span class="op">*</span><span class="st"> </span>g</a>
 <a class="sourceLine" id="cb1979-4" data-line-number="4">    v     =<span class="st"> </span><span class="kw">max</span>(B<span class="op">^</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>v, <span class="kw">abs</span>(g) )</a>
 <a class="sourceLine" id="cb1979-5" data-line-number="5">    r.hat =<span class="st"> </span>r <span class="op">/</span><span class="st"> </span>( <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>B1<span class="op">^</span>t)</a>
-<a class="sourceLine" id="cb1979-6" data-line-number="6">    pi    =<span class="st"> </span>eta <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(v <span class="op">+</span><span class="st"> </span>eps) </a>
+<a class="sourceLine" id="cb1979-6" data-line-number="6">    pi    =<span class="st"> </span>eta <span class="op">/</span><span class="st"> </span><span class="kw"></span>(v <span class="op">+</span><span class="st"> </span>eps) </a>
 <a class="sourceLine" id="cb1979-7" data-line-number="7">    w     =<span class="st"> </span>w <span class="op">-</span><span class="st"> </span>pi <span class="op">*</span><span class="st"> </span>r.hat</a>
 <a class="sourceLine" id="cb1979-8" data-line-number="8">}</a></code></pre></div>
 
@@ -3551,7 +3551,7 @@ s^{(t+1)}  = \rho  \times s^{(t)}   + (1 - \rho)(g^{(t+1)})^2
 \end{align}\]</span></p>
 <p><span class="math display" id="eq:equate1140162">\[\begin{align}
 \omega^{(t+1)} = \omega^{(t)} - \pi\ \times \hat{\tau}^{(t+1)} 
-\ \ \ \ \ \ \ \ where\ \pi = \frac{\eta}{\sqrt{\hat{v}^{(t+1)}} + \epsilon} \tag{12.172} 
+\ \ \ \ \ \ \ \ where\ \pi = \frac{\eta}{\sqrt{\hat{v}^{(t+1)} + \epsilon}} \tag{12.172} 
 \end{align}\]</span></p>
 <p>with a corresponding implementation:</p>
 
@@ -3561,7 +3561,7 @@ s^{(t+1)}  = \rho  \times s^{(t)}   + (1 - \rho)(g^{(t+1)})^2
 <a class="sourceLine" id="cb1980-4" data-line-number="4">    v      =<span class="st"> </span>B2 <span class="op">*</span><span class="st"> </span>v <span class="op">+</span><span class="st">  </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>B2) <span class="op">*</span><span class="st"> </span>g<span class="op">^</span><span class="dv">2</span></a>
 <a class="sourceLine" id="cb1980-5" data-line-number="5">    r.hat  =<span class="st"> </span>r <span class="op">/</span><span class="st"> </span>( <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>B1<span class="op">^</span>t) <span class="op">+</span><span class="st"> </span>( <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>B1) <span class="op">*</span><span class="st"> </span>g <span class="op">/</span><span class="st"> </span>( <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>B1<span class="op">^</span>t)</a>
 <a class="sourceLine" id="cb1980-6" data-line-number="6">    v.hat  =<span class="st"> </span>v <span class="op">/</span><span class="st"> </span>( <span class="dv">1</span> <span class="op">-</span><span class="st"> </span>B2<span class="op">^</span>t)</a>
-<a class="sourceLine" id="cb1980-7" data-line-number="7">    pi     =<span class="st"> </span>eta <span class="op">/</span><span class="st"> </span><span class="kw">(sqrt</span>(v.hat) <span class="op">+</span><span class="st"> </span>eps)</a>
+<a class="sourceLine" id="cb1980-7" data-line-number="7">    pi     =<span class="st"> </span>eta <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(v.hat <span class="op">+</span><span class="st"> </span>eps)</a>
 <a class="sourceLine" id="cb1980-8" data-line-number="8">    w      =<span class="st"> </span>w <span class="op">-</span><span class="st"> </span>pi <span class="op">*</span><span class="st"> </span>r.hat</a>
 <a class="sourceLine" id="cb1980-9" data-line-number="9">}</a></code></pre></div>
 
