@@ -2143,7 +2143,7 @@ y = \beta_0 + \beta_1 \cdot X + err \tag{9.38}
 </div>
 <div id="one-hot-encoding" class="section level3 hasAnchor">
 <h3><span class="header-section-number">9.5.12</span> One Hot Encoding <a href="9.5-exploratory-data-analysis.html#one-hot-encoding" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>One Hot Encoding</strong> is one of the simple embedding techniques in which we represent categorical features into a set of ones and zeroes.  The number of ones and zeroes is based on the number of features.  Figure <a href="9.5-exploratory-data-analysis.html#fig:onehot">9.47</a> we show the translation of simple <strong>weather</strong> features into ones and zeroes.  For example, we create three features: <strong>Sunny</strong>, <strong>Rainy</strong>, and <strong>Cloudy</strong>.  Here, we determine the items we must prepare at a given <strong>weather</strong> forecast.</p>
+<p><strong>One Hot Encoding</strong> is one of the simple embedding techniques in which we represent categorical features into a set of ones and zeroes.  The number of ones and zeroes is based on the number of features.  Figure <a href="9.5-exploratory-data-analysis.html#fig:onehot">9.47</a> shows the translation of simple <strong>weather</strong> features into ones and zeroes.  For example, we create three features: <strong>Sunny</strong>, <strong>Rainy</strong>, and <strong>Cloudy</strong>.  Here, we determine the items we must prepare at a given <strong>weather</strong> forecast.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:onehot"></span>
 <img src="onehot.png" alt="One Hot Encoding" width="70%" />
 <p class="caption">
@@ -2219,7 +2219,7 @@ Figure 9.47: One Hot Encoding
 <a class="sourceLine" id="cb1062-4" data-line-number="4">                      <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;D&quot;</span>))</a>
 <a class="sourceLine" id="cb1062-5" data-line-number="5">transformed.data =<span class="st"> </span><span class="kw">data.frame</span>(</a>
 <a class="sourceLine" id="cb1062-6" data-line-number="6">  <span class="dt">continuous.form =</span> data,</a>
-<a class="sourceLine" id="cb1062-7" data-line-number="7">  <span class="dt">discrete.form =</span> <span class="kw">c</span>(discrete),</a>
+<a class="sourceLine" id="cb1062-7" data-line-number="7">  <span class="dt">discrete.form =</span> <span class="kw">as.numeric</span>(discrete),</a>
 <a class="sourceLine" id="cb1062-8" data-line-number="8">  <span class="dt">label =</span> <span class="kw">factor</span>(discrete)</a>
 <a class="sourceLine" id="cb1062-9" data-line-number="9">)</a>
 <a class="sourceLine" id="cb1062-10" data-line-number="10">transformed.data </a></code></pre></div>
