@@ -835,7 +835,7 @@ Figure 13.11: Deep Stacked RNN
 <p>Additionally, we also require a few other helper functions such as <strong>ln(.)</strong> for calculating <strong>log</strong>. We also need <strong>softmax.loss(.)</strong>, and <strong>accuracy</strong> for calculating our <strong>loss</strong> and <strong>accuracy</strong> for metrics. Then the use of <strong>flush.str(.)</strong> for printing status of our training. See our implementation of <strong>CNN</strong> for these functions.</p>
 
 
-<p>Next, we then write our example implementation of <strong>lstm.fit(.)</strong> function.</p>
+<p>Next, we then write our example implementation of <strong>lstm.fit(.)</strong> function.  Similarly, we assume that N samples represent N sequences of fix length (T). </p>
 
 <div class="sourceCode" id="cb2110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2110-1" data-line-number="1">lstm.fit &lt;-<span class="st"> </span><span class="cf">function</span>(X, Y, layers, eta, epoch) {</a>
 <a class="sourceLine" id="cb2110-2" data-line-number="2">  dim.x            =<span class="st"> </span><span class="kw">dim</span>(X)</a>

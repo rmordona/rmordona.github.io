@@ -1969,14 +1969,14 @@ Figure 9.44: Outliers, Leverages, Influentials
 </div>
 <div id="dominating-factors" class="section level3 hasAnchor">
 <h3><span class="header-section-number">9.5.8</span> Dominating Factors <a href="9.5-exploratory-data-analysis.html#dominating-factors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>There may be situations in which we see categorical variables whose values are extremely uneven in that given two levels (categories), one level extremely dominates the other levels. See Figure <a href="9.5-exploratory-data-analysis.html#fig:dominating">9.45</a>.</p>
+<p>There may be situations in which values of categorical variables are extremely uneven. For example, given six levels (categories), one level heavily dominates the other levels. See Figure <a href="9.5-exploratory-data-analysis.html#fig:dominating">9.45</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:dominating"></span>
 <img src="DS_files/figure-html/dominating-1.png" alt="Extreme Values" width="60%" />
 <p class="caption">
 Figure 9.45: Extreme Values
 </p>
 </div>
-<p>Out of 1000 observations, 990 observations register a dominating value of 3.141593, whereas ten observations register a value of 2.718282. It would be good to trim (or remove) such variables if such extreme levels may not contribute.</p>
+<p>Out of 1000 observations, 800 occurrences are observed for category B, whereas others are below 100.  It would be good to trim (or remove) such extreme variables if their contribution may not matter.</p>
 </div>
 <div id="missingness-and-imputation" class="section level3 hasAnchor">
 <h3><span class="header-section-number">9.5.9</span> Missingness and Imputation  <a href="9.5-exploratory-data-analysis.html#missingness-and-imputation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -2143,7 +2143,7 @@ y = \beta_0 + \beta_1 \cdot X + err \tag{9.38}
 </div>
 <div id="one-hot-encoding" class="section level3 hasAnchor">
 <h3><span class="header-section-number">9.5.12</span> One Hot Encoding <a href="9.5-exploratory-data-analysis.html#one-hot-encoding" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>One Hot Encoding</strong> is one of the simple embedding techniques in which we represent categorical features into a set of ones and zeroes.  The number of ones and zeroes is based on the number of features.  In Figure <a href="9.5-exploratory-data-analysis.html#fig:onehot">9.47</a>, we show the translation of simple <strong>weather</strong> features into ones and zeroes.  For example, we create three features, namely, <strong>Sunny</strong>, <strong>Rainy</strong>, and <strong>Cloudy</strong>.  Here, we determine the items we must prepare at a given <strong>weather</strong> forecast.</p>
+<p><strong>One Hot Encoding</strong> is one of the simple embedding techniques in which we represent categorical features into a set of ones and zeroes.  The number of ones and zeroes is based on the number of features.  Figure <a href="9.5-exploratory-data-analysis.html#fig:onehot">9.47</a> we show the translation of simple <strong>weather</strong> features into ones and zeroes.  For example, we create three features: <strong>Sunny</strong>, <strong>Rainy</strong>, and <strong>Cloudy</strong>.  Here, we determine the items we must prepare at a given <strong>weather</strong> forecast.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:onehot"></span>
 <img src="onehot.png" alt="One Hot Encoding" width="70%" />
 <p class="caption">

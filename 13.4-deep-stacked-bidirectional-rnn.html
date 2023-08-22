@@ -816,13 +816,13 @@ Figure 13.14: Deep Stacked Bidirectional RNN
 <a class="sourceLine" id="cb2130-19" data-line-number="19">             X =<span class="st"> </span>(layers[[l<span class="dv">-1</span>]]<span class="op">$</span>forward<span class="op">$</span>H <span class="op">+</span><span class="st"> </span>layers[[l<span class="dv">-1</span>]]<span class="op">$</span>backward<span class="op">$</span>H )<span class="op">/</span><span class="dv">2</span> } </a>
 <a class="sourceLine" id="cb2130-20" data-line-number="20">     <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>timesteps) {</a>
 <a class="sourceLine" id="cb2130-21" data-line-number="21">       Xt       =<span class="st"> </span>X[,,t]</a>
-<a class="sourceLine" id="cb2130-22" data-line-number="22">       <span class="co"># forward feed</span></a>
+<a class="sourceLine" id="cb2130-22" data-line-number="22">       <span class="co"># forward direction</span></a>
 <a class="sourceLine" id="cb2130-23" data-line-number="23">       fmodel[[t]]  =<span class="st"> </span><span class="kw">forward.unit.LSTM</span>(Xt, Ht, Ct, flayer<span class="op">$</span>params) </a>
 <a class="sourceLine" id="cb2130-24" data-line-number="24">       Ht       =<span class="st"> </span>flayer<span class="op">$</span>H[,,t] =<span class="st"> </span>fmodel[[t]]<span class="op">$</span>Ht</a>
 <a class="sourceLine" id="cb2130-25" data-line-number="25">       Ct       =<span class="st"> </span>flayer<span class="op">$</span>C[,,t] =<span class="st"> </span>fmodel[[t]]<span class="op">$</span>Ct</a>
 <a class="sourceLine" id="cb2130-26" data-line-number="26">       s        =<span class="st"> </span>timesteps <span class="op">-</span><span class="st"> </span>t <span class="op">+</span><span class="st"> </span><span class="dv">1</span> <span class="co"># reverses input</span></a>
 <a class="sourceLine" id="cb2130-27" data-line-number="27">       Xs       =<span class="st"> </span>X[,,s]</a>
-<a class="sourceLine" id="cb2130-28" data-line-number="28">       <span class="co"># backward feed</span></a>
+<a class="sourceLine" id="cb2130-28" data-line-number="28">       <span class="co"># backward direction</span></a>
 <a class="sourceLine" id="cb2130-29" data-line-number="29">       bmodel[[s]]  =<span class="st"> </span><span class="kw">forward.unit.LSTM</span>(Xs, Hs, Cs, blayer<span class="op">$</span>params) </a>
 <a class="sourceLine" id="cb2130-30" data-line-number="30">       Hs       =<span class="st"> </span>blayer<span class="op">$</span>H[,,s] =<span class="st"> </span>bmodel[[s]]<span class="op">$</span>Ht</a>
 <a class="sourceLine" id="cb2130-31" data-line-number="31">       Cs       =<span class="st"> </span>blayer<span class="op">$</span>C[,,s] =<span class="st"> </span>bmodel[[s]]<span class="op">$</span>Ct</a>

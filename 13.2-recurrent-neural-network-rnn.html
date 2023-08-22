@@ -1002,7 +1002,7 @@ Figure 13.7: RNN (Softmax)
 <p>Training our <strong>RNN</strong> iterates between the <strong>forward.unit.RNN(.)</strong> function and <strong>backward.unit.RNN(.)</strong> function, along with the usual cost computation and an optimized update of the learnable parameters similar to <strong>CNN</strong>. See our generic <strong>RNN algorithm</strong> next.</p>
 <p><strong>RNN Algorithm</strong></p>
 <p>It should be noted that the recurrent nature of <strong>RNN</strong> preserves the previous state at each time step. If we view the <strong>unrolled representation</strong> of <strong>RNN</strong>, we should be able to trace back the gradients through time.</p>
-<p>Below is a generic algorithm for <strong>RNN</strong> showing the use of <strong>forward feed</strong> and <strong>backpropagation</strong> through time. The algorithm is based on the <strong>Many to Many</strong> sequence model.</p>
+<p>Below is a generic algorithm for <strong>RNN</strong> showing the use of <strong>forward feed</strong> and <strong>backpropagation</strong> through time. The algorithm is based on the <strong>Many to Many</strong> sequence model.  Hereafter, we assume that N samples represent N sequences of fix length (T).</p>
 <p><span class="math display">\[
 \begin{array}{ll}
 \text{W, U, V, bh, by}\ \leftarrow \text{(params)}\ \ \ \ \ \ \ \ \ \ \ \   (\text{randomly generated}) \\
