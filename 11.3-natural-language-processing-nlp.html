@@ -1387,9 +1387,9 @@ from the tag used by <strong>treetag</strong>, e.g., <strong>AJ0</strong>. There
 ##  10 word        23  24 POS=IN, POS_prob=0.9801, chunk_tag=B-PP,
 ##                        chunk_prob=0.992</code></pre>
 
-<p>Note that <strong>Maxent_Chunk_Annotator(.)</strong> requires a model file for language <strong>en</strong>. This function can be installed from <strong><a href="https://datacube.wu.ac.at/" class="uri">https://datacube.wu.ac.at/</a></strong> like so:</p>
-<div class="sourceCode" id="cb1637"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1637-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">&quot;openNLPmodels.en&quot;</span>,   </a>
-<a class="sourceLine" id="cb1637-2" data-line-number="2">                 <span class="dt">repos =</span> <span class="st">&quot;http://datacube.wu.ac.at/&quot;</span>,  <span class="dt">type =</span> <span class="st">&quot;source&quot;</span>) </a></code></pre></div>
+<p>Note that <strong>Maxent_Chunk_Annotator(.)</strong> requires a model file for language <strong>en</strong>. This function can be installed from <strong>datacube site</strong> like so:</p>
+<div class="sourceCode" id="cb1637"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="machinelearning3.html#cb72-1" aria-hidden="true" tabindex="-1"></a>datacube <span class="ot">=</span> <span class="st">&quot;http://datacube.wu.ac.at/&quot;</span></span>
+<span id="cb72-2"><a href="machinelearning3.html#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;openNLPmodels.en&quot;</span>, <span class="at">repos =</span> datacube,  <span class="at">type =</span> <span class="st">&quot;source&quot;</span>) </span></code></div>
 <p>We can begin parsing the text using the annotated chunks and create a parsed tree. However, it is worth mentioning that parsing is an expensive operation and may require CPU and memory resources. For that reason, specifically for the parser used in <strong>openNLP</strong>, we adjust the memory requirement - being so, the parser uses java virtual machine (JVM). From there, we can invoke the annotator.</p>
 
 <div class="sourceCode" id="cb1638"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1638-1" data-line-number="1"><span class="kw">options</span>(<span class="dt">java.parameters =</span> <span class="st">&quot;-Xmx4096m&quot;</span>)</a>

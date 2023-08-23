@@ -817,26 +817,26 @@ Figure 13.33: Spectogram
 <p>As suggested from other literature, a suitable dataset for better training is <strong>phonetic-rich</strong>. In other words, our overall system needs to recognize <strong>phonemes</strong> - distinct units of sound (Oxford definition).</p>
 <p>For our demonstration, let us use the <strong>Timit</strong> dataset, which comes with sample audio for the train set and a separate set of sample audio for the test set. Each sample comprises a <strong>wav</strong> file (the actual audio recording), <strong>txt</strong> file (the text of the audio), and <strong>phn</strong> file (the corresponding phonemes).</p>
 <p>The <strong>Timit</strong> corpus includes time-aligned orthographic, phonetic, and word transcriptions, including a 16-bit, 16kHz speech waveform file for each utterance.</p>
-<p>An example of the text file follows:</p>
-<div class="sourceCode" id="cb2177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2177-1" data-line-number="1">txt.file =<span class="st"> &quot;../../timit/data/TRAIN/DR2/MARC0/SA1.TXT&quot;</span></a></code></pre></div>
+<p>To illustrate, let us use an audio sample (LDC93S1) from the timit source site:</p>
+<div class="sourceCode" id="cb2177"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2177-1" data-line-number="1">txt.file =<span class="st"> &quot;LDC93S1.TXT&quot;</span></a></code></pre></div>
 <p><span class="math display" id="eq:equate1150098">\[\begin{align}
 \mathbf{\text{0 47104 She had your dark suit in greasy wash water all year.}} \tag{13.102} 
 \end{align}\]</span></p>
 <p>That corresponds to the following <strong>phonemes</strong></p>
 
-<div class="sourceCode" id="cb2178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2178-1" data-line-number="1">phn.file =<span class="st"> &quot;../../timit/data/TRAIN/DR2/MARC0/SA1.PHN&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb2178"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2178-1" data-line-number="1">phn.file =<span class="st"> &quot;LDC93S1.PHN&quot;</span></a></code></pre></div>
 
 <p><span class="math display">\[
 \begin{array}{lll}
-0 &amp; 2798 &amp; \text{h}\#\\
-2798 &amp; 3960 &amp; \text{sh}\\
-3960 &amp; 4649 &amp; \text{iy}\\
-4649 &amp; 5200 &amp; \text{hv}\\
-5200 &amp; 6477 &amp; \text{eh}\\
-6477 &amp; 6959 &amp; \text{dcl}\\
-6959 &amp; 7265 &amp; \text{d}\\
-7265&amp;  7853 &amp; \text{y}\\
-7853 &amp; 8920 &amp; \text{er}\\
+0 &amp; 3050 &amp; \text{h}\#\\
+3050 &amp; 4559 &amp; \text{sh}\\
+4559 &amp; 5723 &amp; \text{ix}\\
+5723 &amp; 6642 &amp; \text{hv}\\
+6642 &amp; 8772 &amp; \text{eh}\\
+8772 &amp; 9190 &amp; \text{dcl}\\
+9190 &amp; 10337 &amp; \text{jh}\\
+10337 &amp; 11517 &amp; \text{ih}\\
+11517 &amp; 12500 &amp; \text{dcl}\\
 \text{...}\\
 43655 &amp; 47040 &amp; \text{h}\# \\
 \end{array}
@@ -844,17 +844,16 @@ Figure 13.33: Spectogram
 <p>Here, we use the corresponding audio.</p>
 
 <div class="sourceCode" id="cb2179"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2179-1" data-line-number="1"><span class="kw">library</span>(tuneR)</a>
-<a class="sourceLine" id="cb2179-2" data-line-number="2">wav.file =<span class="st"> &quot;../../timit/data/TRAIN/DR2/MARC0/SA1.WAV.wav&quot;</span></a>
+<a class="sourceLine" id="cb2179-2" data-line-number="2">wav.file =<span class="st"> &quot;LDC93S1.wav&quot;</span></a>
 <a class="sourceLine" id="cb2179-3" data-line-number="3">audio =<span class="st"> </span><span class="kw">readWave</span>(wav.file)</a>
 <a class="sourceLine" id="cb2179-4" data-line-number="4">audio</a></code></pre></div>
-<pre><code>## 
-## Wave Object
-##  Number of Samples:      47104
-##  Duration (seconds):     2.94
-##  Samplingrate (Hertz):   16000
-##  Channels (Mono/Stereo): Mono
-##  PCM (integer format):   TRUE
-##  Bit (8/16/24/32/64):    16</code></pre>
+<pre><code>## Wave Object
+##	Number of Samples:      46797
+##	Duration (seconds):     2.92
+##	Samplingrate (Hertz):   16000
+##	Channels (Mono/Stereo): Mono
+##	PCM (integer format):   TRUE
+##	Bit (8/16/24/32/64):    16</code></pre>
 
 <p>And with a <strong>Mac</strong> computer, we can play the audio like so:</p>
 
@@ -865,7 +864,7 @@ Figure 13.33: Spectogram
 
 <div class="sourceCode" id="cb2182"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2182-1" data-line-number="1"><span class="kw">str</span>(audio)</a></code></pre></div>
 <pre><code>## Formal class &#39;Wave&#39; [package &quot;tuneR&quot;] with 6 slots
-##   ..@ left     : int [1:47104] -6 -1 2 12 11 2 -1 6 7 6 ...
+##   ..@ left     : int [1:46797] 1 -1 2 0 0 3 0 1 -3 -2 ...
 ##   ..@ right    : num(0) 
 ##   ..@ stereo   : logi FALSE
 ##   ..@ samp.rate: int 16000
@@ -878,7 +877,7 @@ Figure 13.33: Spectogram
 <a class="sourceLine" id="cb2184-2" data-line-number="2">sampling.rate =<span class="st"> </span>audio<span class="op">@</span>samp.rate         <span class="co"># samp rate in Hz</span></a>
 <a class="sourceLine" id="cb2184-3" data-line-number="3">signal.length =<span class="st"> </span><span class="kw">length</span>(signal) <span class="op">/</span><span class="st"> </span>audio<span class="op">@</span>samp.rate</a></code></pre></div>
 
-<p>Based on the structure, the length of our signal is 2.944 seconds based on (47104 <span class="math inline">\(/\)</span> 16000).</p>
+<p>Based on the structure, the length of our signal is 2.9248125 seconds based on (46797 <span class="math inline">\(/\)</span> 16000).</p>
 <p><strong>Second</strong>, we perform <strong>Pre-emphasis</strong>, a pre-processing step to enhance the high-frequency portion of a signal. The following formula is typically used:</p>
 <p><span class="math display" id="eq:equate1150099">\[\begin{align}
 y(n) = x(n) - \alpha x(n-1),\ \ \ \ \ \ 0.90 &lt; \alpha &lt; 1 \tag{13.103} 
@@ -893,12 +892,12 @@ y(n) = x(n) - \alpha x(n-1),\ \ \ \ \ \ 0.90 &lt; \alpha &lt; 1 \tag{13.103}
 <a class="sourceLine" id="cb2185-6" data-line-number="6">}</a>
 <a class="sourceLine" id="cb2185-7" data-line-number="7">preprocessed.signal  =<span class="st"> </span><span class="kw">preemphasis</span>(<span class="dt">a=</span><span class="fl">0.97</span>, signal)</a>
 <a class="sourceLine" id="cb2185-8" data-line-number="8"><span class="kw">head</span>(signal, <span class="dt">n=</span><span class="dv">20</span>)</a></code></pre></div>
-<pre><code>##  [1] -6 -1  2 12 11  2 -1  6  7  6 13 11 13  1  3  1  1
-## [18]  5  3 -2</code></pre>
+<pre><code>##  [1]  1 -1  2  0  0  3  0  1 -3 -2  2  1  0  0  3  5  5
+## [18]  5  5  5</code></pre>
 <div class="sourceCode" id="cb2187"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2187-1" data-line-number="1"><span class="kw">head</span>(preprocessed.signal, <span class="dt">n=</span><span class="dv">20</span>)</a></code></pre></div>
-<pre><code>##  [1]   0.00   4.82   2.97  10.06  -0.64  -8.67  -2.94
-##  [8]   6.97   1.18  -0.79   7.18  -1.61   2.33 -11.61
-## [15]   2.03  -1.91   0.03   4.03  -1.85  -4.91</code></pre>
+<pre><code>##  [1]  0.00 -1.97  2.97 -1.94  0.00  3.00 -2.91  1.00 
+##  [8] -3.97  0.91  3.94 -0.94 -0.97  0.00  3.00  2.09
+## [15]  0.15  0.15  0.15  0.15</code></pre>
 
 <p>For now, we skip normalization to show the full magnitude of our signal in the plots.</p>
 
@@ -910,19 +909,19 @@ y(n) = x(n) - \alpha x(n-1),\ \ \ \ \ \ 0.90 &lt; \alpha &lt; 1 \tag{13.103}
 <a class="sourceLine" id="cb2190-2" data-line-number="2">preprocessed.audio =<span class="st"> </span>seewave<span class="op">::</span><span class="kw">preemphasis</span>(audio, <span class="dt">alpha=</span><span class="fl">0.97</span>, <span class="dt">output=</span><span class="st">&quot;Wave&quot;</span>)</a>
 <a class="sourceLine" id="cb2190-3" data-line-number="3"><span class="kw">str</span>(preprocessed.audio)</a></code></pre></div>
 <pre><code>## Formal class &#39;Wave&#39; [package &quot;tuneR&quot;] with 6 slots
-##   ..@ left     : num [1:47104] 0 4.82 2.97 10.06 -0.64 ...
+##   ..@ left     : num [1:46797] 0 -1.97 2.97 -1.94 0 3 -2.91 1 -3.97 0.91 ...
 ##   ..@ right    : num(0) 
 ##   ..@ stereo   : logi FALSE
 ##   ..@ samp.rate: int 16000
 ##   ..@ bit      : num 16
 ##   ..@ pcm      : logi TRUE</code></pre>
 <div class="sourceCode" id="cb2192"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2192-1" data-line-number="1"><span class="kw">head</span>(preprocessed.audio<span class="op">@</span>left, <span class="dt">n=</span><span class="dv">20</span>)</a></code></pre></div>
-<pre><code>##  [1]   0.00   4.82   2.97  10.06  -0.64  -8.67  -2.94
-##  [8]   6.97   1.18  -0.79   7.18  -1.61   2.33 -11.61
-## [15]   2.03  -1.91   0.03   4.03  -1.85  -4.91</code></pre>
+<pre><code>##  [1]  0.00 -1.97  2.97 -1.94  0.00  3.00 -2.91  1.00
+##  [9] -3.97  0.91  3.94 -0.94 -0.97  0.00  3.00  2.09
+## [17]  0.15  0.15  0.15  0.15</code></pre>
 
 <p><strong>Third</strong>, we perform <strong>Frame Blocking</strong>, which splits the signal into frames (or frequency bins) with a fixed frame size from a range of 20ms to 40ms. Other literature regards 25ms as standard. Because our signal is <strong>non-stationary</strong>, it helps to capture short-time intervals to highlight unique features within such a short period (e.g., <strong>harmonics</strong> or <strong>frequency tone</strong>). Here, we assume that given short intervals, we will be able to quantize signals into frames, each achieving some level of stationarity. And then, we also apply frame stride. This idea is similar to filters and strides in a convolutional network in that patches overlap due to strides.</p>
-<p>Similarly, the stride causes the frames to overlap in the next <strong>Windowing</strong> step. Other literature may consider a 50% overlap as appropriate (or 12.5ms if the frame size is 25ms). Here, we throw the number as a 10ms frame step. Note that <strong>stride size</strong> is also called <strong>window shift</strong> in other literature or <strong>hop length</strong> in other implementations. Therefore, given that, and assume we have a signal that runs for 2.94 seconds, we should now be able to calculate the following:</p>
+<p>Similarly, the stride causes the frames to overlap in the next <strong>Windowing</strong> step. Other literature may consider a 50% overlap as appropriate (or 12.5ms if the frame size is 25ms). Here, we throw the number as a 10ms frame step. Note that <strong>stride size</strong> is also called <strong>window shift</strong> in other literature or <strong>hop length</strong> in other implementations. Therefore, given that, and assume we have a signal that runs for 2.9248125 seconds, we should now be able to calculate the following:</p>
 <p><span class="math display" id="eq:equate1150100">\[\begin{align}
 \text{(num of samples per frame)} = N = \frac{25}{1000 } \times 16000 = 400 \text{ sample points}, s(n) \in \mathbb{R}^{400} \tag{13.104} 
 \end{align}\]</span></p>
@@ -931,14 +930,14 @@ y(n) = x(n) - \alpha x(n-1),\ \ \ \ \ \ 0.90 &lt; \alpha &lt; 1 \tag{13.103}
 \text{(sample points per frame step)} = \frac{12.5}{1000 } \times 16000 = 200  \text{ sample points} \tag{13.105} 
 \end{align}\]</span></p>
 <p><span class="math display" id="eq:equate1150102">\[\begin{align}
-\text{(duration of signal)} = 2.94  \times 16000 = 47040 \text{ sample points}  \tag{13.106} 
+\text{(duration of signal)} = 2.9248125  \times 16000 = 46797 \text{ sample points}  \tag{13.106} 
 \end{align}\]</span></p>
 <p><span class="math display" id="eq:equate1150103">\[\begin{align}
-\text{(num of frames)} = N = \frac{(47040 - 400)}{200} = 234 \text{ frames}   
+\text{(num of frames)} = N = \frac{(46797 - 400)}{200} = 231.985 \text{ frames}   
 \ \ \ \text{(ceiling)} \tag{13.107} 
 \end{align}\]</span></p>
 <p>We can pad the last frame with zeroes as a round-off to align to the frame size.</p>
-<p>Therefore, our frame structure should show as <span class="math inline">\(\mathbf{s} \in \mathbb{R}^{234 \times 400}\)</span>, arranged such that if <span class="math inline">\(\mathbf{s}\)</span> is a matrix, it has 234 rows (frames) and 400 columns (dimensions).</p>
+<p>Therefore, our frame structure should show as <span class="math inline">\(\mathbf{s} \in \mathbb{R}^{232 \times 400}\)</span>, arranged such that if <span class="math inline">\(\mathbf{s}\)</span> is a matrix, it has 232 rows (frames) and 400 columns (dimensions).</p>
 
 <div class="sourceCode" id="cb2194"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2194-1" data-line-number="1">frames &lt;-<span class="st"> </span><span class="cf">function</span>(duration.size, duration.stride) {</a>
 <a class="sourceLine" id="cb2194-2" data-line-number="2">  frm.size     =<span class="st"> </span>duration.size <span class="op">*</span><span class="st"> </span>sampling.rate</a>
@@ -954,7 +953,7 @@ y(n) = x(n) - \alpha x(n-1),\ \ \ \ \ \ 0.90 &lt; \alpha &lt; 1 \tag{13.103}
 ## [1,] 400  200    0.025    0.0125</code></pre>
 <div class="sourceCode" id="cb2196"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2196-1" data-line-number="1">(<span class="dt">N =</span> <span class="dt">num_of_frames =</span> <span class="kw">round</span>((signal.length <span class="op">*</span><span class="st"> </span>sampling.rate <span class="op">-</span><span class="st"> </span>frm<span class="op">$</span>size) <span class="op">/</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb2196-2" data-line-number="2"><span class="st">                             </span>frm<span class="op">$</span>stride))</a></code></pre></div>
-<pre><code>## [1] 234</code></pre>
+<pre><code>## [1] 232</code></pre>
 
 <p>To achieve total efficiency of <strong>FFT</strong> calculation later, it helps to choose a frame with a size in multiples of power of two. So the size closer to that is 512. Being so, we adjust the other hyperparameters, therefore:</p>
 
@@ -970,7 +969,7 @@ y(n) = x(n) - \alpha x(n-1),\ \ \ \ \ \ 0.90 &lt; \alpha &lt; 1 \tag{13.103}
 
 <div class="sourceCode" id="cb2200"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2200-1" data-line-number="1">(<span class="dt">N =</span> <span class="dt">num_of_frames =</span> <span class="kw">round</span>((signal.length <span class="op">*</span><span class="st"> </span>sampling.rate <span class="op">-</span><span class="st"> </span>frm<span class="op">$</span>size) <span class="op">/</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb2200-2" data-line-number="2"><span class="st">                             </span>frm<span class="op">$</span>stride))</a></code></pre></div>
-<pre><code>## [1] 182</code></pre>
+<pre><code>## [1] 181</code></pre>
 
 <p>Actual implementations may choose to pad the edges of the frame with zero frequencies to align with the length of the signal correctly.</p>
 <p>Next, we generate a matrix to hold our frames. Each row corresponds to a frame of size 512.</p>
@@ -1042,7 +1041,7 @@ w[n] = 0.50 - 0.50\ \mathbf{cos} \left( \frac{2\pi n}{N-1}\right), 0 \le n \le N
 
 <div class="sourceCode" id="cb2206"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2206-1" data-line-number="1">windowed.frm =<span class="st"> </span><span class="kw">sweep</span>(s, <span class="dv">2</span>, w, <span class="st">&#39;*&#39;</span>)</a>
 <a class="sourceLine" id="cb2206-2" data-line-number="2"><span class="kw">str</span>(windowed.frm)</a></code></pre></div>
-<pre><code>##  num [1:182, 1:512] 0 0.0288 -0.4512 -0.3296 0.4944 ...</code></pre>
+<pre><code>##  num [1:181, 1:512] 0 0.0096 0.3224 -0.1456 0.0072 ...</code></pre>
 <div class="sourceCode" id="cb2208"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2208-1" data-line-number="1"><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</a>
 <a class="sourceLine" id="cb2208-2" data-line-number="2">x =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">length</span>(s[<span class="dv">1</span>,])); y =<span class="st"> </span>s[<span class="dv">1</span>,]</a>
 <a class="sourceLine" id="cb2208-3" data-line-number="3"><span class="kw">plot</span>(<span class="ot">NULL</span>,  <span class="dt">xlab =</span> <span class="st">&quot;Time (1st Unwindowed Frame)&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Amplitude&quot;</span>, </a>
@@ -1102,9 +1101,9 @@ w(n) = s_k(n) h(n)\ \ \ \leftarrow\ \ \  \ \text{(windowed frame)} \tag{13.111}
 <a class="sourceLine" id="cb2212-6" data-line-number="6">first.half  =<span class="st"> </span>dft.mag1[<span class="dv">2</span><span class="op">:</span>half]          </a>
 <a class="sourceLine" id="cb2212-7" data-line-number="7">second.half =<span class="st"> </span><span class="kw">rev</span>(dft.mag1[half<span class="op">:</span>NFFT]) <span class="co"># reverse the second half</span></a>
 <a class="sourceLine" id="cb2212-8" data-line-number="8"><span class="kw">rbind</span>(first.half[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], second.half[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])</a></code></pre></div>
-<pre><code>##           [,1]      [,2]      [,3]      [,4]      [,5]
-## [1,] 7.7292003 0.8443712 1.7062433 7.6443928 3.8443819
-## [2,] 7.7292003 0.8443712 1.7062433 7.6443928 3.8443819</code></pre>
+<pre><code>##           [,1]      [,2]     [,3]      [,4]      [,5]
+## [1,] 9.9846545 2.6876615 3.220975 5.1225249 2.5127839 
+## [2,] 9.9846545 2.6876615 3.220975 5.1225249 2.5127839</code></pre>
 <div class="sourceCode" id="cb2214"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2214-1" data-line-number="1"><span class="kw">setequal</span>(<span class="kw">round</span>(first.half,<span class="dv">8</span>),<span class="kw">round</span>(second.half,<span class="dv">8</span>))</a></code></pre></div>
 <pre><code>## [1] TRUE</code></pre>
 
@@ -1145,7 +1144,7 @@ p_k = |\text{FFT}(\tilde{s}_k)|^2 \tag{13.113}
 <a class="sourceLine" id="cb2217-7" data-line-number="7">}</a>
 <a class="sourceLine" id="cb2217-8" data-line-number="8">my.powspectrum =<span class="st"> </span>P =<span class="st"> </span><span class="kw">magnitude</span>(P)<span class="op">^</span><span class="dv">2</span> </a>
 <a class="sourceLine" id="cb2217-9" data-line-number="9"><span class="kw">str</span>(my.powspectrum )</a></code></pre></div>
-<pre><code>##  num [1:256, 1:182] 479.088 59.741 0.713 2.911 58.437 ...</code></pre>
+<pre><code>##  num [1:256, 1:181] 533.85 99.69 7.22 10.37 26.24 ...</code></pre>
 
 <p>We get a matrix with column-vector for the <strong>spectra</strong> and row-vector for the <strong>frequencies</strong> per <strong>spectrum</strong>.</p>
 <p>Equivalently, we can also just use a function called <strong>powspec(.)</strong> from <strong>tuneR</strong> library. Note that <strong>powspec(.)</strong> already computes for the window. Thus we use the original pre-emphasized signal instead.</p>
@@ -1153,7 +1152,7 @@ p_k = |\text{FFT}(\tilde{s}_k)|^2 \tag{13.113}
 <div class="sourceCode" id="cb2219"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2219-1" data-line-number="1">tuneR.powspectrum =<span class="st"> </span><span class="kw">powspec</span>(preprocessed.audio<span class="op">@</span>left, <span class="dt">sr =</span> audio<span class="op">@</span>samp.rate, </a>
 <a class="sourceLine" id="cb2219-2" data-line-number="2">                    <span class="dt">wintime =</span> frm<span class="op">$</span>duration, <span class="dt">steptime =</span> frm<span class="op">$</span>stride.time)</a>
 <a class="sourceLine" id="cb2219-3" data-line-number="3"><span class="kw">str</span>(tuneR.powspectrum)</a></code></pre></div>
-<pre><code>##  num [1:256, 1:182] 479.088 59.741 0.713 2.911 58.437 ...</code></pre>
+<pre><code>##  num [1:256, 1:181] 533.85 99.69 7.22 10.37 26.24 ...</code></pre>
 
 <p>We can now plot the periodogram for the frame. See Figure <a href="13.6-applications-using-tnn-and-rnn.html#fig:periodogram">13.38</a>. We shifted the second spectrum about one step to the right to show that both spectra have the same exact magnitude.</p>
 
@@ -1382,10 +1381,10 @@ Figure 13.42: Mel HeatMap
 <a class="sourceLine" id="cb2237-3" data-line-number="3"><span class="kw">rbind</span>(<span class="st">&quot;H&quot;</span> =<span class="st"> </span>H.dim, <span class="st">&quot;P&quot;</span> =<span class="st"> </span>P.dim)</a></code></pre></div>
 <pre><code>##   [,1] [,2]
 ## H   40  256
-## P  256  182</code></pre>
+## P  256  181</code></pre>
 <div class="sourceCode" id="cb2239"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2239-1" data-line-number="1">tilde.X =<span class="st"> </span>my.mel.powspectrum =<span class="st"> </span>H <span class="op">%*%</span><span class="st"> </span>P</a>
 <a class="sourceLine" id="cb2239-2" data-line-number="2"><span class="kw">str</span>(tilde.X)</a></code></pre></div>
-<pre><code>##  num [1:40, 1:182] 238 212 1430 4381 15900 ...</code></pre>
+<pre><code>##  num [1:40, 1:181] 58.6 38.4 285.9 1006 698.9 ...</code></pre>
 
 <p>We then take the log of our <strong>Mel Spectrum</strong> which comes from the idea that the human voice is logarithmic, based on notes from other literature:</p>
 <p><span class="math display" id="eq:equate1150113">\[\begin{align}
@@ -1394,7 +1393,7 @@ S(m) = 20 \times \log_{10} \left(\tilde{X}(m)\right) \tag{13.118}
 
 <div class="sourceCode" id="cb2241"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2241-1" data-line-number="1">S =<span class="st"> </span>my.log.mel.powspectrum =<span class="st">  </span><span class="dv">20</span> <span class="op">*</span><span class="st"> </span><span class="kw">log10</span>(tilde.X)</a>
 <a class="sourceLine" id="cb2241-2" data-line-number="2"><span class="kw">str</span>(S)</a></code></pre></div>
-<pre><code>##  num [1:40, 1:182] 47.5 46.5 63.1 72.8 84 ...</code></pre>
+<pre><code>##  num [1:40, 1:181] 35.4 31.7 49.1 60.1 56.9 ...</code></pre>
 
 <p>Now, we can plot a heatmap. See Figure <a href="13.6-applications-using-tnn-and-rnn.html#fig:cepstrum">13.43</a>:</p>
 
@@ -1501,11 +1500,11 @@ C_n = \sum_{m=0}^{M-1} S(m) \text{BS}_3(n, m), \ \ \ \ \ \ \text{C = Mel cepstra
 
 <div class="sourceCode" id="cb2252"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2252-1" data-line-number="1"><span class="kw">rbind</span>(<span class="st">&quot;S&quot;</span> =<span class="st"> </span><span class="kw">dim</span>(S), <span class="st">&quot;BS&quot;</span> =<span class="st"> </span><span class="kw">dim</span>(BS))</a></code></pre></div>
 <pre><code>##    [,1] [,2]
-## S    40  182
+## S    40  181
 ## BS   12   40</code></pre>
 <div class="sourceCode" id="cb2254"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2254-1" data-line-number="1">my.mel.cepstral.coeffs =<span class="st"> </span>BS <span class="op">%*%</span><span class="st"> </span>S  </a>
 <a class="sourceLine" id="cb2254-2" data-line-number="2"><span class="kw">str</span>(my.mel.cepstral.coeffs)</a></code></pre></div>
-<pre><code>##  num [1:12, 1:182] 88.916 -6.612 -4.564 0.239 -1.132 ...</code></pre>
+<pre><code>##  num [1:12, 1:181] 69.6329 -9.9547 0.0887 -0.8837 0.2395 ...</code></pre>
 
 <p><strong>Ninth</strong>, as an alternative to <strong>MFCC</strong>, we leave readers to investigate the 54 features of <strong>PLP</strong> and 39 features of <strong>LPCC</strong>. Other contributions are published for comparative study of different <strong>MFCC</strong> variants <span class="citation">(Ganchev T. et al., <a href="bibliography.html#ref-ref2039g">2005</a>; Elharati H. <a href="bibliography.html#ref-ref1912h">2019</a>; Joshy J., Sambyo K. <a href="bibliography.html#ref-ref1562j">2016</a>)</span>. Specifically, one that may stand out is <strong>MFCC-HTK</strong>, which references <strong>Hidden Markov Chain (HMM) ToolKit</strong>. In terms of <strong>MFCC-HTK</strong> implementation, we reference Jérôme Sueur <span class="citation">(<a href="bibliography.html#ref-ref1496j">2018</a>)</span>. In his book, he proceeds with three steps to get the <strong>Mel coefficients</strong> after obtaining the <strong>Power Spectrum</strong> in which he demonstrates the use of three corresponding functions, namely, <strong>audspec(.)</strong>, <strong>spec2cep(.)</strong>, and <strong>lifter(.)</strong>.</p>
 <p>We derive our log Mel power spectrum and the 12 cepstral coefficients in step eight. Alternatively, here we use <strong>audspec(.)</strong> and then <strong>spec2cep(.)</strong> in next step.</p>
@@ -1516,7 +1515,7 @@ C_n = \sum_{m=0}^{M-1} S(m) \text{BS}_3(n, m), \ \ \ \ \ \ \text{C = Mel cepstra
 <a class="sourceLine" id="cb2256-3" data-line-number="3">                       <span class="dt">nfilts=</span>nbands, <span class="dt">fbtype=</span><span class="st">&quot;htkmel&quot;</span>, <span class="dt">sumpower=</span><span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb2256-4" data-line-number="4"><span class="kw">str</span>(tuneR.mel.spectrum)</a></code></pre></div>
 <pre><code>## List of 2
-##  $ aspectrum: num [1:40, 1:182] 244 199 1339 4066 16012 ...
+##  $ aspectrum: aspectrum: num [1:40, 1:181] 60.1 36.9 250.7 1032.6 668.6 ...
 ##  $ wts      : num [1:40, 1:256] 0 0 0 0 0 0 0 0 0 0 ...</code></pre>
 
 <p>The function <strong>audspec(.)</strong> calculates <strong>NFFT</strong> like so:</p>
@@ -1533,7 +1532,7 @@ C_n = \sum_{m=0}^{M-1} S(m) \text{BS}_3(n, m), \ \ \ \ \ \ \text{C = Mel cepstra
 <a class="sourceLine" id="cb2258-2" data-line-number="2">                             <span class="dt">fmax=</span>fmax)</a>
 <a class="sourceLine" id="cb2258-3" data-line-number="3"><span class="kw">str</span>(mfcc.post.spectrum )</a></code></pre></div>
 <pre><code>## List of 2
-##  $ y  : num [1:40, 1:182] 0.179 0.179 0.85 2.089 4.7 ...
+##  $ y  : num [1:40, 1:181] 0.102 0.102 0.489 1.329 1.648 ...
 ##  $ eql: num [1:40] 0 0.0000272 0.000457 0.0022935 0.0067969 ...</code></pre>
 
 <p><strong>Tenth</strong>, we then use <strong>spec2cep(.)</strong> to convert from Mel Spectrum to Mel Cepstrum. In the process, the function intrinsically performs <strong>Discrete Cosine Transform (DCT)</strong> to decorrelate the spectrum, then it uses <strong>DCT</strong> to obtain the cepstral coefficients <span class="citation">(Jérôme Sueur <a href="bibliography.html#ref-ref1496j">2018</a>)</span>. Here, we use DCT type 3.</p>
@@ -1543,7 +1542,7 @@ C_n = \sum_{m=0}^{M-1} S(m) \text{BS}_3(n, m), \ \ \ \ \ \ \text{C = Mel cepstra
 <a class="sourceLine" id="cb2260-3" data-line-number="3">tuneR.mel.cepstral.dctm   =<span class="st"> </span>cepstra<span class="op">$</span>dctm</a>
 <a class="sourceLine" id="cb2260-4" data-line-number="4"><span class="kw">str</span>(cepstra)</a></code></pre></div>
 <pre><code>## List of 2
-##  $ cep : num [1:12, 1:182] 88.811 -6.682 -4.558 0.272 -1.161 ...
+##  $ cep : num [1:12, 1:181] 69.5509 -9.9527 0.0686 -0.9082 0.2018 ...
 ##  $ dctm: num [1:12, 1:40] 0.224 0.223 0.223 0.222 0.221 ...</code></pre>
 
 <p>As an alternative to the overall <strong>MFCC</strong> which uses <strong>audspec(.)</strong> and <strong>spec2cep(.)</strong>, we leave readers to investigate <strong>Linear Predictive Cepstral Coefficient (LPCC)</strong> which uses <strong>dolpc(.)</strong> function and <strong>lpc2cep(.)</strong> correspondingly.</p>
@@ -1562,14 +1561,14 @@ C_n = \sum_{m=0}^{M-1} S(m) \text{BS}_3(n, m), \ \ \ \ \ \ \text{C = Mel cepstra
 <a class="sourceLine" id="cb2262-7" data-line-number="7">}</a>
 <a class="sourceLine" id="cb2262-8" data-line-number="8">mels.coefficients=<span class="kw">my.htk.lifter</span>(tuneR.mel.cepstral.coeffs, <span class="dt">lift=</span>ncepstral<span class="dv">-1</span>) </a>
 <a class="sourceLine" id="cb2262-9" data-line-number="9"><span class="kw">str</span>(mels.coefficients)</a></code></pre></div>
-<pre><code>##  num [1:12, 1:182] 88.81 -17.04 -18.11 1.4 -6.97 ...</code></pre>
+<pre><code>##  num [1:12, 1:181] 69.551 -25.375 0.273 -4.683 1.211 ...</code></pre>
 
 <p>To validate consistency, we use <strong>lifter(.)</strong>.</p>
 
 <div class="sourceCode" id="cb2264"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2264-1" data-line-number="1">mels.coefficients =<span class="st"> </span><span class="kw">lifter</span>(tuneR.mel.cepstral.coeffs, <span class="dt">lift=</span>ncepstral<span class="dv">-1</span>,</a>
 <a class="sourceLine" id="cb2264-2" data-line-number="2">                           <span class="dt">htk=</span><span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb2264-3" data-line-number="3"><span class="kw">str</span>(mels.coefficients)</a></code></pre></div>
-<pre><code>##  num [1:12, 1:182] 88.81 -17.04 -18.11 1.4 -6.97 ...</code></pre>
+<pre><code>##  num [1:12, 1:181] 69.551 -25.375 0.273 -4.683 1.211 ...</code></pre>
 
 <p><strong>Twelfth</strong>, we compute for the <strong>Log Energy Coefficients</strong>, which captures the change rate (slope approximation) in cepstral features over time <span class="citation">(Jaison Joshy, Koj Sambyo <a href="bibliography.html#ref-ref1562j">2016</a>)</span>. Here, we capture the <strong>12 Delta</strong> MFCC energies as the first-order difference and another <strong>12 Delta Delta</strong> MFCC energies as the second-order difference from the first-order difference. These are approximations of first and second derivatives in terms of speed and acceleration of speech. Deltas are expressed as such <span class="citation">(Noughreche A. et al <a href="bibliography.html#ref-ref1512a">2021</a>)</span>:</p>
 <p><span class="math display" id="eq:equate1150120">\[\begin{align}
@@ -1582,10 +1581,10 @@ where: d_t = \frac{\sum_{n=1}^N n\left(C_{n+t} - C_{n-t}\right)}{2 \sum_{n=1}^N 
 
 <div class="sourceCode" id="cb2266"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2266-1" data-line-number="1">delta.energies       =<span class="st"> </span><span class="kw">deltas</span>(tuneR.mel.cepstral.coeffs)</a>
 <a class="sourceLine" id="cb2266-2" data-line-number="2"><span class="kw">str</span>(delta.energies)</a></code></pre></div>
-<pre><code>##  num [1:12, 1:182] -39.19 5.299 0.493 -17.704 1.332 ...</code></pre>
+<pre><code>##  num [1:12, 1:181] 41.19 31.01 3.56 -16.84 -5.63 ...</code></pre>
 <div class="sourceCode" id="cb2268"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2268-1" data-line-number="1">delta.delta.energies =<span class="st"> </span><span class="kw">deltas</span>(delta.energies)</a>
 <a class="sourceLine" id="cb2268-2" data-line-number="2"><span class="kw">str</span>(delta.delta.energies)</a></code></pre></div>
-<pre><code>##  num [1:12, 1:182] -1046.3 -246.2 279.8 49.5 96.2 ...</code></pre>
+<pre><code>##  num [1:12, 1:181] -574.3 -522.2 -148.6 65.1 87.4 ...</code></pre>
 
 <p><strong>Finally</strong>, to complete the 39 features of <strong>MFCC</strong> per frame, we also need to calculate the <strong>Energy</strong> of the signal. Here, we can either consider the <strong>Raw Energy</strong> directly from the signal or the <strong>Cepstral Energy</strong> from <strong>MFCC</strong> coefficients <span class="citation">(Korzinek D. <a href="bibliography.html#ref-ref1602d">2021</a>)</span>.</p>
 <p>As for the <strong>Raw Energy</strong>, we can choose the formulation based on which domain the coefficient happens to be.</p>
@@ -1603,13 +1602,13 @@ where: d_t = \frac{\sum_{n=1}^N n\left(C_{n+t} - C_{n-t}\right)}{2 \sum_{n=1}^N 
 
 <div class="sourceCode" id="cb2271"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2271-1" data-line-number="1">log.energy =<span class="st"> </span><span class="kw">get.log.energy</span>(<span class="kw">t</span>(windowed.frm))</a>
 <a class="sourceLine" id="cb2271-2" data-line-number="2"><span class="kw">str</span>(log.energy)</a></code></pre></div>
-<pre><code>##  num [1:182] 8.93 8.86 8.66 8.56 7.97 ...</code></pre>
+<pre><code>##  num [1:181] 7.11 7.22 6.94 7.76 7.11 ...</code></pre>
 
 <p>Otherwise, we also can use the <strong>MFCC</strong> coefficients:</p>
 
 <div class="sourceCode" id="cb2273"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2273-1" data-line-number="1">log.mfcc.energy        =<span class="st"> </span><span class="kw">get.mfcc.energy</span>(tuneR.mel.cepstral.coeffs, frm<span class="op">$</span>size)</a>
 <a class="sourceLine" id="cb2273-2" data-line-number="2"><span class="kw">str</span>(log.mfcc.energy)</a></code></pre></div>
-<pre><code>##  num [1:182] 4.25 4.64 4.35 4.19 4.3 ...</code></pre>
+<pre><code>##  num [1:181] 3.21 3.22 3.03 4.41 3.62 ...</code></pre>
 
 <p>See the close correlation between log raw energy and MFCC energy in Figure <a href="13.6-applications-using-tnn-and-rnn.html#fig:logenergy">13.44</a>.</p>
 
@@ -1637,19 +1636,19 @@ Figure 13.44: Log Energy vs MFCC Energy
 
 <div class="sourceCode" id="cb2276"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2276-1" data-line-number="1">log.delta.energy       =<span class="st"> </span><span class="kw">get.log.energy</span>(delta.energies)</a>
 <a class="sourceLine" id="cb2276-2" data-line-number="2"><span class="kw">str</span>(log.delta.energy)</a></code></pre></div>
-<pre><code>##  num [1:182] 7.9 8.62 9.55 10.26 10.4 ...</code></pre>
+<pre><code>##  num [1:181] 8.05 6.47 7.37 7.41 8.19 ...</code></pre>
 <div class="sourceCode" id="cb2278"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2278-1" data-line-number="1">log.delta.delta.energy =<span class="st"> </span><span class="kw">get.log.energy</span>(delta.delta.energies)</a>
 <a class="sourceLine" id="cb2278-2" data-line-number="2"><span class="kw">str</span>(log.delta.delta.energy)</a></code></pre></div>
-<pre><code>##  num [1:182] 14.1 14.3 13.6 14.3 16 ...</code></pre>
+<pre><code>##  num [1:181] 13.4 13.8 14 13.7 14.5 ...</code></pre>
 
 <p>We then concatenate all 39 coefficients like so.</p>
 
 <div class="sourceCode" id="cb2280"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2280-1" data-line-number="1">mfcc.features =<span class="st"> </span></a>
 <a class="sourceLine" id="cb2280-2" data-line-number="2"><span class="st">        </span><span class="kw">array</span>( <span class="kw">rbind</span>(mels.coefficients, delta.energies, delta.delta.energies,</a>
 <a class="sourceLine" id="cb2280-3" data-line-number="3">            log.mfcc.energy, log.delta.energy, log.delta.delta.energy),</a>
-<a class="sourceLine" id="cb2280-4" data-line-number="4">             <span class="kw">c</span>(<span class="dv">39</span>, <span class="dv">182</span>))</a>
+<a class="sourceLine" id="cb2280-4" data-line-number="4">             <span class="kw">c</span>(<span class="dv">39</span>, <span class="dv">181</span>))</a>
 <a class="sourceLine" id="cb2280-5" data-line-number="5"><span class="kw">str</span>(mfcc.features)</a></code></pre></div>
-<pre><code>##  num [1:39, 1:182] 88.81 -17.04 -18.11 1.4 -6.97 ...</code></pre>
+<pre><code>##  num [1:39, 1:181] 69.551 -25.375 0.273 -4.683 1.211 ...</code></pre>
 
 <p>We show the long, intricate steps to extract features from individual frames of an entire sound wave. Existing platforms offer an easier way to extract features through APIs. For example, the <strong>melfcc(.)</strong> function below is enough to extract the 12 Mel coefficients prior to liftering:</p>
 
@@ -1670,7 +1669,7 @@ Figure 13.44: Log Energy vs MFCC Energy
 <a class="sourceLine" id="cb2282-15" data-line-number="15">     <span class="dt">frames_in_rows =</span> <span class="ot">FALSE</span></a>
 <a class="sourceLine" id="cb2282-16" data-line-number="16">     )</a>
 <a class="sourceLine" id="cb2282-17" data-line-number="17"><span class="kw">str</span>(mfcc.cepstra)</a></code></pre></div>
-<pre><code>##  num [1:12, 1:182] 88.803 -6.689 -6.914 0.525 -2.67 ...</code></pre>
+<pre><code>##  num [1:12, 1:181] 69.549 -9.954 0.103 -1.757 0.461 ...</code></pre>
 
 <p>Other literature may find it helpful to extract other features related to <strong>pitch</strong>, <strong>intensity</strong>, <strong>zero-cross rate</strong>, and on. We leave readers to investigate such features and their necessity.</p>
 <p>Having extracted the features, we can now rely on modeling techniques such as <strong>LSTM</strong> and <strong>Transformer Neural Network</strong> (specifically around <strong>Attention</strong>) to encode and decode features. However, one of the challenges of sequence-based applications, especially in <strong>Handwriting recognition</strong>, is <strong>alignment</strong>. This is where <strong>CTC</strong> comes to play.</p>
