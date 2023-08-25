@@ -965,7 +965,7 @@ CF(a,b) = b_0 + \mathcal{K}_{n=1}^\infty \frac{a_n}{b_n} = b_0 + \frac{a_1}{b_1 
 CF(a,b) = ( b_0; b_1, b_2, b_3, ... )\ \ \ \ and\ \ \ \ 
 CF(a,b) = \left[ b_0 + \frac{a_1}{b_1 +}\frac{a_2}{b_2 +}\frac{a_3}{b_3 +} ... \right] \tag{5.46} 
 \end{align}\]</span></p>
-<p>Only for illustration purpose, here is a sample naive (recursive) implementation of <strong>Continued Fraction</strong> in R code:</p>
+<p>Only for illustration purpose, here is an example of a simple (recursive) implementation of <strong>Continued Fraction</strong> in R code:</p>
 
 <div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb218-1" data-line-number="1">continued_fraction &lt;-<span class="st"> </span><span class="cf">function</span>(n, a, b) { <span class="co"># recursive</span></a>
 <a class="sourceLine" id="cb218-2" data-line-number="2">    <span class="cf">if</span> (n <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="kw">return</span>(a<span class="op">/</span>b)</a>
