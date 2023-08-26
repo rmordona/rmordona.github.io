@@ -818,7 +818,7 @@ Figure 10.1: Regression Tree
 </ul>
 <p>The <strong>rpart(.)</strong> uses a separate parameter called <strong>minsplit</strong> that controls the minimum number of observations allowed in a decision node. Our implementation uses only <strong>minbucket</strong> for both decision and terminal nodes.</p>
 <p><strong>Splitting a Tree Node and Building a Tree</strong></p>
-<p><strong>First</strong>, suppose we use any arbitrary single input variable, namely <strong>wt</strong> in this case, and also choose any arbitrary location to split the data. For example, suppose we split the input data evenly so that the split is located between a chosen pair of input points, namely the sixth and seventh input points. Note that duplicated data points are skipped along the way.</p>
+<p><strong>First</strong>, suppose we use an arbitrary single input variable, namely <strong>wt</strong> in this case, and also choose an arbitrary location to split the data. For example, suppose we split the input data evenly so that the split is located between a chosen pair of input points, namely the sixth and seventh input points. Note that duplicated data points are skipped along the way.</p>
 
 <div class="sourceCode" id="cb1228"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1228-1" data-line-number="1"><span class="kw">options</span>(<span class="dt">width=</span><span class="dv">60</span>)</a>
 <a class="sourceLine" id="cb1228-2" data-line-number="2">wt =<span class="st"> </span>datacars[[<span class="st">&quot;wt&quot;</span>]]</a>
