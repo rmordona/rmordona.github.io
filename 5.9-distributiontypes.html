@@ -1146,7 +1146,7 @@ f(X_k;\alpha_k) = P(x_1,...,x_k|\alpha_1, ... \alpha_k)  = \frac{1}{\mathcal{B}(
 \end{align}\]</span></p>
 <p>Note that <strong>Dirichlet distribution</strong> is a generalization of <strong>Beta distribution</strong>.</p>
 <p>To illustrate, we can continue to use <strong>Dirichlet PDF</strong> against <strong>Binomial distribution</strong> where <span class="math inline">\(\{\alpha,\beta\} = \{ \alpha, \alpha \} = \{\vec{ \alpha} \}\)</span></p>
-<p>Figure <a href="5.9-distributiontypes.html#fig:betadist1">5.13</a> illustrates graphs of the different shapes, <span class="math inline">\(\{\vec{ \alpha} \}\)</span>, of <strong>Dirichlet distribution</strong>.</p>
+<p>Figure <a href="5.9-distributiontypes.html#fig:dirichletdist">5.15</a> illustrates graphs of the different shapes, <span class="math inline">\(\{\vec{ \alpha} \}\)</span>, of <strong>Dirichlet distribution</strong>.</p>
 
 <div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb229-1" data-line-number="1">Gamma &lt;-<span class="st"> </span><span class="cf">function</span>(n) { <span class="kw">factorial</span>(n<span class="dv">-1</span>)}</a>
 <a class="sourceLine" id="cb229-2" data-line-number="2">dirichlet_B &lt;-<span class="st"> </span><span class="cf">function</span>(alpha) { </a>
