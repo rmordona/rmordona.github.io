@@ -1550,7 +1550,7 @@ Figure 8.15: Forward Algorithm Diagram
 ## $O
 ## [1] &quot;P&quot; &quot;Q&quot; &quot;R&quot;</code></pre>
 
-<p>Below is an example implementation of the <strong>Forward algorithm</strong> in R code:</p>
+<p>The following is an example implementation of the <strong>Forward algorithm</strong> in R code:</p>
 
 <div class="sourceCode" id="cb884"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb884-1" data-line-number="1">hmm.forward &lt;-<span class="st"> </span><span class="cf">function</span>(Y, M) {</a>
 <a class="sourceLine" id="cb884-2" data-line-number="2">  T =<span class="st"> </span><span class="kw">length</span>(Y)</a>
@@ -2077,7 +2077,7 @@ Figure 8.18: Dynamic System Diagram
 </p>
 </div>
 
-<p>The figure shows a simple general model which depicts a single state, namely <strong>X</strong>, of an object transitioning from time <strong>t-1</strong> to <strong>t</strong> and from time <strong>t</strong> to time <strong>t+1</strong>. It explains a rather fundamental part of a dynamic system. A good example is an <strong>autonomous robot</strong> that navigates a landscape guided by some control in the form of action inputs (Thrun, Burgard, Fox, Abbeel). In the figure, notice the introduction of <span class="math inline">\(\mathbf{U}\)</span> variable, which represents an input. Localization (mapping) and navigation are common problems that require location estimation, presented by <strong>X</strong> - the state - guided by some input <strong>U</strong>. In other words, we use the general notation below to approximate the probability of the state of a system denoted by <strong>X</strong>, conditioned on both an observation, namely <strong>Y</strong>, and possibly control, namely <strong>U</strong>:</p>
+<p>The figure shows a simple general model which depicts a single state, namely <strong>X</strong>, of an object transitioning from time <strong>t-1</strong> to <strong>t</strong> and from time <strong>t</strong> to time <strong>t+1</strong>. It explains a rather fundamental part of a dynamic system. A good example is an <strong>autonomous robot</strong> that navigates a landscape guided by some control in the form of action inputs (Thrun, Burgard, Fox, Abbeel). In the figure, notice the introduction of <span class="math inline">\(\mathbf{U}\)</span> variable, which represents an input. Localization (mapping) and navigation are common problems that require location estimation, presented by <strong>X</strong> - the state - guided by some input <strong>U</strong>. In other words, we use the following general notation to approximate the probability of the state of a system denoted by <strong>X</strong>, conditioned on both an observation, namely <strong>Y</strong>, and possibly control, namely <strong>U</strong>:</p>
 <p><span class="math display">\[
 P(X_{0:T},M| Z_{1:T}, U_{1:T})
 \]</span>

@@ -854,18 +854,18 @@ H_1 &amp;: \beta_1 \ne 0,\ \ \ \  \ y_i = \beta_0 + \beta_1 x_i + \epsilon_i \ta
 <a class="sourceLine" id="cb702-4" data-line-number="4"><span class="kw">grid</span>(<span class="dt">col=</span><span class="st">&quot;lightgrey&quot;</span>)</a>
 <a class="sourceLine" id="cb702-5" data-line-number="5"><span class="kw">arrows</span>(<span class="dv">200</span>,<span class="dv">23</span>, <span class="dv">250</span>,<span class="dv">28</span>, <span class="dt">code=</span><span class="dv">1</span>, <span class="dt">length=</span><span class="fl">0.1</span>)</a>
 <a class="sourceLine" id="cb702-6" data-line-number="6"><span class="kw">text</span>(<span class="dv">350</span>, <span class="dv">28</span>, <span class="dt">label=</span><span class="st">&quot;fitted line, f(x), the linear model&quot;</span>)</a></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-304"></span>
-<img src="DS_files/figure-html/unnamed-chunk-304-1.png" alt="Smoothing" width="70%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:displacement1"></span>
+<img src="DS_files/figure-html/displacement1-1.png" alt="Smoothing" width="70%" />
 <p class="caption">
 Figure 6.29: Smoothing
 </p>
 </div>
 
-<p>In the plot, we fit a line to show the linear regression. The <span class="math inline">\(B_1\)</span> is negative which indicates a decreasing effect to the fuel consumption; meaning, for every unit increase of <span class="math inline">\(x\)</span> (disp), there is a 0.041 unit decrease of <span class="math inline">\(y\)</span> (mpg).</p>
-We will see how to apply the formulas when we get into <strong>multilinear regression</strong>. Meanwhile, Figure <a href="6.8-the-significance-of-regression.html#fig:statistics">6.30</a> shows the relationships of the formulas:
+<p>In Figure <a href="6.8-the-significance-of-regression.html#fig:displacement1">6.29</a>, we fit a line to show the linear regression. The <span class="math inline">\(B_1\)</span> is negative which indicates a decreasing effect to the fuel consumption; meaning, for every unit increase of <span class="math inline">\(x\)</span> (disp), there is a 0.041 unit decrease of <span class="math inline">\(y\)</span> (mpg).</p>
+<p>We will see how to apply the formulas when we get into <strong>multilinear regression</strong>. Meanwhile, Figure <a href="6.8-the-significance-of-regression.html#fig:statistics">6.30</a> shows the relationships of the formulas:</p>
 
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:statistics"></span>
-<img src="DS_files/figure-html/statistics-1.png" alt="Statistics" width="0%" />
+<img src="DS_files/figure-html/statistics-1.png" alt="Statistics" width="70%" />
 <p class="caption">
 Figure 6.30: Statistics
 </p>
@@ -1225,10 +1225,10 @@ Figure 6.34: Logit (Linear)
 <div class="sourceCode" id="cb740"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb740-1" data-line-number="1"><span class="kw">plot</span>(<span class="ot">NULL</span>, <span class="dt">col=</span><span class="st">&quot;deepskyblue&quot;</span>, <span class="dt">pch=</span><span class="dv">16</span>,</a>
 <a class="sourceLine" id="cb740-2" data-line-number="2">     <span class="dt">xlim =</span> <span class="kw">range</span>(x), <span class="dt">ylim =</span> <span class="kw">range</span>(y), <span class="dt">xlab =</span> <span class="st">&quot;mpg (Predictor)&quot;</span>, </a>
 <a class="sourceLine" id="cb740-3" data-line-number="3">     <span class="dt">ylab =</span> <span class="st">&quot;inverse.logit(z) = p.hat&quot;</span>, <span class="dt">main=</span><span class="st">&quot;Inverse Logit (Sigmoid)&quot;</span>)</a>
-<a class="sourceLine" id="cb740-4" data-line-number="4"><span class="kw">abline</span>(simple.model, <span class="dt">col=</span><span class="st">&quot;darksalmon&quot;</span>) <span class="co">#  </span></a>
+<a class="sourceLine" id="cb740-4" data-line-number="4"><span class="kw">abline</span>(simple.model, <span class="dt">col=</span><span class="st">&quot;darksalmon&quot;</span>) <span class="co"></span></a>
 <a class="sourceLine" id="cb740-5" data-line-number="5"><span class="kw">grid</span>(<span class="dt">col=</span><span class="st">&quot;lightgrey&quot;</span>)</a>
 <a class="sourceLine" id="cb740-6" data-line-number="6"><span class="kw">lines</span>(x, y, <span class="dt">pch=</span><span class="dv">20</span>, <span class="dt">col=</span><span class="st">&quot;navyblue&quot;</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">lty=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb740-7" data-line-number="7"><span class="kw">text</span>(<span class="dv">25</span>,  <span class="fl">0.6</span>, <span class="dt">label=</span><span class="st">&quot;Sigmoid&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb740-7" data-line-number="7"><span class="kw">text</span>(<span class="dv">26</span>,  <span class="fl">0.6</span>, <span class="dt">label=</span><span class="st">&quot;Sigmoid&quot;</span>)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:inverseform"></span>
 <img src="DS_files/figure-html/inverseform-1.png" alt="Inverse Logit (Sigmoid)" width="70%" />
 <p class="caption">
@@ -1236,7 +1236,9 @@ Figure 6.35: Inverse Logit (Sigmoid)
 </p>
 </div>
 
-<p>The coefficients of the fitted values show as follows:</p>
+<p>Based on the <strong>sigmoid</strong> curve, it seems to show that the engine is likely to be more a <strong>V engine</strong> as the miles per gallon increase. In other words, the fuel consumption seems to have a significant association with the type of engine.</p>
+
+<p>Proceeding further, the coefficients of the fitted values show as follows:</p>
 
 <div class="sourceCode" id="cb741"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb741-1" data-line-number="1">beta_<span class="dv">0</span> =<span class="st"> </span><span class="kw">as.numeric</span>(logit.model<span class="op">$</span>coefficients[<span class="dv">1</span>])  </a>
 <a class="sourceLine" id="cb741-2" data-line-number="2">beta_<span class="dv">1</span> =<span class="st"> </span><span class="kw">as.numeric</span>(logit.model<span class="op">$</span>coefficients[<span class="dv">2</span>])  </a></code></pre></div>
