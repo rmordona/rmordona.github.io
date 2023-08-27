@@ -834,7 +834,7 @@ We need to assume y = x</p>
 <p><span class="math display">\[
  f(x) = x^3 + x^2 - 1 = x\ \ \ \ \ \leftarrow \text{root-find form}
 \]</span></p>
-<p>We now implement the fixed-point iteration in R code. Let us first construct an helper function for plotting the graphs:</p>
+<p>Let us implement the fixed-point iteration in R code. Let us first construct an helper function for plotting the graphs:</p>
 
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1">plot_par &lt;-<span class="st"> </span><span class="cf">function</span>(f) {</a>
 <a class="sourceLine" id="cb52-2" data-line-number="2">    <span class="kw">par</span>(<span class="dt">pty=</span><span class="st">&quot;m&quot;</span>)</a>
@@ -852,39 +852,39 @@ We need to assume y = x</p>
 <a class="sourceLine" id="cb52-14" data-line-number="14">    <span class="kw">text</span>(x_loc, y_loc,  <span class="dt">labels=</span>labels, <span class="dt">offset=</span><span class="fl">0.5</span>, <span class="dt">col=</span><span class="st">&quot;darkgreen&quot;</span> )</a>
 <a class="sourceLine" id="cb52-15" data-line-number="15">}</a></code></pre></div>
 
-<p>Here is a naive implementation of fixed-point method in R code:</p>
-
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">polynomial &lt;-<span class="st"> </span><span class="cf">function</span>(x) { <span class="fl">0.2</span><span class="op">*</span>x<span class="op">^</span><span class="dv">2</span> }</a>
-<a class="sourceLine" id="cb53-2" data-line-number="2">fixed_point &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb53-3" data-line-number="3">    limit=<span class="dv">100</span></a>
-<a class="sourceLine" id="cb53-4" data-line-number="4">    tol =<span class="st"> </span><span class="fl">1e-5</span></a>
-<a class="sourceLine" id="cb53-5" data-line-number="5">    g =<span class="st"> </span>polynomial</a>
-<a class="sourceLine" id="cb53-6" data-line-number="6">    x_ =<span class="st"> </span><span class="kw">g</span>(x)</a>
-<a class="sourceLine" id="cb53-7" data-line-number="7">    <span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>limit) {</a>
-<a class="sourceLine" id="cb53-8" data-line-number="8">        <span class="kw">plot_iteration</span>(x, x_, n)</a>
-<a class="sourceLine" id="cb53-9" data-line-number="9">        x_ =<span class="st"> </span>x</a>
-<a class="sourceLine" id="cb53-10" data-line-number="10">        x =<span class="st"> </span><span class="kw">g</span>(x)  <span class="co"># fixed-point formula</span></a>
-<a class="sourceLine" id="cb53-11" data-line-number="11">        <span class="cf">if</span> (<span class="kw">abs</span>(x <span class="op">-</span><span class="st"> </span>x_) <span class="op">&lt;</span><span class="st"> </span>tol) <span class="cf">break</span></a>
-<a class="sourceLine" id="cb53-12" data-line-number="12">    }</a>
-<a class="sourceLine" id="cb53-13" data-line-number="13">    <span class="kw">list</span>(<span class="st">&quot;x&quot;</span>=<span class="kw">round</span>(x_), <span class="st">&quot;y&quot;</span>=<span class="kw">round</span>(x))</a>
-<a class="sourceLine" id="cb53-14" data-line-number="14">}</a>
-<a class="sourceLine" id="cb53-15" data-line-number="15">plot_iteration &lt;-<span class="st"> </span><span class="cf">function</span>(x,y,n) {</a>
-<a class="sourceLine" id="cb53-16" data-line-number="16">    g =<span class="st"> </span>polynomial</a>
-<a class="sourceLine" id="cb53-17" data-line-number="17">    <span class="cf">if</span> (n<span class="op">&gt;</span><span class="dv">1</span>) { </a>
-<a class="sourceLine" id="cb53-18" data-line-number="18">        <span class="kw">lines</span>(<span class="kw">c</span>(x,x), <span class="kw">c</span>(x, <span class="kw">g</span>(x)), <span class="dt">col=</span><span class="st">&quot;brown&quot;</span> )</a>
-<a class="sourceLine" id="cb53-19" data-line-number="19">        <span class="kw">lines</span>(<span class="kw">c</span>(x,y), <span class="kw">c</span>(x, <span class="kw">g</span>(y)), <span class="dt">col=</span><span class="st">&quot;brown&quot;</span> )    </a>
-<a class="sourceLine" id="cb53-20" data-line-number="20">    }</a>
-<a class="sourceLine" id="cb53-21" data-line-number="21">}</a>
-<a class="sourceLine" id="cb53-22" data-line-number="22"><span class="kw">plot_par</span>(polynomial)</a>
-<a class="sourceLine" id="cb53-23" data-line-number="23">root =<span class="st"> </span><span class="kw">fixed_point</span>(<span class="dv">4</span>)</a></code></pre></div>
+<p>Here is a naive implementation of the fixed-point method in R code:
+</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="numericallinearalgebra.html#cb31-1" aria-hidden="true" tabindex="-1"></a>fixed_point <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb31-2"><a href="numericallinearalgebra.html#cb31-2" aria-hidden="true" tabindex="-1"></a>    limit<span class="ot">=</span><span class="dv">100</span>; tol <span class="ot">=</span> <span class="fl">1e-5</span></span>
+<span id="cb31-3"><a href="numericallinearalgebra.html#cb31-3" aria-hidden="true" tabindex="-1"></a>    g <span class="ot">=</span> polynomial</span>
+<span id="cb31-4"><a href="numericallinearalgebra.html#cb31-4" aria-hidden="true" tabindex="-1"></a>    x_ <span class="ot">=</span> <span class="fu">g</span>(x)  <span class="co"># fixed-point formula</span></span>
+<span id="cb31-5"><a href="numericallinearalgebra.html#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (n <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>limit) {</span>
+<span id="cb31-6"><a href="numericallinearalgebra.html#cb31-6" aria-hidden="true" tabindex="-1"></a>        <span class="fu">plot_iteration</span>(x, x_, n)</span>
+<span id="cb31-7"><a href="numericallinearalgebra.html#cb31-7" aria-hidden="true" tabindex="-1"></a>        x_ <span class="ot">=</span> x; x <span class="ot">=</span> <span class="fu">g</span>(x) </span>
+<span id="cb31-8"><a href="numericallinearalgebra.html#cb31-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (<span class="fu">abs</span>(x <span class="sc">-</span> x_) <span class="sc">&lt;</span> tol) <span class="cf">break</span></span>
+<span id="cb31-9"><a href="numericallinearalgebra.html#cb31-9" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb31-10"><a href="numericallinearalgebra.html#cb31-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(<span class="st">&quot;x&quot;</span><span class="ot">=</span><span class="fu">round</span>(x_), <span class="st">&quot;y&quot;</span><span class="ot">=</span><span class="fu">round</span>(x))</span>
+<span id="cb31-11"><a href="numericallinearalgebra.html#cb31-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-12"><a href="numericallinearalgebra.html#cb31-12" aria-hidden="true" tabindex="-1"></a>plot_iteration <span class="ot">&lt;-</span> <span class="cf">function</span>(x,y,n) {</span>
+<span id="cb31-13"><a href="numericallinearalgebra.html#cb31-13" aria-hidden="true" tabindex="-1"></a>    g <span class="ot">=</span> polynomial</span>
+<span id="cb31-14"><a href="numericallinearalgebra.html#cb31-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (n<span class="sc">&gt;</span><span class="dv">1</span>) { </span>
+<span id="cb31-15"><a href="numericallinearalgebra.html#cb31-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">lines</span>(<span class="fu">c</span>(x,x), <span class="fu">c</span>(x, <span class="fu">g</span>(x)), <span class="at">col=</span><span class="st">&quot;brown&quot;</span> )</span>
+<span id="cb31-16"><a href="numericallinearalgebra.html#cb31-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">lines</span>(<span class="fu">c</span>(x,y), <span class="fu">c</span>(x, <span class="fu">g</span>(y)), <span class="at">col=</span><span class="st">&quot;brown&quot;</span> )    </span>
+<span id="cb31-17"><a href="numericallinearalgebra.html#cb31-17" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb31-18"><a href="numericallinearalgebra.html#cb31-18" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Our goal is to be able to plot the fixed point given a polynomial (See Figure <a href="3.3-approximating-root-and-fixed-point-by-iteration.html#fig:fixedpoint">3.3</a>).</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:fixedpoint"></span>
 <img src="embed0002.png" alt="Fixed-Point Iteration" width="90%" />
 <p class="caption">
 Figure 3.3: Fixed-Point Iteration
 </p>
 </div>
-
+<p>So to achieve that, we run the following lines:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="numericallinearalgebra.html#cb32-1" aria-hidden="true" tabindex="-1"></a>polynomial <span class="ot">&lt;-</span> <span class="cf">function</span>(x) { <span class="fl">0.2</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span> }</span>
+<span id="cb32-2"><a href="numericallinearalgebra.html#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_par</span>(polynomial)</span>
+<span id="cb32-3"><a href="numericallinearalgebra.html#cb32-3" aria-hidden="true" tabindex="-1"></a>root <span class="ot">=</span> <span class="fu">fixed_point</span>(<span class="dv">4</span>)</span></code></pre></div>
 </div>
+
 <div id="bisection-method" class="section level3 hasAnchor">
 <h3><span class="header-section-number">3.3.3</span> Bisection Method <a href="3.3-approximating-root-and-fixed-point-by-iteration.html#bisection-method" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><strong>Bisection Method</strong> is a classic way of solving for the root of a continuous function. It iterates until convergence using the following equation <span class="citation">(Ehiwario J.C. <a href="bibliography.html#ref-ref121e">2014</a>)</span>.</p>
