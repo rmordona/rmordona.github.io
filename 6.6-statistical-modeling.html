@@ -924,7 +924,7 @@ We also introduce the concept of <strong>reference level</strong> in which our l
 <a class="sourceLine" id="cb601-9" data-line-number="9"><span class="st">    </span><span class="kw">as.numeric</span>(<span class="kw">as.factor</span>(sample.gender)) <span class="op">*</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb601-10" data-line-number="10"><span class="st">    </span><span class="kw">as.numeric</span>(<span class="kw">as.factor</span>(sample.sched))</a>
 <a class="sourceLine" id="cb601-11" data-line-number="11">dataset =<span class="st"> </span><span class="kw">data.frame</span>( <span class="dt">productivity =</span> prod,  <span class="dt">gender =</span> sample.gender, </a>
-<a class="sourceLine" id="cb601-12" data-line-number="12">                      <span class="dt">tl =</span> sample.sched, <span class="dt">label =</span> label) <span class="co">#</span></a>
+<a class="sourceLine" id="cb601-12" data-line-number="12">                      <span class="dt">tl =</span> sample.sched, <span class="dt">label =</span> label) <span class="co"></span></a>
 <a class="sourceLine" id="cb601-13" data-line-number="13"><span class="kw">head</span>(dataset)</a></code></pre></div>
 <pre><code>##   productivity gender      tl  label
 ## 1       0.1875   male  yearly 12.818
@@ -936,9 +936,9 @@ We also introduce the concept of <strong>reference level</strong> in which our l
 
 <p>Let us list the levels for both <strong>gender</strong> and <strong>timeline (tl)</strong> variables:</p>
 
-<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb603-1" data-line-number="1"><span class="kw">levels</span>(dataset<span class="op">$</span>gender)</a></code></pre></div>
+<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb603-1" data-line-number="1"><span class="kw">levels</span>(<span class="kw">as.factor</span>(dataset<span class="op">$</span>gender))</a></code></pre></div>
 <pre><code>## [1] &quot;female&quot; &quot;male&quot;</code></pre>
-<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb605-1" data-line-number="1"><span class="kw">levels</span>(dataset<span class="op">$</span>tl)</a></code></pre></div>
+<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb605-1" data-line-number="1"><span class="kw">levels</span>(<span class="kw">as.factor</span>(dataset<span class="op">$</span>tl))</a></code></pre></div>
 <pre><code>## [1] &quot;monthly&quot; &quot;weekly&quot;  &quot;yearly&quot;</code></pre>
 
 <p>Using the linear model function <strong>lm(.)</strong>, let us review the coefficients given only <strong>productivity</strong> and <strong>gender</strong> as predictors:</p>
