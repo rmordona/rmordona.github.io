@@ -1098,53 +1098,59 @@ Figure 13.11: Deep Stacked RNN
 initialization methods such as <strong>Xavier initialization</strong> and <strong>He initialization</strong>. In <strong>RNN</strong>, we introduce <strong>Orthogonal initialization</strong>.</p>
 <p>Here, we use an <strong>rnn.initialize(.)</strong> function which uses <strong>net.initialization(.)</strong> function from our <strong>CNN</strong> implementation. Also, we introduce the use of our <strong>orthogonal.initialization(.)</strong> function based on <strong>Orthogonal initialization</strong> method (Wei Hu <span class="citation">(<a href="bibliography.html#ref-ref1462w">2020</a>)</span>; Eugene Vorontsov <span class="citation">(<a href="bibliography.html#ref-ref1466e">2017</a>)</span>; Stephen Merity <span class="citation">(<a href="bibliography.html#ref-ref1470s">2015</a>)</span>). </p>
 
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="deeplearning2.html#cb32-1" aria-hidden="true" tabindex="-1"></a>orthogonal.initialization <span class="ot">&lt;-</span> <span class="cf">function</span>(size, row, col) {</span>
+<span id="cb32-2"><a href="deeplearning2.html#cb32-2" aria-hidden="true" tabindex="-1"></a>  V <span class="ot">=</span> <span class="fu">matrix</span>(<span class="fu">runif</span>(size, <span class="at">min=</span><span class="dv">0</span>, <span class="at">max=</span><span class="dv">1</span>), <span class="at">nrow=</span>row, <span class="at">ncol=</span>col, <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb32-3"><a href="deeplearning2.html#cb32-3" aria-hidden="true" tabindex="-1"></a>  sv <span class="ot">=</span> <span class="fu">svd</span>(V)</span>
+<span id="cb32-4"><a href="deeplearning2.html#cb32-4" aria-hidden="true" tabindex="-1"></a>  di <span class="ot">=</span> <span class="fu">dim</span>(sv<span class="sc">$</span>u)</span>
+<span id="cb32-5"><a href="deeplearning2.html#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">prod</span>(di) <span class="sc">==</span> size) { W <span class="ot">=</span> sv<span class="sc">$</span>u } <span class="cf">else</span> { W <span class="ot">=</span> sv<span class="sc">$</span>v }</span>
+<span id="cb32-6"><a href="deeplearning2.html#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">array</span>(W, <span class="fu">c</span>(row, col)) <span class="co"># reshape</span></span>
+<span id="cb32-7"><a href="deeplearning2.html#cb32-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb32-8"><a href="deeplearning2.html#cb32-8" aria-hidden="true" tabindex="-1"></a>rnn.initialize <span class="ot">&lt;-</span> <span class="cf">function</span>(ni, no, <span class="at">state=</span><span class="cn">FALSE</span>) {</span>
+<span id="cb32-9"><a href="deeplearning2.html#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (state <span class="sc">==</span> <span class="cn">TRUE</span>) {  <span class="co"># variable is concatenated btwn input and state</span></span>
+<span id="cb32-10"><a href="deeplearning2.html#cb32-10" aria-hidden="true" tabindex="-1"></a>    p <span class="ot">=</span> ni <span class="sc">-</span> no;  h <span class="ot">=</span> no </span>
+<span id="cb32-11"><a href="deeplearning2.html#cb32-11" aria-hidden="true" tabindex="-1"></a>    I <span class="ot">=</span> <span class="fu">net.initialization</span>(p <span class="sc">*</span> h, p, h, <span class="at">itype=</span><span class="st">&quot;glorot&quot;</span>, <span class="at">dist=</span><span class="st">&quot;uniform&quot;</span>)</span>
+<span id="cb32-12"><a href="deeplearning2.html#cb32-12" aria-hidden="true" tabindex="-1"></a>    I <span class="ot">=</span> <span class="fu">array</span>(I, <span class="fu">c</span>(p, h))</span>
+<span id="cb32-13"><a href="deeplearning2.html#cb32-13" aria-hidden="true" tabindex="-1"></a>    S <span class="ot">=</span> <span class="fu">orthogonal.initialization</span>(h <span class="sc">*</span> h, h, h)</span>
+<span id="cb32-14"><a href="deeplearning2.html#cb32-14" aria-hidden="true" tabindex="-1"></a>    W <span class="ot">=</span> <span class="fu">rbind</span>(I, S)</span>
+<span id="cb32-15"><a href="deeplearning2.html#cb32-15" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb32-16"><a href="deeplearning2.html#cb32-16" aria-hidden="true" tabindex="-1"></a>    W <span class="ot">=</span> <span class="fu">net.initialization</span>(ni <span class="sc">*</span> no, ni, no, <span class="at">itype=</span><span class="st">&quot;glorot&quot;</span>, <span class="at">dist=</span><span class="st">&quot;uniform&quot;</span>)</span>
+<span id="cb32-17"><a href="deeplearning2.html#cb32-17" aria-hidden="true" tabindex="-1"></a>    W <span class="ot">=</span> <span class="fu">array</span>(W, <span class="fu">c</span>(ni, no))</span>
+<span id="cb32-18"><a href="deeplearning2.html#cb32-18" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb32-19"><a href="deeplearning2.html#cb32-19" aria-hidden="true" tabindex="-1"></a>  W</span>
+<span id="cb32-20"><a href="deeplearning2.html#cb32-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 
+<p>Let us show the result if the state is set to true.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="deeplearning2.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnn.initialize</span>(<span class="dv">5</span>, <span class="dv">3</span>, <span class="at">state=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##            [,1]       [,2]        [,3]
+## [1,] -0.3121874  0.9123532 -0.13348209
+## [2,] -0.5827210 -1.0285025  1.03780350
+## [3,] -0.5191606  0.6972664  0.49425884
+## [4,] -0.3363557  0.3649483 -0.86814604
+## [5,] -0.7857080 -0.6169540  0.04506278</code></pre>
+<p>Now let us compare the result if the state is set to false.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="deeplearning2.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rnn.initialize</span>(<span class="dv">5</span>, <span class="dv">3</span>, <span class="at">state=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>##             [,1]         [,2]       [,3]
+## [1,] -0.03659108 -0.333529897 -0.6373648
+## [2,]  0.70268263  0.049001888  0.1878734
+## [3,] -0.83397219  0.395298476  0.8519414
+## [4,] -0.53322254  0.785582962 -0.7019834
+## [5,] -0.20038612 -0.006938375  0.6846510</code></pre>
 
-<div class="sourceCode" id="cb2116"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2116-1" data-line-number="1">orthogonal.initialization &lt;-<span class="st"> </span><span class="cf">function</span>(size, row, col) {</a>
-<a class="sourceLine" id="cb2116-2" data-line-number="2">  V =<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">runif</span>(size, <span class="dt">min=</span><span class="dv">0</span>, <span class="dt">max=</span><span class="dv">1</span>), <span class="dt">nrow=</span>row, <span class="dt">ncol=</span>col, <span class="dt">byrow=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb2116-3" data-line-number="3">  sv =<span class="st"> </span><span class="kw">svd</span>(V)</a>
-<a class="sourceLine" id="cb2116-4" data-line-number="4">  di =<span class="st"> </span><span class="kw">dim</span>(sv<span class="op">$</span>u)</a>
-<a class="sourceLine" id="cb2116-5" data-line-number="5">  <span class="cf">if</span> (<span class="kw">prod</span>(di) <span class="op">==</span><span class="st"> </span>size) { W =<span class="st"> </span>sv<span class="op">$</span>u } <span class="cf">else</span> { W =<span class="st"> </span>sv<span class="op">$</span>v }</a>
-<a class="sourceLine" id="cb2116-6" data-line-number="6">  <span class="kw">array</span>(W, <span class="kw">c</span>(row, col)) <span class="co"># reshape</span></a>
-<a class="sourceLine" id="cb2116-7" data-line-number="7">}</a>
-<a class="sourceLine" id="cb2116-8" data-line-number="8">rnn.initialize &lt;-<span class="st"> </span><span class="cf">function</span>(ni, no, <span class="dt">state=</span><span class="ot">FALSE</span>) {</a>
-<a class="sourceLine" id="cb2116-9" data-line-number="9">  <span class="cf">if</span> (state <span class="op">==</span><span class="st"> </span><span class="ot">TRUE</span>) {  <span class="co"># variable is concatenated btw input and state</span></a>
-<a class="sourceLine" id="cb2116-10" data-line-number="10">    p =<span class="st"> </span>ni <span class="op">-</span><span class="st"> </span>no;  h =<span class="st"> </span>no </a>
-<a class="sourceLine" id="cb2116-11" data-line-number="11">    I =<span class="st"> </span><span class="kw">net.initialization</span>(p <span class="op">*</span><span class="st"> </span>h, p, h, <span class="dt">itype=</span><span class="st">&quot;glorot&quot;</span>, <span class="dt">dist=</span><span class="st">&quot;uniform&quot;</span>)</a>
-<a class="sourceLine" id="cb2116-12" data-line-number="12">    I =<span class="st"> </span><span class="kw">array</span>(I, <span class="kw">c</span>(p, h))</a>
-<a class="sourceLine" id="cb2116-13" data-line-number="13">    S =<span class="st"> </span><span class="kw">orthogonal.initialization</span>(h <span class="op">*</span><span class="st"> </span>h, h, h)</a>
-<a class="sourceLine" id="cb2116-14" data-line-number="14">    W =<span class="st"> </span><span class="kw">rbind</span>(I, S)</a>
-<a class="sourceLine" id="cb2116-15" data-line-number="15">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb2116-16" data-line-number="16">    W =<span class="st"> </span><span class="kw">net.initialization</span>(ni <span class="op">*</span><span class="st"> </span>no, ni, no, <span class="dt">itype=</span><span class="st">&quot;glorot&quot;</span>, <span class="dt">dist=</span><span class="st">&quot;uniform&quot;</span>)</a>
-<a class="sourceLine" id="cb2116-17" data-line-number="17">    W =<span class="st"> </span><span class="kw">array</span>(W, <span class="kw">c</span>(ni, no))</a>
-<a class="sourceLine" id="cb2116-18" data-line-number="18">  }</a>
-<a class="sourceLine" id="cb2116-19" data-line-number="19">  W</a>
-<a class="sourceLine" id="cb2116-20" data-line-number="20">}</a>
-<a class="sourceLine" id="cb2116-21" data-line-number="21"><span class="kw">rnn.initialize</span>(<span class="dv">5</span>, <span class="dv">3</span>, <span class="dt">state=</span><span class="ot">TRUE</span>)</a></code></pre></div>
-<pre><code>##             [,1]        [,2]         [,3]
-## [1,] -0.31218743  0.91235315 -0.133482087
-## [2,] -0.58272098 -1.02850246  1.037803497
-## [3,] -0.51916059  0.69726644  0.494258841
-## [4,] -0.33635573  0.36494832 -0.868146039
-## [5,] -0.78570803 -0.61695400  0.045062776</code></pre>
+<p>Next, let us see what the structure looks like given the below data points (<strong>X</strong>, <strong>Y</strong>). First, our input assumes an <strong>embedding</strong> using a sequence of three randomly generated numbers. Next, we concoct a single batch of 50 samples. Here, we assume a <strong>many-to-one</strong> system.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="deeplearning2.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb37-2"><a href="deeplearning2.html#cb37-2" aria-hidden="true" tabindex="-1"></a>ts    <span class="ot">=</span> <span class="dv">3</span>; n <span class="ot">=</span> <span class="dv">50</span>; p <span class="ot">=</span> <span class="dv">30</span>; h <span class="ot">=</span> <span class="dv">20</span>; o <span class="ot">=</span> <span class="dv">3</span></span>
+<span id="cb37-3"><a href="deeplearning2.html#cb37-3" aria-hidden="true" tabindex="-1"></a>X     <span class="ot">=</span> <span class="fu">array</span>(<span class="fu">runif</span>(n <span class="sc">*</span> p <span class="sc">*</span> ts), <span class="fu">c</span>(n, p, ts))</span>
+<span id="cb37-4"><a href="deeplearning2.html#cb37-4" aria-hidden="true" tabindex="-1"></a>Y     <span class="ot">=</span> <span class="fu">array</span>(<span class="fu">sample</span>(<span class="dv">0</span>, <span class="at">size=</span>n <span class="sc">*</span> o , <span class="at">replace=</span><span class="cn">TRUE</span>), <span class="fu">c</span>(n, o))</span>
+<span id="cb37-5"><a href="deeplearning2.html#cb37-5" aria-hidden="true" tabindex="-1"></a>Y.idx <span class="ot">=</span> <span class="fu">sample.int</span>(o, <span class="at">size=</span>n, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb37-6"><a href="deeplearning2.html#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) { Y[i, Y.idx[i]] <span class="ot">=</span> <span class="dv">1</span> }   <span class="co"># one-hot encoding</span></span></code></pre></div>
 
-<p>Let us see what the structure looks like given the below data points (<strong>X</strong>, <strong>Y</strong>). First, our input assumes an <strong>embedding</strong> using a sequence of three randomly generated numbers. Next, we concoct a single batch of 50 samples. Here, we assume a <strong>many-to-one</strong> system.</p>
-
-<div class="sourceCode" id="cb2118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2118-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb2118-2" data-line-number="2">ts    =<span class="st"> </span><span class="dv">3</span>; n =<span class="st"> </span><span class="dv">50</span>; p =<span class="st"> </span><span class="dv">30</span>; h =<span class="st"> </span><span class="dv">20</span>; o =<span class="st"> </span><span class="dv">3</span></a>
-<a class="sourceLine" id="cb2118-3" data-line-number="3">X     =<span class="st"> </span><span class="kw">array</span>(<span class="kw">runif</span>(n <span class="op">*</span><span class="st"> </span>p <span class="op">*</span><span class="st"> </span>ts), <span class="kw">c</span>(n, p, ts))</a>
-<a class="sourceLine" id="cb2118-4" data-line-number="4">Y     =<span class="st"> </span><span class="kw">array</span>(<span class="kw">sample</span>(<span class="dv">0</span>, <span class="dt">size=</span>n <span class="op">*</span><span class="st"> </span>o , <span class="dt">replace=</span><span class="ot">TRUE</span>), <span class="kw">c</span>(n, o))</a>
-<a class="sourceLine" id="cb2118-5" data-line-number="5">Y.idx =<span class="st"> </span><span class="kw">sample.int</span>(o, <span class="dt">size=</span>n, <span class="dt">replace=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb2118-6" data-line-number="6"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) { Y[i, Y.idx[i]] =<span class="st"> </span><span class="dv">1</span> }   <span class="co"># one-hot encoding</span></a></code></pre></div>
-
-<p>For a <strong>many-to-many</strong> system, e.g. <strong>seq2seq</strong>, we may try something like so:</p>
-
-<div class="sourceCode" id="cb2119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2119-1" data-line-number="1">Y     =<span class="st"> </span><span class="kw">array</span>(<span class="kw">sample</span>(<span class="dv">0</span>, <span class="dt">size=</span>n <span class="op">*</span><span class="st"> </span>o <span class="op">*</span><span class="st"> </span>ts, <span class="dt">replace=</span><span class="ot">TRUE</span>), <span class="kw">c</span>(n, o, ts))</a>
-<a class="sourceLine" id="cb2119-2" data-line-number="2"><span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>ts) {</a>
-<a class="sourceLine" id="cb2119-3" data-line-number="3">    Y.idx =<span class="st"> </span><span class="kw">sample.int</span>(o, <span class="dt">size=</span>n, <span class="dt">replace=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb2119-4" data-line-number="4">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n) { Y[i, Y.idx[i], t] =<span class="st"> </span><span class="dv">1</span> }  <span class="co"># one-hot encoding</span></a>
-<a class="sourceLine" id="cb2119-5" data-line-number="5">}</a></code></pre></div>
-
+<p>For a <strong>many-to-many</strong> scenario, e.g. <strong>seq2seq</strong>, we may try something like so:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="deeplearning2.html#cb38-1" aria-hidden="true" tabindex="-1"></a>Y     <span class="ot">=</span> <span class="fu">array</span>(<span class="fu">sample</span>(<span class="dv">0</span>, <span class="at">size=</span>n <span class="sc">*</span> o <span class="sc">*</span> ts, <span class="at">replace=</span><span class="cn">TRUE</span>), <span class="fu">c</span>(n, o, ts))</span>
+<span id="cb38-2"><a href="deeplearning2.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>ts) {</span>
+<span id="cb38-3"><a href="deeplearning2.html#cb38-3" aria-hidden="true" tabindex="-1"></a>    Y.idx <span class="ot">=</span> <span class="fu">sample.int</span>(o, <span class="at">size=</span>n, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb38-4"><a href="deeplearning2.html#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>n) { Y[i, Y.idx[i], t] <span class="ot">=</span> <span class="dv">1</span> }  <span class="co"># one-hot encoding</span></span>
+<span id="cb38-5"><a href="deeplearning2.html#cb38-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>The idea is to generate a target for each token in the sequence. Otherwise, if our aim is to perform classification which is a typical case for <strong>many-to-one</strong> scenario, then we only use one target.</p>
 <p>Now, let us use <strong>deep.lstm.layers(.)</strong> to construct the structure.</p>
 
 <div class="sourceCode" id="cb2120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2120-1" data-line-number="1">layers =<span class="st"> </span><span class="kw">deep.lstm.layers</span>(X, Y, <span class="kw">list</span>(<span class="dt">size=</span><span class="dv">20</span>), <span class="kw">list</span>(<span class="dt">size=</span><span class="dv">20</span>))</a>
