@@ -1076,72 +1076,76 @@ u_{n}^{t+1} \end{array}\right] =
 \right] 
 \left[\begin{array}{r} u_{0}^t \\ u_{1}^t \\ u_{2}^t \\ \vdots \\ u_n^t \end{array}\right]
 \]</span></p>
-<p>Here is a naive implementation of <strong>Heat Diffusion (non-smooth)</strong> in R code without using matrix or methods such as <strong>Gauss-Seidel or SOR</strong> to solve the matrix. See Figure <a href="4.6-approximation-using-partial-differential-equations.html#fig:heatequation1">4.27</a>. </p>
+<p>Here is a naive implementation of <strong>Heat Diffusion (non-smooth)</strong> in R code without using matrix or methods such as <strong>Gauss-Seidel or SOR</strong> to solve the matrix. </p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="numericalcalculus.html#cb35-1" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x, t) {  </span>
+<span id="cb35-2"><a href="numericalcalculus.html#cb35-2" aria-hidden="true" tabindex="-1"></a>        <span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>( <span class="fl">0.4</span> <span class="sc">*</span> pi ) <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>x<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span>(<span class="fl">0.4</span>)<span class="sc">^</span><span class="dv">2</span> )  </span>
+<span id="cb35-3"><a href="numericalcalculus.html#cb35-3" aria-hidden="true" tabindex="-1"></a>    } </span>
+<span id="cb35-4"><a href="numericalcalculus.html#cb35-4" aria-hidden="true" tabindex="-1"></a>initial <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb35-5"><a href="numericalcalculus.html#cb35-5" aria-hidden="true" tabindex="-1"></a>    x_ <span class="ot">=</span> <span class="fu">f</span>(x, <span class="dv">0</span>)</span>
+<span id="cb35-6"><a href="numericalcalculus.html#cb35-6" aria-hidden="true" tabindex="-1"></a>    x_[<span class="dv">1</span>] <span class="ot">=</span> <span class="dv">0</span>; x_[N] <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb35-7"><a href="numericalcalculus.html#cb35-7" aria-hidden="true" tabindex="-1"></a>    x_</span>
+<span id="cb35-8"><a href="numericalcalculus.html#cb35-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb35-9"><a href="numericalcalculus.html#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co"># finite difference (ftcs)</span></span>
+<span id="cb35-10"><a href="numericalcalculus.html#cb35-10" aria-hidden="true" tabindex="-1"></a>heat_ftcs <span class="ot">&lt;-</span> <span class="cf">function</span>(x, lambda) { </span>
+<span id="cb35-11"><a href="numericalcalculus.html#cb35-11" aria-hidden="true" tabindex="-1"></a>    u <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">ncol=</span>N, <span class="at">nrow=</span>M)</span>
+<span id="cb35-12"><a href="numericalcalculus.html#cb35-12" aria-hidden="true" tabindex="-1"></a>    u[<span class="dv">1</span>,] <span class="ot">=</span> <span class="fu">initial</span>(x)</span>
+<span id="cb35-13"><a href="numericalcalculus.html#cb35-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(M<span class="dv">-1</span>)) {</span>
+<span id="cb35-14"><a href="numericalcalculus.html#cb35-14" aria-hidden="true" tabindex="-1"></a>        u_t <span class="ot">=</span>  u[t,] </span>
+<span id="cb35-15"><a href="numericalcalculus.html#cb35-15" aria-hidden="true" tabindex="-1"></a>        x_  <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>, N)</span>
+<span id="cb35-16"><a href="numericalcalculus.html#cb35-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>(N<span class="dv">-1</span>)) {</span>
+<span id="cb35-17"><a href="numericalcalculus.html#cb35-17" aria-hidden="true" tabindex="-1"></a>             x_[k] <span class="ot">=</span> lambda <span class="sc">*</span> u_t[k<span class="sc">+</span><span class="dv">1</span>] <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> lambda) <span class="sc">*</span> u_t[k] <span class="sc">+</span> </span>
+<span id="cb35-18"><a href="numericalcalculus.html#cb35-18" aria-hidden="true" tabindex="-1"></a>                     lambda <span class="sc">*</span> u_t[k<span class="dv">-1</span>]</span>
+<span id="cb35-19"><a href="numericalcalculus.html#cb35-19" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb35-20"><a href="numericalcalculus.html#cb35-20" aria-hidden="true" tabindex="-1"></a>        u[t<span class="sc">+</span><span class="dv">1</span>,] <span class="ot">=</span> x_</span>
+<span id="cb35-21"><a href="numericalcalculus.html#cb35-21" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb35-22"><a href="numericalcalculus.html#cb35-22" aria-hidden="true" tabindex="-1"></a>    u</span>
+<span id="cb35-23"><a href="numericalcalculus.html#cb35-23" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb35-24"><a href="numericalcalculus.html#cb35-24" aria-hidden="true" tabindex="-1"></a><span class="co"># finite difference (crank-nicolson)</span></span>
+<span id="cb35-25"><a href="numericalcalculus.html#cb35-25" aria-hidden="true" tabindex="-1"></a>heat_crank_nicolson <span class="ot">&lt;-</span> <span class="cf">function</span>(x, lambda) { </span>
+<span id="cb35-26"><a href="numericalcalculus.html#cb35-26" aria-hidden="true" tabindex="-1"></a>    u <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">ncol=</span>N, <span class="at">nrow=</span>M)</span>
+<span id="cb35-27"><a href="numericalcalculus.html#cb35-27" aria-hidden="true" tabindex="-1"></a>    u[<span class="dv">1</span>,] <span class="ot">=</span> <span class="fu">initial</span>(x)</span>
+<span id="cb35-28"><a href="numericalcalculus.html#cb35-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(M<span class="dv">-1</span>)) {</span>
+<span id="cb35-29"><a href="numericalcalculus.html#cb35-29" aria-hidden="true" tabindex="-1"></a>        u_t <span class="ot">=</span>  u[t,] </span>
+<span id="cb35-30"><a href="numericalcalculus.html#cb35-30" aria-hidden="true" tabindex="-1"></a>        x_forward <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>, N)</span>
+<span id="cb35-31"><a href="numericalcalculus.html#cb35-31" aria-hidden="true" tabindex="-1"></a>        x_backward <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>, N)</span>
+<span id="cb35-32"><a href="numericalcalculus.html#cb35-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>(N<span class="dv">-1</span>)) {</span>
+<span id="cb35-33"><a href="numericalcalculus.html#cb35-33" aria-hidden="true" tabindex="-1"></a>             x_forward[k] <span class="ot">=</span> </span>
+<span id="cb35-34"><a href="numericalcalculus.html#cb35-34" aria-hidden="true" tabindex="-1"></a>                  lambda <span class="sc">*</span> u_t[k<span class="sc">+</span><span class="dv">1</span>] <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> lambda) <span class="sc">*</span> u_t[k] <span class="sc">+</span> </span>
+<span id="cb35-35"><a href="numericalcalculus.html#cb35-35" aria-hidden="true" tabindex="-1"></a>                  lambda <span class="sc">*</span> u_t[k<span class="dv">-1</span>]</span>
+<span id="cb35-36"><a href="numericalcalculus.html#cb35-36" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb35-37"><a href="numericalcalculus.html#cb35-37" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span>(N<span class="dv">-1</span>)) {</span>
+<span id="cb35-38"><a href="numericalcalculus.html#cb35-38" aria-hidden="true" tabindex="-1"></a>             x_backward[k] <span class="ot">=</span> lambda <span class="sc">*</span> x_forward[k<span class="sc">+</span><span class="dv">1</span>] <span class="sc">+</span> </span>
+<span id="cb35-39"><a href="numericalcalculus.html#cb35-39" aria-hidden="true" tabindex="-1"></a>                  (<span class="dv">1</span> <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> lambda) <span class="sc">*</span>  x_forward[k] <span class="sc">+</span> lambda <span class="sc">*</span> </span>
+<span id="cb35-40"><a href="numericalcalculus.html#cb35-40" aria-hidden="true" tabindex="-1"></a>                                      x_forward[k<span class="dv">-1</span>]</span>
+<span id="cb35-41"><a href="numericalcalculus.html#cb35-41" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb35-42"><a href="numericalcalculus.html#cb35-42" aria-hidden="true" tabindex="-1"></a>        u[t<span class="sc">+</span><span class="dv">1</span>,] <span class="ot">=</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span> <span class="sc">*</span> (x_forward <span class="sc">+</span> x_backward )</span>
+<span id="cb35-43"><a href="numericalcalculus.html#cb35-43" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb35-44"><a href="numericalcalculus.html#cb35-44" aria-hidden="true" tabindex="-1"></a>    u</span>
+<span id="cb35-45"><a href="numericalcalculus.html#cb35-45" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb183-1" data-line-number="1">f &lt;-<span class="st"> </span><span class="cf">function</span>(x, t) {  </a>
-<a class="sourceLine" id="cb183-2" data-line-number="2">        <span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>( <span class="fl">0.4</span> <span class="op">*</span><span class="st"> </span>pi ) <span class="op">*</span><span class="st"> </span><span class="kw">exp</span>(<span class="op">-</span>x<span class="op">^</span><span class="dv">2</span> <span class="op">/</span>(<span class="fl">0.4</span>)<span class="op">^</span><span class="dv">2</span> )  </a>
-<a class="sourceLine" id="cb183-3" data-line-number="3">    } </a>
-<a class="sourceLine" id="cb183-4" data-line-number="4">initial &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb183-5" data-line-number="5">    x_ =<span class="st"> </span><span class="kw">f</span>(x, <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb183-6" data-line-number="6">    x_[<span class="dv">1</span>] =<span class="st"> </span><span class="dv">0</span>; x_[N] =<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb183-7" data-line-number="7">    x_</a>
-<a class="sourceLine" id="cb183-8" data-line-number="8">}</a>
-<a class="sourceLine" id="cb183-9" data-line-number="9"><span class="co"># finite difference (ftcs)</span></a>
-<a class="sourceLine" id="cb183-10" data-line-number="10">heat_ftcs &lt;-<span class="st"> </span><span class="cf">function</span>(x, lambda) { </a>
-<a class="sourceLine" id="cb183-11" data-line-number="11">    u =<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">ncol=</span>N, <span class="dt">nrow=</span>M)</a>
-<a class="sourceLine" id="cb183-12" data-line-number="12">    u[<span class="dv">1</span>,] =<span class="st"> </span><span class="kw">initial</span>(x)</a>
-<a class="sourceLine" id="cb183-13" data-line-number="13">    <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>(M<span class="dv">-1</span>)) {</a>
-<a class="sourceLine" id="cb183-14" data-line-number="14">        u_t =<span class="st">  </span>u[t,] </a>
-<a class="sourceLine" id="cb183-15" data-line-number="15">        x_  =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, N)</a>
-<a class="sourceLine" id="cb183-16" data-line-number="16">        <span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>(N<span class="dv">-1</span>)) {</a>
-<a class="sourceLine" id="cb183-17" data-line-number="17">             x_[k] =<span class="st"> </span>lambda <span class="op">*</span><span class="st"> </span>u_t[k<span class="op">+</span><span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>lambda) <span class="op">*</span><span class="st"> </span>u_t[k] <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb183-18" data-line-number="18"><span class="st">                     </span>lambda <span class="op">*</span><span class="st"> </span>u_t[k<span class="dv">-1</span>]</a>
-<a class="sourceLine" id="cb183-19" data-line-number="19">        }</a>
-<a class="sourceLine" id="cb183-20" data-line-number="20">        u[t<span class="op">+</span><span class="dv">1</span>,] =<span class="st"> </span>x_</a>
-<a class="sourceLine" id="cb183-21" data-line-number="21">    }</a>
-<a class="sourceLine" id="cb183-22" data-line-number="22">    u</a>
-<a class="sourceLine" id="cb183-23" data-line-number="23">}</a>
-<a class="sourceLine" id="cb183-24" data-line-number="24"><span class="co"># finite difference (crank-nicolson)</span></a>
-<a class="sourceLine" id="cb183-25" data-line-number="25">heat_crank_nicolson &lt;-<span class="st"> </span><span class="cf">function</span>(x, lambda) { </a>
-<a class="sourceLine" id="cb183-26" data-line-number="26">    u =<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">ncol=</span>N, <span class="dt">nrow=</span>M)</a>
-<a class="sourceLine" id="cb183-27" data-line-number="27">    u[<span class="dv">1</span>,] =<span class="st"> </span><span class="kw">initial</span>(x)</a>
-<a class="sourceLine" id="cb183-28" data-line-number="28">    <span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>(M<span class="dv">-1</span>)) {</a>
-<a class="sourceLine" id="cb183-29" data-line-number="29">        u_t =<span class="st">  </span>u[t,] </a>
-<a class="sourceLine" id="cb183-30" data-line-number="30">        x_forward =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, N)</a>
-<a class="sourceLine" id="cb183-31" data-line-number="31">        x_backward =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, N)</a>
-<a class="sourceLine" id="cb183-32" data-line-number="32">        <span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>(N<span class="dv">-1</span>)) {</a>
-<a class="sourceLine" id="cb183-33" data-line-number="33">             x_forward[k] =<span class="st"> </span></a>
-<a class="sourceLine" id="cb183-34" data-line-number="34"><span class="st">                  </span>lambda <span class="op">*</span><span class="st"> </span>u_t[k<span class="op">+</span><span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>lambda) <span class="op">*</span><span class="st"> </span>u_t[k] <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb183-35" data-line-number="35"><span class="st">                  </span>lambda <span class="op">*</span><span class="st"> </span>u_t[k<span class="dv">-1</span>]</a>
-<a class="sourceLine" id="cb183-36" data-line-number="36">        }</a>
-<a class="sourceLine" id="cb183-37" data-line-number="37">        <span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>(N<span class="dv">-1</span>)) {</a>
-<a class="sourceLine" id="cb183-38" data-line-number="38">             x_backward[k] =<span class="st"> </span>lambda <span class="op">*</span><span class="st"> </span>x_forward[k<span class="op">+</span><span class="dv">1</span>] <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb183-39" data-line-number="39"><span class="st">                  </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>lambda) <span class="op">*</span><span class="st">  </span>x_forward[k] <span class="op">+</span><span class="st"> </span>lambda <span class="op">*</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb183-40" data-line-number="40"><span class="st">                                      </span>x_forward[k<span class="dv">-1</span>]</a>
-<a class="sourceLine" id="cb183-41" data-line-number="41">        }</a>
-<a class="sourceLine" id="cb183-42" data-line-number="42">        u[t<span class="op">+</span><span class="dv">1</span>,] =<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(x_forward <span class="op">+</span><span class="st"> </span>x_backward )</a>
-<a class="sourceLine" id="cb183-43" data-line-number="43">    }</a>
-<a class="sourceLine" id="cb183-44" data-line-number="44">    u</a>
-<a class="sourceLine" id="cb183-45" data-line-number="45">}</a>
-<a class="sourceLine" id="cb183-46" data-line-number="46">space =<span class="st"> </span>x =<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dt">length.out=</span><span class="dv">31</span>)</a>
-<a class="sourceLine" id="cb183-47" data-line-number="47">time =<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dt">length.out=</span><span class="dv">100</span>)</a>
-<a class="sourceLine" id="cb183-48" data-line-number="48">N =<span class="st"> </span><span class="kw">length</span>(space); M =<span class="st"> </span><span class="kw">length</span>(time)</a>
-<a class="sourceLine" id="cb183-49" data-line-number="49">u =<span class="st"> </span><span class="kw">heat_ftcs</span>(space, <span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb183-50" data-line-number="50"><span class="kw">plot</span>(<span class="ot">NULL</span>, <span class="dt">xlim=</span><span class="kw">range</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>), <span class="dt">ylim=</span><span class="kw">range</span>(<span class="dv">0</span>,<span class="dv">1</span>), </a>
-<a class="sourceLine" id="cb183-51" data-line-number="51">     <span class="dt">xlab=</span><span class="st">&quot;metalic rod&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;temperature&quot;</span>,</a>
-<a class="sourceLine" id="cb183-52" data-line-number="52">     <span class="dt">main=</span><span class="st">&quot;2D view of heat diffusion&quot;</span>)</a>
-<a class="sourceLine" id="cb183-53" data-line-number="53"><span class="kw">grid</span>(<span class="dt">lty=</span><span class="dv">3</span>, <span class="dt">col=</span><span class="st">&quot;lightgrey&quot;</span>)</a>
-<a class="sourceLine" id="cb183-54" data-line-number="54"><span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>), <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="st">&quot;darksalmon&quot;</span>)</a>
-<a class="sourceLine" id="cb183-55" data-line-number="55"></a>
-<a class="sourceLine" id="cb183-56" data-line-number="56"><span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>M) {</a>
-<a class="sourceLine" id="cb183-57" data-line-number="57">    <span class="kw">lines</span>(x, u[t,], <span class="dt">col=</span><span class="st">&quot;navyblue&quot;</span>)</a>
-<a class="sourceLine" id="cb183-58" data-line-number="58">}</a></code></pre></div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:heatequation1"></span>
-<img src="embed0039.png" alt="Heat Diffusion" width="80%" />
-<p class="caption">
-Figure 4.27: Heat Diffusion
-</p>
-</div>
+<p>Here, we note that our <strong>initial()</strong> function calls the <strong>f()</strong> function which calculates the initial condition at <strong>t=0</strong>, e.g. <strong>u(x, t=0)</strong>:</p>
+<p><span class="math display">\[
+f(x) = \frac{1}{\sqrt{0.4 \times \pi}} \times \exp(\frac{-x^2}{0.4^2})\ \ \ \leftarrow \text{initial} \\
+\]</span></p>
+<p>Additionally, note that we show two versions of the method, one using <strong>Forward Time, Centered Space (FTCS)</strong> and the other using <strong>Crank-Nicolson</strong>. Let us use <strong>FTCS</strong> in our implementation like so (where we use 100 for length of time and a discretized space at 31). See Figure <a href="4.6-approximation-using-partial-differential-equations.html#fig:heatequation1">4.27</a> for the heat diffusion.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="numericalcalculus.html#cb36-1" aria-hidden="true" tabindex="-1"></a>space <span class="ot">=</span> x <span class="ot">=</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="at">length.out=</span><span class="dv">31</span>)</span>
+<span id="cb36-2"><a href="numericalcalculus.html#cb36-2" aria-hidden="true" tabindex="-1"></a>time <span class="ot">=</span> <span class="fu">seq</span>(<span class="fl">0.1</span>, <span class="dv">1</span>, <span class="at">length.out=</span><span class="dv">100</span>)</span>
+<span id="cb36-3"><a href="numericalcalculus.html#cb36-3" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="fu">length</span>(space); M <span class="ot">=</span> <span class="fu">length</span>(time)</span>
+<span id="cb36-4"><a href="numericalcalculus.html#cb36-4" aria-hidden="true" tabindex="-1"></a>u <span class="ot">=</span> <span class="fu">heat_ftcs</span>(space, <span class="fl">0.5</span>)</span>
+<span id="cb36-5"><a href="numericalcalculus.html#cb36-5" aria-hidden="true" tabindex="-1"></a>N</span>
+<span id="cb36-6"><a href="numericalcalculus.html#cb36-6" aria-hidden="true" tabindex="-1"></a>M</span>
+<span id="cb36-7"><a href="numericalcalculus.html#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(u)</span>
+<span id="cb36-8"><a href="numericalcalculus.html#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="cn">NULL</span>, <span class="at">xlim=</span><span class="fu">range</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>), <span class="at">ylim=</span><span class="fu">range</span>(<span class="dv">0</span>,<span class="dv">1</span>), </span>
+<span id="cb36-9"><a href="numericalcalculus.html#cb36-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">&quot;metalic rod&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;temperature&quot;</span>,</span>
+<span id="cb36-10"><a href="numericalcalculus.html#cb36-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">&quot;2D view of heat diffusion&quot;</span>)</span>
+<span id="cb36-11"><a href="numericalcalculus.html#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="fu">grid</span>(<span class="at">lty=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">&quot;lightgrey&quot;</span>)</span>
+<span id="cb36-12"><a href="numericalcalculus.html#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>), <span class="at">lty=</span><span class="dv">2</span>, <span class="at">col=</span><span class="st">&quot;darksalmon&quot;</span>)</span>
+<span id="cb36-13"><a href="numericalcalculus.html#cb36-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-14"><a href="numericalcalculus.html#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>M) {</span>
+<span id="cb36-15"><a href="numericalcalculus.html#cb36-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lines</span>(x, u[t,], <span class="at">col=</span><span class="st">&quot;navyblue&quot;</span>)</span>
+<span id="cb36-16"><a href="numericalcalculus.html#cb36-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+
+<p>Let us also plot our heat diffusion in 3D view (See Figure <a href="4.6-approximation-using-partial-differential-equations.html#fig:heatequation2">4.28</a>).</p>
 <div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb184-1" data-line-number="1"><span class="kw">library</span>(<span class="st">&#39;plot3D&#39;</span>)</a>
 <a class="sourceLine" id="cb184-2" data-line-number="2">x=<span class="dv">1</span><span class="op">:</span>N;y=<span class="dv">1</span><span class="op">:</span>M;z=u</a>
 <a class="sourceLine" id="cb184-3" data-line-number="3"><span class="kw">persp3D</span>(y, x, z, <span class="dt">xlab=</span><span class="st">&quot;time&quot;</span>, <span class="dt">ylab=</span><span class="st">&quot;rod length&quot;</span>, </a>

@@ -945,7 +945,7 @@ Figure 4.5: Limits
 </div>
 <p>As h approaches 0, the secant line gets closer and closer to the tangent line in the chart. It gets closer that the slope of the secant line is almost equal to the slope of the tangent line at a point.</p>
 <p>Using the slope formula, we can now formulate the limit of the function.</p>
-<p>The limit of a function - f(x) - is written as f’(x).</p>
+<p>The limit of a function - f(x) - is written as f’(x):</p>
 <p><span class="math display" id="eq:equate1060008">\[\begin{align}
 f&#39;(x) =\lim_{h\to 0}\frac{f(x + h) - f(x)}{h} = L \tag{4.8} 
 \end{align}\]</span></p>
@@ -1366,129 +1366,12 @@ therefore&amp;: F(f&#39;(x)) = f(x)
 \int (5) dx {}&amp; = (5)x + c\\
 &amp; = 5x + c
 \end{align*}\]</span></p>
-<p><strong>Trigonometric Rule</strong> </p>
-<table>
-<caption><span id="tab:integral1">Table 4.4: </span>Trigonometric Integrals</caption>
-<thead>
-<tr class="header">
-<th align="left">Integral Functions</th>
-<th align="left">Integrals</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left"><span class="math inline">\(\int sin(x) dx\)</span></td>
-<td align="left"><span class="math inline">\(-cos(x)\ +\ c\)</span></td>
-</tr>
-<tr class="even">
-<td align="left"><span class="math inline">\(\int cos(x) dx\)</span></td>
-<td align="left"><span class="math inline">\(sin(x)\ +\ c\)</span></td>
-</tr>
-<tr class="odd">
-<td align="left"><span class="math inline">\(\int sec^2(x) dx\)</span></td>
-<td align="left"><span class="math inline">\(\ tan2(x)\ +\ c\)</span></td>
-</tr>
-<tr class="even">
-<td align="left"><span class="math inline">\(\int csc^2(x) dx\)</span></td>
-<td align="left"><span class="math inline">\(\ -cot^2(x)\ +\ c\)</span></td>
-</tr>
-<tr class="odd">
-<td align="left"><span class="math inline">\(\int sec(x)tan(x) dx\)</span></td>
-<td align="left"><span class="math inline">\(\ sec(x)\ +\ c\)</span></td>
-</tr>
-<tr class="even">
-<td align="left"><span class="math inline">\(\int csc(x)cot(x) dx\)</span></td>
-<td align="left"><span class="math inline">\(\ -csc(x) + \ c\)</span></td>
-</tr>
-<tr class="odd">
-<td align="left"><span class="math inline">\(\int \frac{1}{\sqrt{1 - x^2}} dx\)</span></td>
-<td align="left"><span class="math inline">\(sin^{-1}x\)</span> or arcsin(x) + c</td>
-</tr>
-<tr class="even">
-<td align="left"><span class="math inline">\(\int -\frac{1}{\sqrt{1 - x^2}} dx\)</span></td>
-<td align="left"><span class="math inline">\(cos^{-1}x\)</span> or arccos(x) + c</td>
-</tr>
-<tr class="odd">
-<td align="left"><span class="math inline">\(\int \frac{1}{x^2 + 1}dx\)</span></td>
-<td align="left"><span class="math inline">\(tan^{-1}x dx\)</span> or arctan(x) + c</td>
-</tr>
-<tr class="even">
-<td align="left"><span class="math inline">\(\int -\frac{1}{x^2 + 1}dx\)</span></td>
-<td align="left"><span class="math inline">\(cot^{-1}x dx\)</span> or arccot(x) + c</td>
-</tr>
-<tr class="odd">
-<td align="left"><span class="math inline">\(\int \frac{1}{\mid x \mid \sqrt{x^2 + 1}}dx\)</span></td>
-<td align="left"><span class="math inline">\(sec^{-1}x\)</span> or arcsec(x) + c</td>
-</tr>
-<tr class="even">
-<td align="left"><span class="math inline">\(\int -\frac{1}{\mid x \mid \sqrt{x^2 + 1}}dx\)</span></td>
-<td align="left"><span class="math inline">\(csc^{-1}x\)</span> or arcscs(x) + c</td>
-</tr>
-</tbody>
-</table>
-<p>Example: Find the antiderivative of f’(x) = <span class="math inline">\(2x^3\cdot3x^2 + cos(x)\)</span>.</p>
-<p><span class="math display">\[
-\int (2x^3\cdot3x^2 + cos(x)) dx = x^6 + sin(x) + c
-\]</span>
-where:</p>
-<p><span class="math display">\[
-\int (2x^3\cdot3x^2  ) dx = x^6\ \ \ \ \ \ and \ \ \ \ \
-\int cos(x) dx = sin(x)
-\]</span></p>
-<p><strong>Logarithmic Rule</strong> </p>
-<table>
-<caption><span id="tab:logintegral">Table 4.5: </span>Logarithmic Derivatives</caption>
-<colgroup>
-<col width="40%" />
-<col width="59%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Functions</th>
-<th align="left">Integrals</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left"><span class="math inline">\(\int \frac{1}{x\ ln\ a}dx\)</span></td>
-<td align="left"><span class="math inline">\((log_{a}\ x)\ +\ c = (\frac{ln\ x}{ln\ a})\ +\ c\)</span></td>
-</tr>
-<tr class="even">
-<td align="left"><span class="math inline">\(\int \frac{1}{x\ ln\ a}dx\)</span></td>
-<td align="left"><span class="math inline">\((log_{a}\ x)\ +\ c =\frac{1}{ln\ a}(ln\ x)\ +\ c\)</span></td>
-</tr>
-<tr class="odd">
-<td align="left"><span class="math inline">\(\int (\frac{1}{x}\ or\ x^{-1})dx\)</span></td>
-<td align="left"><span class="math inline">\((ln\ x)\ +\ c\)</span></td>
-</tr>
-<tr class="even">
-<td align="left"><span class="math inline">\(\int (\frac{1}{x}\ or\ x^{-1})dx\)</span></td>
-<td align="left"><span class="math inline">\((ln\ \mid x \mid)\ +\ c\)</span></td>
-</tr>
-<tr class="odd">
-<td align="left"><span class="math inline">\(\int e^n dx\)</span></td>
-<td align="left"><span class="math inline">\((e^n)\ +\ c\)</span></td>
-</tr>
-<tr class="even">
-<td align="left"><span class="math inline">\(\int e^2 dx\)</span></td>
-<td align="left"><span class="math inline">\((e^2)\ +\ c\)</span></td>
-</tr>
-<tr class="odd">
-<td align="left"><span class="math inline">\(\int x^nln(x) dx\)</span></td>
-<td align="left"><span class="math inline">\((x^n)\ +\ c\)</span></td>
-</tr>
-<tr class="even">
-<td align="left"><span class="math inline">\(\int \frac{1}{x\cdot ln(a)} dx\)</span></td>
-<td align="left"><span class="math inline">\((log_{a})x\ +\ c\)</span></td>
-</tr>
-</tbody>
-</table>
+
 <p><strong>Power Rule</strong> </p>
 <p><span class="math display" id="eq:equate1060024">\[\begin{align}
 \int (k)x^n dx = (k)\frac{x^{n+1}}{n+1} + c, \text{where n }\ne 1 \tag{4.24} 
 \end{align}\]</span></p>
-<p>Example:</p>
-<p>Find the antiderivative of <span class="math inline">\(f&#39;(x) = 20x^3\)</span></p>
+<p>Example: Find the antiderivative of <span class="math inline">\(f&#39;(x) = 20x^3\)</span></p>
 
 <p><span class="math display">\[\begin{align*}
 \int (20x^3) dx {}&amp; = (20)\frac{x^{3+1}}{3+1} + c \\
@@ -1575,6 +1458,126 @@ now:\\
 &amp; = -x\cdot cos(x) + sin(x) + c
 \end{align*}\]</span>
 </p>
+
+<p><strong>Trigonometric Rule</strong> </p>
+<table>
+<caption><span id="tab:integral1">Table 4.4: </span>Trigonometric Integrals</caption>
+<thead>
+<tr class="header">
+<th align="left">Integral Functions</th>
+<th align="left">Integrals</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\int sin(x) dx\)</span></td>
+<td align="left"><span class="math inline">\(-cos(x)\ +\ c\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\int cos(x) dx\)</span></td>
+<td align="left"><span class="math inline">\(sin(x)\ +\ c\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\int sec^2(x) dx\)</span></td>
+<td align="left"><span class="math inline">\(\ tan2(x)\ +\ c\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\int csc^2(x) dx\)</span></td>
+<td align="left"><span class="math inline">\(\ -cot^2(x)\ +\ c\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\int sec(x)tan(x) dx\)</span></td>
+<td align="left"><span class="math inline">\(\ sec(x)\ +\ c\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\int csc(x)cot(x) dx\)</span></td>
+<td align="left"><span class="math inline">\(\ -csc(x) + \ c\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\int \frac{1}{\sqrt{1 - x^2}} dx\)</span></td>
+<td align="left"><span class="math inline">\(sin^{-1}x\)</span> or arcsin(x) + c</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\int -\frac{1}{\sqrt{1 - x^2}} dx\)</span></td>
+<td align="left"><span class="math inline">\(cos^{-1}x\)</span> or arccos(x) + c</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\int \frac{1}{x^2 + 1}dx\)</span></td>
+<td align="left"><span class="math inline">\(tan^{-1}x dx\)</span> or arctan(x) + c</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\int -\frac{1}{x^2 + 1}dx\)</span></td>
+<td align="left"><span class="math inline">\(cot^{-1}x dx\)</span> or arccot(x) + c</td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\int \frac{1}{\mid x \mid \sqrt{x^2 + 1}}dx\)</span></td>
+<td align="left"><span class="math inline">\(sec^{-1}x\)</span> or arcsec(x) + c</td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\int -\frac{1}{\mid x \mid \sqrt{x^2 + 1}}dx\)</span></td>
+<td align="left"><span class="math inline">\(csc^{-1}x\)</span> or arcscs(x) + c</td>
+</tr>
+</tbody>
+</table>
+<p>Example: Find the antiderivative of f’(x) = <span class="math inline">\(2x^3\cdot3x^2 + cos(x)\)</span>.</p>
+<p><span class="math display">\[
+\int (2x^3\cdot3x^2 + cos(x)) dx = x^6 + sin(x) + c
+\]</span>
+where:</p>
+<p><span class="math display">\[ 
+\int (2x^3\cdot3x^2  ) dx = x^6\ \ \ \ \ \ and \ \ \ \ \
+\int cos(x) dx = sin(x)
+\]</span></p>
+
+<p><strong>Logarithmic Rule</strong> </p>
+<table>
+<caption><span id="tab:logintegral">Table 4.5: </span>Logarithmic Derivatives</caption>
+<colgroup>
+<col width="40%" />
+<col width="59%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Functions</th>
+<th align="left">Integrals</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\int \frac{1}{x\ ln\ a}dx\)</span></td>
+<td align="left"><span class="math inline">\((log_{a}\ x)\ +\ c = (\frac{ln\ x}{ln\ a})\ +\ c\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\int \frac{1}{x\ ln\ a}dx\)</span></td>
+<td align="left"><span class="math inline">\((log_{a}\ x)\ +\ c =\frac{1}{ln\ a}(ln\ x)\ +\ c\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\int (\frac{1}{x}\ or\ x^{-1})dx\)</span></td>
+<td align="left"><span class="math inline">\((ln\ x)\ +\ c\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\int (\frac{1}{x}\ or\ x^{-1})dx\)</span></td>
+<td align="left"><span class="math inline">\((ln\ \mid x \mid)\ +\ c\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\int e^n dx\)</span></td>
+<td align="left"><span class="math inline">\((e^n)\ +\ c\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\int e^2 dx\)</span></td>
+<td align="left"><span class="math inline">\((e^2)\ +\ c\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><span class="math inline">\(\int x^nln(x) dx\)</span></td>
+<td align="left"><span class="math inline">\((x^n)\ +\ c\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(\int \frac{1}{x\cdot ln(a)} dx\)</span></td>
+<td align="left"><span class="math inline">\((log_{a})x\ +\ c\)</span></td>
+</tr>
+</tbody>
+</table>
+
 <p><strong>Chain Rule</strong></p>
 <p>Unlike Differentiation, there is no chain rule for Integration. What can be available to use is <em>Integration by Substitution</em>.</p>
 <p><strong>Integration by Substitution</strong> </p>
@@ -1728,6 +1731,7 @@ Figure 4.7: Definite Integral
 &amp; = 0\cdot\infty \to \text{indeterminate outcome} \nonumber 
 \end{align}\]</span>
 </p>
+<p>Finally, let us end our discussion on <strong>Integrals</strong> by covering two known rules, one allowing us to handle indeterminate outcomes.</p>
 <p><strong>The L’Hôpital’s Rule</strong> </p>
 <p>It helps to recall that the following forms are indeterminate:</p>
 <p><span class="math display">\[
